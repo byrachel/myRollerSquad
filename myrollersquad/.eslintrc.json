@@ -1,0 +1,24 @@
+{
+  "parser": "@typescript-eslint/parser",
+  "extends": [
+    "next/core-web-vitals",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:react/recommended",
+    "plugin:prettier/recommended",
+    "plugin:prettier/react",
+    "plugin:prettier/@typescript-eslint",
+    "plugin:jsx-a11y/recommended",
+    "prettier"
+  ],
+  "plugins": ["@typescript-eslint", "react", "jsx-a11y", "prettier"],
+  "rules": {
+    "react/react-in-jsx-scope": "off",
+    "@typescript-eslint/no-unused-vars": "error",
+    "@typescript-eslint/no-explicit-any": "error",
+    "no-nested-ternary": "off",
+    "import/prefer-default-export": "off"
+  },
+  "globals": {
+    "React": "writable"
+  }
+}

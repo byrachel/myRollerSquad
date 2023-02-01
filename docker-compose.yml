@@ -1,0 +1,41 @@
+version: '3.8'
+
+services:
+  # mysql:
+  #   container_name: mysql
+  #   image: mysql:5.7
+  #   restart: always
+  #   environment:
+  #     - MYSQL_DATABASE=mrs
+  #     - MYSQL_ROOT_NAME=mrs
+  #     - MYSQL_ROOT_PASSWORD=maman06
+  #   volumes:
+  #     - mysql:/var/lib/mysql
+  #   ports:
+  #     - '8000:8000'
+  postgres:
+    image: postgres:10.3
+    restart: always
+    environment:
+      - POSTGRES_USER=mrs_adm1n
+      - POSTGRES_PASSWORD=maman06!
+    volumes:
+      - postgres:/var/lib/postgresql/data
+    ports:
+      - '5432:5432'
+  next:
+    container_name: myrollersquad
+    build:
+      context: myrollersquad
+      dockerfile: Dockerfile
+    environment:
+    - DATABASE_URL=postgresql://mrs_adm1n:maman06!@localhost:5432/myrollersquad?schema=public
+    ports:
+      - 3000:3000
+    volumes:
+      - ./myrollersquad:/app
+      - /app/node_modules
+      - /app/.next
+
+volumes:
+  postgres:
