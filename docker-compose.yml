@@ -1,18 +1,6 @@
 version: '3.8'
 
 services:
-  # mysql:
-  #   container_name: mysql
-  #   image: mysql:5.7
-  #   restart: always
-  #   environment:
-  #     - MYSQL_DATABASE=mrs
-  #     - MYSQL_ROOT_NAME=mrs
-  #     - MYSQL_ROOT_PASSWORD=maman06
-  #   volumes:
-  #     - mysql:/var/lib/mysql
-  #   ports:
-  #     - '8000:8000'
   postgres:
     image: postgres:10.3
     restart: always
@@ -20,10 +8,12 @@ services:
       - POSTGRES_USER=mrs_adm1n
       - POSTGRES_PASSWORD=maman06!
     volumes:
-      - postgres:/var/lib/postgresql/data
+      - db_data:/var/lib/postgresql/data
     ports:
       - '5432:5432'
   next:
+    depends_on:
+      - postgres
     container_name: myrollersquad
     build:
       context: myrollersquad
@@ -38,4 +28,4 @@ services:
       - /app/.next
 
 volumes:
-  postgres:
+  db_data: {}

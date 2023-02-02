@@ -1,0 +1,50 @@
+@import './variables.scss';
+
+.header {
+    background-color: $lightColor;
+    height: 5.4em;
+    margin: 0 0 1em 0;
+    padding: 0;
+    width: 100%;
+
+    .container {
+        align-items: center;
+        display: flex;
+        justify-content: space-between;
+
+        .logo {
+            margin-top: 8px;
+        }
+
+        .navigation {
+            display: flex;
+            justify-content: space-around;
+
+            .iconContainer {
+                align-items: center;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                margin: 0 8px 0 8px;
+
+                .icon {
+                    fill: none;
+                    stroke: $primaryColor;
+                    transition: fill 0.2s ease-in-out;
+                }
+                .icon:hover {
+                    fill: none;
+                    stroke: $secondaryColor;
+                }
+            }
+
+            .iconText {
+                color: $greyColor;
+                font-family: var(--font-text);
+                font-size: $fontSize-sm;
+                margin: 0;
+                padding: 0;
+            }
+        }
+    }
+}
