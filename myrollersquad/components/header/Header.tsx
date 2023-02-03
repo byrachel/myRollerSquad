@@ -3,11 +3,9 @@ import Link from 'next/link'
 
 import styles from "../../styles/Header.module.scss";
 
-import Calendar from "../icons/svg/agenda.svg"
-import Directory from "../icons/svg/annuaire.svg"
-import Roller from "../icons/svg/rollerquad.svg"
-import Blog from "../icons/svg/infos.svg"
-import Skater from "../icons/svg/rollerskater.svg"
+import UserProfile from "../icons/svg/profile-circle.svg";
+import MySquad from "../icons/svg/flash.svg";
+
 
 export default function Header() {
   return (
@@ -15,35 +13,24 @@ export default function Header() {
       <div className={styles.container}>
         <Image className={styles.logo} src="/logo_myrollersquad_web.png" alt="Logo My Roller Squad" width="240" height="78" />
         <div className={styles.navigation}>
-            <div className={styles.iconContainer}>
-          <Link href="/">
-              <Calendar className={styles.icon} width={42} height={42} />
-          </Link>
+          <div className={styles.navigationText}>
+            <Link href="/">
               <p className={styles.iconText}>Agenda</p>
-            </div>
-            <div className={styles.iconContainer}>
-          <Link href="/">
-              <Directory className={styles.icon} width={42} height={42} />
-          </Link>
+            </Link>
+            <Link href="/">
               <p className={styles.iconText}>Annuaire</p>
-            </div>
-            <div className={styles.iconContainer}>
-          <Link href="/">
-              <Roller className={styles.icon} width={42} height={42} />
-          </Link>
-              <p className={styles.iconText}>Ma squad</p>
-            </div>
-          <div className={styles.iconContainer}>
-            <Link href="/">
-              <Blog className={styles.icon} width={42} height={42} />
             </Link>
-            <p className={styles.iconText}>Infos</p>
+            <Link href="/">
+              <p className={styles.iconText}>Blog</p>
+            </Link>
           </div>
-          <div className={styles.iconContainer}>
+          <div className={styles.navigationIcon}>
             <Link href="/">
-              <Skater className={styles.icon} width={42} height={42} />
+              <MySquad className={styles.icon} width={42} height={42} />
             </Link>
-            <p className={styles.iconText}>Profil</p>
+            <Link href="/">
+              <UserProfile className={styles.icon} width={38} height={38} />
+            </Link>
           </div>
         </div>
       </div>

@@ -1,6 +1,6 @@
 import React from "react";
+import OutlineButton from "../components/buttons/OutlineButton";
 import Header from "../components/header/Header";
-import Test from "../components/icons/Test";
 import styles from "../styles/Home.module.scss";
 
 export default function Home(props: any) {
@@ -37,6 +37,7 @@ export default function Home(props: any) {
     <>
         <Header />
       <div className={styles.description}>
+        <OutlineButton text="Se connecter" />
         <h1>texte titre</h1>
         <h2 className={styles.description_test}>Fan de Roller Quad</h2>
         <h2 className={styles.description_blue}>Fan de Roller Quad</h2>
