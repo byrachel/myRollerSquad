@@ -1,6 +1,6 @@
 import React from "react";
-import OutlineButton from "../components/buttons/OutlineButton";
-import Header from "../components/header/Header";
+import FindACoach from "../components/homepage/FindACoach";
+import Hero from "../components/homepage/Hero";
 import styles from "../styles/Home.module.scss";
 
 export default function Home(props: any) {
@@ -31,23 +31,13 @@ export default function Home(props: any) {
     syncData();
   };
 
-  const text = "MyRollerSquad"
+  const text = "MyRollerSquad";
 
   return (
     <>
-        <Header />
-      <div className={styles.description}>
-        <OutlineButton text="Se connecter" />
-        <h1>texte titre</h1>
-        <h2 className={styles.description_test}>Fan de Roller Quad</h2>
-        <h2 className={styles.description_blue}>Fan de Roller Quad</h2>
-        <h2 className={styles.description_yellow}>Fan de Roller Quad</h2>
-        <h2 className={styles.description_green}>Fan de Roller Quad</h2>
-        <h2 className={styles.description_grey}>{text.toUpperCase()}</h2>
-        <h2 className={styles.description_text}>Ceci est un texte tout simplement. Roller Sqaud</h2>
+      <Hero />
+      <FindACoach />
 
-      </div>
-        
       <div className="overflow-x-auto w-full m-2">
         <table className="table border min-w-full text-sm divide-y divide-gray-200">
           <thead>

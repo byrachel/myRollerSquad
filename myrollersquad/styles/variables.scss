@@ -1,12 +1,16 @@
-$primaryColor: #28152B;
-$secondaryColor: #E4287D;
-$greenColor: #13D1BA;
-$blueColor: #3ABFF8;
-$yellowColor: #FBBD23;
-$greyColor: #8C8A8A;
-$lightColor: #FAF7FC;
+$primaryColor: #28152b;
+$secondaryColor: #e4287d;
+$greenColor: #13d1ba;
+$blueColor: #3abff8;
+$yellowColor: #feed63;
+$greyColor: #8c8a8a;
+$lightColor: #faf7fc;
 
-$fontSize-sm:0.65rem;
-$fontSize-md:1rem;
-$fontSize-lg:2rem;
-$fontSize-xl:2.4rem;
+$fontSize-sm: 0.6em;
+$fontSize-md: 1.05em;
+$fontSize-lg: 1.3em;
+$fontSize-xl: 2.4em;
+
+$textFont: var(--font-text);
+$titleFont: var(--font-title);
+$bigTitleFont: var(--font-bigTitle);

@@ -1,34 +1,66 @@
-@import './variables.scss';
+@import "./variables.scss";
 
 .outlineButton {
-    border: solid 3px $secondaryColor;
-    border-radius: 8px;
-    margin: 0;
-    padding: 0;
-    background-color: white;
-    cursor: pointer;
-    transition: fill 0.2s ease-in-out;
-    
-    .outlineButtonText {
-        font-family: var(--font-title);
-        font-size: $fontSize-md;
-        color: $secondaryColor;
-        line-height: 0.1em;
-    }
+  border: solid 3px $secondaryColor;
+  border-radius: 8px;
+  margin: 0;
+  padding: 0.5em 1em;
+  background-color: white;
+  cursor: pointer;
+  transition: fill 0.2s ease-in-out;
+
+  .outlineButtonText {
+    font-family: $titleFont;
+    font-size: $fontSize-md;
+    color: $secondaryColor;
+  }
 }
 
 .outlineButton:hover {
-    border: solid 3px $secondaryColor;
-    border-radius: 8px;
-    margin: 0;
-    padding: 0;
-    background-color: $secondaryColor;
-    cursor: pointer;
+  border: solid 3px $secondaryColor;
+  border-radius: 8px;
+  margin: 0;
+  padding: 0.5em 1em;
+  background-color: $secondaryColor;
+  cursor: pointer;
 
-    .outlineButtonText {
-        font-family: var(--font-title);
-        font-size: $fontSize-md;
-        color: white;
-        line-height: 0.1em;
-    }
+  .outlineButtonText {
+    font-family: $titleFont;
+    font-size: $fontSize-md;
+    color: white;
+  }
+}
+
+.fullBigButton {
+  border: solid 3px $primaryColor;
+  border-radius: 8px;
+  margin: 0;
+  padding: 1em 1.5em;
+  background-color: white;
+  cursor: pointer;
+  transition: fill 0.2s ease-in-out;
+  box-shadow: 7px 7px $secondaryColor;
+
+  .fullBigButtonText {
+    font-family: $titleFont;
+    font-size: $fontSize-lg;
+    color: $primaryColor;
+  }
+}
+
+.fullBigButton:hover {
+  border: solid 3px $secondaryColor;
+  border-radius: 8px;
+  margin: 0;
+  padding: 1em 1.5em;
+  background-color: white;
+  cursor: pointer;
+  transition: fill 0.2s ease-in-out;
+  box-shadow: 7px 7px $primaryColor;
+
+  .fullBigButtonText {
+    font-family: $titleFont;
+    font-size: $fontSize-lg;
+    color: $secondaryColor;
+  }
 }

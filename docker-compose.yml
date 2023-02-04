@@ -5,8 +5,8 @@ services:
     image: postgres:10.3
     restart: always
     environment:
-      - POSTGRES_USER=mrs_adm1n
-      - POSTGRES_PASSWORD=maman06!
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
     volumes:
       - db_data:/var/lib/postgresql/data
     ports:
@@ -19,7 +19,7 @@ services:
       context: myrollersquad
       dockerfile: Dockerfile
     environment:
-    - DATABASE_URL=postgresql://mrs_adm1n:maman06!@localhost:5432/myrollersquad?schema=public
+    - DATABASE_URL=${DATABASE_URL}
     ports:
       - 3000:3000
     volumes:
