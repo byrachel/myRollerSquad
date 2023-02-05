@@ -3,35 +3,32 @@
 .homeHero {
   display: flex;
   flex-direction: row;
-  justify-content: flex-start;
   gap: 0;
+  justify-content: flex-start;
   margin: 0;
-
+  
   .heroCta {
-    background-color: $yellowColor;
-    width: 100%;
+    background:linear-gradient(135deg, $yellowColor 0%,$secondaryColor 100%);
     min-width: 300px;
-    max-width: 550px;
     padding: 2.5em;
+    width: 100%;
 
-    h1,
-    .cta {
+    h1.ctaTitle {
       font-family: $bigTitleFont;
-      font-size: $fontSize-xl;
+      font-size: $fontSize-xxl;
       line-height: 1em;
-      margin: 1em 0;
+      margin: 0.8em 0;
     }
-
-    h2,
-    .ctaText {
+    h2.cta {
       font-family: $titleFont;
       font-size: $fontSize-lg;
       margin: 1em 0;
-      letter-spacing: 0.1px;
     }
-    p {
-      letter-spacing: 0.1px;
-      line-height: 1.4em;
+    p.ctaText {
+      font-family: $textFont;
+      font-size: $fontSize-md;
+      font-weight: 300;
+      line-height: 1.7em;
     }
     .ctaButton {
       margin: 2em 0;
@@ -39,74 +36,75 @@
     }
   }
   .heroImage {
-    width: 100%;
     height: auto;
+    width: 100%;
   }
   .heroImage > div {
     position: unset !important;
   }
   .image {
-    width: 100% !important;
     height: 100% !important;
-    position: relative !important;
     object-fit: cover;
+    position: relative !important;
+    width: 100% !important;
   }
 }
-.blueBox {
-  background-color: $blueColor;
-  margin: 0;
-  padding: 4em 0;
 
-  h2,
-  .blueBoxTitle {
+.blueBox {
+  background:$blueColor;
+  margin: 0;
+  padding: 4em;
+
+  h2.blueBoxTitle {
     color: white;
     font-family: $titleFont;
-    font-size: $fontSize-lg;
+    font-size: $fontSize-xl;
     letter-spacing: 0.2px;
-    text-align: center;
     margin: 0;
+    text-align: center;
   }
 
   .underliner {
     border-bottom: solid 3px white;
-    width: 40%;
     margin: 2em auto;
+    width: 40%;
   }
 
-  p,
-  .blueBoxText {
+  p.blueBoxText {
     color: white;
     font-family: $textFont;
     font-size: $fontSize-md;
+    font-weight: 300;
     letter-spacing: 0.3px;
-    text-align: center;
     margin-bottom: 1.3em;
+    text-align: center;
   }
 
   form {
-    color: $primaryColor;
-    display: flex;
-    padding: 2px;
+    background: white;
     border: 3px solid $primaryColor;
     border-radius: 8px;
-    background-color: white;
-    width: 100%;
-    max-width: 400px;
-    position: relative;
+    color: $primaryColor;
+    display: flex;
     margin: 2.5em auto;
+    max-width: 400px;
+    padding: 2px;
+    position: relative;
+    width: 100%;
 
     input[type="search"] {
-      border: none;
       background: transparent;
-      margin: 0;
-      padding: 7px 8px;
-      font-size: $fontSize-md;
-      font-family: $textFont;
-      color: inherit;
+      border: none;
       border: 1px solid transparent;
       border-radius: inherit;
-      width: 100%;
+      color: inherit;
+      font-family: $textFont;
+      font-size: $fontSize-md;
+      font-weight: 300;
+      margin: 0;
       max-width: 350px;
+      padding: 7px 8px;
+      width: 100%;
     }
 
     input[type="search"]::placeholder {
@@ -114,22 +112,22 @@
     }
 
     button[type="submit"] {
-      text-indent: -999px;
-      position: absolute;
-      overflow: hidden;
-      width: 20px;
-      height: 20px;
-      right: 1em;
-      top: 1em;
-      padding: 0;
-      margin: 0;
-      border: 1px solid transparent;
-      border-radius: inherit;
       background: transparent
         url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' class='bi bi-search' viewBox='0 0 16 16'%3E%3Cpath d='M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z'%3E%3C/path%3E%3C/svg%3E")
         no-repeat center;
+      border: 1px solid transparent;
+      border-radius: inherit;
       cursor: pointer;
+      height: 20px;
+      margin: 0;
       opacity: 0.7;
+      overflow: hidden;
+      padding: 0;
+      position: absolute;
+      right: 1em;
+      text-indent: -999px;
+      top: 1em;
+      width: 20px;
     }
 
     button[type="submit"]:hover {
@@ -138,8 +136,8 @@
 
     button[type="submit"]:focus,
     input[type="search"]:focus {
-      box-shadow: 0 0 3px 0 #1183d6;
       border-color: #1183d6;
+      box-shadow: 0 0 3px 0 #1183d6;
       outline: none;
     }
   }
@@ -150,127 +148,87 @@
     justify-content: space-evenly;
 
     .roundImage {
-      width: 170px;
-      height: 170px;
+      height: 150px;
       position: relative;
+      width: 150px;
     }
     .pinkImage {
-      object-fit: cover;
-      border-radius: 50%;
-      width: 170px !important;
-      height: 170px !important;
       border: solid 3px $secondaryColor;
+      border-radius: 50%;
+      height: 150px !important;
+      object-fit: cover;
+      width: 150px !important;
     }
     .yellowImage {
-      object-fit: cover;
-      border-radius: 50%;
-      width: 170px !important;
-      height: 170px !important;
       border: solid 3px $yellowColor;
+      border-radius: 50%;
+      height: 150px !important;
+      object-fit: cover;
+      width: 150px !important;
+    }
+  }
+}
+
+.homeNextEvent {
+  align-content: center;
+  align-items: center;
+  background: $secondaryColor;
+  margin: 0;
+  display: flex;
+  justify-content: space-between;
+  padding: 3em;
+  width: 100%;
+
+  .nextEventLogo {
+    width: 300px;
+  }
+
+  .nextEventCard {
+    width: 100%;
+    
+    h2.nextEventTitle {
+      color: white;
+      font-family: $textFont;
+      font-size: $fontSize-md;
+      font-weight: 300;
+      line-height: 2em;
+      letter-spacing: 0.2px;
+    }
+    
+    .card {
+      background: white;
+      border-radius: 8px;
+      box-shadow: 6px 6px $primaryColor;
+      padding: 1em;
     }
   }
 }
 
 /* Mobile */
 @media (max-width: 700px) {
-  .content {
-    padding: 4rem;
-  }
-
-  .grid {
-    grid-template-columns: 1fr;
-    margin-bottom: 120px;
-    max-width: 320px;
-    text-align: center;
-  }
-
-  .card {
-    padding: 1rem 2.5rem;
-  }
-
-  .card h2 {
-    margin-bottom: 0.5rem;
-  }
-
-  .center {
-    padding: 8rem 0 6rem;
-  }
-
-  .center::before {
-    transform: none;
-    height: 300px;
-  }
-
-  .description {
-    font-size: 0.8rem;
-  }
-
-  .description a {
-    padding: 1rem;
-  }
-
-  .description p,
-  .description div {
-    display: flex;
-    justify-content: center;
-    position: fixed;
+  
+.homeHero {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0;
+  margin: 0;
+  
+  .heroCta {
+    background:linear-gradient(135deg, $yellowColor 0%,$secondaryColor 100%);
     width: 100%;
-  }
+    padding: 2.5em;
 
-  .description p {
-    align-items: center;
-    inset: 0 0 auto;
-    padding: 2rem 1rem 1.4rem;
-    border-radius: 0;
-    border: none;
-    border-bottom: 1px solid rgba(var(--callout-border-rgb), 0.25);
-    background: linear-gradient(
-      to bottom,
-      rgba(var(--background-start-rgb), 1),
-      rgba(var(--callout-rgb), 0.5)
-    );
-    background-clip: padding-box;
-    backdrop-filter: blur(24px);
   }
-
-  .description div {
-    align-items: flex-end;
-    pointer-events: none;
-    inset: auto 0 0;
-    padding: 2rem;
-    height: 200px;
-    background: linear-gradient(
-      to bottom,
-      transparent 0%,
-      rgb(var(--background-end-rgb)) 40%
-    );
-    z-index: 1;
+  .heroImage {
+    width: 100%;
+    height: auto;
   }
+}
 }
 
 /* Tablet and Smaller Desktop */
-@media (min-width: 701px) and (max-width: 1120px) {
-  .grid {
-    grid-template-columns: repeat(2, 50%);
-  }
-}
-
-@media (prefers-color-scheme: dark) {
-  .vercelLogo {
-    filter: invert(1);
-  }
-
-  .logo,
-  .thirteen img {
-    filter: invert(1) drop-shadow(0 0 0.3rem #ffffff70);
-  }
-}
-
-@keyframes rotate {
-  from {
-    transform: rotate(360deg);
-  }
-  to {
-    transform: rotate(0deg);
-  }
-}
+// @media (min-width: 701px) and (max-width: 1120px) {
+//   .grid {
+//     grid-template-columns: repeat(2, 50%);
+//   }
+// }

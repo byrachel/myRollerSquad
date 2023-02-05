@@ -1,23 +1,28 @@
 import Image from "next/image";
 
-import styles from "../../styles/Home.module.scss";
 import RegularButton from "../buttons/RegularButton";
+import styles from "../../styles/Home.module.scss";
 
 export default function Hero() {
   return (
     <div className={styles.homeHero}>
       <div className={styles.heroCta}>
-        <h1 className={styles.cta}>
+        <h1 className={styles.ctaTitle}>
           Fan de
           <br /> Roller Quad
         </h1>
-        <h2 className={styles.ctaText}>
+        <p className={styles.ctaText}>
+          Tu cherches des <b>roller skaters près de chez toi</b> ?
+        </p>
+        <p className={styles.ctaText}>
+          Tu veux participer à une <b>rando roller sur ton lieu de vacances</b> ou en organiser une ?
+        </p>
+        <p className={styles.ctaText}>
+          Tu revends ton matériel ou cherches de la "seconde main" ?
+        </p>
+        <h2 className={styles.cta}>
           Quelque soit ton style ou ton niveau, rejoins-nous !
         </h2>
-        <p>
-          Créons ensemble la plus grande communauté de passionnés et
-          professionnels de roller skaters.
-        </p>
         <div className={styles.ctaButton}>
           <RegularButton text="Créer un compte" type="full" />
         </div>

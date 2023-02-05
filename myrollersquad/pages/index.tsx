@@ -1,7 +1,7 @@
 import React from "react";
 import FindACoach from "../components/homepage/FindACoach";
 import Hero from "../components/homepage/Hero";
-import styles from "../styles/Home.module.scss";
+import NextEvent from "../components/homepage/NextEvent";
 
 export default function Home(props: any) {
   const [todo, setTodo] = React.useState(props.todo);
@@ -31,86 +31,11 @@ export default function Home(props: any) {
     syncData();
   };
 
-  const text = "MyRollerSquad";
-
   return (
     <>
       <Hero />
       <FindACoach />
-
-      <div className="overflow-x-auto w-full m-2">
-        <table className="table border min-w-full text-sm divide-y divide-gray-200">
-          <thead>
-            <tr>
-              <th className="p-4 font-medium text-left text-gray-900 whitespace-nowrap">
-                #
-              </th>
-              <th className="p-4 font-medium text-left text-gray-900 whitespace-nowrap">
-                Todo
-              </th>
-              <th className="p-4 font-medium text-left text-gray-900 whitespace-nowrap">
-                Status
-              </th>
-              <th className="p-4 font-medium text-left text-gray-900 whitespace-nowrap"></th>
-            </tr>
-          </thead>
-          <tbody>
-            {!todo ||
-              (todo.length === 0 && (
-                <tr>
-                  <td colSpan={4}>
-                    <div className="flex justify-center items-center w-full text-red-500">
-                      No Records Found
-                    </div>
-                  </td>
-                </tr>
-              ))}
-            {todo &&
-              todo.map((row: any, index: any) => {
-                return (
-                  <tr key={row.id}>
-                    <td className="sticky left-0 p-4 bg-white">{index + 1}</td>
-                    <td className="p-4 text-gray-700 whitespace-nowrap">
-                      <a href={`/${row.id}`}>{row.todo}</a>
-                    </td>
-                    <td className="p-4 text-gray-700 whitespace-nowrap">
-                      <div className="form-control min-w-full">
-                        <select
-                          onChange={e => handleUpdateTodo(e, row)}
-                          className="select select-bordered min-w-full"
-                        >
-                          <option selected={row.status === "New"} value="New">
-                            New
-                          </option>
-                          <option
-                            selected={row.status === "Started"}
-                            value="Started"
-                          >
-                            Started
-                          </option>
-                          <option
-                            selected={row.status === "Completed"}
-                            value="Completed"
-                          >
-                            Completed
-                          </option>
-                        </select>
-                      </div>
-                    </td>
-                    <td className="p-4 text-gray-700 whitespace-nowrap">
-                      <button
-                        className="btn btn-sm btn-warning"
-                        onClick={() => handleDeleteTodo(row)}
-                      >
-                        delete
-                      </button>
-                    </td>
-                  </tr>
-                );
-              })}
-          </tbody>
-        </table>
-      </div>
+      <NextEvent />
     </>
   );
 }
