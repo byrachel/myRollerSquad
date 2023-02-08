@@ -1,15 +1,17 @@
 import express from "express";
-import { addPost, getAllPosts } from "../controllers/flow.controllers";
+import { addCategory, editCategory, removeCategory } from "../controllers/admin.controllers";
+import {addPost, getAllPosts, getCategories, getPost, updatePost} from "../controllers/flow.controllers";
 const flowRouter = express.Router();
-import { body } from "express-validator";
 
+flowRouter.post("/api/flow", addPost);
 flowRouter.get("/api/flow", getAllPosts);
-flowRouter.post(
-  "/api/post/add",
-  body("email").isEmail().normalizeEmail(),
-  body("firstname").not().isEmpty().escape(),
-  body("lastname").not().isEmpty().escape(),
-  addPost
-);
+flowRouter.get("/api/flow/post/:id", getPost);
+flowRouter.put("/api/flow/post", updatePost);
+flowRouter.get("/api/flow/categories", getCategories);
+
+// Routes for Admin ONLY
+flowRouter.post("/api/admin/category", addCategory);
+flowRouter.put("/api/admin/category", editCategory);
+flowRouter.delete("/api/admin/category/:id", removeCategory);
 
 export default flowRouter;

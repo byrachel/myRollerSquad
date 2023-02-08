@@ -7,13 +7,14 @@ import Store from "./routes/store";
 import flowRouter from "./routes/flow.routes";
 import documentation from "./documentation";
 
-import { PrismaClient } from '@prisma/client'
 
 const dev = process.env.NODE_ENV !== "production";
-const prisma = new PrismaClient()
 const app = next({ dev });
 const handle = app.getRequestHandler();
 const store = new Store();
+
+import { PrismaClient } from "@prisma/client";
+const prisma = new PrismaClient();
 
 app
   .prepare()
@@ -23,15 +24,16 @@ app
     server.use(bodyParser.urlencoded({ extended: true }));
 
     server.get("/api/todo", (req: Request, res: Response) => {
+      console.log("todo")
       return res.send({ todo: store.todoList });
     });
 
-    server.get('/users', async (req, res) => {
-      const users = await prisma.user.findMany()
-      res.json(users)
-    })
+    server.get("/api/users", async (req, res) => {
+      const users = await prisma.user.findMany();
+      res.json(users);
+    });
 
-    // server.use(flowRouter);
+    server.use(flowRouter);
 
     server.use(
       "/api_documentation",
