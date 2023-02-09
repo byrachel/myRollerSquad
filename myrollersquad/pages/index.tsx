@@ -4,32 +4,30 @@ import Hero from "../components/homepage/Hero";
 import NextEvent from "../components/homepage/NextEvent";
 
 export default function Home(props: any) {
-  const [todo, setTodo] = React.useState(props.todo);
 
-  const syncData = async () => {
-    const { todo } = await fetch("http://localhost:3000/api/todo", {
-      method: "GET",
-      headers: { "Content-Type": "application/json" },
-    }).then(resp => resp.json());
-    setTodo(todo);
-  };
+  // const syncData = async () => {
+  //   const { todo } = await fetch("http://localhost:3000/api/todo", {
+  //     method: "GET",
+  //     headers: { "Content-Type": "application/json" },
+  //   }).then(resp => resp.json());
+  // };
 
-  const handleUpdateTodo = async (e: any, row: any) => {
-    await fetch(`/api/todo/${row.id}`, {
-      method: "PUT",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ todo: row.todo, status: e.target.value }),
-    }).then(resp => resp.json());
-    syncData();
-  };
+  // const handleUpdateTodo = async (e: any, row: any) => {
+  //   await fetch(`/api/todo/${row.id}`, {
+  //     method: "PUT",
+  //     headers: { "Content-Type": "application/json" },
+  //     body: JSON.stringify({ todo: row.todo, status: e.target.value }),
+  //   }).then(resp => resp.json());
+  //   syncData();
+  // };
 
-  const handleDeleteTodo = async (entity: any) => {
-    await fetch(`/api/todo/${entity.id}`, {
-      method: "DELETE",
-      headers: { "Content-Type": "application/json" },
-    }).then(resp => resp.json());
-    syncData();
-  };
+  // const handleDeleteTodo = async (entity: any) => {
+  //   await fetch(`/api/todo/${entity.id}`, {
+  //     method: "DELETE",
+  //     headers: { "Content-Type": "application/json" },
+  //   }).then(resp => resp.json());
+  //   syncData();
+  // };
 
   return (
     <>
@@ -38,15 +36,4 @@ export default function Home(props: any) {
       <NextEvent />
     </>
   );
-}
-
-export async function getServerSideProps(context: any) {
-  const { todo } = await fetch("http://localhost:3000/api/todo", {
-    method: "GET",
-    headers: { "Content-Type": "application/json" },
-  }).then(resp => resp.json());
-
-  return {
-    props: { todo },
-  };
 }

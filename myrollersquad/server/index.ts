@@ -6,15 +6,12 @@ import swaggerUI from "swagger-ui-express";
 import Store from "./routes/store";
 import flowRouter from "./routes/flow.routes";
 import documentation from "./documentation";
-
+import prisma from "./prisma/db/client";
 
 const dev = process.env.NODE_ENV !== "production";
 const app = next({ dev });
 const handle = app.getRequestHandler();
 const store = new Store();
-
-import { PrismaClient } from "@prisma/client";
-const prisma = new PrismaClient();
 
 app
   .prepare()
@@ -24,12 +21,18 @@ app
     server.use(bodyParser.urlencoded({ extended: true }));
 
     server.get("/api/todo", (req: Request, res: Response) => {
-      console.log("todo")
+      console.log("todo");
       return res.send({ todo: store.todoList });
     });
 
     server.get("/api/users", async (req, res) => {
-      const users = await prisma.user.findMany();
+      const users = await prisma.user.findMany({
+        select: {
+          id: true,
+          name: true,
+          posts: true
+        },
+      });
       res.json(users);
     });
 

@@ -1,0 +1,109 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id          Int         @id @default(autoincrement())
+  email       String      @unique
+  name        String
+  role        Role        @default(USER)
+  profile     Profile?
+  posts       Post[]      @relation("post_author")
+  places      Place[]     @relation("favorite_places")
+  created_at  DateTime    @default(now())
+  rgpd        Boolean     @default(false)
+  rgpd_ok_at  DateTime?
+}
+
+model Profile {
+  id            Int       @id @default(autoincrement())
+  bio           String
+  user          User      @relation(fields: [user_id], references: [id])
+  user_id       Int       @unique
+  social_medias Json?
+  website       String?
+  pictures      String[]
+  squad_ids     Int[]
+}
+
+model Comment {
+  id           Int      @id @default(autoincrement())
+  comment      String
+  published_at DateTime @default(now())
+  author_id    Int
+  post         Post     @relation(fields: [post_id], references: [id])
+  post_id      Int
+}
+
+model Post {
+  id            Int        @id @default(autoincrement())
+  title         String
+  content       String
+  user          User       @relation("post_author", fields: [user_id], references: [id])
+  user_id       Int
+  place         Place?     @relation("post_place", fields: [place_id], references: [id])
+  place_id      Int?
+  created_at    DateTime   @default(now())
+  duration      String?
+  distance      Int?
+  distance_unit String?
+  hashtags      String[]
+  squad_ids     Int[]
+  link          String?
+  pictures      String[]
+  location      Json?
+  views         Int        @default(0)
+  likes         Int        @default(0)
+  comments      Comment[]
+  category      Category   @relation("post_category", fields: [category_id], references: [id])
+  category_id   Int        @default(1)
+  style         Style?      @relation("roller_style", fields: [style_id], references: [id])
+  style_id      Int?
+}
+
+model Category {
+  id            Int       @id @default(autoincrement())
+  name          String    @unique
+  posts         Post[]    @relation("post_category")
+}
+
+model Style {
+  id            Int       @id @default(autoincrement())
+  name          String    @unique
+  posts         Post[]    @relation("roller_style")
+}
+
+model Place {
+  id            Int       @id @default(autoincrement())
+  name          String
+  resume        String
+  logo          String?
+  pictures      String[]
+  social_medias Json?
+  website       String?
+  address       Json?
+  favorites     User[]     @relation("favorite_places")
+  created_at    DateTime   @default(now())
+  updated_at    DateTime?
+  views         Int        @default(0)
+  type          Type       @relation("place_type", fields: [type_id], references: [id])
+  type_id       Int
+  posts         Post[]     @relation("post_place")
+}
+
+model Type {
+  id            Int       @id @default(autoincrement())
+  name          String    @unique
+  places        Place[]    @relation("place_type")
+}
+
+enum Role {
+  USER
+  PRO
+  ADMIN
+}
