@@ -31,3 +31,154 @@ a {
   padding-left: 30px; /* gutter size */
   background-clip: padding-box;
 }
+
+.flexStart {
+  display: flex;
+  justify-content: flex-start;
+  gap: 10;
+}
+
+.flowContainer {
+  margin: 1em;
+  div.cardContainer {
+    border-radius: 8px;
+    margin-top: 1em;
+
+    &.blue {
+      border: solid 3px $blueColor;
+    }
+    &.pink {
+      border: solid 3px $secondaryColor;
+    }
+    &.yellow {
+      border: solid 3px $yellowColor;
+    }
+    &.green {
+      border: solid 3px $greenColor;
+    }
+    &.dark {
+      border: solid 3px $primaryColor;
+    }
+
+    .avatar {
+      margin: 1em;
+      width: 90px;
+      height: 90px;
+      position: relative;
+      border-radius: 50%;
+      &.blue {
+        border: solid 2px $blueColor;
+      }
+      &.pink {
+        border: solid 2px $secondaryColor;
+      }
+      &.yellow {
+        border: solid 2px $yellowColor;
+      }
+      &.green {
+        border: solid 2px $greenColor;
+      }
+      &.dark {
+        border: solid 2px $primaryColor;
+      }
+    }
+    div.cardTitle {
+      margin-top: 1em;
+      div.categoryBadge {
+        color: white;
+        font-family: $titleFont;
+        font-size: $fontSize-sm;
+        border-radius: 8px;
+        padding: 2px 8px 1px 8px;
+        margin: 0.5em 0;
+        width: fit-content;
+        &.blue {
+          background-color: $blueColor;
+        }
+        &.pink {
+          background-color: $secondaryColor;
+        }
+        &.yellow {
+          background-color: $yellowColor;
+        }
+        &.green {
+          background-color: $greenColor;
+        }
+        &.dark {
+          background-color: $primaryColor;
+        }
+      }
+      h2.title {
+        font-family: $titleFont;
+        font-size: $fontSize-lg;
+        color: $primaryColor;
+        line-height: normal;
+      }
+      h3.userName {
+        font-family: $textFont;
+        font-size: 0.75em;
+        letter-spacing: 0.6px;
+        &.blue {
+          color: $blueColor;
+        }
+        &.pink {
+          color: $secondaryColor;
+        }
+        &.yellow {
+          color: $yellowColor;
+        }
+        &.green {
+          color: $greenColor;
+        }
+        &.dark {
+          color: $primaryColor;
+        }
+      }
+    }
+    div.cardMeta {
+      padding: 0.8em;
+      p.meta {
+        color: $primaryColor;
+        font-family: $bigTitleFont;
+        font-size: $fontSize-sm;
+        letter-spacing: 0.5px;
+      }
+      .metaIcon {
+        fill: none;
+        stroke: $primaryColor;
+        margin: 0 10px;
+      }
+      .separator {
+        width: 100%;
+        height: 3px;
+        margin: 0.4em 0 0.2em 0;
+        &.blue {
+          background: $blueColor;
+        }
+        &.pink {
+          background: $secondaryColor;
+        }
+        &.yellow {
+          background: $yellowColor;
+        }
+        &.green {
+          background: $greenColor;
+        }
+        &.dark {
+          background: $primaryColor;
+        }
+      }
+      p.hashtags {
+        color: $greyColor;
+        font-family: $textFont;
+        font-size: $fontSize-sm;
+        display: inline;
+        letter-spacing: 0.5px;
+        margin: 0 0.5em 0 0;
+      }
+    }
+    div.cardContent {
+      margin: 1em 0;
+    }
+  }
+}

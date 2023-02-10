@@ -6,9 +6,9 @@
   gap: 0;
   justify-content: flex-start;
   margin: 0;
-  
+
   .heroCta {
-    background:linear-gradient(135deg, $yellowColor 0%,$secondaryColor 100%);
+    background: linear-gradient(135deg, $yellowColor 0%, $secondaryColor 100%);
     min-width: 300px;
     padding: 2.5em;
     width: 100%;
@@ -51,7 +51,7 @@
 }
 
 .blueBox {
-  background:$blueColor;
+  background: $blueColor;
   margin: 0;
   padding: 4em;
 
@@ -185,7 +185,7 @@
 
   .nextEventCard {
     width: 100%;
-    
+
     h2.nextEventTitle {
       color: white;
       font-family: $textFont;
@@ -194,7 +194,7 @@
       line-height: 2em;
       letter-spacing: 0.2px;
     }
-    
+
     .card {
       background: white;
       border-radius: 8px;
@@ -206,24 +206,26 @@
 
 /* Mobile */
 @media (max-width: 700px) {
-  
-.homeHero {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0;
-  margin: 0;
-  
-  .heroCta {
-    background:linear-gradient(135deg, $yellowColor 0%,$secondaryColor 100%);
-    width: 100%;
-    padding: 2.5em;
+  .homeHero {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0;
+    margin: 0;
 
+    .heroCta {
+      background: linear-gradient(
+        135deg,
+        $yellowColor 0%,
+        $secondaryColor 100%
+      );
+      width: 100%;
+      padding: 2.5em;
+    }
+    .heroImage {
+      width: 100%;
+      height: auto;
+    }
   }
-  .heroImage {
-    width: 100%;
-    height: auto;
-  }
-}
 }
 
 /* Tablet and Smaller Desktop */

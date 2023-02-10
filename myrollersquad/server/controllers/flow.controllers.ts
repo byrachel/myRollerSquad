@@ -4,7 +4,7 @@ import prisma from "../prisma/db/client";
 export const getAllPosts = async (req: Request, res: Response) => {
   const posts = await prisma.post.findMany({
     orderBy: {
-      created_at: 'desc',
+      created_at: "desc",
     },
     select: {
       id: true,
@@ -13,6 +13,7 @@ export const getAllPosts = async (req: Request, res: Response) => {
       category: true,
       style: true,
       hashtags: true,
+      created_at: true,
     },
   });
   if (posts) {
