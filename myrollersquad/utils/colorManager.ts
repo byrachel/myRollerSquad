@@ -1,12 +1,12 @@
-export const cardColor = (categoryName: string) => {
-  switch (categoryName) {
-    case "annonce":
+export const cardColor = (categoryId: number) => {
+  switch (categoryId) {
+    case 1:
       return "green";
-    case "story":
+    case 2:
       return "pink";
-    case "tuto":
+    case 3:
       return "blue";
-    case "vente":
+    case 4:
       return "yellow";
     default:
       return "dark";

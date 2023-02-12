@@ -14,6 +14,11 @@ export const getAllPosts = async (req: Request, res: Response) => {
       style: true,
       hashtags: true,
       created_at: true,
+      pictures: true,
+      link: true,
+      likes: true,
+      comments: true,
+      user: true,
     },
   });
   if (posts) {
@@ -37,7 +42,7 @@ export const getPost = async (req: Request, res: Response) => {
 };
 
 export const updatePost = async (req: Request, res: Response) => {
-  const { id, title, content, hashtags, category_id, pictures } = req.body;
+  const { id, title, content, hashtags, category_id, pictures, link, style_id } = req.body;
   if (!id || isNaN(id)) {
     return res.status(400).json({ error: "id is missing or incorrect." });
   }
@@ -58,6 +63,8 @@ export const updatePost = async (req: Request, res: Response) => {
       user_id: 1,
       pictures,
       category_id,
+      link,
+      style_id
     },
   });
   return res.status(200).json(postUpdated);

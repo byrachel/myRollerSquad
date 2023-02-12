@@ -62,8 +62,8 @@ model Post {
   comments      Comment[]
   category      Category   @relation("post_category", fields: [category_id], references: [id])
   category_id   Int        @default(1)
-  style         Style?      @relation("roller_style", fields: [style_id], references: [id])
-  style_id      Int?
+  style         Style?     @relation("roller_style", fields: [style_id], references: [id])
+  style_id      Int        @default(1)
 }
 
 model Category {

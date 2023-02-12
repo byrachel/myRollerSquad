@@ -3,13 +3,15 @@ import Avatar from "../flow/Avatar";
 import Pin from "../icons/svg/pin.svg";
 import { PostInterface } from "../../interface/Flow";
 import { cardColor } from "../../utils/colorManager";
+import { displayLightDateTime } from "../../utils/handleDates";
+import PicturesSlider from "./PicturesSlider";
 
 interface Props {
   post: PostInterface;
 }
 
 export default function Card({ post }: Props) {
-  const color = cardColor(post.category.name);
+  const color = cardColor(post.category.id);
   return (
     <div className={`cardContainer ${color}`} key={post.id}>
       <div className="flexStart">
@@ -22,7 +24,7 @@ export default function Card({ post }: Props) {
       </div>
       <div className="cardMeta">
         <p className="meta">
-          31/12/2022 10:00
+        {displayLightDateTime(post.created_at)}
           <Pin width={12} height={12} className="metaIcon" />
           Cannes, France
         </p>
@@ -34,9 +36,10 @@ export default function Card({ post }: Props) {
               </p>
             ))
           : null}
-        <div className="cardContent">
-          <p>{post.content}</p>
-        </div>
+      </div>
+      <PicturesSlider urlPict={post.pictures.length > 0 ? post.pictures[0] : "pexels-rodnae-productions-7335311.jpg"} />
+      <div className="cardContent">
+        <p>{post.content}</p>
       </div>
     </div>
   );

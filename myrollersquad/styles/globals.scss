@@ -139,7 +139,7 @@ a {
       padding: 0.8em;
       p.meta {
         color: $primaryColor;
-        font-family: $bigTitleFont;
+        font-family: $titleFont;
         font-size: $fontSize-sm;
         letter-spacing: 0.5px;
       }
@@ -150,8 +150,8 @@ a {
       }
       .separator {
         width: 100%;
-        height: 3px;
-        margin: 0.4em 0 0.2em 0;
+        height: 2px;
+        margin: 0.3em 0 0.1em 0;
         &.blue {
           background: $blueColor;
         }
@@ -177,6 +177,20 @@ a {
         margin: 0 0.5em 0 0;
       }
     }
+
+    div.slider {
+      height: auto;
+      position: relative;
+      width: 100%;
+      .sliderPict {
+        height: 100% !important;
+        max-height: 500px;
+        object-fit: cover;
+        position: relative !important;
+        width: 100% !important;
+      }
+    }
+
     div.cardContent {
       margin: 1em 0;
     }
