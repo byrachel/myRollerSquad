@@ -1,6 +1,6 @@
+.env
 **/node_modules
 .git
-.env
 
 # Next build dir
 **/.next/
