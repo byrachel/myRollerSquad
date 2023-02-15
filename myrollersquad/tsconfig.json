@@ -15,8 +15,12 @@
     "jsx": "preserve",
     "incremental": true,
     "experimentalDecorators": true,
-    "sourceMap": true
+    "sourceMap": true,
+    "baseUrl": ".",
+    "paths": {
+      "@/components/*": ["components/*"]
+    }
   },
   "exclude": ["node_modules"],
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"]
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "pages/__tests__/places.test.js"]
 }
