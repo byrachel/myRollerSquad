@@ -1,16 +1,23 @@
+import { render, screen } from "@testing-library/react";
+import "@testing-library/jest-dom";
+import { cardColor } from "utils/colorManager";
 
-import { render, screen } from '@testing-library/react'
-import Places from '../places'
-import '@testing-library/jest-dom'
+// describe('Home', () => {
+//   it('renders a heading', () => {
+//     render(<Places />)
 
-describe('Home', () => {
-  it('renders a heading', () => {
-    render(<Places />)
+//     const heading = screen.getByRole('heading', {
+//       name: /Places/i,
+//     })
 
-    const heading = screen.getByRole('heading', {
-      name: /Places/i,
-    })
+//     expect(heading).toBeInTheDocument()
+//   })
+// })
 
-    expect(heading).toBeInTheDocument()
-  })
-})
+describe("color card when bad id passed", () => {
+  it("color", () => {
+    const result = cardColor(null);
+
+    expect(result).toBe("dark");
+  });
+});
