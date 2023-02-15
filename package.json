@@ -11,7 +11,8 @@
     "lint": "next lint",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook",
-    "test": "jest --watchAll"
+    "test": "jest",
+    "test:jest": "jest --watchAll"
   },
   "dependencies": {
     "@next/font": "13.1.5",
