@@ -12,22 +12,22 @@ services:
       - postgres:/var/lib/postgresql/data
     ports:
       - "5432:5432"
-  next:
-    depends_on:
-      - postgres
-    container_name: myrollersquad
-    # build:
-    #   # context: myrollersquad
-    #   dockerfile: Dockerfile
-    image: r4chn0t/myrollersquad_dev:v1
-    environment:
-      - DATABASE_URL=${DATABASE_URL}
-    ports:
-      - 3000:3000
-    volumes:
-      - /app
-      - /app/node_modules
-      - /app/.next
+  # next:
+  #   depends_on:
+  #     - postgres
+  #   container_name: myrollersquad
+  #   build:
+  #     # context: myrollersquad
+  #     dockerfile: Dockerfile
+  #   # image: ${DOCKER_IMAGE}
+  #   environment:
+  #     - DATABASE_URL=${DATABASE_URL}
+  #   ports:
+  #     - 3000:3000
+  #   volumes:
+  #     - /app
+  #     - /app/node_modules
+  #     - /app/.next
 
 volumes:
   postgres:

@@ -1,6 +1,6 @@
 name: Build & push Docker image
 run-name: ${{ github.actor }} pipeline
-on: [push]
+on: [release]
 
 jobs:
   docker:

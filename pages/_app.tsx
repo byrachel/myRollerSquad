@@ -5,9 +5,9 @@ const bigPoppins = Poppins({ weight: "800", subsets: ["latin"] });
 const poppins = Poppins({ weight: "600", subsets: ["latin"] });
 const oxygen = Oxygen({ weight: ["300", "700"], subsets: ["latin"] });
 
-import "../styles/globals.scss";
-import "../styles/common.scss"
-import MainLayout from "../components/layouts/MainLayout";
+import "../app/styles/globals.scss";
+import "../app/styles/common.scss";
+import MainLayout from "../app/components/layouts/MainLayout";
 
 export default function App({ Component, pageProps }: AppProps) {
   return (

@@ -18,9 +18,9 @@
     "sourceMap": true,
     "baseUrl": ".",
     "paths": {
-      "@/components/*": ["components/*"]
+      "@/components/*": ["app/components/*"]
     }
   },
   "exclude": ["node_modules"],
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "pages/__tests__/places.test.js"]
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"]
 }

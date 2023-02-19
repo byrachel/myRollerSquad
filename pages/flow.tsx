@@ -1,7 +1,7 @@
 import React from "react";
 import Masonry from "react-masonry-css";
-import { PostInterface } from "../interface/Flow";
-import Card from "../components/flow/Card";
+import { PostInterface } from "../app/interfaces/Flow";
+import Card from "../app/components/flow/Card";
 
 interface Props {
   data: PostInterface[];

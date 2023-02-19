@@ -1,10 +1,9 @@
 import React from "react";
-import FindACoach from "../components/homepage/FindACoach";
-import Hero from "../components/homepage/Hero";
-import NextEvent from "../components/homepage/NextEvent";
+import FindACoach from "../app/components/homepage/FindACoach";
+import Hero from "../app/components/homepage/Hero";
+import NextEvent from "../app/components/homepage/NextEvent";
 
 export default function Home(props: any) {
-
   // const syncData = async () => {
   //   const { todo } = await fetch("http://localhost:3000/api/todo", {
   //     method: "GET",
