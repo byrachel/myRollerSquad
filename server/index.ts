@@ -1,5 +1,5 @@
 import next from "next";
-import express, { Request, Response } from "express";
+import express, { NextFunction, Request, Response } from "express";
 import bodyParser from "body-parser";
 import swaggerUI from "swagger-ui-express";
 
@@ -11,6 +11,15 @@ import prisma from "./infrastructure/prisma/db/client";
 const dev = process.env.NODE_ENV !== "production";
 const app = next({ dev });
 const handle = app.getRequestHandler();
+
+const errorHandler = (
+  error: any,
+  request: Request,
+  response: Response,
+  next: NextFunction
+) => {
+  response.status(error.status).send(error.message);
+};
 
 app
   .prepare()
@@ -53,6 +62,8 @@ app
     server.get("*", (req: Request, res: Response) => {
       return handle(req, res);
     });
+
+    server.use(errorHandler);
 
     server.listen(3000, (err?: any) => {
       if (err) throw err;
