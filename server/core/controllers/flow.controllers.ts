@@ -2,7 +2,14 @@ import { Request, Response } from "express";
 import prisma from "../../infrastructure/prisma/db/client";
 
 export const getAllPosts = async (req: Request, res: Response) => {
+  const limit = 2;
+  const cursor = req.params.cursor ? parseInt(req.params.cursor) : 0;
+  const cursorObj = cursor === 0 ? undefined : { id: cursor };
+
   const posts = await prisma.post.findMany({
+    skip: cursor > 0 ? 1 : 0,
+    cursor: cursorObj,
+    take: limit,
     orderBy: {
       created_at: "desc",
     },
@@ -22,7 +29,10 @@ export const getAllPosts = async (req: Request, res: Response) => {
     },
   });
   if (posts) {
-    return res.status(200).json(posts);
+    return res.status(200).json({
+      posts,
+      nextId: posts.length === limit ? posts[limit - 1].id : undefined,
+    });
   }
   return res.status(500);
 };

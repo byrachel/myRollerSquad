@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import { PostInterface } from "../../interfaces/Flow";
 import { cardColor } from "../../utils/colorManager";
 import { displayLightDateTime } from "../../utils/handleDates";
@@ -13,12 +13,29 @@ import Arrow from "../../svg/nav-arrow-right.svg";
 
 interface Props {
   post: PostInterface;
+  isLast: boolean;
+  newLimit: any;
 }
 
-export default function Card({ post }: Props) {
+export default function Card({ post, isLast, newLimit }: Props) {
   const color = cardColor(post.category.id);
+  const cardRef = useRef(null);
+
+  useEffect(() => {
+    if (!cardRef?.current) return;
+
+    const observer = new IntersectionObserver(([entry]) => {
+      if (isLast && entry.isIntersecting) {
+        newLimit();
+        observer.unobserve(entry.target);
+      }
+    });
+
+    observer.observe(cardRef.current);
+  }, [isLast]);
+
   return (
-    <div className={`cardContainer ${color}`} key={post.id}>
+    <div className={`cardContainer ${color}`} key={post.id} ref={cardRef}>
       <div className="flexStart">
         <Avatar />
         <div className="cardTitle">
