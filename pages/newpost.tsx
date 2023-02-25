@@ -13,6 +13,7 @@ import RegularButton from "@/components/buttons/RegularButton";
 import { NewPostInterface } from "app/interfaces/flowInterfaces";
 import { cardColor } from "app/utils/colorManager";
 import UploadedPicturesPreview from "@/components/layouts/UploadedPicturesPreview";
+import DisplayLocation from "@/components/flow/addPost/DisplayLocation";
 
 export default function newpost() {
   const initialState = {
@@ -24,6 +25,7 @@ export default function newpost() {
     country: "France",
     pictures: [],
     squad: [],
+    displayLocation: false,
   } as NewPostInterface;
 
   const [post, postDispatch] = useReducer(flowReducer, initialState);
@@ -115,9 +117,18 @@ export default function newpost() {
                 />
               </label>
 
-              <Map className="newPostPinIcon" width={40} height={40} />
+              <Map
+                className="newPostPinIcon"
+                width={40}
+                height={40}
+                onClick={() =>
+                  postDispatch({ type: "DISPLAY_LOCATION", payload: true })
+                }
+              />
             </div>
           </div>
+
+          {post.displayLocation ? <DisplayLocation /> : null}
 
           <UploadedPicturesPreview
             pictures={post.pictures}

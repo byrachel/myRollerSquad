@@ -34,4 +34,5 @@ export interface NewPostInterface {
   country: string;
   pictures: UploadedPictureInterface[];
   squad: number[];
+  displayLocation: boolean;
 }

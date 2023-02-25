@@ -27,6 +27,11 @@ export const flowReducer = (
         ...state,
         pictures: action.payload,
       };
+    case "DISPLAY_LOCATION":
+      return {
+        ...state,
+        displayLocation: action.payload,
+      };
     default:
       return {
         ...state,
