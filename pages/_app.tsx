@@ -7,6 +7,7 @@ const oxygen = Oxygen({ weight: ["300", "700"], subsets: ["latin"] });
 
 import "../app/styles/globals.scss";
 import "../app/styles/common.scss";
+import "../app/styles/flow.scss";
 import MainLayout from "../app/components/layouts/MainLayout";
 
 export default function App({ Component, pageProps }: AppProps) {

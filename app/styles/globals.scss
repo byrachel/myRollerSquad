@@ -1,6 +1,8 @@
 @import "./variables.scss";
 
-* {
+*,
+*::before,
+*::after {
   box-sizing: border-box;
   padding: 0;
   margin: 0;
@@ -20,6 +22,156 @@ a {
   text-decoration: none;
 }
 
+.coloredSeparator {
+  background: linear-gradient(135deg, $yellowColor 0%, $secondaryColor 100%);
+  height: 10px;
+  width: 100%;
+}
+
+.input {
+  background-color: white;
+  border: 2px solid $greyColor;
+  border-radius: 4px;
+  font-size: $fontSize-md;
+  font-family: $textFont;
+  padding: 0.5em;
+  transition: 180ms box-shadow ease-in-out;
+  width: 100%;
+
+  &.error {
+    border: 2px solid $primaryColor;
+  }
+}
+
+.input:focus {
+  border-color: $primaryColor;
+  outline: 3px solid transparent;
+}
+
+// .input:not(textarea) {
+//   line-height: 1;
+//   height: 2.25rem;
+// }
+
+input[type="file"] {
+  display: none;
+}
+
+.flowFileInput {
+  cursor: pointer;
+  margin: 2em 0.5em 0 0.75em;
+
+  .fileInputIcon {
+    stroke: $secondaryColor;
+  }
+}
+
+.newPostPinIcon {
+  margin: 1.4em 0 0 0;
+  stroke: $blueColor;
+}
+
+textarea.input {
+  resize: vertical;
+}
+
+.input[readonly] {
+  border-style: dotted;
+  cursor: not-allowed;
+  color: $greyColor;
+}
+
+.input[disabled] {
+  --input-border: #ccc;
+  background-color: #eee;
+  cursor: not-allowed;
+}
+
+select {
+  appearance: none;
+  background-color: transparent;
+  border: none;
+  padding: 0.2em 0;
+  // margin: 0;
+  width: 100%;
+  font-family: $textFont;
+  font-size: $fontSize-md;
+  cursor: inherit;
+  line-height: inherit;
+  z-index: 1;
+
+  &::-ms-expand {
+    display: none;
+  }
+
+  outline: none;
+}
+
+.select {
+  display: grid;
+  grid-template-areas: "select";
+  align-items: center;
+  position: relative;
+
+  select,
+  &::after {
+    grid-area: select;
+  }
+
+  width: 100%;
+
+  border: 2px solid $greyColor;
+  border-radius: 0.25em;
+  padding: 0.25em 0.5em;
+
+  font-size: $fontSize-md;
+  cursor: pointer;
+
+  background-color: #fff;
+  background-image: linear-gradient(to top, #f9f9f9, #fff 33%);
+
+  &:not(.select--multiple)::after {
+    content: "";
+    justify-self: end;
+    width: 0.8em;
+    height: 0.5em;
+    background-color: $greyColor;
+    clip-path: polygon(100% 0%, 0 0%, 50% 100%);
+  }
+}
+
+// Interim solution until :focus-within has better support
+select:focus + .focus {
+  position: absolute;
+  top: -1px;
+  left: -1px;
+  right: -1px;
+  bottom: -1px;
+  border: 2px solid $primaryColor;
+  border-radius: inherit;
+}
+
+// select[multiple] {
+//   padding-right: 0;
+//   height: 6rem;
+
+//   option {
+//     white-space: normal;
+
+//     // Only affects Chrome
+//     outline-color: $primaryColor;
+//   }
+// }
+
+label {
+  color: $greyColor;
+  font-family: $textFont;
+  font-size: $fontSize-sm;
+  letter-spacing: 0.2px;
+  margin-top: 1.2em;
+  display: block;
+}
+
 .my-masonry-grid {
   display: -webkit-box; /* Not needed if autoprefixing */
   display: -ms-flexbox; /* Not needed if autoprefixing */
@@ -36,224 +188,79 @@ a {
   display: flex;
   justify-content: flex-start;
   gap: 10;
+  flex-wrap: wrap;
 }
 
-.flowContainer {
-  margin: 1em;
-  div.cardContainer {
-    border-radius: 8px;
-    margin-top: 1em;
+.flexStartNoWrap {
+  display: flex;
+  justify-content: flex-start;
+  gap: 10;
+  flex-wrap: nowrap;
+}
 
-    &.blue {
-      border: solid 3px $blueColor;
-    }
-    &.pink {
-      border: solid 3px $secondaryColor;
-    }
-    &.yellow {
-      border: solid 3px $yellowColor;
-    }
-    &.green {
-      border: solid 3px $greenColor;
-    }
-    &.dark {
-      border: solid 3px $primaryColor;
-    }
+.badge {
+  border-radius: 8px;
+  color: white;
+  font-family: $titleFont;
+  font-size: $fontSize-sm;
+  margin: 0.5em 0.2em 0.5em 0;
+  padding: 2px 8px 1px 8px;
+  width: fit-content;
 
-    .avatar {
-      margin: 1em;
-      width: 90px;
-      height: 90px;
-      position: relative;
-      border-radius: 50%;
-      &.blue {
-        border: solid 2px $blueColor;
-      }
-      &.pink {
-        border: solid 2px $secondaryColor;
-      }
-      &.yellow {
-        border: solid 2px $yellowColor;
-      }
-      &.green {
-        border: solid 2px $greenColor;
-      }
-      &.dark {
-        border: solid 2px $primaryColor;
-      }
-    }
-    div.cardTitle {
-      margin-top: 1em;
-      div.categoryBadge {
-        color: white;
-        font-family: $titleFont;
-        font-size: $fontSize-sm;
-        border-radius: 8px;
-        padding: 2px 8px 1px 8px;
-        margin: 0.5em 0;
-        width: fit-content;
-        &.blue {
-          background-color: $blueColor;
-        }
-        &.pink {
-          background-color: $secondaryColor;
-        }
-        &.yellow {
-          background-color: $yellowColor;
-        }
-        &.green {
-          background-color: $greenColor;
-        }
-        &.dark {
-          background-color: $primaryColor;
-        }
-      }
-      h2.title {
-        font-family: $titleFont;
-        font-size: $fontSize-lg;
-        color: $primaryColor;
-        line-height: normal;
-      }
-      h3.userName {
-        font-family: $textFont;
-        font-size: 0.75em;
-        letter-spacing: 0.6px;
-        &.blue {
-          color: $blueColor;
-        }
-        &.pink {
-          color: $secondaryColor;
-        }
-        &.yellow {
-          color: $yellowColor;
-        }
-        &.green {
-          color: $greenColor;
-        }
-        &.dark {
-          color: $primaryColor;
-        }
-      }
-    }
+  &.blue {
+    background-color: $blueColor;
+    border: solid 2px $blueColor;
+  }
+  &.pink {
+    background-color: $secondaryColor;
+    border: solid 2px $secondaryColor;
+  }
+  &.yellow {
+    background-color: $yellowColor;
+    border: solid 2px $yellowColor;
+  }
+  &.green {
+    background-color: $greenColor;
+    border: solid 2px $greenColor;
+  }
+  &.dark {
+    background-color: $primaryColor;
+    border: solid 2px $primaryColor;
+  }
+}
 
-    div.slider {
-      height: auto;
-      position: relative;
-      width: 100%;
-      .sliderPict {
-        height: 100% !important;
-        max-height: 500px;
-        object-fit: cover;
-        position: relative !important;
-        width: 100% !important;
-      }
-    }
+.outlineBadge {
+  background-color: width;
+  border-radius: 8px;
+  font-family: $titleFont;
+  font-size: $fontSize-sm;
+  margin: 0.5em 0.2em 0.5em 0;
+  padding: 2px 8px 1px 8px;
+  width: fit-content;
 
-    div.cardContent {
-      margin: 1em;
-
-      div.cardMeta {
-        margin: 0 0 1em 0;
-      }
-      p.cardMetaText {
-        color: $greyColor;
-        font-family: $textFont;
-        font-size: $fontSize-sm;
-        display: inline;
-        letter-spacing: 0.5px;
-      }
-      .metaIcon {
-        fill: none;
-        stroke: $primaryColor;
-        margin: 0 10px;
-      }
-      div.cardSeparator {
-        background-color: $greyColor;
-        height: 1px;
-        margin-top: 1.2em;
-      }
-
-      div.linkContainer {
-        background-color: $lightColor;
-        width: 100%;
-        border-radius: 7px;
-        margin: 1em 0;
-        padding: 0.3em;
-        .linkText {
-          font-family: $titleFont;
-          font-size: $fontSize-md;
-          text-align: center;
-        }
-      }
-    }
-    div.cardIcons {
-      margin: 0 0.8em 0.8em 0.8em;
-      display: flex;
-      justify-content: space-between;
-      .linkIcon {
-        fill: none;
-        stroke: $greyColor;
-        transition: fill 0.2s ease-in-out;
-        cursor: pointer;
-      }
-      .linkIcon:hover {
-        stroke: $primaryColor;
-      }
-      div.cardSocialIcons {
-        display: flex;
-        justify-content: flex-start;
-        align-items: center;
-        div.socialIconContainer {
-          margin-right: 1.5em;
-          display: flex;
-          align-items: center;
-        }
-        .icon {
-          fill: none;
-          margin: 0 0.8em 0 0;
-          transition: fill 0.2s ease-in-out;
-          width: 2em;
-          height: auto;
-          cursor: pointer;
-          &.blue {
-            stroke: $blueColor;
-          }
-          &.pink {
-            stroke: $secondaryColor;
-          }
-          &.yellow {
-            stroke: $yellowColor;
-          }
-          &.green {
-            stroke: $greenColor;
-          }
-          &.dark {
-            stroke: $primaryColor;
-          }
-        }
-        .icon:hover {
-          &.blue {
-            fill: $blueColor;
-            stroke: $blueColor;
-          }
-          &.pink {
-            fill: $secondaryColor;
-            stroke: $secondaryColor;
-          }
-          &.yellow {
-            fill: $yellowColor;
-            stroke: $yellowColor;
-          }
-          &.green {
-            fill: $greenColor;
-            stroke: $greenColor;
-          }
-          &.dark {
-            fill: $primaryColor;
-            stroke: $primaryColor;
-          }
-        }
-      }
-    }
+  &.blue {
+    border: solid 2px $blueColor;
+    color: $blueColor;
+  }
+  &.pink {
+    border: solid 2px $secondaryColor;
+    color: $secondaryColor;
+  }
+  &.yellow {
+    border: solid 2px $yellowColor;
+    color: $yellowColor;
+  }
+  &.green {
+    border: solid 2px $greenColor;
+    color: $greenColor;
+  }
+  &.dark {
+    border: solid 2px $primaryColor;
+    color: $primaryColor;
+  }
+  &.grey {
+    border: solid 2px $greyColor;
+    color: $greyColor;
+    cursor: pointer;
   }
 }

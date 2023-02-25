@@ -1,15 +1,17 @@
 import React, { useEffect, useRef } from "react";
-import { PostInterface } from "../../interfaces/Flow";
-import { cardColor } from "../../utils/colorManager";
-import { displayLightDateTime } from "../../utils/handleDates";
+import { PostInterface } from "../../../interfaces/flowInterfaces";
+import { cardColor } from "../../../utils/colorManager";
+import { displayLightDateTime } from "../../../utils/handleDates";
 
 import Avatar from "./Avatar";
 import PicturesSlider from "./PicturesSlider";
 import LikeIcon from "./LikeIcon";
 import CommentIcon from "./CommentIcon";
 
-import Pin from "../../svg/pin.svg";
-import Arrow from "../../svg/nav-arrow-right.svg";
+import Pin from "../../../svg/pin.svg";
+import Arrow from "../../../svg/nav-arrow-right.svg";
+import { getCategoryName } from "app/constants/PostCategories";
+import { getStyleName } from "app/constants/RollerSkateStyles";
 
 interface Props {
   post: PostInterface;
@@ -18,8 +20,10 @@ interface Props {
 }
 
 export default function Card({ post, isLast, newLimit }: Props) {
-  const color = cardColor(post.category.id);
+  const color = cardColor(post.category_id);
   const cardRef = useRef(null);
+
+  console.log("post", post);
 
   useEffect(() => {
     if (!cardRef?.current) return;
@@ -39,9 +43,16 @@ export default function Card({ post, isLast, newLimit }: Props) {
       <div className="flexStart">
         <Avatar />
         <div className="cardTitle">
-          <div className={`categoryBadge ${color}`}>{post.category.name}</div>
+          <div className="flexStart">
+            <div className={`badge ${color}`}>
+              {getCategoryName(post.category_id)}
+            </div>
+            <div className={`outlineBadge ${color}`}>
+              {getStyleName(post.style_id)}
+            </div>
+          </div>
           <h2 className="title">{post.title}</h2>
-          <h3 className={`userName ${color}`}>Rachel Nething</h3>
+          <h3 className={`userName ${color}`}>{post.user.name}</h3>
         </div>
       </div>
       {post.pictures.length > 0 ? (
@@ -52,7 +63,8 @@ export default function Card({ post, isLast, newLimit }: Props) {
           <p className="cardMetaText">
             {displayLightDateTime(post.created_at)}
             <Pin width={12} height={12} className="metaIcon" />
-            Cannes, France
+            {post.city ? `${post.city}, ` : null}
+            {post.country}
           </p>
           {/* {post.hashtags.length > 0
         ? post.hashtags.map((hashtag, index) => (
@@ -73,8 +85,8 @@ export default function Card({ post, isLast, newLimit }: Props) {
       </div>
       <div className="cardIcons">
         <div className="cardSocialIcons">
-          <LikeIcon color={color} />
-          <CommentIcon color={color} />
+          <LikeIcon color={color} counter={post.likes} />
+          <CommentIcon color={color} counter={post.comments.length} />
         </div>
         <Arrow className="linkIcon" width={38} height={38} />
       </div>

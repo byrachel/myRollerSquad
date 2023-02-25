@@ -1,66 +1,106 @@
 @import "./variables.scss";
 
-.outlineButton {
+// REGULAR BUTTONS
+
+.fullButton {
+  background-color: $secondaryColor;
   border: solid 3px $secondaryColor;
   border-radius: 8px;
-  margin: 0;
-  padding: 0.5em 1em;
-  background-color: white;
   cursor: pointer;
+  margin: 1.5em 0;
+  padding: 0.5em 1em;
   transition: fill 0.2s ease-in-out;
 
-  .outlineButtonText {
+  .fullButtonText {
+    color: white;
     font-family: $titleFont;
     font-size: $fontSize-md;
+    letter-spacing: 0.5px;
+  }
+}
+
+.fullButton:hover {
+  background-color: white;
+
+  .fullButtonText {
     color: $secondaryColor;
   }
 }
 
-.outlineButton:hover {
+.outlineButton {
+  background-color: white;
   border: solid 3px $secondaryColor;
   border-radius: 8px;
-  margin: 0;
-  padding: 0.5em 1em;
-  background-color: $secondaryColor;
   cursor: pointer;
+  margin: 1.5em 0;
+  padding: 0.5em 1em;
+  transition: fill 0.2s ease-in-out;
 
   .outlineButtonText {
+    color: $primaryColor;
     font-family: $titleFont;
     font-size: $fontSize-md;
-    color: white;
+    letter-spacing: 0.5px;
   }
 }
 
-.fullBigButton {
-  border: solid 3px $primaryColor;
-  border-radius: 8px;
-  margin: 0;
-  padding: 1em 1.5em;
+.outlineButton:hover {
   background-color: white;
+  box-shadow: 4px 4px $primaryColor;
+
+  .outlineButtonText {
+    color: $secondaryColor;
+  }
+}
+
+// BIG BUTTONS
+
+.fullBigButton {
+  border: solid 3px $secondaryColor;
+  border-radius: 8px;
+  box-shadow: 6px 6px $primaryColor;
+  margin: 1em 0;
+  padding: 1em 1.5em;
+  background-color: $secondaryColor;
   cursor: pointer;
   transition: fill 0.2s ease-in-out;
-  box-shadow: 6px 6px $primaryColor;
 
   .fullBigButtonText {
+    color: white;
+    font-family: $titleFont;
+    font-size: $fontSize-lg;
+  }
+}
+
+.fullBigButton:hover {
+  background-color: white;
+
+  .fullBigButtonText {
+    color: $secondaryColor;
+  }
+}
+
+.outlineBigButton {
+  background-color: white;
+  border: solid 3px $primaryColor;
+  border-radius: 8px;
+  box-shadow: 6px 6px $primaryColor;
+  margin: 1em 0;
+  padding: 1em 1.5em;
+  cursor: pointer;
+  transition: fill 0.2s ease-in-out;
+
+  .outlineBigButtonText {
     font-family: $titleFont;
     font-size: $fontSize-lg;
     color: $primaryColor;
   }
 }
 
-.fullBigButton:hover {
+.outlineBigButton:hover {
   border: solid 3px $secondaryColor;
-  border-radius: 8px;
-  margin: 0;
-  padding: 1em 1.5em;
-  background-color: white;
-  cursor: pointer;
-  transition: fill 0.2s ease-in-out;
-  box-shadow: 6px 6px $primaryColor;
 
-  .fullBigButtonText {
-    font-family: $titleFont;
-    font-size: $fontSize-lg;
+  .outlineBigButtonText {
     color: $secondaryColor;
   }
 }

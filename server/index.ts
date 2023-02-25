@@ -59,11 +59,11 @@ app
       swaggerUI.setup(documentation, { explorer: true })
     );
 
+    server.use(errorHandler);
+
     server.get("*", (req: Request, res: Response) => {
       return handle(req, res);
     });
-
-    server.use(errorHandler);
 
     server.listen(3000, (err?: any) => {
       if (err) throw err;

@@ -1,23 +1,23 @@
+import { MouseEventHandler } from "react";
 import styles from "../../styles/Buttons.module.scss";
 
 interface Props {
   text: string;
-  type: string;
+  type: "button" | "submit" | "reset";
+  style: string;
+  onClick?: MouseEventHandler<HTMLButtonElement>;
 }
 
-export default function RegularButton({ text, type }: Props) {
-  const onClick = () => {
-    console.log("click");
-  };
+export default function RegularButton({ text, type, style, onClick }: Props) {
   return (
     <button
-      type="button"
-      className={type === "full" ? styles.fullBigButton : styles.outlineButton}
+      type={type}
+      className={style === "full" ? styles.fullButton : styles.outlineButton}
       onClick={onClick}
     >
       <p
         className={
-          type === "full" ? styles.fullBigButtonText : styles.outlineButtonText
+          style === "full" ? styles.fullButtonText : styles.outlineButtonText
         }
       >
         {text}

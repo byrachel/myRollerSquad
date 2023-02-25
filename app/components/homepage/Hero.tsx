@@ -1,6 +1,6 @@
 import Image from "next/image";
 
-import RegularButton from "../buttons/RegularButton";
+import BigButton from "../buttons/BigButton";
 import styles from "../../styles/Home.module.scss";
 
 export default function Hero() {
@@ -25,7 +25,7 @@ export default function Hero() {
           Quelque soit ton style ou ton niveau, rejoins-nous !
         </h2>
         <div className={styles.ctaButton}>
-          <RegularButton text="Créer un compte" type="full" />
+          <BigButton text="Créer un compte" type="outline" />
         </div>
       </div>
       <div className={styles.heroImage}>

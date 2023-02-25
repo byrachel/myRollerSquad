@@ -3,12 +3,13 @@ import React from "react";
 
 export default function Avatar() {
   return (
-    <div className="avatar">
+    <div className="avatarContainer">
       <Image
         src="/img/pexels-airam-datoon-rollerskater.jpg"
         alt="Formateur Roller Quad"
-        style={{ borderRadius: "50%" }}
-        fill
+        className="avatar"
+        width="90"
+        height="90"
       />
     </div>
   );

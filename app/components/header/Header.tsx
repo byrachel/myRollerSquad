@@ -17,6 +17,7 @@ export default function Header() {
             alt="Logo My Roller Squad"
             width="240"
             height="78"
+            priority
           />
         </Link>
         <div className={styles.navigation}>

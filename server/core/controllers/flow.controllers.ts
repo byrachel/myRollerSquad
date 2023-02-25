@@ -22,8 +22,8 @@ export const getAllPosts = async (
         id: true,
         title: true,
         content: true,
-        category: true,
-        style: true,
+        category_id: true,
+        style_id: true,
         hashtags: true,
         created_at: true,
         pictures: true,
@@ -31,6 +31,9 @@ export const getAllPosts = async (
         likes: true,
         comments: true,
         user: true,
+        squad_ids: true,
+        city: true,
+        country: true,
       },
     });
     if (posts) {
@@ -96,17 +99,50 @@ export const updatePost = async (req: Request, res: Response) => {
   return res.status(200).json(postUpdated);
 };
 
-export const addPost = async (req: Request, res: Response) => {
-  const { title, content, hashtags, category_id } = req.body;
-  const result = await prisma.post.create({
-    data: {
-      title,
-      content,
-      hashtags,
-      created_at: new Date().toISOString(),
-      user_id: 1,
-      category_id,
-    },
-  });
-  res.status(200).json(result);
+export const addPost = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  const {
+    title,
+    content,
+    hashtags,
+    category_id,
+    user_id,
+    country,
+    pictures,
+    squad_ids,
+    city,
+    style_id,
+    link,
+  } = req.body;
+
+  console.log(req.body);
+
+  if (title && content && country && category_id) {
+    try {
+      const result = await prisma.post.create({
+        data: {
+          title,
+          content,
+          hashtags,
+          created_at: new Date().toISOString(),
+          user_id,
+          category_id,
+          country,
+          pictures,
+          squad_ids,
+          city,
+          style_id,
+          link,
+        },
+      });
+      res.status(200).json(result);
+    } catch (error) {
+      next(error);
+    }
+  } else {
+    res.status(400).json({ error: "something is missing" });
+  }
 };
