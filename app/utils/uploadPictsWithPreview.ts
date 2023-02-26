@@ -22,6 +22,8 @@ export const uploadPictsWithPreview = (e: any, dispatch: any) => {
       };
     });
 
+    console.log(files);
+
     dispatch({ type: "SAVE_PICTURES", payload: files });
   }
 };

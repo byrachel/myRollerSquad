@@ -107,35 +107,44 @@ export const addPost = async (
   const {
     title,
     content,
-    hashtags,
+    // hashtags,
     category_id,
     user_id,
-    country,
-    pictures,
-    squad_ids,
-    city,
+    position,
+    // pictures,
+    // squad_ids,
+    // city,
     style_id,
     link,
-  } = req.body;
+    duration,
+    distance,
+  } = req.body.data;
 
-  console.log(req.body);
+  const geocoding = await fetch(
+    `https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${position[0]}&lon=${position[1]}`
+  );
+  const json = await geocoding.json();
+  const country = json.address.country;
+  console.log("country", country);
 
-  if (title && content && country && category_id) {
+  if (title && content && category_id) {
     try {
       const result = await prisma.post.create({
         data: {
           title,
           content,
-          hashtags,
+          hashtags: [],
           created_at: new Date().toISOString(),
           user_id,
           category_id,
           country,
-          pictures,
-          squad_ids,
-          city,
+          pictures: [],
+          squad_ids: [],
+          // city,
           style_id,
           link,
+          // distance,
+          // duration,
         },
       });
       res.status(200).json(result);
@@ -143,6 +152,6 @@ export const addPost = async (
       next(error);
     }
   } else {
-    res.status(400).json({ error: "something is missing" });
+    res.status(401).json({ error: "something is missing" });
   }
 };

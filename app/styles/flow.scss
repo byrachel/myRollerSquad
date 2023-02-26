@@ -215,13 +215,29 @@
   display: flex;
   justify-content: space-between;
   .newPostContainer {
-    margin: 1em;
-    width: 60%;
+    margin: 1.75em;
+    width: 65%;
   }
-  .newPostSidebardPict {
-    height: auto;
-    width: 40%;
-    object-fit: cover;
+  .newPostSidebar {
+    background-color: $lightColor;
+    height: 100vh;
+    position: relative;
+    width: 35%;
+
+    .newPostSidebarText {
+      margin: 2.5em 1.5em 1.5em 1.5em;
+      h2 {
+        font-size: $fontSize-xl;
+      }
+      p {
+        margin: 2em 0;
+      }
+    }
+    // .newPostSidebardPict {
+    //   height: auto;
+    //   width: 100%;
+    //   object-fit: cover;
+    // }
   }
 }
 
@@ -267,7 +283,7 @@
       margin: 1em;
       width: 100%;
     }
-    .newPostSidebardPict {
+    .newPostSidebar {
       display: none;
     }
   }

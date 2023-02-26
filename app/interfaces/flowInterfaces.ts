@@ -35,4 +35,5 @@ export interface NewPostInterface {
   pictures: UploadedPictureInterface[];
   squad: number[];
   displayLocation: boolean;
+  position: [number, number] | undefined;
 }

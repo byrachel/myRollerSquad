@@ -1,5 +1,4 @@
-import React, { SyntheticEvent, useReducer } from "react";
-import Image from "next/image";
+import React, { SyntheticEvent, useReducer, useState } from "react";
 
 import * as category from "app/constants/PostCategories";
 import { rollerSkateStyles } from "app/constants/RollerSkateStyles";
@@ -14,6 +13,7 @@ import { NewPostInterface } from "app/interfaces/flowInterfaces";
 import { cardColor } from "app/utils/colorManager";
 import UploadedPicturesPreview from "@/components/layouts/UploadedPicturesPreview";
 import DisplayLocation from "@/components/flow/addPost/DisplayLocation";
+import Modal from "@/components/layouts/Modal";
 
 export default function newpost() {
   const initialState = {
@@ -26,13 +26,15 @@ export default function newpost() {
     pictures: [],
     squad: [],
     displayLocation: false,
+    position: undefined,
   } as NewPostInterface;
 
   const [post, postDispatch] = useReducer(flowReducer, initialState);
+  const [showMap, setShowMap] = useState(false);
 
   console.log("newPost", post);
 
-  const onSubmit = (event: SyntheticEvent) => {
+  const onSubmit = async (event: SyntheticEvent) => {
     event.preventDefault();
 
     const target = event.target as typeof event.target & {
@@ -49,23 +51,61 @@ export default function newpost() {
         type: "TITLE_ERROR",
         payload: true,
       });
-    }
+    } else {
+      const data = {
+        user_id: 1,
+        title: target.title.value,
+        content: target.content.value,
+        price:
+          post.category === category.SALE && target.price
+            ? target.price.value
+            : null,
+        category_id: post.category,
+        style_id: post.style,
+        link: target.link ? target.link.value : null,
+        duration:
+          post.category === category.STORY && target.duration
+            ? target.duration.value
+            : null,
+        distance:
+          post.category === category.STORY && target.distance
+            ? target.distance.value
+            : null,
+        position: post.position ? post.position : null,
+      };
 
-    console.log(target.title.value);
-    console.log(target.price ? target.price.value : 0);
+      console.log(data);
+
+      await fetch(`/api/flow`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ data }),
+      })
+        .then(resp => console.log(resp))
+        .catch(err => console.log(err));
+    }
   };
 
   return (
     <>
       <div className="coloredSeparator" />
       <div className="newPostSpaceBetween">
-        <Image
-          src="/img/pexels-airam-datoon-rollerskater.jpg"
-          alt="Patins à roulettes au Skate Park"
-          width={768}
-          height={724}
-          className="newPostSidebardPict"
-        />
+        <div className="newPostSidebar">
+          <div className="newPostSidebarText">
+            <h2>Quoi de beau à partager aujourd'hui ?</h2>
+            <ul>
+              <li>Un tuto ou une astuce ?</li>
+              <li>Votre joli set-up !</li>
+              <li>La recherche d'autres pratiquants dans votre région ?</li>
+              <li>L'envie d'organiser un RDV au skatepark ?</li>
+              <li>...</li>
+            </ul>
+            <p className="meta">
+              myRollerSquad est une communauté active & bienveillante de
+              passionnés de roller quad.
+            </p>
+          </div>
+        </div>
 
         <form onSubmit={onSubmit} className="newPostContainer">
           <div className="flexStart">
@@ -121,14 +161,10 @@ export default function newpost() {
                 className="newPostPinIcon"
                 width={40}
                 height={40}
-                onClick={() =>
-                  postDispatch({ type: "DISPLAY_LOCATION", payload: true })
-                }
+                onClick={() => setShowMap(true)}
               />
             </div>
           </div>
-
-          {post.displayLocation ? <DisplayLocation /> : null}
 
           <UploadedPicturesPreview
             pictures={post.pictures}
@@ -219,6 +255,13 @@ export default function newpost() {
           <RegularButton type="submit" style="full" text="Publier" />
         </form>
       </div>
+      <Modal show={showMap} setShow={setShowMap} title="Localisation">
+        <DisplayLocation
+          position={post.position}
+          dispatch={postDispatch}
+          setShowMap={setShowMap}
+        />
+      </Modal>
     </>
   );
 }
