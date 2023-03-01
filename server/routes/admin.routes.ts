@@ -8,7 +8,7 @@ import {
   editStyle,
   removeCategory,
   removeStyle,
-} from "../controllers/admin.controllers";
+} from "../core/controllers/admin.controllers";
 const adminRouter = express.Router();
 
 adminRouter.get("/api/admin/categories", getCategories);

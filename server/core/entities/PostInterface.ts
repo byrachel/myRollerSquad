@@ -3,20 +3,20 @@ export interface PostInterface {
   title: string;
   content: string;
   user: any;
-  place: any;
+  // place: any;
   created_at: Date;
   hashtags: string[];
   squad_ids: number[];
   link: string | null;
   pictures: string[];
-  city?: string;
+  city: string | null;
   country: string;
   location?: {
     latitude: string;
     longitude: string;
   };
   likes: number;
-  comments: number;
+  // comments: number;
   category_id: number;
-  style_id: number;
+  style_id: number | null;
 }
