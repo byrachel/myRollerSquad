@@ -32,7 +32,7 @@ export default function newpost() {
   const [post, postDispatch] = useReducer(flowReducer, initialState);
   const [showMap, setShowMap] = useState(false);
 
-  console.log("newPost", post);
+  console.log("newPost Store", post);
 
   const onSubmit = async (event: SyntheticEvent) => {
     event.preventDefault();

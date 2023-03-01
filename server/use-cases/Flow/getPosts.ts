@@ -1,5 +1,5 @@
-import { PostInterface } from "../entities/PostInterface";
-import { PostRepositoryInterface } from "../repositories/PostRepositoryInterface";
+import { PostInterface } from "../../core/entities/PostInterface";
+import { PostRepositoryInterface } from "../../core/repositories/PostRepositoryInterface";
 
 // interface GetPostsRequest {
 //   cursor: number;

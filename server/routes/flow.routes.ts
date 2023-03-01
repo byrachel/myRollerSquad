@@ -1,28 +1,39 @@
 import express, { Request, Response } from "express";
-import { PostsRepository } from "../infrastructure/repositories/Flow/PostRepository";
+import { PostRepository } from "../infrastructure/repositories/Flow/PostRepository";
 import {
-  addPost,
+  // addPost,
   getAllPosts,
   getPost,
   updatePost,
 } from "../core/controllers/flow.controllers";
 import { PostController } from "../core/controllers/PostController";
-import { GetPostsUseCase } from "../core/use-cases/getPosts";
+import { GetPostsUseCase } from "../use-cases/Flow/getPosts";
+import { CreatePostUseCase } from "../use-cases/Flow/createPost";
 const flowRouter = express.Router();
 
-flowRouter.post("/api/flow", addPost);
 flowRouter.get("/api/flow/:cursor", getAllPosts);
 
-const postsRepository = new PostsRepository();
+const postsRepository = new PostRepository();
+const createPostUseCase = new CreatePostUseCase(postsRepository);
 const getPostsUseCase = new GetPostsUseCase(postsRepository);
-const postController = new PostController(getPostsUseCase);
+const postController = new PostController(getPostsUseCase, createPostUseCase);
+
+flowRouter.post("/api/flow", async (req: Request, res: Response) => {
+  const post = await postController.addPost(req, res);
+  console.log("POST", post);
+  if (post) {
+    return res.status(201).json(post);
+  } else {
+    return res.status(417);
+  }
+});
 
 flowRouter.get("/api/getposts", async (req: Request, res: Response) => {
-  const posts = await postController.getAll();
+  const posts = await postController.getPosts();
   if (posts) {
-    res.status(200).json(posts);
+    return res.status(200).json(posts);
   } else {
-    res.status(417);
+    return res.status(417);
   }
 });
 
