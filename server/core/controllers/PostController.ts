@@ -1,31 +1,32 @@
 import { Request, Response } from "express";
 import { CreatePostUseCase } from "server/use-cases/Flow/createPost";
+import { GetPostUseCase } from "../../use-cases/Flow/getPost";
 import { GetPostsUseCase } from "../../use-cases/Flow/getPosts";
-import { validationResult } from "express-validator";
+import { PostInterface } from "../entities/PostInterface";
 
 export class PostController {
   private getPostsUseCase: GetPostsUseCase;
   private createPostUseCase: CreatePostUseCase;
+  private getPostUseCase: GetPostUseCase;
 
   constructor(
     getPostsUseCase: GetPostsUseCase,
-    createPostUseCase: CreatePostUseCase
+    createPostUseCase: CreatePostUseCase,
+    getPostUseCase: GetPostUseCase
   ) {
     this.getPostsUseCase = getPostsUseCase;
     this.createPostUseCase = createPostUseCase;
+    this.getPostUseCase = getPostUseCase;
   }
-  async getPosts(): Promise<any> {
-    try {
-      //   const cursor = req.params.cursor ? parseInt(req.params.cursor) : 0;
-      const posts = await this.getPostsUseCase.execute();
-      return posts;
-    } catch (err) {
-      return null;
-    }
+  async getPosts(cursor: number, limit: number): Promise<PostInterface[]> {
+    const posts = await this.getPostsUseCase.execute(cursor, limit);
+    return posts;
   }
-  async addPost(req: Request, res: Response): Promise<any> {
-    // const errors = validationResult(req);
-
+  async getPost(id: number): Promise<PostInterface | null> {
+    const post = await this.getPostUseCase.execute(id);
+    return post;
+  }
+  async addPost(req: Request, res: Response): Promise<PostInterface> {
     const {
       title,
       content,
@@ -65,10 +66,7 @@ export class PostController {
       created_at: new Date().toISOString(),
       country,
     };
-    console.log("controller NEWpost before AWAIT");
-
     const post = await this.createPostUseCase.execute(newPost);
-    console.log("controller post created ?> ", post);
     return post;
   }
 }

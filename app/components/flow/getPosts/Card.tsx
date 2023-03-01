@@ -23,8 +23,6 @@ export default function Card({ post, isLast, newLimit }: Props) {
   const color = cardColor(post.category_id);
   const cardRef = useRef(null);
 
-  console.log("post", post);
-
   useEffect(() => {
     if (!cardRef?.current) return;
 
@@ -86,7 +84,8 @@ export default function Card({ post, isLast, newLimit }: Props) {
       <div className="cardIcons">
         <div className="cardSocialIcons">
           <LikeIcon color={color} counter={post.likes} />
-          <CommentIcon color={color} counter={post.comments.length} />
+          {/* TO UPDATE !!! */}
+          <CommentIcon color={color} counter={2} />
         </div>
         <Arrow className="linkIcon" width={38} height={38} />
       </div>
