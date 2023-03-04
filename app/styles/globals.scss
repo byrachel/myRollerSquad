@@ -194,6 +194,29 @@ label {
   background-clip: padding-box;
 }
 
+.ql-toolbar.ql-snow {
+  // text-align: center;
+  padding: 10px !important;
+}
+
+.ql-editor {
+  min-height: 8em;
+}
+
+.quill {
+  border: solid 2px $greyColor;
+  border-radius: 7px;
+}
+
+.ql-toolbar.ql-snow {
+  border: none !important;
+  border-bottom: solid 1px $greyColor !important;
+}
+
+.ql-container {
+  border: none !important;
+}
+
 .flexStart {
   display: flex;
   justify-content: flex-start;

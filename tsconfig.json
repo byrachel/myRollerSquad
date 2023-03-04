@@ -21,6 +21,15 @@
       "@/components/*": ["app/components/*"]
     }
   },
+  "ts-node": {
+    "files": true
+  },
   "exclude": ["node_modules"],
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"]
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    "app/components/Editor/Editor.jsx",
+    "global.d.ts"
+  ]
 }

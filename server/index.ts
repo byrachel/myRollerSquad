@@ -7,19 +7,11 @@ import adminRouter from "./routes/admin.routes";
 import flowRouter from "./routes/flow.routes";
 import documentation from "./documentation";
 import prisma from "./infrastructure/prisma/db/client";
+import authRouter from "./routes/auth.routes";
 
 const dev = process.env.NODE_ENV !== "production";
 const app = next({ dev });
 const handle = app.getRequestHandler();
-
-const errorHandler = (
-  error: any,
-  request: Request,
-  response: Response,
-  next: NextFunction
-) => {
-  response.status(error.status).send(error.message);
-};
 
 app
   .prepare()
@@ -34,6 +26,9 @@ app
           id: true,
           name: true,
           posts: true,
+          role: true,
+          rgpd: true,
+          avatar: true,
         },
       });
       res.json(users);
@@ -52,6 +47,7 @@ app
 
     server.use(flowRouter);
     server.use(adminRouter);
+    server.use(authRouter);
 
     server.use(
       "/api_documentation",
@@ -59,7 +55,12 @@ app
       swaggerUI.setup(documentation, { explorer: true })
     );
 
-    server.use(errorHandler);
+    server.use((err: any, req: Request, res: Response, next: NextFunction) => {
+      res.status(err.status || 500).json({
+        status: false,
+        message: err.message,
+      });
+    });
 
     server.get("*", (req: Request, res: Response) => {
       return handle(req, res);

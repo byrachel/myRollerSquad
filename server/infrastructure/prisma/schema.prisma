@@ -9,17 +9,30 @@ datasource db {
 }
 
 model User {
-  id          Int         @id @default(autoincrement())
-  email       String      @unique
-  name        String
-  role        Role        @default(USER)
-  profile     Profile?
-  posts       Post[]      @relation("post_author")
-  places      Place[]     @relation("favorite_places")
-  created_at  DateTime    @default(now())
-  rgpd        Boolean     @default(false)
-  rgpd_ok_at  DateTime?
-  avatar      String?
+  id            Int         @id @default(autoincrement())
+  email         String      @unique
+  name          String
+  role          Role        @default(USER)
+  profile       Profile?
+  posts         Post[]      @relation("post_author")
+  places        Place[]     @relation("favorite_places")
+  rgpd          Boolean     @default(false)
+  rgpd_ok_at    DateTime?
+  avatar        String?
+  password      String?
+  refreshTokens RefreshToken[]
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
+}
+
+model RefreshToken {
+  id            String      @id @unique @default(uuid())
+  hashedToken   String
+  userId        Int
+  User          User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  revoked       Boolean     @default(false)
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
 }
 
 model Profile {

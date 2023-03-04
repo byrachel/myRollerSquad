@@ -14,6 +14,7 @@ import { cardColor } from "app/utils/colorManager";
 import UploadedPicturesPreview from "@/components/layouts/UploadedPicturesPreview";
 import DisplayLocation from "@/components/flow/addPost/DisplayLocation";
 import Modal from "@/components/layouts/Modal";
+import Editor from "@/components/Editor/Editor";
 
 export default function newpost() {
   const initialState = {
@@ -174,7 +175,9 @@ export default function newpost() {
           <label htmlFor="textarea">
             {post.category === category.SALE ? "Description" : "Message"}
           </label>
-          <textarea className="input" name="content" id="textarea" rows={3} />
+          <Editor />
+
+          {/* <textarea className="input" name="content" id="textarea" rows={3} /> */}
 
           {post.category === category.STORY ? (
             <div className="spaceBetween">
