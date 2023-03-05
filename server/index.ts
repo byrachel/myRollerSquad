@@ -1,6 +1,7 @@
 import next from "next";
 import express, { NextFunction, Request, Response } from "express";
 import bodyParser from "body-parser";
+import cookieParser from "cookie-parser";
 import swaggerUI from "swagger-ui-express";
 
 import adminRouter from "./routes/admin.routes";
@@ -17,6 +18,7 @@ app
   .prepare()
   .then(() => {
     const server = express();
+    server.use(cookieParser());
     server.use(bodyParser.json());
     server.use(bodyParser.urlencoded({ extended: true }));
 

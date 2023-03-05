@@ -85,10 +85,18 @@ export const login = async (
         userId: existingUser.id,
       });
 
-      res.json({
-        accessToken,
-        refreshToken,
-      });
+      // res.json({
+      //   accessToken,
+      //   refreshToken,
+      // });
+
+      res
+        .cookie("refreshToken", refreshToken, {
+          httpOnly: true,
+          sameSite: "strict",
+        })
+        .header("Authorization", accessToken)
+        .send(existingUser);
     } else {
       res.status(403);
       throw new Error("Invalid login credentials.");
@@ -104,9 +112,11 @@ export const refreshUserToken = async (
   next: NextFunction
 ) => {
   try {
-    const { refreshToken } = req.body;
+    // const { refreshToken } = req.body;
+    const refreshToken = req.cookies["refreshToken"];
+
     if (!refreshToken) {
-      res.status(400);
+      res.status(401);
       throw new Error("Missing refresh token.");
     }
     const payload: any = jwt.verify(
@@ -132,21 +142,29 @@ export const refreshUserToken = async (
       await deleteRefreshToken(savedRefreshToken.id);
 
       const jti = uuidv4();
-
       const { accessToken, refreshToken: newRefreshToken } = generateTokens(
         user,
         jti
       );
+
       await addRefreshTokenToWhitelist({
         jti,
         refreshToken: newRefreshToken,
         userId: user.id,
       });
 
-      res.json({
-        accessToken,
-        refreshToken: newRefreshToken,
-      });
+      // res.json({
+      //   accessToken,
+      //   refreshToken: newRefreshToken,
+      // });
+
+      res
+        .cookie("refreshToken", refreshToken, {
+          httpOnly: true,
+          sameSite: "strict",
+        })
+        .header("Authorization", accessToken)
+        .send(user);
     } else {
       res.status(401);
       throw new Error("Unauthorized");
