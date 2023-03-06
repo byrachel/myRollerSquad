@@ -13,7 +13,7 @@ export default function RegularButton({ text, type, style, onClick }: Props) {
     <button
       type={type}
       className={style === "full" ? styles.fullButton : styles.outlineButton}
-      onClick={onClick}
+      onClick={type === "submit" ? null : onClick}
     >
       <p
         className={

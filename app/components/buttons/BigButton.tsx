@@ -1,25 +1,25 @@
+import { MouseEventHandler } from "react";
 import styles from "../../styles/Buttons.module.scss";
 
 interface Props {
   text: string;
-  type: string;
+  type: "button" | "submit" | "reset";
+  style: string;
+  onClick?: MouseEventHandler<HTMLButtonElement>;
 }
 
-export default function BigButton({ text, type }: Props) {
-  const onClick = () => {
-    console.log("click");
-  };
+export default function BigButton({ text, type, style, onClick }: Props) {
   return (
     <button
-      type="button"
+      type={type}
       className={
-        type === "full" ? styles.fullBigButton : styles.outlineBigButton
+        style === "full" ? styles.fullBigButton : styles.outlineBigButton
       }
       onClick={onClick}
     >
       <p
         className={
-          type === "full"
+          style === "full"
             ? styles.fullBigButtonText
             : styles.outlineBigButtonText
         }

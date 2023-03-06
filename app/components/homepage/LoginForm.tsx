@@ -1,11 +1,8 @@
-import Image from "next/image";
 import { SyntheticEvent } from "react";
 
-import styles from "../../styles/Home.module.scss";
-import AddEventToFav from "../buttons/AddEventToFav";
-import GoTo from "../buttons/GoTo";
+import BigButton from "../buttons/BigButton";
 
-export default function Login() {
+export default function LoginForm() {
   const onSubmit = (event: SyntheticEvent) => {
     event.preventDefault();
 
@@ -28,7 +25,6 @@ export default function Login() {
       //   credentials: "same-origin",
     })
       .then(res => {
-        console.log(res.headers.get("authorization"));
         const token = res.headers.get("authorization");
         if (token) {
           localStorage.setItem("token", token);
@@ -59,20 +55,21 @@ export default function Login() {
   return (
     <div>
       <form onSubmit={onSubmit}>
-        {/* <input type="text" placeholder={"Pseudo"} name="pseudo" /> */}
         <input
           type="text"
           placeholder={"email"}
           name="email"
           value="blabla@gmail.com"
+          className="input"
         />
         <input
           type="text"
           placeholder={"password"}
           name="password"
           value="NEWME2"
+          className="input"
         />
-        <button type="submit">Se connecter</button>
+        <BigButton type="submit" style="full" text="se connecter" />
       </form>
       <button type="button" onClick={getMyProfile}>
         MY PROFILE

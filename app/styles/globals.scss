@@ -38,6 +38,22 @@ ul {
   width: 100%;
 }
 
+.registerInput {
+  background-color: white;
+  border: none;
+  border-radius: 7px;
+  font-size: $fontSize-md;
+  font-family: $textFont;
+  padding: 0.7em;
+  transition: 180ms box-shadow ease-in-out;
+  width: 100%;
+  margin: 0 0 0.75em 0;
+
+  &.error {
+    border: 2px solid $primaryColor;
+  }
+}
+
 .input {
   background-color: white;
   border: 2px solid $greyColor;
@@ -73,6 +89,15 @@ input[type="file"] {
 
   .fileInputIcon {
     stroke: $secondaryColor;
+  }
+}
+
+.registerFileInput {
+  cursor: pointer;
+  margin: 0 0 0 0.7em;
+
+  .fileInputIcon {
+    stroke: white;
   }
 }
 
