@@ -1,23 +1,41 @@
-import { useState } from "react";
-import { useRouter } from "next/router";
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/router";
+import { useSelector, useDispatch } from "react-redux";
+
+import { selectAuthState, setAuthState } from "../../store/authSlice";
+import Modal from "../layouts/Modal";
+import LoginForm from "../homepage/LoginForm";
+import styles from "../../styles/Header.module.scss";
 
 import UserProfile from "../../svg/profile-circle.svg";
 import MySquad from "../../svg/flash.svg";
 import Menu from "../../svg/menu.svg";
 import Cancel from "../../svg/cancel.svg";
 
-import styles from "../../styles/Header.module.scss";
-
 export default function Header() {
   const router = useRouter();
+  const dispatch = useDispatch();
+  const authState = useSelector(selectAuthState);
+
+  console.log(authState);
+
   const [displayResponsiveMenu, setDisplayResponsiveMenu] = useState(false);
+  const [showLoginForm, setShowLoginForm] = useState(false);
 
   const goTo = (link: string) => {
     setDisplayResponsiveMenu(false);
     router.push(link);
   };
+
+  // useEffect(() => {
+  //   const token = localStorage.getItem("token");
+  //   console.log(token);
+  //   if (token) {
+  //     dispatch(setAuthState(true));
+  //   }
+  // }, []);
 
   return (
     <>
@@ -59,9 +77,18 @@ export default function Header() {
               <Link href="/flow">
                 <MySquad className={styles.icon} width={42} height={42} />
               </Link>
-              <Link href="/myaccount">
-                <UserProfile className={styles.icon} width={38} height={38} />
-              </Link>
+              {authState ? (
+                <Link href="/myaccount">
+                  <UserProfile className={styles.icon} width={38} height={38} />
+                </Link>
+              ) : (
+                <UserProfile
+                  className={styles.icon}
+                  width={38}
+                  height={38}
+                  onClick={() => setShowLoginForm(true)}
+                />
+              )}
             </div>
           </div>
         </div>
@@ -80,11 +107,27 @@ export default function Header() {
           <p className={styles.iconText} onClick={() => goTo("/blog")}>
             Blog
           </p>
-          <p className={styles.iconText} onClick={() => goTo("/myaccount")}>
-            Mon compte
-          </p>
+          {authState ? (
+            <p
+              className={styles.iconText}
+              onClick={() => setShowLoginForm(true)}
+            >
+              Mon connecter
+            </p>
+          ) : (
+            <p className={styles.iconText} onClick={() => goTo("/myaccount")}>
+              Mon compte
+            </p>
+          )}
         </div>
       ) : null}
+      <Modal
+        show={showLoginForm}
+        setShow={setShowLoginForm}
+        title="Se connecter"
+      >
+        <LoginForm setShowLoginForm={setShowLoginForm} />
+      </Modal>
     </>
   );
 }

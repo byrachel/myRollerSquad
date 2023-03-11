@@ -1,4 +1,5 @@
 import type { AppProps } from "next/app";
+import { wrapper } from "../app/store/store";
 import { Poppins, Oxygen } from "@next/font/google";
 
 const bigPoppins = Poppins({ weight: "800", subsets: ["latin"] });
@@ -10,7 +11,7 @@ import "../app/styles/common.scss";
 import "../app/styles/flow.scss";
 import MainLayout from "../app/components/layouts/MainLayout";
 
-export default function App({ Component, pageProps }: AppProps) {
+function App({ Component, pageProps }: AppProps) {
   return (
     <MainLayout>
       <>
@@ -26,3 +27,4 @@ export default function App({ Component, pageProps }: AppProps) {
     </MainLayout>
   );
 }
+export default wrapper.withRedux(App);

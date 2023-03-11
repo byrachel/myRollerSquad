@@ -1,17 +1,18 @@
-import { SyntheticEvent, useState } from "react";
+import { SyntheticEvent } from "react";
 
 import BigButton from "../buttons/BigButton";
-import Camera from "app/svg/add-media-image.svg";
 
 interface Props {
   setDisplayRegisterForm: React.Dispatch<any>;
+  isModal: boolean;
 }
 
-export default function RegisterForm({ setDisplayRegisterForm }: Props) {
-  const [password, setPassword] = useState<string | null>(null);
+export default function RegisterForm({
+  setDisplayRegisterForm,
+  isModal,
+}: Props) {
   const passwordConstraintsRegex =
-    "^(?=.*[a-z])(?=.*[A-Z])(?=.*d)(?=.*[@$!%*?&])[A-Za-zd@$!%*?&]{8,20}$";
-  // ^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[*.!@$%^&(){}[]:;<>,.?/~_+-=|\]).{8,32}$
+    "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[*.!@$%^&(){}[]:;<>,.?/~_+-=|]).{8,20}$";
 
   const onSubmit = (event: SyntheticEvent) => {
     event.preventDefault();
@@ -48,56 +49,40 @@ export default function RegisterForm({ setDisplayRegisterForm }: Props) {
   };
 
   return (
-    <div>
-      <form onSubmit={onSubmit}>
-        <div className="spaceBetween">
-          <div style={{ width: "100%", marginTop: "0.5em" }}>
-            <input
-              type="text"
-              placeholder={"pseudo"}
-              name="pseudo"
-              className="registerInput"
-              required
-              min-length="3"
-              max-length="50"
-            />
-          </div>
-          <div>
-            <label htmlFor="fileInput" className="registerFileInput">
-              <Camera className="fileInputIcon" width={40} height={40} />
-              <input
-                id="fileInput"
-                className="input"
-                type="file"
-                accept="image/*"
-                // onChange={e => uploadPictsWithPreview(e, postDispatch)}
-              />
-            </label>
-          </div>
-        </div>
-        <input
-          type="text"
-          placeholder={"email"}
-          name="email"
-          className="registerInput"
-          pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
-          required
-        />
-
-        <input
-          type="text"
-          placeholder={"password"}
-          name="password"
-          className="registerInput"
-          pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*d)(?=.*[@$!%*?&])[A-Za-zd@$!%*?&]{8,20}$"
-          required
-        />
-        <p className="blackMeta">
-          Le mot de passe doit contenir au moins 8 caractères, dont une
-          majuscule, une minuscule, un chiffre et un caractère spécial.
-        </p>
-        <BigButton type="submit" style="outline" text="créer un compte" />
-      </form>
-    </div>
+    <form onSubmit={onSubmit}>
+      {isModal ? <label>Nom ou pseudonyme</label> : null}
+      <input
+        type="text"
+        placeholder={isModal ? "" : "Nom ou pseudonyme"}
+        name="pseudo"
+        className={isModal ? "input" : "registerInput"}
+        required
+        min-length="3"
+        max-length="50"
+      />
+      {isModal ? <label>eMail</label> : null}
+      <input
+        type="text"
+        placeholder={isModal ? "" : "eMail"}
+        name="email"
+        className={isModal ? "input" : "registerInput"}
+        pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
+        required
+      />
+      {isModal ? <label>Mot de passe</label> : null}
+      <input
+        type="text"
+        placeholder={isModal ? "" : "Mot de passe"}
+        name="password"
+        className={isModal ? "input" : "registerInput"}
+        pattern={passwordConstraintsRegex}
+        required
+      />
+      <p className="blackMeta mt5">
+        Le mot de passe doit contenir au moins 8 caractères, dont une majuscule,
+        une minuscule, un chiffre et un caractère spécial.
+      </p>
+      <BigButton type="submit" style="outline" text="créer un compte" />
+    </form>
   );
 }

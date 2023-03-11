@@ -85,11 +85,6 @@ export const login = async (
         userId: existingUser.id,
       });
 
-      // res.json({
-      //   accessToken,
-      //   refreshToken,
-      // });
-
       res
         .cookie("refreshToken", refreshToken, {
           httpOnly: true,
@@ -152,11 +147,6 @@ export const refreshUserToken = async (
         refreshToken: newRefreshToken,
         userId: user.id,
       });
-
-      // res.json({
-      //   accessToken,
-      //   refreshToken: newRefreshToken,
-      // });
 
       res
         .cookie("refreshToken", refreshToken, {

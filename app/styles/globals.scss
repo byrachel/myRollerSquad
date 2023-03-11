@@ -32,10 +32,28 @@ ul {
   }
 }
 
+.link {
+  cursor: pointer;
+}
+
+.link:hover {
+  color: $secondaryColor;
+}
+
 .coloredSeparator {
   background: linear-gradient(135deg, $yellowColor 0%, $secondaryColor 100%);
   height: 10px;
   width: 100%;
+}
+
+.lightSeparator {
+  background: linear-gradient(135deg, $yellowColor 0%, $secondaryColor 100%);
+  height: 4px;
+  width: 100%;
+}
+
+.mt5 {
+  margin-top: 1em;
 }
 
 .registerInput {
@@ -56,12 +74,13 @@ ul {
 
 .input {
   background-color: white;
-  border: 2px solid $greyColor;
+  border: 1px solid $greyColor;
   border-radius: 4px;
   font-size: $fontSize-md;
   font-family: $textFont;
   padding: 0.5em;
   transition: 180ms box-shadow ease-in-out;
+  box-shadow: 2px 2px $greyColor;
   width: 100%;
 
   &.error {
@@ -203,7 +222,7 @@ label {
   font-family: $textFont;
   font-size: $fontSize-sm;
   letter-spacing: 0.2px;
-  margin-top: 1.2em;
+  margin: 1.5em 0 0.3em 0;
   display: block;
 }
 

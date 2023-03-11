@@ -14,7 +14,7 @@ export function generateRefreshToken(userId: number, jti: string) {
     },
     process.env.JWT_REFRESH_ACCESS_SECRET as string,
     {
-      expiresIn: "12h",
+      expiresIn: "7d",
     }
   );
 }
