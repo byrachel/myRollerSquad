@@ -1,7 +1,5 @@
 import { SyntheticEvent, useState } from "react";
-import { useDispatch } from "react-redux";
 
-import { setAuthState } from "../../store/authSlice";
 import RegularButton from "../buttons/RegularButton";
 import RegisterForm from "./RegisterForm";
 
@@ -10,7 +8,6 @@ interface Props {
 }
 
 export default function LoginForm({ setShowLoginForm }: Props) {
-  const dispatch = useDispatch();
   const [displayRegisterForm, setDisplayRegisterForm] = useState(false);
 
   const onSubmit = (event: SyntheticEvent) => {
@@ -42,7 +39,6 @@ export default function LoginForm({ setShowLoginForm }: Props) {
       })
       .then(data => {
         console.log("USER IS LOGGED", data);
-        dispatch(setAuthState(true));
         setShowLoginForm(false);
       })
       .catch(err => console.log(err));

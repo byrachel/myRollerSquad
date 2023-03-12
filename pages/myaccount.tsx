@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import Image from "next/image";
+import axios from "axios";
 
 import RollerStylesbar from "@/components/layouts/RollerStylesBar";
 import UserInfos from "@/components/userProfile/UserInfos";
@@ -9,16 +9,16 @@ export default function MyAccount() {
 
   useEffect(() => {
     const token = localStorage.getItem("token");
-    fetch(`/api/profile`, {
+    axios(`/api/profile`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
       },
-      credentials: "same-origin",
+      withCredentials: true,
     })
-      .then(res => res.json())
-      .then(data => setMyProfile(data))
+      .then(res => console.log(res.data))
+      // .then(data => setMyProfile(data))
       .catch(err => console.log(err));
   }, []);
 

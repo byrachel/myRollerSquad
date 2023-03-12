@@ -1,10 +1,8 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { useSelector, useDispatch } from "react-redux";
 
-import { selectAuthState, setAuthState } from "../../store/authSlice";
 import Modal from "../layouts/Modal";
 import LoginForm from "../homepage/LoginForm";
 import styles from "../../styles/Header.module.scss";
@@ -13,13 +11,12 @@ import UserProfile from "../../svg/profile-circle.svg";
 import MySquad from "../../svg/flash.svg";
 import Menu from "../../svg/menu.svg";
 import Cancel from "../../svg/cancel.svg";
+import { UserContext } from "app/context/UserContext";
 
 export default function Header() {
   const router = useRouter();
-  const dispatch = useDispatch();
-  const authState = useSelector(selectAuthState);
-
-  console.log(authState);
+  const { userState } = useContext(UserContext);
+  console.log("context", userState);
 
   const [displayResponsiveMenu, setDisplayResponsiveMenu] = useState(false);
   const [showLoginForm, setShowLoginForm] = useState(false);
@@ -77,7 +74,7 @@ export default function Header() {
               <Link href="/flow">
                 <MySquad className={styles.icon} width={42} height={42} />
               </Link>
-              {authState ? (
+              {/* {authState ? (
                 <Link href="/myaccount">
                   <UserProfile className={styles.icon} width={38} height={38} />
                 </Link>
@@ -88,7 +85,7 @@ export default function Header() {
                   height={38}
                   onClick={() => setShowLoginForm(true)}
                 />
-              )}
+              )} */}
             </div>
           </div>
         </div>
@@ -107,7 +104,7 @@ export default function Header() {
           <p className={styles.iconText} onClick={() => goTo("/blog")}>
             Blog
           </p>
-          {authState ? (
+          {/* {authState ? (
             <p
               className={styles.iconText}
               onClick={() => setShowLoginForm(true)}
@@ -118,7 +115,7 @@ export default function Header() {
             <p className={styles.iconText} onClick={() => goTo("/myaccount")}>
               Mon compte
             </p>
-          )}
+          )} */}
         </div>
       ) : null}
       <Modal

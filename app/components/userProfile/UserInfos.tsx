@@ -11,7 +11,11 @@ import Avatar from "../../svg/add-media-image.svg";
 import RegularButton from "@/components/buttons/RegularButton";
 import styles from "../../styles/Profile.module.scss";
 
-export default function UserInfos({ myProfile }) {
+interface Props {
+  myProfile: any;
+}
+
+export default function UserInfos({ myProfile }: Props) {
   console.log(myProfile);
   return (
     <div className={styles.rollerSkaterInfoBar}>

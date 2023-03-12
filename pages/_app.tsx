@@ -1,6 +1,8 @@
 import type { AppProps } from "next/app";
-import { wrapper } from "../app/store/store";
 import { Poppins, Oxygen } from "@next/font/google";
+
+import MainLayout from "../app/components/layouts/MainLayout";
+import { UserContextProvider } from "app/context/UserContext";
 
 const bigPoppins = Poppins({ weight: "800", subsets: ["latin"] });
 const poppins = Poppins({ weight: "600", subsets: ["latin"] });
@@ -9,7 +11,6 @@ const oxygen = Oxygen({ weight: ["300", "700"], subsets: ["latin"] });
 import "../app/styles/globals.scss";
 import "../app/styles/common.scss";
 import "../app/styles/flow.scss";
-import MainLayout from "../app/components/layouts/MainLayout";
 
 function App({ Component, pageProps }: AppProps) {
   return (
@@ -22,9 +23,11 @@ function App({ Component, pageProps }: AppProps) {
             --font-text: ${oxygen.style.fontFamily};
           }
         `}</style>
-        <Component {...pageProps} />
+        <UserContextProvider>
+          <Component {...pageProps} />
+        </UserContextProvider>
       </>
     </MainLayout>
   );
 }
-export default wrapper.withRedux(App);
+export default App;
