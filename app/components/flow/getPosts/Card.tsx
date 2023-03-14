@@ -12,6 +12,7 @@ import Pin from "../../../svg/pin.svg";
 import Arrow from "../../../svg/nav-arrow-right.svg";
 import { getCategoryName } from "app/constants/PostCategories";
 import { getStyleName } from "app/constants/RollerSkateStyles";
+import ReactQuill from "react-quill";
 
 interface Props {
   post: PostInterface;
@@ -73,6 +74,7 @@ export default function Card({ post, isLast, newLimit }: Props) {
         : null} */}
         </div>
         <p>{post.content}</p>
+        <ReactQuill value={post.content} readOnly={true} theme={"bubble"} />
         {post.link ? (
           <div className="linkContainer">
             <p className="linkText">{post.link}</p>

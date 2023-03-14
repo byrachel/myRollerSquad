@@ -26,13 +26,10 @@ export default function Header() {
     router.push(link);
   };
 
-  // useEffect(() => {
-  //   const token = localStorage.getItem("token");
-  //   console.log(token);
-  //   if (token) {
-  //     dispatch(setAuthState(true));
-  //   }
-  // }, []);
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    console.log("HEADER", token);
+  }, []);
 
   return (
     <>
@@ -74,11 +71,11 @@ export default function Header() {
               <Link href="/flow">
                 <MySquad className={styles.icon} width={42} height={42} />
               </Link>
-              {/* {authState ? (
-                <Link href="/myaccount">
-                  <UserProfile className={styles.icon} width={38} height={38} />
-                </Link>
-              ) : (
+              {/* {authState ? ( */}
+              <Link href="/myaccount">
+                <UserProfile className={styles.icon} width={38} height={38} />
+              </Link>
+              {/* ) : (
                 <UserProfile
                   className={styles.icon}
                   width={38}
@@ -104,18 +101,9 @@ export default function Header() {
           <p className={styles.iconText} onClick={() => goTo("/blog")}>
             Blog
           </p>
-          {/* {authState ? (
-            <p
-              className={styles.iconText}
-              onClick={() => setShowLoginForm(true)}
-            >
-              Mon connecter
-            </p>
-          ) : (
-            <p className={styles.iconText} onClick={() => goTo("/myaccount")}>
-              Mon compte
-            </p>
-          )} */}
+          <p className={styles.iconText} onClick={() => goTo("/myaccount")}>
+            Mon compte
+          </p>
         </div>
       ) : null}
       <Modal

@@ -13,7 +13,7 @@ export default function UploadedPicturesPreview({ pictures, dispatch }: Props) {
     const newListOfPictures = pictures.filter(
       pict => pict.name !== picture.name
     );
-    dispatch({ type: "SAVE_PICTURES", payload: newListOfPictures });
+    dispatch({ type: "SAVE_ONLY_THIS_PICTURES", payload: newListOfPictures });
   };
   return (
     <>

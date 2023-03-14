@@ -1,4 +1,3 @@
-import { useState } from "react";
 import dynamic from "next/dynamic";
 // import quillEmoji from "react-quill-emoji";
 const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
@@ -69,14 +68,18 @@ const formats = [
   "background",
 ];
 
-export default function Editor() {
-  const [value, setValue] = useState("");
+export default function Editor({ content, dispatchContent }) {
   return (
     <ReactQuill
       modules={modules}
       formats={formats}
-      value={value}
-      onChange={setValue}
+      value={content}
+      onChange={value =>
+        dispatchContent({
+          type: "SAVE_CONTENT",
+          payload: value,
+        })
+      }
       preserveWhitespace={true}
     />
   );

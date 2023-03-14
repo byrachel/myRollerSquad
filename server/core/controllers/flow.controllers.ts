@@ -99,59 +99,59 @@ export const updatePost = async (req: Request, res: Response) => {
   return res.status(200).json(postUpdated);
 };
 
-export const addPost = async (
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => {
-  const {
-    title,
-    content,
-    // hashtags,
-    category_id,
-    user_id,
-    position,
-    // pictures,
-    // squad_ids,
-    // city,
-    style_id,
-    link,
-    duration,
-    distance,
-  } = req.body.data;
+// export const addPost = async (
+//   req: Request,
+//   res: Response,
+//   next: NextFunction
+// ) => {
+//   const {
+//     title,
+//     content,
+//     // hashtags,
+//     category_id,
+//     user_id,
+//     position,
+//     // pictures,
+//     // squad_ids,
+//     // city,
+//     style_id,
+//     link,
+//     duration,
+//     distance,
+//   } = req.body.data;
 
-  const geocoding = await fetch(
-    `https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${position[0]}&lon=${position[1]}`
-  );
-  const json = await geocoding.json();
-  const country = json.address.country;
-  console.log("country", country);
+//   const geocoding = await fetch(
+//     `https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${position[0]}&lon=${position[1]}`
+//   );
+//   const json = await geocoding.json();
+//   const country = json.address.country;
+//   console.log("country", country);
 
-  if (title && content && category_id) {
-    try {
-      const result = await prisma.post.create({
-        data: {
-          title,
-          content,
-          hashtags: [],
-          created_at: new Date().toISOString(),
-          user_id,
-          category_id,
-          country,
-          pictures: [],
-          squad_ids: [],
-          // city,
-          style_id,
-          link,
-          // distance,
-          // duration,
-        },
-      });
-      res.status(201).json(result);
-    } catch (error) {
-      next(error);
-    }
-  } else {
-    res.status(401).json({ error: "something is missing" });
-  }
-};
+//   if (title && content && category_id) {
+//     try {
+//       const result = await prisma.post.create({
+//         data: {
+//           title,
+//           content,
+//           hashtags: [],
+//           created_at: new Date().toISOString(),
+//           user_id,
+//           category_id,
+//           country,
+//           pictures: [],
+//           squad_ids: [],
+//           // city,
+//           style_id,
+//           link,
+//           // distance,
+//           // duration,
+//         },
+//       });
+//       res.status(201).json(result);
+//     } catch (error) {
+//       next(error);
+//     }
+//   } else {
+//     res.status(401).json({ error: "something is missing" });
+//   }
+// };

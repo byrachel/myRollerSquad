@@ -42,10 +42,18 @@ export const signIn = async (
 
     await addRefreshTokenToWhitelist({ jti, refreshToken, userId: user.id });
 
-    res.json({
-      accessToken,
-      refreshToken,
-    });
+    // res.json({
+    //   accessToken,
+    //   refreshToken,
+    // });
+
+    res
+      .cookie("refreshToken", refreshToken, {
+        httpOnly: true,
+        sameSite: "strict",
+      })
+      .header("Authorization", accessToken)
+      .send({ message: "User created successfully." });
   } catch (err) {
     next(err);
   }
@@ -91,7 +99,7 @@ export const login = async (
           sameSite: "strict",
         })
         .header("Authorization", accessToken)
-        .send(existingUser);
+        .send({ user: existingUser });
     } else {
       res.status(403);
       throw new Error("Invalid login credentials.");

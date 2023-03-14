@@ -1,6 +1,6 @@
 import { NewPostInterface } from "app/interfaces/flowInterfaces";
 
-export const flowReducer = (
+export const FlowReducer = (
   state: NewPostInterface,
   action: { type: string; payload: any }
 ) => {
@@ -32,6 +32,11 @@ export const flowReducer = (
             ? [...state.pictures, ...action.payload]
             : action.payload,
       };
+    case "SAVE_ONLY_THIS_PICTURES":
+      return {
+        ...state,
+        pictures: action.payload,
+      };
     case "DISPLAY_LOCATION":
       return {
         ...state,
@@ -41,6 +46,16 @@ export const flowReducer = (
       return {
         ...state,
         position: action.payload,
+      };
+    case "SAVE_COUNTRY":
+      return {
+        ...state,
+        country: action.payload,
+      };
+    case "SAVE_CONTENT":
+      return {
+        ...state,
+        content: action.payload,
       };
     default:
       return {

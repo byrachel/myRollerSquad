@@ -1,4 +1,6 @@
 import express, { NextFunction, Request, Response } from "express";
+const { check, validationResult } = require("express-validator");
+
 import { PostRepository } from "../infrastructure/repositories/Flow/PostRepository";
 import {
   // addPost,
@@ -9,7 +11,6 @@ import {
 import { PostController } from "../core/controllers/PostController";
 import { GetPostsUseCase } from "../use-cases/Flow/getPosts";
 import { CreatePostUseCase } from "../use-cases/Flow/createPost";
-import { validationResult, body } from "express-validator";
 import { GetPostUseCase } from "../use-cases/Flow/getPost";
 
 const flowRouter = express.Router();
@@ -26,17 +27,28 @@ const postController = new PostController(
 
 flowRouter.post(
   "/api/flow",
-  body("title").not().isEmpty().trim().escape().isLength({ max: 25 }),
-  body("content").trim().escape(),
-  body("category_id").not().isEmpty(),
-  body("user_id").not().isEmpty(),
-  body("link").trim().escape(),
-  body("hashtags").trim().escape(),
+  // [
+  //   check("title")
+  //     .isLength({ min: 3, max: 25 })
+  //     .withMessage("the name must have minimum length of 3")
+  //     .trim()
+  //     .escape(),
+  //   check("category_id").isNumeric(),
+  // ],
+  // check("content").trim().escape(),
+  // body("title").trim().escape().isLength({ min: 3 }),
+  // body("content").trim().escape(),
+  // body("category_id").isNumeric(),
+  // body("user_id").isNumeric(),
+  // body("link").trim().escape(),
+  // body("hashtags").trim().escape(),
   async (req: Request, res: Response) => {
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-      return res.status(400).json({ errors: errors.array() });
-    }
+    // const errors = validationResult(req);
+    // if (!errors.isEmpty()) {
+    //   return res.status(400).json({ errors: errors.array() });
+    // }
+
+    console.log(req.body);
     const post = await postController.addPost(req, res);
     if (!post) {
       return res.status(500);

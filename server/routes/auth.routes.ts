@@ -31,7 +31,7 @@ authRouter.get("/api/profile", isAuthenticated, async (req: any, res, next) => {
         createdAt: true,
       },
     });
-    res.json(user);
+    res.json({ user: user });
   } catch (err) {
     next(err);
   }

@@ -49,6 +49,12 @@ p.slogan {
   letter-spacing: 0.5px;
 }
 
+.metaIcon {
+  fill: none;
+  stroke: $primaryColor;
+  margin-right: 5px;
+}
+
 div.pinkUnderliner {
   border-bottom: solid 2px $secondaryColor;
   width: 100%;

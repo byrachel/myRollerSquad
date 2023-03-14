@@ -50,7 +50,7 @@ export class PostController {
       category_id,
       user_id,
       location:
-        position.length === 2
+        position && position.length === 2
           ? {
               latitude: position[0],
               longitude: position[1],

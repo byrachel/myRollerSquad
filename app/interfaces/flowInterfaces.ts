@@ -36,4 +36,22 @@ export interface NewPostInterface {
   squad: number[];
   displayLocation: boolean;
   position: [number, number] | undefined;
+  content: string;
+}
+
+export interface NewPostFactoryInterface {
+  title: string;
+  content: string;
+  hashtags: string[];
+  category_id: number;
+  pictures: string[];
+  link: string | null;
+  style_id: number;
+  squad_ids: number[];
+  user_id: number;
+  distance: number;
+  duration: number;
+  country: string;
+  position: [number, number] | undefined;
+  price: number | null;
 }

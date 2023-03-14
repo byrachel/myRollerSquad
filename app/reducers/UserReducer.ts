@@ -1,4 +1,4 @@
-import { UserStateInterface } from "./UserContext";
+import { UserStateInterface } from "../context/UserContext";
 
 const UserReducer = (
   state: UserStateInterface,

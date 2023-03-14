@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import dynamic from "next/dynamic";
 import html2canvas from "html2canvas";
 import RegularButton from "@/components/buttons/RegularButton";
@@ -9,12 +9,22 @@ interface Props {
   setShowMap: (arg: boolean) => void;
 }
 
+interface BlobImageInterface {
+  preview?: string;
+  size?: number;
+  type?: string;
+  width?: number;
+  height?: number;
+  name?: string;
+}
+
 export default function DisplayLocation({
   position,
   dispatch,
   setShowMap,
 }: Props) {
   const Map = dynamic(() => import("./Map"), { ssr: false });
+  const [location, setLocation] = useState<string | null>(null);
 
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(position => {
@@ -31,18 +41,12 @@ export default function DisplayLocation({
         `https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${position[0]}&lon=${position[1]}`
       )
         .then(res => res.json())
-        .then(data => console.log(data));
+        .then(data => {
+          const address = `${data.address.town}, ${data.address.country}`;
+          setLocation(address);
+        });
     }
   }, [position]);
-
-  interface BlobImageInterface {
-    preview?: string;
-    size?: number;
-    type?: string;
-    width?: number;
-    height?: number;
-    name?: string;
-  }
 
   const canvasConfig = {
     useCORS: true,
@@ -52,6 +56,7 @@ export default function DisplayLocation({
   };
 
   const saveAsImage = async () => {
+    dispatch({ type: "SAVE_COUNTRY", payload: location });
     const canvas = document.getElementsByClassName(
       "leaflet-container"
     )[0] as HTMLCanvasElement;
@@ -68,17 +73,20 @@ export default function DisplayLocation({
     });
   };
 
-  return location ? (
+  return position ? (
     <>
       <div className="mapContainer">
         <Map position={position} dispatch={dispatch} />
       </div>
-      <RegularButton
-        type="button"
-        style="full"
-        text="Ajouter à la publication"
-        onClick={saveAsImage}
-      />
+      <div className="spaceBetween">
+        {location ? <p className="meta">{location}</p> : null}
+        <RegularButton
+          type="button"
+          style="full"
+          text="Ajouter à la publication"
+          onClick={saveAsImage}
+        />
+      </div>
     </>
   ) : null;
 }

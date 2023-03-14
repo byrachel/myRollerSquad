@@ -54,7 +54,7 @@ export default function LoginForm({ setShowLoginForm }: Props) {
           type="text"
           placeholder={"email"}
           name="email"
-          value="blabla@gmail.com"
+          value="test@token.com"
           className="input"
         />
         <label>Mot de passe</label>
@@ -62,7 +62,7 @@ export default function LoginForm({ setShowLoginForm }: Props) {
           type="text"
           placeholder={"password"}
           name="password"
-          value="NEWME2"
+          value="m0tDeP@sse"
           className="input"
         />
         <RegularButton type="submit" style="full" text="SE CONNECTER" />

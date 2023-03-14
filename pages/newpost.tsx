@@ -2,11 +2,11 @@ import React, { SyntheticEvent, useReducer, useState } from "react";
 
 import * as category from "app/constants/PostCategories";
 import { rollerSkateStyles } from "app/constants/RollerSkateStyles";
-import { flowReducer } from "app/reducers/flowReducer";
 import { uploadPictsWithPreview } from "app/utils/uploadPictsWithPreview";
 
 import Camera from "app/svg/add-media-image.svg";
 import Map from "app/svg/pin-alt.svg";
+import Pin from "app/svg/pin.svg";
 
 import RegularButton from "@/components/buttons/RegularButton";
 import { NewPostInterface } from "app/interfaces/flowInterfaces";
@@ -15,6 +15,8 @@ import UploadedPicturesPreview from "@/components/layouts/UploadedPicturesPrevie
 import DisplayLocation from "@/components/flow/addPost/DisplayLocation";
 import Modal from "@/components/layouts/Modal";
 import Editor from "@/components/Editor/Editor";
+import { FlowReducer } from "app/reducers/flowReducer";
+import axios from "axios";
 
 export default function newpost() {
   const initialState = {
@@ -28,23 +30,21 @@ export default function newpost() {
     squad: [],
     displayLocation: false,
     position: undefined,
+    content: "",
   } as NewPostInterface;
 
-  const [post, postDispatch] = useReducer(flowReducer, initialState);
+  const [post, postDispatch] = useReducer(FlowReducer, initialState);
   const [showMap, setShowMap] = useState(false);
-
-  console.log("newPost Store", post);
 
   const onSubmit = async (event: SyntheticEvent) => {
     event.preventDefault();
 
     const target = event.target as typeof event.target & {
       title: { value: string };
-      content: { value: string };
       link: { value: string };
       price: { value?: number };
       duration: { value?: number };
-      distance: { value?: number };
+      distance: { value?: string };
     };
 
     if (!target.title.value) {
@@ -56,36 +56,33 @@ export default function newpost() {
       const data = {
         user_id: 1,
         title: target.title.value,
-        content: target.content.value,
+        content: post.content,
         price:
-          post.category === category.SALE && target.price
+          post.category === category.SALE && target.price.value
             ? target.price.value
             : null,
         category_id: post.category,
         style_id: post.style,
-        link: target.link ? target.link.value : null,
+        link: target.link.value ? target.link.value : null,
         duration:
           post.category === category.STORY && target.duration
             ? target.duration.value
             : null,
         distance:
-          post.category === category.STORY && target.distance
-            ? target.distance.value
+          post.category === category.STORY && target.distance.value
+            ? parseInt(target.distance.value)
             : null,
         position: post.position ? post.position : null,
+        country: post.country ? post.country : null,
       };
-
-      console.log(data);
-
-      await fetch(`/api/flow`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ data }),
-      })
-        .then(resp => console.log(resp))
+      axios
+        .post(`/api/flow`, data)
+        .then(resp => console.log("OK >>> ", resp))
         .catch(err => console.log(err));
     }
   };
+
+  console.log(post);
 
   return (
     <>
@@ -172,12 +169,17 @@ export default function newpost() {
             dispatch={postDispatch}
           />
 
-          <label htmlFor="textarea">
+          {post.country ? (
+            <p className="meta mt5">
+              <Pin width={12} height={12} className="metaIcon" />
+              {post.country}
+            </p>
+          ) : null}
+
+          <label>
             {post.category === category.SALE ? "Description" : "Message"}
           </label>
-          <Editor />
-
-          {/* <textarea className="input" name="content" id="textarea" rows={3} /> */}
+          <Editor content={post.content} dispatchContent={postDispatch} />
 
           {post.category === category.STORY ? (
             <div className="spaceBetween">
