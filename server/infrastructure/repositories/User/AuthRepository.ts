@@ -1,5 +1,5 @@
 import prisma from "../../prisma/db/client";
-import { hash } from "../../utils/hash";
+import { hash } from "../../middleware/hash";
 
 interface Props {
   refreshToken: any;

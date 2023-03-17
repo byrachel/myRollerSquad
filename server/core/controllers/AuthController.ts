@@ -2,7 +2,7 @@ import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import { v4 as uuidv4 } from "uuid";
 import { NextFunction, Request, Response } from "express";
-import { hash } from "../../infrastructure/utils/hash";
+import { hash } from "../../infrastructure/middleware/hash";
 import {
   addRefreshTokenToWhitelist,
   deleteRefreshToken,
@@ -14,7 +14,7 @@ import {
   findUserByEmail,
   findUserById,
 } from "../../infrastructure/repositories/User/UserRepository";
-import { generateTokens } from "../../infrastructure/utils/jwt";
+import { generateTokens } from "../../infrastructure/middleware/jwt";
 
 export const signIn = async (
   req: Request,

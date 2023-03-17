@@ -40,6 +40,12 @@ ul {
   color: $secondaryColor;
 }
 
+.center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .coloredSeparator {
   background: linear-gradient(135deg, $yellowColor 0%, $secondaryColor 100%);
   height: 10px;
@@ -54,6 +60,9 @@ ul {
 
 .mt5 {
   margin-top: 1em;
+}
+.mr5 {
+  margin-right: 0.5em;
 }
 
 .registerInput {

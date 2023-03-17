@@ -1,5 +1,6 @@
 import express from "express";
-import { isAuthenticated } from "../infrastructure/utils/isAuthenticated";
+import { isAuthenticated } from "../infrastructure/middleware/isAuthenticated";
+import multer from "../infrastructure/middleware/multer-config";
 
 import {
   login,
@@ -13,7 +14,22 @@ const authRouter = express.Router();
 authRouter.post("/api/register", signIn);
 authRouter.post("/api/login", login);
 authRouter.post("/api/refreshtoken", refreshUserToken);
-authRouter.post("/revokeRefreshTokens", revokeRefreshToken);
+// authRouter.post("/revokeRefreshTokens", revokeRefreshToken);
+
+authRouter.post(
+  "/api/avatar",
+  isAuthenticated,
+  multer.single("avatar"),
+  async (req: any, res: any, next) => {
+    console.log("test", req.body);
+    console.log("file", req.file);
+    const file = req.file;
+    if (!file) {
+      res.status(417);
+    }
+    res.send(file);
+  }
+);
 
 authRouter.get("/api/profile", isAuthenticated, async (req: any, res, next) => {
   try {

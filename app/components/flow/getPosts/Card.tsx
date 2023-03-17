@@ -1,4 +1,6 @@
 import React, { useEffect, useRef } from "react";
+import ReactHtmlParser from "react-html-parser";
+
 import { PostInterface } from "../../../interfaces/flowInterfaces";
 import { cardColor } from "../../../utils/colorManager";
 import { displayLightDateTime } from "../../../utils/handleDates";
@@ -12,7 +14,6 @@ import Pin from "../../../svg/pin.svg";
 import Arrow from "../../../svg/nav-arrow-right.svg";
 import { getCategoryName } from "app/constants/PostCategories";
 import { getStyleName } from "app/constants/RollerSkateStyles";
-import ReactQuill from "react-quill";
 
 interface Props {
   post: PostInterface;
@@ -73,8 +74,7 @@ export default function Card({ post, isLast, newLimit }: Props) {
           ))
         : null} */}
         </div>
-        <p>{post.content}</p>
-        <ReactQuill value={post.content} readOnly={true} theme={"bubble"} />
+        <p>{ReactHtmlParser(post.content)}</p>
         {post.link ? (
           <div className="linkContainer">
             <p className="linkText">{post.link}</p>

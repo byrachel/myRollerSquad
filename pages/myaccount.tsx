@@ -16,7 +16,6 @@ export default function MyAccount() {
 
   useEffect(() => {
     const token = localStorage.getItem("token");
-    console.log(token);
     if (token) {
       axios(`/api/profile`, {
         method: "GET",
