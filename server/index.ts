@@ -68,6 +68,8 @@ app
       return handle(req, res);
     });
 
+    server.use(express.static("public"));
+
     server.listen(3000, (err?: any) => {
       if (err) throw err;
       console.log("> Ready on http://localhost:3000");

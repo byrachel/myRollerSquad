@@ -18,8 +18,6 @@ interface Props {
 }
 
 export default function UserInfos({ myProfile }: Props) {
-  console.log(myProfile);
-
   const [displayNewAvatar, setDisplayNewAvatar] = useState(false);
   const [newAvatarFile, setNewAvatarFile] = useState<any | null>(null);
 
@@ -63,13 +61,23 @@ export default function UserInfos({ myProfile }: Props) {
         <div className={styles.rollerSkaterInfoBackground} />
         <div className={styles.rollerSkaterInfoContainer}>
           <div className={styles.rollerSkaterAvatarContainer}>
-            <Image
-              src="/img/avatar_myRollerSquad.jpg"
-              alt="Roller Quad"
-              className={styles.rollerSkaterAvatar}
-              width={200}
-              height={200}
-            />
+            {myProfile.data.avatar ? (
+              <Image
+                src={`/uploads/${myProfile.data.avatar}`}
+                alt="Roller Quad"
+                className={styles.rollerSkaterAvatar}
+                width={200}
+                height={200}
+              />
+            ) : (
+              <Image
+                src="/img/avatar_myRollerSquad.jpg"
+                alt="Roller Quad"
+                className={styles.rollerSkaterAvatar}
+                width={200}
+                height={200}
+              />
+            )}
 
             <label htmlFor="fileInput" className="flowFileInput">
               <Avatar
@@ -98,7 +106,7 @@ export default function UserInfos({ myProfile }: Props) {
             </div>
           </div>
           <div className={styles.rollerSkaterInfo}>
-            <h1>DanyOnWheels</h1>
+            <h1>{myProfile.data.name}</h1>
             <div className={styles.rollerSkaterLocation}>
               <p>
                 <Pin className={styles.locationIcon} width={20} height={20} />

@@ -26,7 +26,7 @@ export default function MyAccount() {
         withCredentials: true,
       })
         .then(res =>
-          setMyProfile({ loading: false, error: false, data: res.data })
+          setMyProfile({ loading: false, error: false, data: res.data.user })
         )
         .catch(err => {
           console.log(err);

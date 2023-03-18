@@ -15,8 +15,8 @@ import UploadedPicturesPreview from "@/components/layouts/UploadedPicturesPrevie
 import DisplayLocation from "@/components/flow/addPost/DisplayLocation";
 import Modal from "@/components/layouts/Modal";
 import Editor from "@/components/Editor/Editor";
-import { FlowReducer } from "app/reducers/FlowReducer";
 import axios from "axios";
+import { FlowReducer } from "app/reducers/FlowReducer";
 
 export default function newpost() {
   const initialState = {

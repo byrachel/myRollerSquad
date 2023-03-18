@@ -22,7 +22,7 @@ export default function UploadAvatar({ avatar }: Props) {
     // data.append('userName', 'Fred');
     axios({
       method: "post",
-      url: "/api/avatar",
+      url: "/upload",
       data: data,
       headers: {
         "Content-Type": "multipart/form-data",
@@ -32,11 +32,11 @@ export default function UploadAvatar({ avatar }: Props) {
     })
       .then(function (response) {
         //handle success
-        console.log(response);
+        console.log("OK", response);
       })
       .catch(function (response) {
         //handle error
-        console.log(response);
+        console.log("err", response);
       });
   };
   return (
