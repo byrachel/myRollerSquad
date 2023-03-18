@@ -63,7 +63,7 @@ export default function UserInfos({ myProfile }: Props) {
           <div className={styles.rollerSkaterAvatarContainer}>
             {myProfile.data.avatar ? (
               <Image
-                src={`/uploads/${myProfile.data.avatar}`}
+                src={myProfile.data.avatar}
                 alt="Roller Quad"
                 className={styles.rollerSkaterAvatar}
                 width={200}

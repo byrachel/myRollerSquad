@@ -22,7 +22,7 @@ export default function UploadAvatar({ avatar }: Props) {
     // data.append('userName', 'Fred');
     axios({
       method: "post",
-      url: "/upload",
+      url: "/api/avatar",
       data: data,
       headers: {
         "Content-Type": "multipart/form-data",

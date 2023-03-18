@@ -16,7 +16,7 @@ import DisplayLocation from "@/components/flow/addPost/DisplayLocation";
 import Modal from "@/components/layouts/Modal";
 import Editor from "@/components/Editor/Editor";
 import axios from "axios";
-import { FlowReducer } from "app/reducers/FlowReducer";
+import { PostReducer } from "app/reducers/PostReducer";
 
 export default function newpost() {
   const initialState = {
@@ -33,7 +33,7 @@ export default function newpost() {
     content: "",
   } as NewPostInterface;
 
-  const [post, postDispatch] = useReducer(FlowReducer, initialState);
+  const [post, postDispatch] = useReducer(PostReducer, initialState);
   const [showMap, setShowMap] = useState(false);
 
   const onSubmit = async (event: SyntheticEvent) => {

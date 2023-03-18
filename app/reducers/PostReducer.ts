@@ -1,6 +1,6 @@
 import { NewPostInterface } from "app/interfaces/flowInterfaces";
 
-export const FlowReducer = (
+export const PostReducer = (
   state: NewPostInterface,
   action: { type: string; payload: any }
 ) => {
