@@ -22,9 +22,9 @@ export default function Header() {
     router.push(link);
   };
 
-  const goToMyAccount = () => {
+  const userLoggedGoTo = (link: string) => {
     const token = localStorage.getItem("token");
-    axios(`/api/profile`, {
+    axios(`/api/islogged`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -37,9 +37,8 @@ export default function Header() {
         if (token) {
           localStorage.setItem("token", token);
         }
-        console.log("res.data.user", res.data.user);
         userDispatch({ type: "SET_USER", payload: res.data.user });
-        router.push("/myaccount");
+        router.push(link);
       })
       .catch(() => router.push("/signin"));
   };
@@ -76,20 +75,20 @@ export default function Header() {
               <Link href="/places">
                 <p className={styles.iconText}>Annuaire</p>
               </Link>
-              <Link href="/blog">
-                <p className={styles.iconText}>Blog</p>
-              </Link>
             </div>
             <div className={styles.navigationIcon}>
-              <Link href="/flow">
-                <MySquad className={styles.icon} width={42} height={42} />
-              </Link>
-
+              <MySquad
+                className={styles.icon}
+                width={42}
+                height={42}
+                onClick={() => userLoggedGoTo("/flow")}
+                role="button"
+              />
               <UserProfile
                 className={styles.icon}
                 width={38}
                 height={38}
-                onClick={goToMyAccount}
+                onClick={() => userLoggedGoTo("/myaccount")}
                 role="button"
               />
             </div>
@@ -98,19 +97,22 @@ export default function Header() {
       </header>
       {displayResponsiveMenu ? (
         <div className={styles.responsiveNavigationText}>
-          <p className={styles.iconText} onClick={() => goTo("/flow")}>
-            My Roller Squad
-          </p>
           <p className={styles.iconText} onClick={() => goTo("/calendar")}>
             Agenda
           </p>
           <p className={styles.iconText} onClick={() => goTo("/places")}>
             Annuaire
           </p>
-          <p className={styles.iconText} onClick={() => goTo("/blog")}>
-            Blog
+          <p
+            className={styles.iconText}
+            onClick={() => userLoggedGoTo("/flow")}
+          >
+            My Roller Squad
           </p>
-          <p className={styles.iconText} onClick={goToMyAccount}>
+          <p
+            className={styles.iconText}
+            onClick={() => userLoggedGoTo("/myaccount")}
+          >
             Mon compte
           </p>
         </div>

@@ -14,20 +14,20 @@ import "../app/styles/flow.scss";
 
 function App({ Component, pageProps }: AppProps) {
   return (
-    <MainLayout>
-      <>
-        <style jsx global>{`
-          :root {
-            --font-bigTitle: ${bigPoppins.style.fontFamily};
-            --font-title: ${poppins.style.fontFamily};
-            --font-text: ${oxygen.style.fontFamily};
-          }
-        `}</style>
-        <UserContextProvider>
+    <UserContextProvider>
+      <MainLayout>
+        <>
+          <style jsx global>{`
+            :root {
+              --font-bigTitle: ${bigPoppins.style.fontFamily};
+              --font-title: ${poppins.style.fontFamily};
+              --font-text: ${oxygen.style.fontFamily};
+            }
+          `}</style>
           <Component {...pageProps} />
-        </UserContextProvider>
-      </>
-    </MainLayout>
+        </>
+      </MainLayout>
+    </UserContextProvider>
   );
 }
 export default App;

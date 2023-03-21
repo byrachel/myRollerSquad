@@ -131,22 +131,63 @@ authRouter.post(
 //   }
 // );
 
-authRouter.get("/api/profile", isAuthenticated, async (req: any, res, next) => {
+authRouter.get(
+  "/api/islogged",
+  isAuthenticated,
+  async (req: any, res, next) => {
+    try {
+      const { userId } = req.payload;
+
+      const user = await prisma.user.findUnique({
+        where: {
+          id: userId,
+        },
+        select: {
+          id: true,
+          name: true,
+          role: true,
+        },
+      });
+
+      const accessToken = req.headers.authorization;
+      const refreshToken = req.cookies.refreshToken;
+
+      res
+        .cookie("refreshToken", refreshToken, {
+          httpOnly: true,
+          sameSite: "strict",
+        })
+        .header("Authorization", accessToken)
+        .status(200)
+        .send({ user: user });
+    } catch (err) {
+      next(err);
+    }
+  }
+);
+
+authRouter.get("/api/user", isAuthenticated, async (req: any, res, next) => {
   try {
     const { userId } = req.payload;
 
-    const user = await prisma.user.findUnique({
+    const userDetails = await prisma.user.findUnique({
       where: {
         id: userId,
       },
       select: {
         id: true,
         name: true,
-        email: true,
         role: true,
         avatar: true,
-        createdAt: true,
         profile: true,
+        email: true,
+        posts: {
+          select: {
+            id: true,
+            title: true,
+            content: true,
+          },
+        },
       },
     });
 
@@ -160,7 +201,7 @@ authRouter.get("/api/profile", isAuthenticated, async (req: any, res, next) => {
       })
       .header("Authorization", accessToken)
       .status(200)
-      .send({ user: user });
+      .send({ user: userDetails });
   } catch (err) {
     next(err);
   }

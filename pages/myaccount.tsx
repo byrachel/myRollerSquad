@@ -1,28 +1,27 @@
-import React, { useEffect, useState, useContext } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 
 import RollerStylesbar from "@/components/layouts/RollerStylesBar";
 import UserInfos from "@/components/userProfile/UserInfos";
-import LoginForm from "@/components/homepage/LoginForm";
-import { UserContext } from "app/context/UserContext";
+import { UserInterface } from "app/interfaces/userInterfaces";
 
 export default function MyAccount() {
-  const [myProfile, setMyProfile] = useState({
+  const [myProfile, setMyProfile] = useState<{
+    loading: boolean;
+    error: boolean;
+    user: UserInterface | null;
+  }>({
     loading: true,
     error: false,
-    data: {},
+    user: null,
   });
 
   console.log(myProfile);
 
-  const { userState } = useContext(UserContext);
-
-  console.log("USERSTATE", userState);
-
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (token) {
-      axios(`/api/profile`, {
+      axios(`/api/user`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -31,23 +30,23 @@ export default function MyAccount() {
         withCredentials: true,
       })
         .then(res =>
-          setMyProfile({ loading: false, error: false, data: res.data.user })
+          setMyProfile({ loading: false, error: false, user: res.data.user })
         )
         .catch(err => {
           console.log(err);
-          setMyProfile({ loading: false, error: true, data: {} });
+          setMyProfile({ loading: false, error: true, user: null });
         });
     }
   }, []);
 
-  return myProfile.loading ? (
-    <div className="loader" />
-  ) : myProfile.error ? (
-    <LoginForm />
-  ) : (
+  return (
     <>
       <RollerStylesbar />
-      <UserInfos myProfile={myProfile} />
+      {myProfile.user ? (
+        <UserInfos user={myProfile.user} />
+      ) : myProfile.loading ? (
+        <div className="loader" />
+      ) : null}
     </>
   );
 }

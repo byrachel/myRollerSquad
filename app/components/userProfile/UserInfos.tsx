@@ -12,12 +12,13 @@ import RegularButton from "@/components/buttons/RegularButton";
 import styles from "../../styles/Profile.module.scss";
 import Modal from "../layouts/Modal";
 import UploadAvatar from "./UploadAvatar";
+import { UserInterface } from "app/interfaces/userInterfaces";
 
 interface Props {
-  myProfile: any;
+  user: UserInterface;
 }
 
-export default function UserInfos({ myProfile }: Props) {
+export default function UserInfos({ user }: Props) {
   const [displayNewAvatar, setDisplayNewAvatar] = useState(false);
   const [newAvatarFile, setNewAvatarFile] = useState<any | null>(null);
 
@@ -61,9 +62,9 @@ export default function UserInfos({ myProfile }: Props) {
         <div className={styles.rollerSkaterInfoBackground} />
         <div className={styles.rollerSkaterInfoContainer}>
           <div className={styles.rollerSkaterAvatarContainer}>
-            {myProfile.data.avatar ? (
+            {user.avatar ? (
               <Image
-                src={myProfile.data.avatar}
+                src={user.avatar}
                 alt="Roller Quad"
                 className={styles.rollerSkaterAvatar}
                 width={200}
@@ -106,7 +107,7 @@ export default function UserInfos({ myProfile }: Props) {
             </div>
           </div>
           <div className={styles.rollerSkaterInfo}>
-            <h1>{myProfile.data.name}</h1>
+            <h1>{user.name}</h1>
             <div className={styles.rollerSkaterLocation}>
               <p>
                 <Pin className={styles.locationIcon} width={20} height={20} />
