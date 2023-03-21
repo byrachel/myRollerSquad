@@ -1,35 +1,48 @@
-import { useState, useEffect, useContext } from "react";
+import { useState, useContext } from "react";
+import { useRouter } from "next/router";
 import Image from "next/image";
 import Link from "next/link";
-import { useRouter } from "next/router";
 
-import Modal from "../layouts/Modal";
-import LoginForm from "../homepage/LoginForm";
+import { UserContext } from "../../context/UserContext";
 import styles from "../../styles/Header.module.scss";
 
 import UserProfile from "../../svg/profile-circle.svg";
 import MySquad from "../../svg/flash.svg";
 import Menu from "../../svg/menu.svg";
 import Cancel from "../../svg/cancel.svg";
-import { UserContext } from "app/context/UserContext";
+import axios from "axios";
 
 export default function Header() {
   const router = useRouter();
-  const { userState } = useContext(UserContext);
-  console.log("context", userState);
-
+  const { userDispatch } = useContext(UserContext);
   const [displayResponsiveMenu, setDisplayResponsiveMenu] = useState(false);
-  const [showLoginForm, setShowLoginForm] = useState(false);
 
   const goTo = (link: string) => {
     setDisplayResponsiveMenu(false);
     router.push(link);
   };
 
-  useEffect(() => {
+  const goToMyAccount = () => {
     const token = localStorage.getItem("token");
-    console.log("HEADER", token);
-  }, []);
+    axios(`/api/profile`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      withCredentials: true,
+    })
+      .then(res => {
+        const token = res.headers["authorization"];
+        if (token) {
+          localStorage.setItem("token", token);
+        }
+        console.log("res.data.user", res.data.user);
+        userDispatch({ type: "SET_USER", payload: res.data.user });
+        router.push("/myaccount");
+      })
+      .catch(() => router.push("/signin"));
+  };
 
   return (
     <>
@@ -71,18 +84,14 @@ export default function Header() {
               <Link href="/flow">
                 <MySquad className={styles.icon} width={42} height={42} />
               </Link>
-              {/* {authState ? ( */}
-              <Link href="/myaccount">
-                <UserProfile className={styles.icon} width={38} height={38} />
-              </Link>
-              {/* ) : (
-                <UserProfile
-                  className={styles.icon}
-                  width={38}
-                  height={38}
-                  onClick={() => setShowLoginForm(true)}
-                />
-              )} */}
+
+              <UserProfile
+                className={styles.icon}
+                width={38}
+                height={38}
+                onClick={goToMyAccount}
+                role="button"
+              />
             </div>
           </div>
         </div>
@@ -101,18 +110,11 @@ export default function Header() {
           <p className={styles.iconText} onClick={() => goTo("/blog")}>
             Blog
           </p>
-          <p className={styles.iconText} onClick={() => goTo("/myaccount")}>
+          <p className={styles.iconText} onClick={goToMyAccount}>
             Mon compte
           </p>
         </div>
       ) : null}
-      <Modal
-        show={showLoginForm}
-        setShow={setShowLoginForm}
-        title="Se connecter"
-      >
-        <LoginForm setShowLoginForm={setShowLoginForm} />
-      </Modal>
     </>
   );
 }

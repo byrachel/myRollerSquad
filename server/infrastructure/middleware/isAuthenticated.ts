@@ -21,7 +21,9 @@ export function isAuthenticated(req: any, res: Response, next: NextFunction) {
       accessToken,
       process.env.JWT_ACCESS_SECRET as string
     );
+
     req.payload = payload;
+    req.headers.authorization = accessToken;
     next();
   } catch (err: any) {
     if (!refreshToken) {
@@ -43,7 +45,6 @@ export function isAuthenticated(req: any, res: Response, next: NextFunction) {
         //   httpOnly: true,
         //   sameSite: "strict",
         // });
-
         req.payload = { userId };
         req.headers.authorization = accessToken;
         req.cookies.refreshToken = newRefreshToken;

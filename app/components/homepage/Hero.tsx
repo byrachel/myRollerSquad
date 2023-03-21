@@ -15,10 +15,7 @@ export default function Hero() {
           <br /> Roller Quad
         </h1>
         {displayRegisterForm ? (
-          <RegisterForm
-            setDisplayRegisterForm={setDisplayRegisterForm}
-            isModal={false}
-          />
+          <RegisterForm setDisplayRegisterForm={setDisplayRegisterForm} />
         ) : (
           <>
             <p className={styles.ctaText}>

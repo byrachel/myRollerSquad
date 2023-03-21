@@ -134,6 +134,7 @@ authRouter.post(
 authRouter.get("/api/profile", isAuthenticated, async (req: any, res, next) => {
   try {
     const { userId } = req.payload;
+
     const user = await prisma.user.findUnique({
       where: {
         id: userId,
@@ -148,7 +149,18 @@ authRouter.get("/api/profile", isAuthenticated, async (req: any, res, next) => {
         profile: true,
       },
     });
-    res.json({ user: user });
+
+    const accessToken = req.headers.authorization;
+    const refreshToken = req.cookies.refreshToken;
+
+    res
+      .cookie("refreshToken", refreshToken, {
+        httpOnly: true,
+        sameSite: "strict",
+      })
+      .header("Authorization", accessToken)
+      .status(200)
+      .send({ user: user });
   } catch (err) {
     next(err);
   }

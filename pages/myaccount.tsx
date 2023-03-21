@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import axios from "axios";
 
 import RollerStylesbar from "@/components/layouts/RollerStylesBar";
 import UserInfos from "@/components/userProfile/UserInfos";
 import LoginForm from "@/components/homepage/LoginForm";
+import { UserContext } from "app/context/UserContext";
 
 export default function MyAccount() {
   const [myProfile, setMyProfile] = useState({
@@ -13,6 +14,10 @@ export default function MyAccount() {
   });
 
   console.log(myProfile);
+
+  const { userState } = useContext(UserContext);
+
+  console.log("USERSTATE", userState);
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -38,7 +43,7 @@ export default function MyAccount() {
   return myProfile.loading ? (
     <div className="loader" />
   ) : myProfile.error ? (
-    <LoginForm setShowLoginForm={() => console.log("haha")} />
+    <LoginForm />
   ) : (
     <>
       <RollerStylesbar />

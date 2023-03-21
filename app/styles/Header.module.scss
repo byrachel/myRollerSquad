@@ -34,6 +34,7 @@
           margin: 0 0.8em 0 0;
           stroke: $primaryColor;
           transition: fill 0.2s ease-in-out;
+          cursor: pointer;
         }
         .icon:hover {
           fill: none;

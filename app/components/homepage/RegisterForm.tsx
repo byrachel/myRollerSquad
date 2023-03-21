@@ -4,13 +4,9 @@ import BigButton from "../buttons/BigButton";
 
 interface Props {
   setDisplayRegisterForm: React.Dispatch<any>;
-  isModal: boolean;
 }
 
-export default function RegisterForm({
-  setDisplayRegisterForm,
-  isModal,
-}: Props) {
+export default function RegisterForm({ setDisplayRegisterForm }: Props) {
   const passwordConstraintsRegex =
     "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[*.!@$%^&(){}[]:;<>,.?/~_+-=|]).{8,20}$";
 
@@ -50,31 +46,28 @@ export default function RegisterForm({
 
   return (
     <form onSubmit={onSubmit}>
-      {isModal ? <label>Nom ou pseudonyme</label> : null}
+      <label>Nom ou pseudonyme</label>
       <input
         type="text"
-        placeholder={isModal ? "" : "Nom ou pseudonyme"}
         name="pseudo"
-        className={isModal ? "input" : "registerInput"}
+        className={"input"}
         required
         min-length="3"
         max-length="50"
       />
-      {isModal ? <label>eMail</label> : null}
+      <label>eMail</label>
       <input
         type="text"
-        placeholder={isModal ? "" : "eMail"}
         name="email"
-        className={isModal ? "input" : "registerInput"}
+        className={"input"}
         pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
         required
       />
-      {isModal ? <label>Mot de passe</label> : null}
+      <label>Mot de passe</label>
       <input
         type="text"
-        placeholder={isModal ? "" : "Mot de passe"}
         name="password"
-        className={isModal ? "input" : "registerInput"}
+        className={"input"}
         pattern={passwordConstraintsRegex}
         required
       />
@@ -82,6 +75,7 @@ export default function RegisterForm({
         Le mot de passe doit contenir au moins 8 caractères, dont une majuscule,
         une minuscule, un chiffre et un caractère spécial.
       </p>
+      <br />
       <BigButton type="submit" style="outline" text="créer un compte" />
     </form>
   );

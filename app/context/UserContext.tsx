@@ -2,11 +2,11 @@ import { createContext, useReducer } from "react";
 import UserReducer from "../reducers/UserReducer";
 
 export interface UserStateInterface {
-  accessToken: string | null;
+  user: any;
 }
 
 export const initialState: UserStateInterface = {
-  accessToken: null,
+  user: null,
 };
 
 export const UserContext = createContext<{

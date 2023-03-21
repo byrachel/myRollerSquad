@@ -1,14 +1,9 @@
-import { SyntheticEvent, useState } from "react";
-
+import { SyntheticEvent } from "react";
+import { useRouter } from "next/router";
 import RegularButton from "../buttons/RegularButton";
-import RegisterForm from "./RegisterForm";
 
-interface Props {
-  setShowLoginForm: (arg: boolean) => void;
-}
-
-export default function LoginForm({ setShowLoginForm }: Props) {
-  const [displayRegisterForm, setDisplayRegisterForm] = useState(false);
+export default function LoginForm() {
+  const router = useRouter();
 
   const onSubmit = (event: SyntheticEvent) => {
     event.preventDefault();
@@ -34,47 +29,35 @@ export default function LoginForm({ setShowLoginForm }: Props) {
         if (token) {
           localStorage.setItem("token", token);
         }
-
         return res.json();
       })
       .then(data => {
         console.log("USER IS LOGGED", data);
-        setShowLoginForm(false);
+        router.push("/flow");
       })
       .catch(err => console.log(err));
   };
 
-  return displayRegisterForm ? (
-    <RegisterForm setDisplayRegisterForm={setDisplayRegisterForm} isModal />
-  ) : (
-    <>
-      <form onSubmit={onSubmit}>
-        <label>Identifiant (email)</label>
-        <input
-          type="text"
-          placeholder={"email"}
-          name="email"
-          value="test@token.com"
-          className="input"
-        />
-        <label>Mot de passe</label>
-        <input
-          type="text"
-          placeholder={"password"}
-          name="password"
-          value="m0tDeP@sse"
-          className="input"
-        />
-        <RegularButton type="submit" style="full" text="SE CONNECTER" />
-      </form>
-      <div className="lightSeparator mt5" />
-      <p
-        className="metaCenterText link mt5"
-        onClick={() => setDisplayRegisterForm(true)}
-        role="button"
-      >
-        Tu n'as pas de compte ? Crée un compte & partage tes rides !
-      </p>
-    </>
+  return (
+    <form onSubmit={onSubmit}>
+      <label>Identifiant (email)</label>
+      <input
+        type="text"
+        placeholder={"email"}
+        name="email"
+        value="test@token.com"
+        className="input"
+      />
+
+      <label>Mot de passe</label>
+      <input
+        type="text"
+        placeholder={"password"}
+        name="password"
+        value="m0tDeP@sse"
+        className="input"
+      />
+      <RegularButton type="submit" style="full" text="SE CONNECTER" />
+    </form>
   );
 }

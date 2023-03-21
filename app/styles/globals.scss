@@ -65,19 +65,13 @@ ul {
   margin-right: 0.5em;
 }
 
-.registerInput {
-  background-color: white;
-  border: none;
-  border-radius: 7px;
-  font-size: $fontSize-md;
-  font-family: $textFont;
-  padding: 0.7em;
-  transition: 180ms box-shadow ease-in-out;
-  width: 100%;
-  margin: 0 0 0.75em 0;
-
-  &.error {
-    border: 2px solid $primaryColor;
+.signinContainer {
+  display: flex;
+  margin-top: 1.5em;
+  .rollerColoredIcon {
+    fill: white;
+    stroke: $secondaryColor;
+    margin-right: 0.5em;
   }
 }
 
@@ -231,7 +225,7 @@ label {
   font-family: $textFont;
   font-size: $fontSize-sm;
   letter-spacing: 0.2px;
-  margin: 1.5em 0 0.3em 0;
+  margin: 2em 0 0.5em 0;
   display: block;
 }
 

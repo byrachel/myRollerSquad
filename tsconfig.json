@@ -30,7 +30,8 @@
     "**/*.ts",
     "**/*.tsx",
     "app/components/Editor/Editor.jsx",
-    "global.d.ts",
-    "app/services/createAxiosClient.js"
+    "global.d.ts"
+    // "app/services/createAxiosClient.js",
+    // "app/context/UserContext.js"
   ]
 }

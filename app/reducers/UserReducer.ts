@@ -1,4 +1,7 @@
-import { UserStateInterface } from "../context/UserContext";
+interface UserStateInterface {
+  user: any;
+  // isLogged: boolean;
+}
 
 const UserReducer = (
   state: UserStateInterface,
@@ -9,7 +12,11 @@ const UserReducer = (
       return {
         ...state,
       };
-
+    case "SET_USER":
+      return {
+        ...state,
+        user: action.payload,
+      };
     case "LOGOUT":
       return {
         ...state,
