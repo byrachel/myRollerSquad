@@ -24,6 +24,8 @@ model User {
   refreshTokens RefreshToken[]
   createdAt     DateTime    @default(now())
   updatedAt     DateTime    @updatedAt
+  country       String      @default("France")
+  city          String?
 }
 
 model RefreshToken {
@@ -46,6 +48,11 @@ model Profile {
   pictures      String[]
   my_squad_ids  Int[]
   my_followers  Int[]
+  roller_dance_level Int @default(0)
+  skatepark_level    Int @default(0)
+  artistic_level     Int @default(0)
+  freestyle_level    Int @default(0)
+  urban_level       Int @default(0)
 }
 
 model Comment {

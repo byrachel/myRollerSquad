@@ -5,21 +5,21 @@
   div.cardContainer {
     border-radius: 8px;
     margin-top: 1em;
-
+    border: solid 1px lighten($color: $greyColor, $amount: 20);
     &.blue {
-      border: solid 3px $blueColor;
+      box-shadow: 4px 4px $blueColor;
     }
     &.pink {
-      border: solid 3px $secondaryColor;
+      box-shadow: 4px 4px $secondaryColor;
     }
     &.yellow {
-      border: solid 3px $yellowColor;
+      box-shadow: 4px 4px $yellowColor;
     }
     &.green {
-      border: solid 3px $greenColor;
+      box-shadow: 4px 4px $greenColor;
     }
     &.dark {
-      border: solid 3px $primaryColor;
+      box-shadow: 4px 4px $primaryColor;
     }
 
     .avatarContainer {

@@ -181,13 +181,9 @@ authRouter.get("/api/user", isAuthenticated, async (req: any, res, next) => {
         avatar: true,
         profile: true,
         email: true,
-        posts: {
-          select: {
-            id: true,
-            title: true,
-            content: true,
-          },
-        },
+        country: true,
+        city: true,
+        posts: true,
       },
     });
 
