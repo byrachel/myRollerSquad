@@ -4,6 +4,7 @@ import axios from "axios";
 import RollerStylesbar from "@/components/layouts/RollerStylesBar";
 import UserInfos from "@/components/userProfile/UserInfos";
 import { UserInterface } from "app/interfaces/userInterfaces";
+import RollerSkateLevel from "@/components/userProfile/RollerSkateLevel";
 
 export default function MyAccount() {
   const [myProfile, setMyProfile] = useState<{
@@ -43,7 +44,18 @@ export default function MyAccount() {
     <>
       <RollerStylesbar />
       {myProfile.user ? (
-        <UserInfos user={myProfile.user} />
+        <>
+          <UserInfos user={myProfile.user} />
+          {myProfile.user.profile ? (
+            <RollerSkateLevel
+              rollerDanceLevel={2}
+              skateParkLevel={myProfile.user.profile.skatepark_level}
+              artisticLevel={myProfile.user.profile.artistic_level}
+              freestyleLevel={myProfile.user.profile.freestyle_level}
+              urbanLevel={myProfile.user.profile.urban_level}
+            />
+          ) : null}
+        </>
       ) : myProfile.loading ? (
         <div className="loader" />
       ) : null}

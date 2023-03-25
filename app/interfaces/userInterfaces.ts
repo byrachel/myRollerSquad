@@ -20,5 +20,10 @@ export interface UserInterface {
     pictures: string[];
     social_medias: { instagram: string };
     website: string;
+    roller_dance_level: number;
+    skatepark_level: number;
+    artistic_level: number;
+    urban_level: number;
+    freestyle_level: number;
   } | null;
 }

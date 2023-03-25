@@ -110,6 +110,23 @@
   object-fit: cover;
 }
 
+.rollerLevelContainer {
+  width: 100%;
+  background-color: $primaryColor;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+
+  .rollerStarIcon {
+    fill: $yellowColor;
+  }
+  .rollerNoStarIcon {
+    stroke: lighten($color: $primaryColor, $amount: 20);
+  }
+}
+
 @media (max-width: 700px) {
   .rollerStylesSeparator {
     display: none;
