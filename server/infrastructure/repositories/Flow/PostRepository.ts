@@ -36,9 +36,8 @@ export class PostRepository implements PostRepositoryInterface {
     return posts;
   }
 
-  async createPost(post: CreatePostInterface): Promise<any> {
+  async createPost(post: CreatePostInterface): Promise<PostInterface | null> {
     // let country = "France";
-
     // if (post.location) {
     //   const geocoding = await fetch(
     //     `https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${post.location.latitude}&lon=${post.location.longitude}`
@@ -47,24 +46,31 @@ export class PostRepository implements PostRepositoryInterface {
     //   country = json.address.country;
     // }
 
-    const newPost = await prisma.post.create({
-      data: {
-        title: post.title,
-        content: post.content,
-        hashtags: post.hashtags,
-        created_at: new Date().toISOString(),
-        user_id: post.user_id,
-        category_id: post.category_id,
-        country: post.country,
-        pictures: post.pictures,
-        squad_ids: post.squad_ids,
-        style_id: post.style_id,
-        link: post.link,
-        distance: post.distance,
-        duration: post.duration,
-      },
-    });
-    return newPost;
+    console.log("POST REPOSITORY", post);
+
+    try {
+      const newPost = await prisma.post.create({
+        data: {
+          title: post.title,
+          content: post.content,
+          hashtags: post.hashtags,
+          created_at: post.created_at,
+          user_id: post.user_id,
+          category_id: post.category_id,
+          country: post.country,
+          pictures: post.pictures,
+          squad_ids: post.squad_ids,
+          style_id: post.style_id,
+          link: post.link,
+          distance: post.distance,
+          duration: post.duration,
+        },
+      });
+      return newPost;
+    } catch (err) {
+      console.log("NEW POST ERR", err);
+      return null;
+    }
   }
 
   async getPost(id: number): Promise<PostInterface | null> {

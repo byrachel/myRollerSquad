@@ -21,8 +21,8 @@ export const uploadImage = async (bucket: string, file: any, data: any) => {
   }
 };
 
-export const uploadImages = async (files: any, data: any) => {
-  for (const file of files) {
-    await uploadImage(file.name, file, data);
-  }
-};
+// export const uploadImages = async (bucket: string, files: any, data: any) => {
+//   for (const file of files) {
+//     await uploadImage(bucket, file, data);
+//   }
+// };

@@ -5,8 +5,7 @@ import { PostRepositoryInterface } from "../../repositories/PostRepositoryInterf
 export class CreatePostUseCase {
   constructor(private readonly postRepository: PostRepositoryInterface) {}
 
-  async execute(post: CreatePostInterface): Promise<PostInterface> {
-    const newPost = await this.postRepository.createPost(post);
-    return newPost;
+  async execute(post: CreatePostInterface): Promise<PostInterface | null> {
+    return await this.postRepository.createPost(post);
   }
 }

@@ -45,27 +45,22 @@ flowRouter.post(
       .withMessage("the name must have minimum length of 3")
       .trim()
       .escape(),
-    check("category_id").isNumeric().exists(),
+    check("category_id").exists().withMessage("Category id is missing"),
+    check("user_id").exists().withMessage("User id is missing"),
+    check("content").trim().escape(),
+    check("link").trim().escape(),
   ],
-  // check("content").trim().escape(),
-  // body("title").trim().escape().isLength({ min: 3 }),
-  // body("content").trim().escape(),
-  // body("category_id").isNumeric(),
-  // body("user_id").isNumeric(),
-  // body("link").trim().escape(),
-  // body("hashtags").trim().escape(),
   async (req: Request, res: Response) => {
-    // const errors = validationResult(req);
-    // if (!errors.isEmpty()) {
-    //   return res.status(400).json({ errors: errors.array() });
-    // }
-    console.log("file", req.body.images);
-    console.log("body", req.body);
-    // const post = await postController.addPost(req, res);
-    // if (!post) {
-    //   return res.status(500);
-    // }
-    // return res.status(201).json(post);
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
+    }
+
+    const post = await postController.addPost(req, res);
+    if (!post) {
+      return res.status(500);
+    }
+    return res.status(201).json(post);
   }
 );
 

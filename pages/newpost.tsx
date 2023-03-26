@@ -17,6 +17,7 @@ import Modal from "@/components/layouts/Modal";
 import Editor from "@/components/Editor/Editor";
 import axios from "axios";
 import { PostReducer } from "app/reducers/PostReducer";
+import { NewPostFactory } from "@/components/flow/addPost/NewPostFactory";
 
 export default function newpost() {
   const initialState = {
@@ -57,29 +58,34 @@ export default function newpost() {
         user_id: 1,
         title: target.title.value,
         content: post.content,
-        price:
-          post.category === category.SALE && target.price.value
-            ? target.price.value
-            : null,
+        price: target.price && target.price.value ? target.price.value : null,
         category_id: post.category,
         style_id: post.style,
-        link: target.link.value ? target.link.value : null,
+        link: target.link && target.link.value ? target.link.value : null,
         duration:
-          post.category === category.STORY && target.duration
+          target.duration && target.duration.value
             ? target.duration.value
             : null,
         distance:
-          post.category === category.STORY && target.distance.value
+          target.distance && target.distance.value
             ? parseInt(target.distance.value)
             : null,
         position: post.position ? post.position : null,
         country: post.country ? post.country : null,
+        squad_ids: [],
       };
 
+      const newPostFactory = new NewPostFactory();
+      const newPostToSave = newPostFactory.create(newPost);
+
       const data = new FormData();
-      data.append("data", JSON.stringify(newPost));
+
+      for (const [key, value] of Object.entries(newPostToSave)) {
+        data.append(key, value);
+      }
+
       for (const image of post.pictures) {
-        data.append("images", JSON.stringify(image));
+        data.append("pictures", image);
       }
 
       const token = localStorage.getItem("token");

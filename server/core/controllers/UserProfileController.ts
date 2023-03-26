@@ -11,6 +11,7 @@ export class UserProfileController {
   }
 
   async saveAvatar(userId: number, file: any): Promise<UserInterface | null> {
+    console.log("avatar", file);
     try {
       const buffer = await sharp(file.buffer)
         .resize({ width: 200, height: 200 })

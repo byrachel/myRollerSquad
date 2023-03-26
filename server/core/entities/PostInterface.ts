@@ -1,8 +1,10 @@
+import { UserInterface } from "./UserInterface";
+
 export interface PostInterface {
   id: number;
   title: string;
   content: string;
-  user: any;
+  user?: UserInterface;
   // place: any;
   created_at: Date;
   hashtags: string[];
@@ -11,10 +13,10 @@ export interface PostInterface {
   pictures: string[];
   city: string | null;
   country: string;
-  location?: {
-    latitude: string;
-    longitude: string;
-  };
+  // location?: {
+  //   latitude: string;
+  //   longitude: string;
+  // };
   likes: number;
   // comments: number;
   category_id: number;
@@ -33,12 +35,12 @@ export interface CreatePostInterface {
   pictures: string[];
   // city: string | null;
   country: string;
-  location?: {
-    latitude: string;
-    longitude: string;
-  };
+  // location?: {
+  //   latitude: string;
+  //   longitude: string;
+  // };
   category_id: number;
   style_id: number | null;
-  duration: string;
-  distance: number;
+  duration: string | null;
+  distance: number | null;
 }
