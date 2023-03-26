@@ -9,9 +9,9 @@ import {
   updatePost,
 } from "../core/controllers/flow.controllers";
 import { PostController } from "../core/controllers/PostController";
-import { GetPostsUseCase } from "../use-cases/Flow/getPosts";
-import { CreatePostUseCase } from "../use-cases/Flow/createPost";
-import { GetPostUseCase } from "../use-cases/Flow/getPost";
+import { GetPostsUseCase } from "../core/use-cases/Flow/getPosts";
+import { CreatePostUseCase } from "../core/use-cases/Flow/createPost";
+import { GetPostUseCase } from "../core/use-cases/Flow/getPost";
 
 const flowRouter = express.Router();
 
@@ -25,16 +25,28 @@ const postController = new PostController(
   getPostUseCase
 );
 
+import multer from "multer";
+const upload = multer({ storage: multer.memoryStorage() });
+
+// import AWS from "aws-sdk";
+
+// const s3 = new AWS.S3({
+//   accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+//   secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+//   region: process.env.AWS_REGION,
+// });
+
 flowRouter.post(
   "/api/flow",
-  // [
-  //   check("title")
-  //     .isLength({ min: 3, max: 25 })
-  //     .withMessage("the name must have minimum length of 3")
-  //     .trim()
-  //     .escape(),
-  //   check("category_id").isNumeric(),
-  // ],
+  upload.array("pictures", 5),
+  [
+    check("title")
+      .isLength({ min: 3, max: 25 })
+      .withMessage("the name must have minimum length of 3")
+      .trim()
+      .escape(),
+    check("category_id").isNumeric().exists(),
+  ],
   // check("content").trim().escape(),
   // body("title").trim().escape().isLength({ min: 3 }),
   // body("content").trim().escape(),
@@ -47,13 +59,13 @@ flowRouter.post(
     // if (!errors.isEmpty()) {
     //   return res.status(400).json({ errors: errors.array() });
     // }
-
-    console.log(req.body);
-    const post = await postController.addPost(req, res);
-    if (!post) {
-      return res.status(500);
-    }
-    return res.status(201).json(post);
+    console.log("file", req.body.images);
+    console.log("body", req.body);
+    // const post = await postController.addPost(req, res);
+    // if (!post) {
+    //   return res.status(500);
+    // }
+    // return res.status(201).json(post);
   }
 );
 

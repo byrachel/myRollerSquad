@@ -9,6 +9,7 @@ import flowRouter from "./routes/flow.routes";
 import documentation from "./documentation";
 import prisma from "./infrastructure/prisma/db/client";
 import authRouter from "./routes/auth.routes";
+import userRouter from "./routes/user.routes";
 
 const dev = process.env.NODE_ENV !== "production";
 const app = next({ dev });
@@ -50,6 +51,7 @@ app
     server.use(flowRouter);
     server.use(adminRouter);
     server.use(authRouter);
+    server.use(userRouter);
 
     server.use(
       "/api_documentation",

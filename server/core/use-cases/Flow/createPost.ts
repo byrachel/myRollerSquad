@@ -1,6 +1,6 @@
-import { PostInterface } from "../../core/entities/PostInterface";
-import { CreatePostInterface } from "../../core/entities/PostInterface";
-import { PostRepositoryInterface } from "../../core/repositories/PostRepositoryInterface";
+import { PostInterface } from "../../entities/PostInterface";
+import { CreatePostInterface } from "../../entities/PostInterface";
+import { PostRepositoryInterface } from "../../repositories/PostRepositoryInterface";
 
 export class CreatePostUseCase {
   constructor(private readonly postRepository: PostRepositoryInterface) {}

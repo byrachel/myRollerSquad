@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Image from "next/image";
 
 import Pin from "../../svg/pin.svg";
@@ -64,15 +64,16 @@ export default function UserInfos({ user }: Props) {
           <div className={styles.rollerSkaterAvatarContainer}>
             {user.avatar ? (
               <Image
-                src={user.avatar}
-                alt="Roller Quad"
+                src={`https://mys3rollerpicts.s3.eu-west-3.amazonaws.com/${user.avatar}`}
+                alt="Roller Skater Avatar"
                 className={styles.rollerSkaterAvatar}
                 width={200}
                 height={200}
               />
             ) : (
               <Image
-                src="/img/avatar_myRollerSquad.jpg"
+                // src="/img/avatar_myRollerSquad.jpg"
+                src="https://mys3rollerpicts.s3.eu-west-3.amazonaws.com/1679840613112-_2343b71e-e1d0-4da2-be68-d6d9d79104d8.jpeg"
                 alt="Roller Quad"
                 className={styles.rollerSkaterAvatar}
                 width={200}

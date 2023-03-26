@@ -53,7 +53,7 @@ export default function newpost() {
         payload: true,
       });
     } else {
-      const data = {
+      const newPost = {
         user_id: 1,
         title: target.title.value,
         content: post.content,
@@ -75,14 +75,29 @@ export default function newpost() {
         position: post.position ? post.position : null,
         country: post.country ? post.country : null,
       };
-      axios
-        .post(`/api/flow`, data)
+
+      const data = new FormData();
+      data.append("data", JSON.stringify(newPost));
+      for (const image of post.pictures) {
+        data.append("images", JSON.stringify(image));
+      }
+
+      const token = localStorage.getItem("token");
+
+      axios({
+        method: "post",
+        url: "/api/flow",
+        data: data,
+        headers: {
+          "Content-Type": "multipart/form-data",
+          Authorization: `Bearer ${token}`,
+        },
+        withCredentials: true,
+      })
         .then(resp => console.log("OK >>> ", resp))
         .catch(err => console.log(err));
     }
   };
-
-  console.log(post);
 
   return (
     <>

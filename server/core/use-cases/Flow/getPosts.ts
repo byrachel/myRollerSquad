@@ -1,5 +1,5 @@
-import { PostInterface } from "../../core/entities/PostInterface";
-import { PostRepositoryInterface } from "../../core/repositories/PostRepositoryInterface";
+import { PostInterface } from "../../entities/PostInterface";
+import { PostRepositoryInterface } from "../../repositories/PostRepositoryInterface";
 
 export class GetPostsUseCase {
   constructor(private readonly postRepository: PostRepositoryInterface) {}

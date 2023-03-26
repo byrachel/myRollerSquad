@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
-import { CreatePostUseCase } from "server/use-cases/Flow/createPost";
-import { GetPostUseCase } from "../../use-cases/Flow/getPost";
-import { GetPostsUseCase } from "../../use-cases/Flow/getPosts";
+import { CreatePostUseCase } from "server/core/use-cases/Flow/createPost";
+import { GetPostUseCase } from "../use-cases/Flow/getPost";
+import { GetPostsUseCase } from "../use-cases/Flow/getPosts";
 import { PostInterface } from "../entities/PostInterface";
 
 export class PostController {
