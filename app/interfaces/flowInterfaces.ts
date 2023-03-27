@@ -42,15 +42,15 @@ export interface NewPostInterface {
 export interface NewPostFactoryInterface {
   title: string;
   content: string;
-  hashtags: string[];
+  // hashtags: string[];
   category_id: number;
-  pictures: string[];
+  // pictures: string[];
   link: string | null;
   style_id: number;
   squad_ids: number[];
   user_id: number;
-  distance: number;
-  duration: number;
+  distance: number | null;
+  duration?: number | null;
   country: string;
   position: [number, number] | undefined;
   price: number | null;

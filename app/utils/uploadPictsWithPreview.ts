@@ -21,6 +21,9 @@ export const uploadPictsWithPreview = (e: any, dispatch: any) => {
         file["height"] = image.naturalHeight;
       };
     });
+
+    console.log(files);
+
     dispatch({ type: "SAVE_PICTURES", payload: files });
   }
 };

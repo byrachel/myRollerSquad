@@ -1,9 +1,10 @@
-import { SyntheticEvent } from "react";
+import { SyntheticEvent, useState } from "react";
 import { useRouter } from "next/router";
 import RegularButton from "../buttons/RegularButton";
 
 export default function LoginForm() {
   const router = useRouter();
+  const [displayPassword, setDisplayPassword] = useState(false);
 
   const onSubmit = (event: SyntheticEvent) => {
     event.preventDefault();
@@ -45,16 +46,18 @@ export default function LoginForm() {
         type="text"
         placeholder={"email"}
         name="email"
-        value="test@token.com"
+        defaultValue="byrachel@gmail.com"
         className="input"
       />
 
-      <label>Mot de passe</label>
+      <label onClick={() => setDisplayPassword(prevState => !prevState)}>
+        Mot de passe
+      </label>
       <input
-        type="text"
+        type={displayPassword ? "text" : "password"}
         placeholder={"password"}
         name="password"
-        value="m0tDeP@sse"
+        defaultValue="test"
         className="input"
       />
       <RegularButton type="submit" style="full" text="SE CONNECTER" />

@@ -17,6 +17,7 @@ import Modal from "@/components/layouts/Modal";
 import Editor from "@/components/Editor/Editor";
 import axios from "axios";
 import { PostReducer } from "app/reducers/PostReducer";
+import { NewPostFactory } from "@/components/flow/addPost/NewPostFactory";
 
 export default function newpost() {
   const initialState = {
@@ -53,36 +54,56 @@ export default function newpost() {
         payload: true,
       });
     } else {
-      const data = {
+      const newPost = {
         user_id: 1,
         title: target.title.value,
         content: post.content,
-        price:
-          post.category === category.SALE && target.price.value
-            ? target.price.value
-            : null,
+        price: target.price && target.price.value ? target.price.value : null,
         category_id: post.category,
         style_id: post.style,
-        link: target.link.value ? target.link.value : null,
+        link: target.link && target.link.value ? target.link.value : null,
         duration:
-          post.category === category.STORY && target.duration
+          target.duration && target.duration.value
             ? target.duration.value
             : null,
         distance:
-          post.category === category.STORY && target.distance.value
+          target.distance && target.distance.value
             ? parseInt(target.distance.value)
             : null,
         position: post.position ? post.position : null,
         country: post.country ? post.country : null,
+        squad_ids: [],
       };
-      axios
-        .post(`/api/flow`, data)
+
+      const newPostFactory = new NewPostFactory();
+      const newPostToSave = newPostFactory.create(newPost);
+
+      const data = new FormData();
+
+      for (const [key, value] of Object.entries(newPostToSave)) {
+        data.append(key, value);
+      }
+
+      for (const image of post.pictures) {
+        data.append("pictures", image);
+      }
+
+      const token = localStorage.getItem("token");
+
+      axios({
+        method: "post",
+        url: "/api/flow",
+        data: data,
+        headers: {
+          "Content-Type": "multipart/form-data",
+          Authorization: `Bearer ${token}`,
+        },
+        withCredentials: true,
+      })
         .then(resp => console.log("OK >>> ", resp))
         .catch(err => console.log(err));
     }
   };
-
-  console.log(post);
 
   return (
     <>

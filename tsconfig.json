@@ -18,7 +18,8 @@
     "sourceMap": true,
     "baseUrl": ".",
     "paths": {
-      "@/components/*": ["app/components/*"]
+      "@/components/*": ["app/components/*"],
+      "@/server/*": ["server/*"]
     }
   },
   "ts-node": {
