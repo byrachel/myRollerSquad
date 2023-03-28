@@ -165,7 +165,7 @@ export default function newpost() {
             </div>
             <div className="flexStartNoWrap mt5">
               <label htmlFor="fileInput" className="flowFileInput">
-                <Camera className="fileInputIcon" width={40} height={40} />
+                <Camera className="fileInputIcon" width={42} height={42} />
                 <input
                   id="fileInput"
                   className="input"
@@ -178,8 +178,8 @@ export default function newpost() {
 
               <Map
                 className="newPostPinIcon"
-                width={40}
-                height={40}
+                width={42}
+                height={42}
                 onClick={() => setShowMap(true)}
               />
             </div>

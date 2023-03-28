@@ -111,6 +111,7 @@ input[type="file"] {
 
   .fileInputIcon {
     stroke: $secondaryColor;
+    margin-top: 0.5em;
   }
 }
 
@@ -124,7 +125,7 @@ input[type="file"] {
 }
 
 .newPostPinIcon {
-  margin: 1.4em 0 0 0;
+  margin: 1.8em 0 0 0;
   stroke: $blueColor;
 }
 

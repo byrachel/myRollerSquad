@@ -56,7 +56,7 @@ export default function Card({ post, isLast, newLimit }: Props) {
         </div>
       </div>
       {post.pictures.length > 0 ? (
-        <PicturesSlider urlPict={post.pictures[0]} />
+        <PicturesSlider urlPicts={post.pictures} />
       ) : null}
       <div className="cardContent">
         <div className="cardMeta">
