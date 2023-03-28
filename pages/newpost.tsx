@@ -24,7 +24,7 @@ export default function newpost() {
     loading: false,
     error: { status: false, message: null, input: null },
     category: category.STORY,
-    style: null,
+    style: 0,
     city: null,
     country: "France",
     pictures: [],
@@ -77,6 +77,8 @@ export default function newpost() {
 
       const newPostFactory = new NewPostFactory();
       const newPostToSave = newPostFactory.create(newPost);
+
+      console.log("post to save : ", newPostToSave);
 
       const data = new FormData();
 

@@ -33,6 +33,7 @@ class ResalePost {
   price;
   country;
   category_id;
+  style_id;
   constructor(newPost: NewPostFactoryInterface) {
     this.title = newPost.title;
     this.content = newPost.content;
@@ -40,6 +41,7 @@ class ResalePost {
     this.price = newPost.price;
     this.country = newPost.country;
     this.category_id = newPost.category_id;
+    this.style_id = newPost.style_id;
   }
 }
 

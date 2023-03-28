@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useMemo, useRef } from "react";
 import ReactHtmlParser from "react-html-parser";
 
 import { PostInterface } from "../../../interfaces/flowInterfaces";
@@ -24,6 +24,20 @@ interface Props {
 export default function Card({ post, isLast, newLimit }: Props) {
   const color = cardColor(post.category_id);
   const cardRef = useRef(null);
+
+  console.log(post.content);
+
+  const content = useMemo(() => {
+    if (post.content) {
+      const decoded = post.content
+        .replace(/&lt;/g, "<")
+        .replace(/&gt;/g, ">")
+        .replace(/&#x2F;/g, "/")
+        .replace(/&quot;/g, '"');
+      console.log(decoded);
+      return ReactHtmlParser(`<div>${decoded}</div>`);
+    }
+  }, [post.content]);
 
   useEffect(() => {
     if (!cardRef?.current) return;
@@ -74,7 +88,7 @@ export default function Card({ post, isLast, newLimit }: Props) {
           ))
         : null} */}
         </div>
-        <p>{ReactHtmlParser(post.content)}</p>
+        {content ? content : null}
         {post.link ? (
           <div className="linkContainer">
             <p className="linkText">{post.link}</p>

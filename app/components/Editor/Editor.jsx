@@ -21,67 +21,22 @@ const mycolors = [
   "#f7f7f7", // light
 ];
 
-const modules = {
-  toolbar: [
-    // [
-    //   { header: "1" },
-    //   { header: "2" },
-    //   // { font: [] }
-    // ],
-    [{ size: ["small", false, "large"] }],
-    [
-      {
-        color: [...mycolors, "color-picker"],
-      },
-    ],
-    [
-      {
-        background: [...mycolors, "#FFF", "color-picker"],
-      },
-    ],
-    [("bold", "italic", "underline", "strike", "blockquote")],
-    [
-      { list: "ordered" },
-      { list: "bullet" },
-      // { indent: "-1" },
-      // { indent: "+1" },
-    ],
-    // ["link", "image", "video"],
-    ["clean"],
+const toolbarOptions = [
+  // [{ header: [1, 2, 3, 4, 5, 6, false] }],
+  ["bold", "italic", "underline", "strike"],
+  [
+    { color: [...mycolors, "color-picker"] },
+    { background: [...mycolors, "#FFF", "color-picker"] },
   ],
-  clipboard: {
-    // toggle to add extra line breaks when pasting HTML:
-    matchVisual: false,
-  },
-};
-/*
- * Quill editor formats
- * See https://quilljs.com/docs/formats/
- */
-const formats = [
-  // "header",
-  "font",
-  "size",
-  "bold",
-  "italic",
-  "underline",
-  "strike",
-  "blockquote",
-  "list",
-  "bullet",
-  "indent",
-  // "link",
-  // "image",
-  // "video",
-  "color",
-  "background",
+  [{ list: "ordered" }, { list: "bullet" }],
+  // ["link", "image", "video"],
+  ["clean"],
 ];
 
 export default function Editor({ content, dispatchContent }) {
   return (
     <ReactQuill
-      modules={modules}
-      formats={formats}
+      modules={{ toolbar: toolbarOptions }}
       value={content}
       onChange={value =>
         dispatchContent({
