@@ -30,11 +30,11 @@ export default function UploadAvatar({ avatar }: Props) {
       },
       withCredentials: true,
     })
-      .then(function (response) {
+      .then(response => {
         //handle success
         console.log("OK", response);
       })
-      .catch(function (response) {
+      .catch(response => {
         //handle error
         console.log("err", response);
       });

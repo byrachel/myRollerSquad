@@ -42,7 +42,10 @@ export default function DisplayLocation({
       )
         .then(res => res.json())
         .then(data => {
-          const address = `${data.address.town}, ${data.address.country}`;
+          console.log(data);
+          const address = `${
+            data.address.city ? data.address.city : data.address.municipality
+          }, ${data.address.country}`;
           setLocation(address);
         });
     }

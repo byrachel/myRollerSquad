@@ -163,7 +163,7 @@ export default function newpost() {
                 max-length="50"
               />
             </div>
-            <div className="flexStartNoWrap">
+            <div className="flexStartNoWrap mt5">
               <label htmlFor="fileInput" className="flowFileInput">
                 <Camera className="fileInputIcon" width={40} height={40} />
                 <input

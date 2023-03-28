@@ -20,14 +20,16 @@ userRouter.post(
   async (req: any, res: Response, next: NextFunction) => {
     const { userId } = req.payload;
     if (req.file && userId) {
-      const updatedUser = await userProfileController.saveAvatar(
-        userId,
-        req.file
-      );
-      if (!updatedUser) {
-        return next("Something went wrong : user is not updated");
+      try {
+        const updatedUser = await userProfileController.saveAvatar(
+          userId,
+          req.file
+        );
+        return res.status(200).json({ user: updatedUser });
+      } catch (error) {
+        console.log("ERROR", error);
+        return next(error);
       }
-      return res.status(200).json({ user: updatedUser });
     } else {
       return next("Avatar file or UserId is missing");
     }

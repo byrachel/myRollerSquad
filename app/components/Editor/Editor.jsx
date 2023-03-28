@@ -2,7 +2,6 @@ import dynamic from "next/dynamic";
 // import quillEmoji from "react-quill-emoji";
 const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
 import "react-quill/dist/quill.snow.css";
-// import "react-quill/dist/quill.bubble.css";
 
 // const CustomHeart = () => <span>♥</span>;
 
@@ -11,6 +10,16 @@ import "react-quill/dist/quill.snow.css";
 //   this.quill.insertText(cursorPosition, "♥");
 //   this.quill.setSelection(cursorPosition + 1);
 // }
+
+const mycolors = [
+  "#28152b", //primary
+  "#e4287d", // secondary
+  "#13d1ba", //green
+  "#3abff8", // blue
+  "#feed63", // yellow
+  "#8c8a8a", // grey
+  "#f7f7f7", // light
+];
 
 const modules = {
   toolbar: [
@@ -22,12 +31,12 @@ const modules = {
     [{ size: ["small", false, "large"] }],
     [
       {
-        color: ["#F00", "#0F0", "#00F", "#000", "#FFF", "color-picker"],
+        color: [...mycolors, "color-picker"],
       },
     ],
     [
       {
-        background: ["#F00", "#0F0", "#00F", "#000", "#FFF", "color-picker"],
+        background: [...mycolors, "#FFF", "color-picker"],
       },
     ],
     [("bold", "italic", "underline", "strike", "blockquote")],

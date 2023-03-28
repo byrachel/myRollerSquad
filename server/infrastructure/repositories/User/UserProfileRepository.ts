@@ -16,6 +16,7 @@ export class UserProfileRepository implements UserProfileRepositoryInterface {
         avatar: fileName,
       },
     });
+    console.log("REPO user > ", user);
     return user;
   }
 }

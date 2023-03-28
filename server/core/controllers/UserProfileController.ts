@@ -11,20 +11,17 @@ export class UserProfileController {
   }
 
   async saveAvatar(userId: number, file: any): Promise<UserInterface | null> {
-    console.log("avatar", file);
+    if (!process.env.S3_AVATAR_BUCKET_NAME) return null;
     try {
       const buffer = await sharp(file.buffer)
         .resize({ width: 200, height: 200 })
         .toBuffer();
-
-      if (!process.env.S3_AVATAR_BUCKET_NAME) return null;
 
       const avatar = await uploadImage(
         process.env.S3_AVATAR_BUCKET_NAME,
         file,
         buffer
       );
-
       if (!avatar || !avatar.Key) {
         return null;
       }

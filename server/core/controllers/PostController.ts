@@ -32,30 +32,25 @@ export class PostController {
     const files: any = req.files;
     const resizedImages = [];
 
-    console.log("FILES", files);
-
-    if (files) {
+    try {
       for (const file of files) {
         const buffer = await sharp(file.buffer)
           .resize({ width: 700 })
           .toBuffer();
 
-        if (!process.env.S3_FLOW_BUCKET_NAME) return null;
-
-        const image = await uploadImage(
-          process.env.S3_FLOW_BUCKET_NAME,
-          file,
-          buffer
-        );
-
-        if (!image || !image.Key) {
-          return null;
+        if (process.env.S3_FLOW_BUCKET_NAME) {
+          const image = await uploadImage(
+            process.env.S3_FLOW_BUCKET_NAME,
+            file,
+            buffer
+          );
+          if (!image || !image.Key) {
+            return null;
+          }
+          resizedImages.push(image.Key);
         }
-        resizedImages.push(image.Key);
       }
-    }
 
-    try {
       const newPost = {
         title: req.body.title,
         content: req.body.content,
@@ -80,7 +75,6 @@ export class PostController {
       };
 
       const post = await this.createPostUseCase.execute(newPost);
-
       return post;
     } catch (err) {
       return null;
