@@ -61,16 +61,61 @@
       }
     }
 
-    div.slider {
+    .featuredPict {
       height: auto;
       position: relative;
       width: 100%;
-      .sliderPict {
+      .pict {
         height: 100% !important;
         max-height: 500px;
         object-fit: cover;
         position: relative !important;
         width: 100% !important;
+      }
+      .pictCounter {
+        position: absolute;
+        bottom: 1.5em;
+        right: 1.5em;
+        background-color: white;
+        font-size: $fontSize-md;
+        border-radius: 8px;
+        padding: 0.1em 0.3em;
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+        &.pink {
+          color: $secondaryColor;
+        }
+        &.blue {
+          color: $blueColor;
+        }
+        &.green {
+          color: $greenColor;
+        }
+        &.yellow {
+          color: $yellowColor;
+        }
+        .pictCounterIcon {
+          margin: 0 0.2em 0 0;
+          &.pink {
+            stroke: $secondaryColor;
+          }
+          &.blue {
+            stroke: $blueColor;
+          }
+          &.green {
+            stroke: $greenColor;
+          }
+          &.yellow {
+            stroke: $yellowColor;
+          }
+        }
+      }
+      .pictCounter:hover {
+        color: $primaryColor;
+        .pictCounterIcon {
+          stroke: $primaryColor;
+        }
       }
     }
 

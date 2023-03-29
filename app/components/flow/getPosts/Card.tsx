@@ -6,7 +6,6 @@ import { cardColor } from "../../../utils/colorManager";
 import { displayLightDateTime } from "../../../utils/handleDates";
 
 import Avatar from "./Avatar";
-import PicturesSlider from "./PicturesSlider";
 import LikeIcon from "./LikeIcon";
 import CommentIcon from "./CommentIcon";
 
@@ -14,6 +13,7 @@ import Pin from "../../../svg/pin.svg";
 import Arrow from "../../../svg/nav-arrow-right.svg";
 import { getCategoryName } from "app/constants/PostCategories";
 import { getStyleName } from "app/constants/RollerSkateStyles";
+import CardFeaturedPict from "./CardFeaturedPict";
 
 interface Props {
   post: PostInterface;
@@ -22,10 +22,10 @@ interface Props {
 }
 
 export default function Card({ post, isLast, newLimit }: Props) {
-  const color = cardColor(post.category_id);
+  const color = useMemo(() => cardColor(post.category_id), [post.category_id]);
   const cardRef = useRef(null);
 
-  console.log(post.content);
+  console.log(post);
 
   const content = useMemo(() => {
     if (post.content) {
@@ -34,7 +34,6 @@ export default function Card({ post, isLast, newLimit }: Props) {
         .replace(/&gt;/g, ">")
         .replace(/&#x2F;/g, "/")
         .replace(/&quot;/g, '"');
-      console.log(decoded);
       return ReactHtmlParser(`<div>${decoded}</div>`);
     }
   }, [post.content]);
@@ -70,7 +69,7 @@ export default function Card({ post, isLast, newLimit }: Props) {
         </div>
       </div>
       {post.pictures.length > 0 ? (
-        <PicturesSlider urlPicts={post.pictures} />
+        <CardFeaturedPict urlPicts={post.pictures} color={color} />
       ) : null}
       <div className="cardContent">
         <div className="cardMeta">

@@ -6,7 +6,7 @@ interface Props {
   show: boolean;
   setShow: (arg: boolean) => void;
   children: JSX.Element;
-  title: string;
+  title?: string;
 }
 
 function Modal({ show, setShow, children, title }: Props) {
