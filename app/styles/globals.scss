@@ -74,9 +74,16 @@ blockquote {
   border-left: 3px solid $secondaryColor;
 }
 
-.ql-size-large {
-  font-size: $fontSize-lg;
-  font-weight: bold;
+.editor {
+  position: relative;
+
+  .heartIcon {
+    position: absolute;
+    top: 0.85em;
+    left: 1.1em;
+    stroke: none;
+    fill: $primaryColor;
+  }
 }
 
 .signinContainer {

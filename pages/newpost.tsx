@@ -1,4 +1,4 @@
-import React, { SyntheticEvent, useReducer, useState } from "react";
+import React, { SyntheticEvent, useReducer, useRef, useState } from "react";
 
 import * as category from "app/constants/PostCategories";
 import { rollerSkateStyles } from "app/constants/RollerSkateStyles";
@@ -20,6 +20,8 @@ import { PostReducer } from "app/reducers/PostReducer";
 import { NewPostFactory } from "@/components/flow/addPost/NewPostFactory";
 
 export default function newpost() {
+  const quillRef = useRef(null);
+
   const initialState = {
     loading: false,
     error: { status: false, message: null, input: null },
@@ -202,7 +204,11 @@ export default function newpost() {
           <label>
             {post.category === category.SALE ? "Description" : "Message"}
           </label>
-          <Editor content={post.content} dispatchContent={postDispatch} />
+          <Editor
+            content={post.content}
+            dispatchContent={postDispatch}
+            quillRef={quillRef}
+          />
 
           {post.category === category.STORY ? (
             <div className="spaceBetween">
