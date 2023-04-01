@@ -1,5 +1,5 @@
 import React from "react";
-import Comment from "../../../svg/multi-bubble.svg";
+import Comment from "app/svg/multi-bubble.svg";
 
 interface Props {
   color: string;

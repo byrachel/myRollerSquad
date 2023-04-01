@@ -1,9 +1,6 @@
 import Image from "next/image";
 import React from "react";
 
-import ArrowRight from "../../../svg/arrow-right.svg";
-// import ArrowLeft from "../../../svg/arrow-right.svg";
-
 interface Props {
   urlPicts: string[];
 }

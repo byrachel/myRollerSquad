@@ -1,6 +1,5 @@
 import React, { useState } from "react";
-import Image from "next/image";
-import Star from "../../svg/star.svg";
+import Star from "app/svg/star.svg";
 import styles from "../../styles/Profile.module.scss";
 
 interface Props {

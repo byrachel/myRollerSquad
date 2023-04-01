@@ -36,11 +36,11 @@ export const signIn = async (
     }
 
     const user = await newUserSignIn({ email, password, name });
-    const jti = uuidv4();
+    // const jti = uuidv4();
 
-    const { accessToken, refreshToken } = generateTokens(user, jti);
+    // const { accessToken, refreshToken } = generateTokens(user, jti);
 
-    await addRefreshTokenToWhitelist({ jti, refreshToken, userId: user.id });
+    // await addRefreshTokenToWhitelist({ jti, refreshToken, userId: user.id });
 
     // res.json({
     //   accessToken,
@@ -48,12 +48,13 @@ export const signIn = async (
     // });
 
     res
-      .cookie("refreshToken", refreshToken, {
-        httpOnly: true,
-        sameSite: "strict",
-      })
-      .header("Authorization", accessToken)
-      .send({ message: "User created successfully." });
+      // .cookie("refreshToken", refreshToken, {
+      //   httpOnly: true,
+      //   sameSite: "strict",
+      // })
+      // .header("Authorization", accessToken)
+      .status(201)
+      .send({ user });
   } catch (err) {
     next(err);
   }
@@ -109,80 +110,83 @@ export const login = async (
   }
 };
 
-export const refreshUserToken = async (
+// export const refreshUserToken = async (
+//   req: Request,
+//   res: Response,
+//   next: NextFunction
+// ) => {
+//   try {
+//     // const { refreshToken } = req.body;
+//     const refreshToken = req.cookies["refreshToken"];
+
+//     if (!refreshToken) {
+//       res.status(401);
+//       throw new Error("Missing refresh token.");
+//     }
+//     const payload: any = jwt.verify(
+//       refreshToken,
+//       process.env.JWT_REFRESH_ACCESS_SECRET as string
+//     );
+
+//     console.log("refreshUserToken payload", payload);
+
+//     const savedRefreshToken = await findRefreshTokenById(payload.jti);
+
+//     if (savedRefreshToken && savedRefreshToken.id) {
+//       const hashedToken = hash(refreshToken);
+//       if (hashedToken !== savedRefreshToken.hashedToken) {
+//         res.status(401);
+//         throw new Error("Unauthorized");
+//       }
+
+//       const user = await findUserById(payload.userId);
+//       if (!user) {
+//         res.status(401);
+//         throw new Error("Unauthorized");
+//       }
+
+//       await deleteRefreshToken(savedRefreshToken.id);
+
+//       const jti = uuidv4();
+//       const { accessToken, refreshToken: newRefreshToken } = generateTokens(
+//         user,
+//         jti
+//       );
+
+//       await addRefreshTokenToWhitelist({
+//         jti,
+//         refreshToken: newRefreshToken,
+//         userId: user.id,
+//       });
+
+//       res
+//         .cookie("refreshToken", refreshToken, {
+//           httpOnly: true,
+//           sameSite: "strict",
+//         })
+//         .header("Authorization", accessToken)
+//         .send(user);
+//     } else {
+//       res.status(401);
+//       throw new Error("Unauthorized");
+//     }
+//   } catch (err) {
+//     next(err);
+//   }
+// };
+
+export const logout = async (
   req: Request,
   res: Response,
   next: NextFunction
 ) => {
+  const { userId } = req.body;
+  if (!userId) res.status(400).json({ message: "Missing user id." });
   try {
-    // const { refreshToken } = req.body;
-    const refreshToken = req.cookies["refreshToken"];
-
-    if (!refreshToken) {
-      res.status(401);
-      throw new Error("Missing refresh token.");
-    }
-    const payload: any = jwt.verify(
-      refreshToken,
-      process.env.JWT_REFRESH_ACCESS_SECRET as string
-    );
-
-    const savedRefreshToken = await findRefreshTokenById(payload.jti);
-
-    if (savedRefreshToken && savedRefreshToken.id) {
-      const hashedToken = hash(refreshToken);
-      if (hashedToken !== savedRefreshToken.hashedToken) {
-        res.status(401);
-        throw new Error("Unauthorized");
-      }
-
-      const user = await findUserById(payload.userId);
-      if (!user) {
-        res.status(401);
-        throw new Error("Unauthorized");
-      }
-
-      await deleteRefreshToken(savedRefreshToken.id);
-
-      const jti = uuidv4();
-      const { accessToken, refreshToken: newRefreshToken } = generateTokens(
-        user,
-        jti
-      );
-
-      await addRefreshTokenToWhitelist({
-        jti,
-        refreshToken: newRefreshToken,
-        userId: user.id,
-      });
-
-      res
-        .cookie("refreshToken", refreshToken, {
-          httpOnly: true,
-          sameSite: "strict",
-        })
-        .header("Authorization", accessToken)
-        .send(user);
-    } else {
-      res.status(401);
-      throw new Error("Unauthorized");
-    }
-  } catch (err) {
-    next(err);
-  }
-};
-
-// This endpoint is only for demo purpose.
-// Move this logic where you need to revoke the tokens( for ex, on password reset)
-export const revokeRefreshToken = async (
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => {
-  try {
-    const { userId } = req.body;
     await revokeTokens(userId);
-    res.json({ message: `Tokens revoked for user with id #${userId}` });
+    res
+      .clearCookie("refreshToken", { httpOnly: true })
+      .json({ message: `Tokens revoked for user with id #${userId}` });
   } catch (err) {
     next(err);
   }

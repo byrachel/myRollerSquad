@@ -1,8 +1,12 @@
 import { createContext, useReducer } from "react";
 import UserReducer from "../reducers/UserReducer";
 
-export interface UserStateInterface {
-  user: any;
+interface UserStateInterface {
+  user: {
+    id: number;
+    name: string;
+    role: "ADMIN" | "USER" | "PRO";
+  } | null;
 }
 
 export const initialState: UserStateInterface = {

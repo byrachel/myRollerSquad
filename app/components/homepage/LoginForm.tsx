@@ -1,10 +1,13 @@
-import { SyntheticEvent, useState } from "react";
+import { SyntheticEvent, useContext, useState } from "react";
 import { useRouter } from "next/router";
+import { UserContext } from "app/context/UserContext";
 import RegularButton from "../buttons/RegularButton";
+import axios from "axios";
 
 export default function LoginForm() {
   const router = useRouter();
   const [displayPassword, setDisplayPassword] = useState(false);
+  const { userDispatch } = useContext(UserContext);
 
   const onSubmit = (event: SyntheticEvent) => {
     event.preventDefault();
@@ -19,24 +22,24 @@ export default function LoginForm() {
       password: target.password.value,
     };
 
-    fetch(`/api/login`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(data),
-      //   credentials: "same-origin",
+    axios({
+      method: "post",
+      url: "/api/login",
+      data,
     })
-      .then(res => {
-        const token = res.headers.get("authorization");
+      .then((res: any) => {
+        const token = res.headers["authorization"];
+        const user = res.data.user;
         if (token) {
           localStorage.setItem("token", token);
         }
-        return res.json();
-      })
-      .then(data => {
-        console.log("USER IS LOGGED", data);
+        userDispatch({
+          type: "LOGIN",
+          payload: { user: { name: user.name, id: user.id, role: user.role } },
+        });
         router.push("/flow");
       })
-      .catch(err => console.log(err));
+      .catch((err: any) => console.log(err));
   };
 
   return (

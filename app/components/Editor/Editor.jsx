@@ -1,6 +1,6 @@
 import dynamic from "next/dynamic";
 import { useMemo, useRef } from "react";
-import Heart from "../../svg/heart.svg";
+import Heart from "app/svg/heart.svg";
 import { mycolors, formats } from "./utils";
 import "react-quill/dist/quill.snow.css";
 

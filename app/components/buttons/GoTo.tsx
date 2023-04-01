@@ -1,5 +1,5 @@
 import Link from "next/link";
-import Arrow from "../../svg/nav-arrow-right.svg";
+import Arrow from "app/svg/nav-arrow-right.svg";
 
 interface Props {
   page: string;

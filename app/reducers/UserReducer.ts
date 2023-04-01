@@ -11,6 +11,7 @@ const UserReducer = (
     case "LOGIN":
       return {
         ...state,
+        user: action.payload,
       };
     case "SET_USER":
       return {

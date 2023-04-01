@@ -9,8 +9,8 @@ import Avatar from "./Avatar";
 import LikeIcon from "./LikeIcon";
 import CommentIcon from "./CommentIcon";
 
-import Pin from "../../../svg/pin.svg";
-import Arrow from "../../../svg/nav-arrow-right.svg";
+import Pin from "app/svg/pin.svg";
+import Arrow from "app/svg/nav-arrow-right.svg";
 import { getCategoryName } from "app/constants/PostCategories";
 import { getStyleName } from "app/constants/RollerSkateStyles";
 import CardFeaturedPict from "./CardFeaturedPict";

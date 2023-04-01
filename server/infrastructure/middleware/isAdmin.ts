@@ -4,11 +4,10 @@ import { generateAccessToken, generateRefreshToken } from "./jwt";
 
 interface JwtPayload {
   userId: number;
-  role: "ADMIN" | "USER" | "PRO";
   jti: string;
 }
 
-export function isAuthenticated(req: any, res: Response, next: NextFunction) {
+export function isAdmin(req: any, res: Response, next: NextFunction) {
   const { authorization } = req.headers;
   const accessToken = authorization.split(" ")[1];
   const refreshToken = req.cookies["refreshToken"];
@@ -23,8 +22,6 @@ export function isAuthenticated(req: any, res: Response, next: NextFunction) {
       process.env.JWT_ACCESS_SECRET as string
     );
 
-    console.log("isAnthenticated PAYLOAd", payload);
-
     req.payload = payload;
     req.headers.authorization = accessToken;
     next();
@@ -34,13 +31,13 @@ export function isAuthenticated(req: any, res: Response, next: NextFunction) {
     }
 
     try {
-      const { userId, role, jti } = jwt.verify(
+      const { userId, jti } = jwt.verify(
         refreshToken,
         process.env.JWT_REFRESH_ACCESS_SECRET as string
       ) as JwtPayload;
 
-      const accessToken = generateAccessToken(userId, role);
-      const newRefreshToken = generateRefreshToken(userId, role, jti);
+      const accessToken = generateAccessToken(userId);
+      const newRefreshToken = generateRefreshToken(userId, jti);
 
       if (accessToken && newRefreshToken) {
         req.payload = { userId };

@@ -4,7 +4,8 @@ import prisma from "../infrastructure/prisma/db/client";
 
 import {
   login,
-  refreshUserToken,
+  logout,
+  // refreshUserToken,
   signIn,
 } from "../core/controllers/AuthController";
 
@@ -12,7 +13,8 @@ const authRouter = express.Router();
 
 authRouter.post("/api/register", signIn);
 authRouter.post("/api/login", login);
-authRouter.post("/api/refreshtoken", refreshUserToken);
+authRouter.post("/api/logout", logout);
+// authRouter.post("/api/refreshtoken", refreshUserToken);
 // authRouter.post("/revokeRefreshTokens", revokeRefreshToken);
 
 authRouter.get(

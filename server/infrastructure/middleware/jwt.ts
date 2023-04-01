@@ -1,27 +1,36 @@
+import { UserInterface } from "@/server/core/entities/UserInterface";
 import jwt from "jsonwebtoken";
 
-export function generateAccessToken(userId: number) {
-  return jwt.sign({ userId }, process.env.JWT_ACCESS_SECRET as string, {
+export function generateAccessToken(
+  userId: number,
+  role: "ADMIN" | "USER" | "PRO"
+) {
+  return jwt.sign({ userId, role }, process.env.JWT_ACCESS_SECRET as string, {
     expiresIn: "5m",
   });
 }
 
-export function generateRefreshToken(userId: number, jti: string) {
+export function generateRefreshToken(
+  userId: number,
+  role: "ADMIN" | "USER" | "PRO",
+  jti: string
+) {
   return jwt.sign(
     {
       userId,
+      role,
       jti,
     },
     process.env.JWT_REFRESH_ACCESS_SECRET as string,
     {
-      expiresIn: "7d",
+      expiresIn: "2h",
     }
   );
 }
 
-export function generateTokens(user: any, jti: any) {
-  const accessToken = generateAccessToken(user.id);
-  const refreshToken = generateRefreshToken(user.id, jti);
+export function generateTokens(user: UserInterface, jti: any) {
+  const accessToken = generateAccessToken(user.id, user.role);
+  const refreshToken = generateRefreshToken(user.id, user.role, jti);
 
   return {
     accessToken,

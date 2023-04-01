@@ -1,4 +1,4 @@
-import Star from "../../svg/star.svg";
+import Star from "app/svg/star.svg";
 
 interface Props {
   userFav: boolean;

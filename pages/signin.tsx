@@ -60,7 +60,7 @@ export default function MyAccount() {
                 </p>
               </div>
               <div className="lightSeparator mt5" />
-              <RegisterForm setDisplayRegisterForm={setShowLoginForm} />
+              <RegisterForm />
             </>
           )}
         </div>

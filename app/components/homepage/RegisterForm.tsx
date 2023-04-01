@@ -1,14 +1,13 @@
 import { SyntheticEvent } from "react";
+import { useRouter } from "next/router";
 
 import BigButton from "../buttons/BigButton";
+import axios from "axios";
 
-interface Props {
-  setDisplayRegisterForm: React.Dispatch<any>;
-}
-
-export default function RegisterForm({ setDisplayRegisterForm }: Props) {
+export default function RegisterForm() {
+  const router = useRouter();
   const passwordConstraintsRegex =
-    "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[*.!@$%^&(){}[]:;<>,.?/~_+-=|]).{8,20}$";
+    "^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$";
 
   const onSubmit = (event: SyntheticEvent) => {
     event.preventDefault();
@@ -25,23 +24,20 @@ export default function RegisterForm({ setDisplayRegisterForm }: Props) {
       password: target.password.value,
     };
 
-    fetch(`/api/register`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(data),
+    axios({
+      method: "post",
+      url: "/api/register",
+      data,
     })
-      .then(res => {
-        const token = res.headers.get("authorization");
+      .then((res: any) => {
+        const token = res.headers["authorization"];
+        console.log(token);
         if (token) {
           localStorage.setItem("token", token);
         }
-        return res.json();
+        router.push("/signin");
       })
-      .then(data => {
-        console.log(data);
-        setDisplayRegisterForm(false);
-      })
-      .catch(err => console.log(err));
+      .catch((err: any) => console.log(err));
   };
 
   return (

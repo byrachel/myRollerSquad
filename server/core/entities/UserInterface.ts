@@ -2,7 +2,7 @@ export interface UserInterface {
   id: number;
   email: string;
   name: string;
-  role: string;
+  role: "ADMIN" | "USER" | "PRO";
   profile?: UserProfileInterface;
   // posts         Post[]      @relation("post_author")
   // places        Place[]     @relation("favorite_places")

@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "../../styles/Profile.module.scss";
-import Star from "../../svg/star.svg";
+import Star from "app/svg/star.svg";
 
 export default function RollerStylesbar() {
   return (

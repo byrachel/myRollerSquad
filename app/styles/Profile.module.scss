@@ -34,11 +34,8 @@
     top: 0;
     left: 0;
     margin: 1em 2em;
-    display: grid;
-    grid-template-columns: 1fr 2fr;
-    grid-template-rows: 1fr;
-    gap: 0px 10px;
-    grid-template-areas: ". .";
+    width: 94%;
+    display: flex;
 
     .rollerSkaterAvatarContainer {
       position: relative;
@@ -72,12 +69,27 @@
     }
     .rollerSkaterInfo {
       margin: 1em 0 0 2.5em;
-      h1 {
-        color: white;
-        font-size: $fontSize-xl;
-        font-family: $titleFont;
-        letter-spacing: 0.5px;
+      width: 100%;
+
+      .rollerSkaterName {
+        display: flex;
+        justify-content: space-between;
+        h1 {
+          color: white;
+          font-size: $fontSize-xl;
+          font-family: $titleFont;
+          letter-spacing: 0.5px;
+        }
+        .logoutIcon {
+          cursor: pointer;
+          margin-top: 0.3em;
+          stroke: white;
+        }
+        .logoutIcon:hover {
+          stroke: $secondaryColor;
+        }
       }
+
       .rollerSkaterLocation {
         margin-top: 0.5em;
         p {

@@ -2,20 +2,22 @@ import { useState, useContext } from "react";
 import { useRouter } from "next/router";
 import Image from "next/image";
 import Link from "next/link";
+import axios from "axios";
 
 import { UserContext } from "../../context/UserContext";
 import styles from "../../styles/Header.module.scss";
 
-import UserProfile from "../../svg/profile-circle.svg";
-import MySquad from "../../svg/flash.svg";
-import Menu from "../../svg/menu.svg";
-import Cancel from "../../svg/cancel.svg";
-import axios from "axios";
+import UserProfile from "app/svg/profile-circle.svg";
+import MySquad from "app/svg/flash.svg";
+import Menu from "app/svg/menu.svg";
+import Cancel from "app/svg/cancel.svg";
+import Admin from "app/svg/admin.svg";
 
 export default function Header() {
   const router = useRouter();
-  const { userDispatch } = useContext(UserContext);
+  const { userState, userDispatch } = useContext(UserContext);
   const [displayResponsiveMenu, setDisplayResponsiveMenu] = useState(false);
+  const isAdmin = userState.user ? userState.user.role === "ADMIN" : false;
 
   const goTo = (link: string) => {
     setDisplayResponsiveMenu(false);
@@ -91,6 +93,15 @@ export default function Header() {
                 onClick={() => userLoggedGoTo("/myaccount")}
                 role="button"
               />
+              {isAdmin ? (
+                <Admin
+                  className={styles.icon}
+                  width={38}
+                  height={38}
+                  onClick={() => userLoggedGoTo("/board/manager")}
+                  role="button"
+                />
+              ) : null}
             </div>
           </div>
         </div>
@@ -115,6 +126,14 @@ export default function Header() {
           >
             Mon compte
           </p>
+          {isAdmin ? (
+            <p
+              className={styles.iconText}
+              onClick={() => userLoggedGoTo("/board/manager")}
+            >
+              Manager Board
+            </p>
+          ) : null}
         </div>
       ) : null}
     </>

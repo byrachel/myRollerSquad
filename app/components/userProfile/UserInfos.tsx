@@ -1,18 +1,21 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Image from "next/image";
+import { useRouter } from "next/router";
 
-import Pin from "../../svg/pin.svg";
-import Message from "../../svg/mail.svg";
-import Instagram from "../../svg/instagram.svg";
-import Tiktok from "../../svg/tiktok.svg";
-import Youtube from "../../svg/youtube.svg";
-import Avatar from "../../svg/add-media-image.svg";
+import Pin from "app/svg/pin.svg";
+import Message from "app/svg/mail.svg";
+import Instagram from "app/svg/instagram.svg";
+import Tiktok from "app/svg/tiktok.svg";
+import Youtube from "app/svg/youtube.svg";
+import Avatar from "app/svg/add-media-image.svg";
+import Logout from "app/svg/logout.svg";
 
 import RegularButton from "@/components/buttons/RegularButton";
 import styles from "../../styles/Profile.module.scss";
 import Modal from "../layouts/Modal";
 import UploadAvatar from "./UploadAvatar";
 import { UserInterface } from "app/interfaces/userInterfaces";
+import axios from "axios";
 
 interface Props {
   user: UserInterface;
@@ -21,8 +24,7 @@ interface Props {
 export default function UserInfos({ user }: Props) {
   const [displayNewAvatar, setDisplayNewAvatar] = useState(false);
   const [newAvatarFile, setNewAvatarFile] = useState<any | null>(null);
-
-  console.log("state", newAvatarFile);
+  const router = useRouter();
 
   const newAvatar = async (e: React.ChangeEvent<HTMLInputElement>) => {
     if (!e.target.files) {
@@ -53,6 +55,23 @@ export default function UserInfos({ user }: Props) {
 
       setNewAvatarFile({ file, ...imageDimensions });
       setDisplayNewAvatar(true);
+    }
+  };
+
+  const logout = (userId: number) => {
+    if (userId) {
+      localStorage.removeItem("token");
+      axios({
+        method: "post",
+        url: "/api/logout",
+        data: { userId },
+        withCredentials: true,
+      })
+        .then(res => {
+          console.log(res);
+          router.push("/");
+        })
+        .catch(err => console.log(err));
     }
   };
 
@@ -108,7 +127,15 @@ export default function UserInfos({ user }: Props) {
             </div>
           </div>
           <div className={styles.rollerSkaterInfo}>
-            <h1>{user.name}</h1>
+            <div className={styles.rollerSkaterName}>
+              <h1>{user.name}</h1>
+              <Logout
+                className={styles.logoutIcon}
+                width={28}
+                height={28}
+                onClick={() => logout(user.id)}
+              />
+            </div>
             <div className={styles.rollerSkaterLocation}>
               <p>
                 <Pin className={styles.locationIcon} width={20} height={20} />

@@ -1,5 +1,5 @@
 import React from "react";
-import Heart from "../../../svg/heart.svg";
+import Heart from "app/svg/heart.svg";
 
 interface Props {
   color: string;
