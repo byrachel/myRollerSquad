@@ -34,7 +34,7 @@ export default function Card({ post, isLast, newLimit }: Props) {
         .replace(/&gt;/g, ">")
         .replace(/&#x2F;/g, "/")
         .replace(/&quot;/g, '"');
-      return ReactHtmlParser(`<div>${decoded}</div>`);
+      return ReactHtmlParser(`<div className="content">${decoded}</div>`);
     }
   }, [post.content]);
 

@@ -1,5 +1,5 @@
 import dynamic from "next/dynamic";
-import { useMemo } from "react";
+import { useMemo, useRef } from "react";
 import Heart from "../../svg/heart.svg";
 import { mycolors, formats } from "./utils";
 import "react-quill/dist/quill.snow.css";
@@ -20,7 +20,7 @@ const ReactQuill = dynamic(
 //   ssr: false,
 // });
 
-export default function Editor({ content, dispatchContent, quillRef }) {
+export default function Editor({ content, dispatchContent }) {
   // const CustomHeart = () => <span>♥</span>;
 
   // const HeartButton = () => (
@@ -43,6 +43,8 @@ export default function Editor({ content, dispatchContent, quillRef }) {
   //     Quill.register(CustomButton, true);
   //   }
   // }, [Quill]);
+
+  const quillRef = useRef(null);
 
   const modules = useMemo(
     () => ({

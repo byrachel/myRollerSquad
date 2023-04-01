@@ -3,27 +3,32 @@
 .flowContainer {
   margin: 1em;
   div.cardContainer {
-    border-radius: 8px;
+    border-radius: 6px;
     margin-top: 1em;
-    border: solid 1px lighten($color: $greyColor, $amount: 20);
+
     &.blue {
+      border: solid 1px $blueColor;
       box-shadow: 4px 4px $blueColor;
     }
     &.pink {
+      border: solid 1px $secondaryColor;
       box-shadow: 4px 4px $secondaryColor;
     }
     &.yellow {
+      border: solid 1px $yellowColor;
       box-shadow: 4px 4px $yellowColor;
     }
     &.green {
+      border: solid 1px $greenColor;
       box-shadow: 4px 4px $greenColor;
     }
     &.dark {
+      border: solid 1px $primaryColor;
       box-shadow: 4px 4px $primaryColor;
     }
 
     .avatarContainer {
-      margin: 1em;
+      margin: 0.5em 0.75em 0.5em 0.5em;
 
       .avatar {
         border-radius: 50%;
@@ -31,7 +36,7 @@
     }
 
     div.cardTitle {
-      margin-top: 1em;
+      margin-top: 0.5em;
 
       h2.title {
         font-family: $titleFont;
@@ -120,7 +125,19 @@
     }
 
     div.cardContent {
-      margin: 1em;
+      margin: 0.5em;
+
+      ol {
+        li {
+          margin: 0.5em 0 0 1.25em;
+        }
+      }
+
+      ul {
+        li {
+          margin: 0.5em 0 0 0.25em;
+        }
+      }
 
       div.cardMeta {
         margin: 0 0 1em 0;
@@ -157,7 +174,7 @@
       }
     }
     div.cardIcons {
-      margin: 0 0.8em 0.8em 0.8em;
+      margin: 0.5em;
       display: flex;
       justify-content: space-between;
       .linkIcon {

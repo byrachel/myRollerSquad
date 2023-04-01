@@ -1,42 +1,20 @@
-import React, { SyntheticEvent, useReducer, useRef, useState } from "react";
+import React, { SyntheticEvent, useReducer, useState } from "react";
+import { useRouter } from "next/router";
+import axios from "axios";
 
-import * as category from "app/constants/PostCategories";
-import { rollerSkateStyles } from "app/constants/RollerSkateStyles";
-import { uploadPictsWithPreview } from "app/utils/uploadPictsWithPreview";
-
-import Camera from "app/svg/add-media-image.svg";
-import Map from "app/svg/pin-alt.svg";
-import Pin from "app/svg/pin.svg";
-
+import Sidebar from "@/components/flow/addPost/Sidebar";
 import RegularButton from "@/components/buttons/RegularButton";
-import { NewPostInterface } from "app/interfaces/flowInterfaces";
-import { cardColor } from "app/utils/colorManager";
-import UploadedPicturesPreview from "@/components/layouts/UploadedPicturesPreview";
 import DisplayLocation from "@/components/flow/addPost/DisplayLocation";
 import Modal from "@/components/layouts/Modal";
-import Editor from "@/components/Editor/Editor";
-import axios from "axios";
 import { PostReducer } from "app/reducers/PostReducer";
-import { NewPostFactory } from "@/components/flow/addPost/NewPostFactory";
+import { NewPostFactory } from "@/components/flow/addPost/utils/NewPostFactory";
+import { newPostInitialState } from "@/components/flow/addPost/utils/newPostInitialState";
+import NewPostForm from "@/components/flow/addPost/NewPostForm";
 
 export default function newpost() {
-  const quillRef = useRef(null);
+  const router = useRouter();
 
-  const initialState = {
-    loading: false,
-    error: { status: false, message: null, input: null },
-    category: category.STORY,
-    style: 0,
-    city: null,
-    country: "France",
-    pictures: [],
-    squad: [],
-    displayLocation: false,
-    position: undefined,
-    content: "",
-  } as NewPostInterface;
-
-  const [post, postDispatch] = useReducer(PostReducer, initialState);
+  const [post, postDispatch] = useReducer(PostReducer, newPostInitialState);
   const [showMap, setShowMap] = useState(false);
 
   const onSubmit = async (event: SyntheticEvent) => {
@@ -104,7 +82,10 @@ export default function newpost() {
         },
         withCredentials: true,
       })
-        .then(resp => console.log("OK >>> ", resp))
+        .then(resp => {
+          console.log("OK >>> ", resp);
+          router.push("/flow");
+        })
         .catch(err => console.log(err));
     }
   };
@@ -113,179 +94,14 @@ export default function newpost() {
     <>
       <div className="coloredSeparator" />
       <div className="newPostSpaceBetween">
-        <div className="newPostSidebar">
-          <div className="newPostSidebarText">
-            <h2>Quoi de beau à partager aujourd'hui ?</h2>
-            <ul>
-              <li>Un tuto ou une astuce ?</li>
-              <li>Votre joli set-up !</li>
-              <li>La recherche d'autres pratiquants dans votre région ?</li>
-              <li>L'envie d'organiser un RDV au skatepark ?</li>
-              <li>...</li>
-            </ul>
-            <p className="meta">
-              myRollerSquad est une communauté active & bienveillante de
-              passionnés de roller quad.
-            </p>
-          </div>
-        </div>
+        <Sidebar />
 
         <form onSubmit={onSubmit} className="newPostContainer">
-          <div className="flexStart">
-            {category.flowCategories.map(category => (
-              <div
-                key={category.id}
-                className={
-                  category.id === post.category
-                    ? `badge ${cardColor(category.id)}`
-                    : "outlineBadge grey"
-                }
-                onClick={() =>
-                  postDispatch({
-                    type: "SAVE_CATEGORY",
-                    payload: category.id,
-                  })
-                }
-              >
-                {category.name}
-              </div>
-            ))}
-          </div>
-
-          <div className="spaceBetween">
-            <div style={{ width: "100%" }}>
-              <label htmlFor="text">Titre</label>
-              <input
-                className={
-                  post.error.input === "title" ? "input error" : "input"
-                }
-                name="title"
-                id="text"
-                type="text"
-                required
-                min-length="3"
-                max-length="50"
-              />
-            </div>
-            <div className="flexStartNoWrap mt5">
-              <label htmlFor="fileInput" className="flowFileInput">
-                <Camera className="fileInputIcon" width={42} height={42} />
-                <input
-                  id="fileInput"
-                  className="input"
-                  type="file"
-                  accept="image/*"
-                  multiple
-                  onChange={e => uploadPictsWithPreview(e, postDispatch)}
-                />
-              </label>
-
-              <Map
-                className="newPostPinIcon"
-                width={42}
-                height={42}
-                onClick={() => setShowMap(true)}
-              />
-            </div>
-          </div>
-
-          <UploadedPicturesPreview
-            pictures={post.pictures}
-            dispatch={postDispatch}
+          <NewPostForm
+            post={post}
+            postDispatch={postDispatch}
+            setShowMap={setShowMap}
           />
-
-          {post.country ? (
-            <p className="meta mt5">
-              <Pin width={12} height={12} className="metaIcon" />
-              {post.country}
-            </p>
-          ) : null}
-
-          <label>
-            {post.category === category.SALE ? "Description" : "Message"}
-          </label>
-          <Editor
-            content={post.content}
-            dispatchContent={postDispatch}
-            quillRef={quillRef}
-          />
-
-          {post.category === category.STORY ? (
-            <div className="spaceBetween">
-              <div style={{ width: "100%", marginRight: 5 }}>
-                <label htmlFor="distance">Distance (km)</label>
-                <input
-                  className="input"
-                  name="distance"
-                  id="distance"
-                  type="number"
-                />
-              </div>
-              <div style={{ width: "100%", marginLeft: 5 }}>
-                <label>Durée</label>
-                <input
-                  className="input"
-                  name="duration_hour"
-                  id="duration"
-                  type="time"
-                />
-              </div>
-            </div>
-          ) : null}
-
-          {post.category === category.SALE ? (
-            <>
-              <label htmlFor="price">Prix (€)</label>
-              <input className="input" name="price" id="price" type="number" />
-            </>
-          ) : (
-            <>
-              <label>Choisis ton style</label>
-              <div className="flexStart">
-                {rollerSkateStyles.map(style => (
-                  <div
-                    key={style.id}
-                    className={
-                      style.id === post.style
-                        ? "badge blue"
-                        : "outlineBadge grey"
-                    }
-                    onClick={() =>
-                      postDispatch({
-                        type: "SAVE_STYLE",
-                        payload: style.id,
-                      })
-                    }
-                  >
-                    {style.name}
-                  </div>
-                ))}
-              </div>
-              <label htmlFor="link">Lien</label>
-              <input className="input" name="link" id="link" type="url" />
-            </>
-          )}
-
-          {/* <div className="select">
-          <select
-            id="standard-select"
-            onChange={e => {
-              postDispatch({
-                type: "SAVE_STYLE",
-                payload: e.target.value,
-              });
-            }}
-          >
-            <option>Choisis ton style</option>
-            {rollerSkateStyles.map(style => (
-              <option key={style.id} value={style.id}>
-                {style.name}
-              </option>
-            ))}
-          </select>
-          <span className="focus"></span>
-        </div> */}
-
           <RegularButton type="submit" style="full" text="Publier" />
         </form>
       </div>
