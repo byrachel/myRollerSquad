@@ -12,6 +12,7 @@ import { CategoryController } from "../core/controllers/CategoryController";
 import { CreateCategoryUseCase } from "../core/use-cases/Category/createCategory";
 import { RemoveCategoryUseCase } from "../core/use-cases/Category/removeCategory";
 import { UpdateCategoryUseCase } from "../core/use-cases/Category/updateCategory";
+import { isAdmin } from "../infrastructure/middleware/isAdmin";
 
 const adminRouter = express.Router();
 
@@ -29,6 +30,7 @@ const categoryController = new CategoryController(
 
 adminRouter.get(
   "/api/admin/categories",
+  isAdmin,
   async (req: Request, res: Response, next: NextFunction) => {
     const categories = await categoryController.getCategories();
     if (!categories) {
