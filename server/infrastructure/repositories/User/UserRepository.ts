@@ -30,7 +30,6 @@ export function findUserByEmail(email: string) {
       },
     });
   } catch (e) {
-    // @ts-ignore
     if (e instanceof Prisma.PrismaClientKnownRequestError) {
       console.log("Prisma Code Error = ", e);
       if (e.code === "P2002") {
