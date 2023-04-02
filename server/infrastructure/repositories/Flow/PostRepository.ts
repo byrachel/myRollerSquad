@@ -27,12 +27,16 @@ export class PostRepository implements PostRepositoryInterface {
           created_at: true,
           pictures: true,
           link: true,
-          likes: true,
           // comments: true,
           user: true,
           squad_ids: true,
           city: true,
           country: true,
+          user_likes: {
+            select: {
+              user_id: true,
+            },
+          },
         },
       });
       return posts;
@@ -98,7 +102,6 @@ export class PostRepository implements PostRepositoryInterface {
         created_at: true,
         pictures: true,
         link: true,
-        likes: true,
         // comments: true,
         user: true,
         squad_ids: true,

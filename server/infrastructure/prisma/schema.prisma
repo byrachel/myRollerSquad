@@ -26,6 +26,7 @@ model User {
   updatedAt     DateTime    @updatedAt
   country       String      @default("France")
   city          String?
+  postLiked     PostLiked[] @relation("post_liked")
 }
 
 model RefreshToken {
@@ -84,12 +85,22 @@ model Post {
   country       String
   location      Json?
   views         Int        @default(0)
-  likes         Int        @default(0)
   comments      Comment[]
   category      Category   @relation("post_category", fields: [category_id], references: [id])
   category_id   Int        @default(1)
   style         Style?     @relation("roller_style", fields: [style_id], references: [id])
   style_id      Int?
+  user_likes    PostLiked[] @relation("user_likes")
+}
+
+model PostLiked {
+  id            Int       @id @default(autoincrement())
+  user          User      @relation("post_liked", fields: [user_id], references: [id])
+  user_id       Int
+  post          Post      @relation("user_likes",fields: [post_id], references: [id])
+  post_id       Int
+  created_at    DateTime  @default(now())
+  @@unique([user_id, post_id])
 }
 
 model Category {

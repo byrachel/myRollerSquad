@@ -55,6 +55,7 @@ authRouter.get(
 authRouter.get("/api/user", isAuthenticated, async (req: any, res, next) => {
   try {
     const { userId } = req.payload;
+    console.log("USER ID", userId);
 
     const userDetails = await prisma.user.findUnique({
       where: {
@@ -72,6 +73,8 @@ authRouter.get("/api/user", isAuthenticated, async (req: any, res, next) => {
         posts: true,
       },
     });
+
+    console.log("USER DETAILS", userDetails);
 
     const accessToken = req.headers.authorization;
     const refreshToken = req.cookies.refreshToken;

@@ -5,12 +5,13 @@ import { useEffect, useState } from "react";
 const withAuth = (Component: any) => {
   const AuthenticatedComponent = () => {
     const router = useRouter();
-    const [data, setData] = useState();
+    const [user, setUser] = useState({});
 
     useEffect(() => {
       const token = localStorage.getItem("token")
         ? localStorage.getItem("token")
         : "_";
+      console.log(token);
       axios(`/api/user`, {
         method: "GET",
         headers: {
@@ -25,12 +26,12 @@ const withAuth = (Component: any) => {
             localStorage.setItem("token", token);
           }
           // userDispatch({ type: "SET_USER", payload: res.data.user });
-          setData(res.data.user);
+          setUser(res.data.user);
         })
-        .catch(err => router.push("/signin"));
+        .catch(() => router.push("/signin"));
     }, []);
 
-    return data ? <Component data={data} /> : null;
+    return user ? <Component user={user} /> : null;
   };
 
   return AuthenticatedComponent;

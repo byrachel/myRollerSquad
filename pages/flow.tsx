@@ -5,6 +5,7 @@ import NewPostBar from "app/components/layouts/NewPostBar";
 import { PostInterface } from "app/interfaces/flowInterfaces";
 import axios from "axios";
 import withAuth from "app/utils/withAuth";
+import { UserInterface } from "app/interfaces/userInterfaces";
 
 const breakpointColumnsObj = {
   default: 2,
@@ -17,13 +18,14 @@ const Flow = () => {
   const [refetch, setRefetch] = useState(0);
 
   const fetchPosts = () => {
+    const token = localStorage.getItem("token");
     axios({
       method: "get",
-      url: `http://localhost:3000/api/flow/${cursor}`,
-      // headers: {
-      //   Authorization: `Bearer ${token}`,
-      // },
-      // withCredentials: true,
+      url: `/api/flow/${cursor}`,
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+      withCredentials: true,
     })
       .then(res => {
         setPosts([...posts, ...res.data.posts]);

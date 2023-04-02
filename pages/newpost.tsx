@@ -10,8 +10,14 @@ import { PostReducer } from "app/reducers/PostReducer";
 import { NewPostFactory } from "@/components/flow/addPost/utils/NewPostFactory";
 import { newPostInitialState } from "@/components/flow/addPost/utils/newPostInitialState";
 import NewPostForm from "@/components/flow/addPost/NewPostForm";
+import { UserInterface } from "app/interfaces/userInterfaces";
+import withAuth from "app/utils/withAuth";
 
-export default function newpost() {
+interface Props {
+  user: UserInterface;
+}
+
+const NewPost = ({ user }: Props) => {
   const router = useRouter();
 
   const [post, postDispatch] = useReducer(PostReducer, newPostInitialState);
@@ -35,7 +41,7 @@ export default function newpost() {
       });
     } else {
       const newPost = {
-        user_id: 1,
+        user_id: user.id,
         title: target.title.value,
         content: post.content,
         price: target.price && target.price.value ? target.price.value : null,
@@ -82,10 +88,7 @@ export default function newpost() {
         },
         withCredentials: true,
       })
-        .then(resp => {
-          console.log("OK >>> ", resp);
-          router.push("/flow");
-        })
+        .then(() => router.push("/flow"))
         .catch(err => console.log(err));
     }
   };
@@ -114,4 +117,5 @@ export default function newpost() {
       </Modal>
     </>
   );
-}
+};
+export default withAuth(NewPost);

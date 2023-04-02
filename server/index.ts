@@ -37,17 +37,6 @@ app
       res.json(users);
     });
 
-    server.post("/api/user", async (req, res) => {
-      const { email, name } = req.body;
-      const result = await prisma.user.create({
-        data: {
-          email,
-          name,
-        },
-      });
-      return res.status(200).json(result);
-    });
-
     server.use(flowRouter);
     server.use(adminRouter);
     server.use(authRouter);

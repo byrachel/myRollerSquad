@@ -28,7 +28,6 @@ export const getAllPosts = async (
         created_at: true,
         pictures: true,
         link: true,
-        likes: true,
         comments: true,
         user: true,
         squad_ids: true,

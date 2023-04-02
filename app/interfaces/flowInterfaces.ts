@@ -12,7 +12,7 @@ export interface PostInterface {
   city?: string;
   country: string;
   user: { id: number; name: string };
-  likes: number;
+  user_likes: any[];
   comments: any[];
 }
 

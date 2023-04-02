@@ -98,7 +98,11 @@ export default function Card({ post, isLast, newLimit }: Props) {
       </div>
       <div className="cardIcons">
         <div className="cardSocialIcons">
-          <LikeIcon color={color} counter={post.likes} />
+          <LikeIcon
+            color={color}
+            counter={post.user_likes.length}
+            postId={post.id}
+          />
           {/* TO UPDATE !!! */}
           <CommentIcon color={color} counter={2} />
         </div>

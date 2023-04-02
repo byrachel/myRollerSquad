@@ -17,7 +17,6 @@ export interface PostInterface {
   //   latitude: string;
   //   longitude: string;
   // };
-  likes: number;
   // comments: number;
   category_id: number;
   style_id: number | null;

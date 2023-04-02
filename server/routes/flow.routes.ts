@@ -27,6 +27,7 @@ const postController = new PostController(
 
 import multer from "multer";
 import { isAuthenticated } from "../infrastructure/middleware/isAuthenticated";
+import prisma from "../infrastructure/prisma/db/client";
 const upload = multer({ storage: multer.memoryStorage() });
 
 // import AWS from "aws-sdk";
@@ -63,6 +64,38 @@ flowRouter.post(
       return res.status(500);
     }
     return res.status(201).json(post);
+  }
+);
+
+flowRouter.post(
+  "/api/post/like/:id",
+  isAuthenticated,
+  async (req: any, res: Response, next: NextFunction) => {
+    const id = parseInt(req.params.id);
+    if (!id) return res.status(400).json({ message: "Post ID is missing" });
+    const postExists = await prisma.post.findUnique({ where: { id } });
+    if (!postExists) return res.status(404).json({ message: "Post not found" });
+    const userId = req.payload.userId;
+    const userExists = await prisma.user.findUnique({ where: { id: userId } });
+    if (!userExists) return res.status(404).json({ message: "User not found" });
+    const userLiked = await prisma.postLiked.findUnique({
+      where: {
+        user_id_post_id: {
+          user_id: userId,
+          post_id: id,
+        },
+      },
+    });
+    if (userLiked)
+      return res.status(400).json({ message: "You already like this post !" });
+    const postIsLiked = await prisma.postLiked.create({
+      data: {
+        user_id: userId,
+        post_id: id,
+      },
+    });
+    if (!postIsLiked) return res.status(500).json({ message: "oups" });
+    return res.status(200).json({ message: "Post liked" });
   }
 );
 
