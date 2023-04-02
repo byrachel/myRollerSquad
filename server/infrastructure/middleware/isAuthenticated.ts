@@ -23,8 +23,6 @@ export function isAuthenticated(req: any, res: Response, next: NextFunction) {
       process.env.JWT_ACCESS_SECRET as string
     );
 
-    console.log("isAnthenticated PAYLOAd", payload);
-
     req.payload = payload;
     req.headers.authorization = accessToken;
     next();

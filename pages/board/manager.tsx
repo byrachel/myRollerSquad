@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import styles from "app/styles/AdminLayout.module.scss";
+import CategoriesBoard from "@/components/admin/CategoriesBoard";
 
 const CATEGORIES = 1;
 const STYLES = 2;
@@ -53,6 +54,9 @@ export default function Manager() {
         </div>
         <div className={styles.adminContent}>
           <h2>{componentToDisplay}</h2>
+          {componentToDisplay === CATEGORIES && (
+            <CategoriesBoard token={token} />
+          )}
         </div>
       </div>
     </>
