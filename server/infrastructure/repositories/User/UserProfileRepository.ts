@@ -1,22 +1,31 @@
-import prisma from "../../prisma/db/client";
+import db from "../../prisma/db/client";
 import { UserInterface } from "server/core/entities/UserInterface";
 import { UserProfileRepositoryInterface } from "server/core/repositories/UserProfileRepositoryInterface";
+import { Prisma } from "@prisma/client";
+// import { PrismaErrorInterface } from "@/server/core/entities/ErrorInterface";
 
 export class UserProfileRepository implements UserProfileRepositoryInterface {
   async saveUserAvatar(
     userId: number,
     fileName: string
-  ): Promise<UserInterface | null> {
-    if (!userId || !fileName) return null;
-    const user = await prisma.user.update({
-      where: {
-        id: userId,
-      },
-      data: {
-        avatar: fileName,
-      },
-    });
-    console.log("REPO user > ", user);
-    return user;
+  ): Promise<UserInterface | any> {
+    try {
+      if (!userId || !fileName)
+        return { status: 400, message: "Une erreur est survenue" };
+      const user = await db.user.update({
+        where: {
+          id: userId,
+        },
+        data: {
+          avatar: fileName,
+        },
+      });
+      return user ? user : { status: 400, message: "Une erreur est survenue" };
+    } catch (e) {
+      if (e instanceof Prisma.PrismaClientKnownRequestError) {
+        console.log("Prisma Code Error = ", e);
+        return { status: 400, message: "Une erreur est survenue" };
+      }
+    }
   }
 }

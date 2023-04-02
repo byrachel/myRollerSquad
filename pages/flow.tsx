@@ -3,22 +3,33 @@ import Masonry from "react-masonry-css";
 import Card from "app/components/flow/getPosts/Card";
 import NewPostBar from "app/components/layouts/NewPostBar";
 import { PostInterface } from "app/interfaces/flowInterfaces";
+import axios from "axios";
+import withAuth from "app/utils/withAuth";
 
 const breakpointColumnsObj = {
   default: 2,
   700: 1,
 };
 
-export default function Flow() {
+const Flow = () => {
   const [cursor, setCursor] = useState(0);
   const [posts, setPosts] = useState<PostInterface[]>([]);
   const [refetch, setRefetch] = useState(0);
 
-  const fetchPosts = async () => {
-    const response = await fetch(`http://localhost:3000/api/flow/${cursor}`);
-    const data = await response.json();
-    setPosts([...posts, ...data.posts]);
-    setCursor(data.nextId);
+  const fetchPosts = () => {
+    axios({
+      method: "get",
+      url: `http://localhost:3000/api/flow/${cursor}`,
+      // headers: {
+      //   Authorization: `Bearer ${token}`,
+      // },
+      // withCredentials: true,
+    })
+      .then(res => {
+        setPosts([...posts, ...res.data.posts]);
+        setCursor(res.data.nextId);
+      })
+      .catch(err => console.log(err));
   };
 
   useEffect(() => {
@@ -48,4 +59,5 @@ export default function Flow() {
       </div>
     </>
   );
-}
+};
+export default withAuth(Flow);

@@ -26,6 +26,7 @@ const postController = new PostController(
 );
 
 import multer from "multer";
+import { isAuthenticated } from "../infrastructure/middleware/isAuthenticated";
 const upload = multer({ storage: multer.memoryStorage() });
 
 // import AWS from "aws-sdk";
@@ -38,6 +39,7 @@ const upload = multer({ storage: multer.memoryStorage() });
 
 flowRouter.post(
   "/api/flow",
+
   upload.array("pictures", 5),
   [
     check("title")
@@ -64,18 +66,27 @@ flowRouter.post(
   }
 );
 
-flowRouter.get("/api/flow/:cursor", async (req: Request, res: Response) => {
-  const cursor = req.params.cursor ? parseInt(req.params.cursor) : 0;
-  const limit = 4;
-  const posts = await postController.getPosts(cursor, limit);
-  if (!posts) {
-    return res.status(500);
+flowRouter.get(
+  "/api/flow/:cursor",
+  isAuthenticated,
+  async (req: Request, res: Response, next: NextFunction) => {
+    if (!req.params.cursor || req.params.cursor === "undefined")
+      return res.status(200).json({ posts: [] });
+    try {
+      const cursor = parseInt(req.params.cursor);
+      const limit = 4;
+      const posts = await postController.getPosts(cursor, limit);
+      if (!posts) return res.status(200).json({ posts: [] });
+      return res.status(200).json({
+        posts,
+        nextId: posts.length === limit ? posts[limit - 1].id : undefined,
+      });
+    } catch (err) {
+      console.log("FLOW", err);
+      next(err);
+    }
   }
-  return res.status(200).json({
-    posts,
-    nextId: posts.length === limit ? posts[limit - 1].id : undefined,
-  });
-});
+);
 
 flowRouter.get(
   "/api/post/:id",

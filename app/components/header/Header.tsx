@@ -2,7 +2,6 @@ import { useState, useContext } from "react";
 import { useRouter } from "next/router";
 import Image from "next/image";
 import Link from "next/link";
-import axios from "axios";
 
 import { UserContext } from "../../context/UserContext";
 import styles from "../../styles/Header.module.scss";
@@ -15,34 +14,13 @@ import Admin from "app/svg/admin.svg";
 
 export default function Header() {
   const router = useRouter();
-  const { userState, userDispatch } = useContext(UserContext);
+  const { userState } = useContext(UserContext);
   const [displayResponsiveMenu, setDisplayResponsiveMenu] = useState(false);
   const isAdmin = userState.user ? userState.user.role === "ADMIN" : false;
 
   const goTo = (link: string) => {
     setDisplayResponsiveMenu(false);
     router.push(link);
-  };
-
-  const userLoggedGoTo = (link: string) => {
-    const token = localStorage.getItem("token");
-    axios(`/api/islogged`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-      withCredentials: true,
-    })
-      .then(res => {
-        const token = res.headers["authorization"];
-        if (token) {
-          localStorage.setItem("token", token);
-        }
-        userDispatch({ type: "SET_USER", payload: res.data.user });
-        router.push(link);
-      })
-      .catch(() => router.push("/signin"));
   };
 
   return (
@@ -83,14 +61,14 @@ export default function Header() {
                 className={styles.icon}
                 width={42}
                 height={42}
-                onClick={() => userLoggedGoTo("/flow")}
+                onClick={() => goTo("/flow")}
                 role="button"
               />
               <UserProfile
                 className={styles.icon}
                 width={38}
                 height={38}
-                onClick={() => userLoggedGoTo("/myaccount")}
+                onClick={() => goTo("/myaccount")}
                 role="button"
               />
               {isAdmin ? (
@@ -98,7 +76,7 @@ export default function Header() {
                   className={styles.icon}
                   width={38}
                   height={38}
-                  onClick={() => userLoggedGoTo("/board/manager")}
+                  onClick={() => goTo("/board/manager")}
                   role="button"
                 />
               ) : null}
@@ -114,22 +92,16 @@ export default function Header() {
           <p className={styles.iconText} onClick={() => goTo("/places")}>
             Annuaire
           </p>
-          <p
-            className={styles.iconText}
-            onClick={() => userLoggedGoTo("/flow")}
-          >
+          <p className={styles.iconText} onClick={() => goTo("/flow")}>
             My Roller Squad
           </p>
-          <p
-            className={styles.iconText}
-            onClick={() => userLoggedGoTo("/myaccount")}
-          >
+          <p className={styles.iconText} onClick={() => goTo("/myaccount")}>
             Mon compte
           </p>
           {isAdmin ? (
             <p
               className={styles.iconText}
-              onClick={() => userLoggedGoTo("/board/manager")}
+              onClick={() => goTo("/board/manager")}
             >
               Manager Board
             </p>

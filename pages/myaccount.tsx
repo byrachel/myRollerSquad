@@ -5,8 +5,9 @@ import RollerStylesbar from "@/components/layouts/RollerStylesBar";
 import UserInfos from "@/components/userProfile/UserInfos";
 import { UserInterface } from "app/interfaces/userInterfaces";
 import RollerSkateLevel from "@/components/userProfile/RollerSkateLevel";
+import withAuth from "app/utils/withAuth";
 
-export default function MyAccount() {
+const MyAccount = () => {
   const [myProfile, setMyProfile] = useState<{
     loading: boolean;
     error: boolean;
@@ -61,4 +62,5 @@ export default function MyAccount() {
       ) : null}
     </>
   );
-}
+};
+export default withAuth(MyAccount);

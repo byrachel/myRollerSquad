@@ -3,6 +3,10 @@ import { UserInterface } from "../entities/UserInterface";
 import { SaveAvatarUseCase } from "../use-cases/User/saveAvatarUseCase";
 import { uploadImage } from "../../infrastructure/middleware/imageUpload";
 
+interface ResponseError extends Error {
+  status?: number;
+}
+
 export class UserProfileController {
   private saveAvatarUseCase: SaveAvatarUseCase;
 
@@ -10,7 +14,7 @@ export class UserProfileController {
     this.saveAvatarUseCase = saveAvatarUseCase;
   }
 
-  async saveAvatar(userId: number, file: any): Promise<UserInterface | null> {
+  async saveAvatar(userId: number, file: any): Promise<UserInterface | any> {
     if (!process.env.S3_AVATAR_BUCKET_NAME) return null;
     try {
       const buffer = await sharp(file.buffer)
@@ -23,11 +27,19 @@ export class UserProfileController {
         buffer
       );
       if (!avatar || !avatar.Key) {
-        return null;
+        let err = new Error(
+          "Une erreur s'est produite. L'avatar n'a pas pu être sauvegardé."
+        ) as ResponseError;
+        err.status = 400;
+        throw err;
       }
       return await this.saveAvatarUseCase.execute(userId, avatar.Key);
     } catch (error) {
-      return null;
+      let err = new Error(
+        "Une erreur s'est produite. L'avatar n'a pas pu être sauvegardé."
+      ) as ResponseError;
+      err.status = 400;
+      throw err;
     }
   }
 }

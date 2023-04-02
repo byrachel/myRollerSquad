@@ -13,10 +13,7 @@ import {
   findUserById,
 } from "../../infrastructure/repositories/User/UserRepository";
 import { generateTokens } from "../../infrastructure/middleware/jwt";
-
-interface ResponseError extends Error {
-  status?: number;
-}
+import { ErrorInterface } from "../entities/ErrorInterface";
 
 export const signIn = async (
   req: Request,
@@ -28,7 +25,7 @@ export const signIn = async (
     if (!email || !password || !name) {
       let error = new Error(
         "Une erreur s'est produite. Veuillez vérifier que tous les champs obligatoires soient bien saisis."
-      ) as ResponseError;
+      ) as ErrorInterface;
       error.status = 400;
       throw error;
     }
@@ -49,7 +46,7 @@ export const login = async (
     if (!email || !password) {
       let error = new Error(
         "L'identifiant ou le mot de passe est manquant."
-      ) as ResponseError;
+      ) as ErrorInterface;
       error.status = 400;
       throw error;
     }
@@ -65,7 +62,7 @@ export const login = async (
       if (!validPassword) {
         let error = new Error(
           "L'identifiant ou le mot de passe est incorrect."
-        ) as ResponseError;
+        ) as ErrorInterface;
         error.status = 400;
         throw error;
       }
@@ -88,7 +85,7 @@ export const login = async (
     } else {
       let error = new Error(
         "L'identifiant ou le mot de passe est incorrect."
-      ) as ResponseError;
+      ) as ErrorInterface;
       error.status = 400;
       throw error;
     }
@@ -169,7 +166,7 @@ export const logout = async (
 ) => {
   const { userId } = req.body;
   if (!userId) {
-    let error = new Error("Une erreur s'est produite.") as ResponseError;
+    let error = new Error("Une erreur s'est produite.") as ErrorInterface;
     error.status = 400;
     throw error;
   }

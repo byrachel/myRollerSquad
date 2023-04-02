@@ -1,6 +1,7 @@
 import { NextFunction, Response } from "express";
 import jwt from "jsonwebtoken";
 import { generateAccessToken, generateRefreshToken } from "./jwt";
+import { ErrorInterface } from "../../core/entities/ErrorInterface";
 
 interface JwtPayload {
   userId: number;
@@ -10,7 +11,7 @@ interface JwtPayload {
 
 export function isAuthenticated(req: any, res: Response, next: NextFunction) {
   const { authorization } = req.headers;
-  const accessToken = authorization.split(" ")[1];
+  const accessToken = authorization?.split(" ")[1];
   const refreshToken = req.cookies["refreshToken"];
 
   if (!accessToken && !refreshToken) {
@@ -50,7 +51,12 @@ export function isAuthenticated(req: any, res: Response, next: NextFunction) {
         return res.status(417).send("Access Token Not generated !");
       }
     } catch (error) {
-      return res.status(400).send("Invalid Token.");
+      console.log("isAuthenticated >> ", error);
+      let err = new Error(
+        "Veuillez vous reconnecter pour accéder à cette ressource."
+      ) as ErrorInterface;
+      err.status = 400;
+      throw err;
     }
   }
 }

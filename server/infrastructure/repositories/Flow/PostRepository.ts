@@ -4,36 +4,46 @@ import {
 } from "../../../core/entities/PostInterface";
 import { PostRepositoryInterface } from "../../../core/repositories/PostRepositoryInterface";
 import prisma from "../../prisma/db/client";
+import { Prisma } from "@prisma/client";
 
 export class PostRepository implements PostRepositoryInterface {
   async getPosts(cursor: number, limit: number): Promise<PostInterface[]> {
-    const cursorObj = cursor === 0 ? undefined : { id: cursor };
-    const posts = await prisma.post.findMany({
-      skip: cursor > 0 ? 1 : 0,
-      cursor: cursorObj,
-      take: limit,
-      orderBy: {
-        created_at: "desc",
-      },
-      select: {
-        id: true,
-        title: true,
-        content: true,
-        category_id: true,
-        style_id: true,
-        hashtags: true,
-        created_at: true,
-        pictures: true,
-        link: true,
-        likes: true,
-        // comments: true,
-        user: true,
-        squad_ids: true,
-        city: true,
-        country: true,
-      },
-    });
-    return posts;
+    try {
+      const cursorObj = cursor === 0 ? undefined : { id: cursor };
+      const posts = await prisma.post.findMany({
+        skip: cursor > 0 ? 1 : 0,
+        cursor: cursorObj,
+        take: limit,
+        orderBy: {
+          created_at: "desc",
+        },
+        select: {
+          id: true,
+          title: true,
+          content: true,
+          category_id: true,
+          style_id: true,
+          hashtags: true,
+          created_at: true,
+          pictures: true,
+          link: true,
+          likes: true,
+          // comments: true,
+          user: true,
+          squad_ids: true,
+          city: true,
+          country: true,
+        },
+      });
+      return posts;
+    } catch (e) {
+      if (e instanceof Prisma.PrismaClientKnownRequestError) {
+        console.log("Prisma Code Error = ", e);
+        throw new Error("Les données ne cont pas accessibles pour le moment.");
+      } else {
+        throw new Error("Les données ne cont pas accessibles pour le moment.");
+      }
+    }
   }
 
   async createPost(post: CreatePostInterface): Promise<PostInterface | null> {

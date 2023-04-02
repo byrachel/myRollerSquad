@@ -15,11 +15,9 @@ interface Props {
 export default function UploadAvatar({ avatar }: Props) {
   const saveThisAvatar = () => {
     if (!avatar) return;
-    console.log("save this avatar", avatar);
     const token = localStorage.getItem("token");
     const data = new FormData();
     data.append("avatar", avatar.file);
-    // data.append('userName', 'Fred');
     axios({
       method: "post",
       url: "/api/avatar",
