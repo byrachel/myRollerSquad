@@ -115,3 +115,23 @@ div.inline {
     stroke: $yellowColor;
   }
 }
+
+.errorBox {
+  border: solid 2px $redColor;
+  padding: 1em;
+  margin: 1.5em 0;
+  border-radius: 5px;
+  display: flex;
+  justify-content: space-between;
+  p {
+    font-family: $textFont;
+    font-size: $fontSize-md;
+    font-weight: 300;
+  }
+  .closeErrorBox {
+    color: $redColor;
+    cursor: pointer;
+    font-family: $titleFont;
+    transition: fill 0.2s ease-in-out;
+  }
+}

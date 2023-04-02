@@ -59,12 +59,13 @@ app
       swaggerUI.setup(documentation, { explorer: true })
     );
 
-    server.use((err: any, req: Request, res: Response, next: NextFunction) => {
-      res.status(err.status || 500).json({
-        status: false,
-        message: err.message,
-      });
-    });
+    server.use(
+      (error: any, req: Request, res: Response, next: NextFunction) => {
+        console.log("ERROR HANDLER >> ", error);
+        const status = error.status || 500;
+        res.status(status).send({ message: error.message });
+      }
+    );
 
     server.get("*", (req: Request, res: Response) => {
       return handle(req, res);

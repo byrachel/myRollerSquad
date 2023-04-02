@@ -3,10 +3,12 @@ import { useRouter } from "next/router";
 import { UserContext } from "app/context/UserContext";
 import RegularButton from "../buttons/RegularButton";
 import axios from "axios";
+import ErrorLayout from "../layouts/ErrorLayout";
 
 export default function LoginForm() {
   const router = useRouter();
   const [displayPassword, setDisplayPassword] = useState(false);
+  const [error, setError] = useState({ status: false, message: "" });
   const { userDispatch } = useContext(UserContext);
 
   const onSubmit = (event: SyntheticEvent) => {
@@ -39,11 +41,21 @@ export default function LoginForm() {
         });
         router.push("/flow");
       })
-      .catch((err: any) => console.log(err));
+      .catch((err: any) => {
+        console.log(err);
+        setError({ status: true, message: err.response.data.message });
+      });
   };
 
   return (
     <form onSubmit={onSubmit}>
+      {error ? (
+        <ErrorLayout
+          error={error.status}
+          message={error.message}
+          setError={setError}
+        />
+      ) : null}
       <label>Identifiant (email)</label>
       <input
         type="text"
@@ -51,6 +63,7 @@ export default function LoginForm() {
         name="email"
         defaultValue="byrachel@gmail.com"
         className="input"
+        required
       />
 
       <label onClick={() => setDisplayPassword(prevState => !prevState)}>
@@ -62,6 +75,7 @@ export default function LoginForm() {
         name="password"
         defaultValue="test"
         className="input"
+        required
       />
       <RegularButton type="submit" style="full" text="SE CONNECTER" />
     </form>

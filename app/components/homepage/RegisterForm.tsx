@@ -1,16 +1,19 @@
-import { SyntheticEvent } from "react";
+import { SyntheticEvent, useState } from "react";
 import { useRouter } from "next/router";
 
 import BigButton from "../buttons/BigButton";
 import axios from "axios";
+import ErrorLayout from "../layouts/ErrorLayout";
 
 export default function RegisterForm() {
   const router = useRouter();
   const passwordConstraintsRegex =
     "^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$";
+  const [error, setError] = useState({ status: false, message: "" });
 
   const onSubmit = (event: SyntheticEvent) => {
     event.preventDefault();
+    setError({ status: false, message: "" });
 
     const target = event.target as typeof event.target & {
       pseudo: { value: string };
@@ -37,11 +40,21 @@ export default function RegisterForm() {
         }
         router.push("/signin");
       })
-      .catch((err: any) => console.log(err));
+      .catch((err: any) => {
+        console.log(err);
+        setError({ status: true, message: err.response.data.message });
+      });
   };
 
   return (
     <form onSubmit={onSubmit}>
+      {error ? (
+        <ErrorLayout
+          error={error.status}
+          message={error.message}
+          setError={setError}
+        />
+      ) : null}
       <label>Nom ou pseudonyme</label>
       <input
         type="text"

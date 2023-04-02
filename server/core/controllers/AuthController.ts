@@ -1,8 +1,6 @@
 import bcrypt from "bcrypt";
-import jwt from "jsonwebtoken";
 import { v4 as uuidv4 } from "uuid";
 import { NextFunction, Request, Response } from "express";
-import { hash } from "../../infrastructure/middleware/hash";
 import {
   addRefreshTokenToWhitelist,
   deleteRefreshToken,
@@ -16,6 +14,10 @@ import {
 } from "../../infrastructure/repositories/User/UserRepository";
 import { generateTokens } from "../../infrastructure/middleware/jwt";
 
+interface ResponseError extends Error {
+  status?: number;
+}
+
 export const signIn = async (
   req: Request,
   res: Response,
@@ -24,37 +26,14 @@ export const signIn = async (
   try {
     const { email, password, name } = req.body;
     if (!email || !password || !name) {
-      res.status(400);
-      throw new Error("You must provide an email and a password.");
+      let error = new Error(
+        "Une erreur s'est produite. Veuillez vérifier que tous les champs obligatoires soient bien saisis."
+      ) as ResponseError;
+      error.status = 400;
+      throw error;
     }
-
-    const existingUser = await findUserByEmail(email);
-
-    if (existingUser) {
-      res.status(400);
-      throw new Error("Email already in use.");
-    }
-
     const user = await newUserSignIn({ email, password, name });
-    // const jti = uuidv4();
-
-    // const { accessToken, refreshToken } = generateTokens(user, jti);
-
-    // await addRefreshTokenToWhitelist({ jti, refreshToken, userId: user.id });
-
-    // res.json({
-    //   accessToken,
-    //   refreshToken,
-    // });
-
-    res
-      // .cookie("refreshToken", refreshToken, {
-      //   httpOnly: true,
-      //   sameSite: "strict",
-      // })
-      // .header("Authorization", accessToken)
-      .status(201)
-      .send({ user });
+    res.status(201).send({ user });
   } catch (err) {
     next(err);
   }
@@ -68,8 +47,11 @@ export const login = async (
   try {
     const { email, password } = req.body;
     if (!email || !password) {
-      res.status(400);
-      throw new Error("You must provide an email and a password.");
+      let error = new Error(
+        "L'identifiant ou le mot de passe est manquant."
+      ) as ResponseError;
+      error.status = 400;
+      throw error;
     }
 
     const existingUser = await findUserByEmail(email);
@@ -81,12 +63,14 @@ export const login = async (
       );
 
       if (!validPassword) {
-        res.status(403);
-        throw new Error("Invalid login credentials.");
+        let error = new Error(
+          "L'identifiant ou le mot de passe est incorrect."
+        ) as ResponseError;
+        error.status = 400;
+        throw error;
       }
 
       const jti = uuidv4();
-
       const { accessToken, refreshToken } = generateTokens(existingUser, jti);
       await addRefreshTokenToWhitelist({
         jti,
@@ -102,8 +86,11 @@ export const login = async (
         .header("Authorization", accessToken)
         .send({ user: existingUser });
     } else {
-      res.status(403);
-      throw new Error("Invalid login credentials.");
+      let error = new Error(
+        "L'identifiant ou le mot de passe est incorrect."
+      ) as ResponseError;
+      error.status = 400;
+      throw error;
     }
   } catch (err) {
     next(err);
@@ -181,12 +168,16 @@ export const logout = async (
   next: NextFunction
 ) => {
   const { userId } = req.body;
-  if (!userId) res.status(400).json({ message: "Missing user id." });
+  if (!userId) {
+    let error = new Error("Une erreur s'est produite.") as ResponseError;
+    error.status = 400;
+    throw error;
+  }
   try {
     await revokeTokens(userId);
     res
       .clearCookie("refreshToken", { httpOnly: true })
-      .json({ message: `Tokens revoked for user with id #${userId}` });
+      .json({ message: "Déconnexion réussie !" });
   } catch (err) {
     next(err);
   }
