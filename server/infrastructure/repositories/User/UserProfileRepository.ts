@@ -22,6 +22,7 @@ export class UserProfileRepository implements UserProfileRepositoryInterface {
       });
       return user ? user : { status: 400, message: "Une erreur est survenue" };
     } catch (e) {
+      // @ts-ignore
       if (e instanceof Prisma.PrismaClientKnownRequestError) {
         console.log("Prisma Code Error = ", e);
         return { status: 400, message: "Une erreur est survenue" };
