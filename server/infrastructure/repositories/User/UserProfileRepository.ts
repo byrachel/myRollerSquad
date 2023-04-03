@@ -21,6 +21,7 @@ export class UserProfileRepository implements UserProfileRepositoryInterface {
       });
       return user ? user : { status: 400, message: "Une erreur est survenue" };
     } catch (error) {
+      // @eslint-ignore
       if (error instanceof Prisma.PrismaClientKnownRequestError) {
         console.log("Prisma Code Error = ", error);
         return { status: 400, message: "Une erreur est survenue" };
