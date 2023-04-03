@@ -30,14 +30,6 @@ import { isAuthenticated } from "../infrastructure/middleware/isAuthenticated";
 import prisma from "../infrastructure/prisma/db/client";
 const upload = multer({ storage: multer.memoryStorage() });
 
-// import AWS from "aws-sdk";
-
-// const s3 = new AWS.S3({
-//   accessKeyId: process.env.AWS_ACCESS_KEY_ID,
-//   secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
-//   region: process.env.AWS_REGION,
-// });
-
 flowRouter.post(
   "/api/flow",
 

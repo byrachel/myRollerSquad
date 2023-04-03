@@ -10,7 +10,7 @@ interface Props {
 
 export default function LikeIcon({ color, counter, postId }: Props) {
   const [likes, setLikes] = useState<number>(counter);
-  console.log(counter);
+
   const addLike = (id: number) => {
     const token = localStorage.getItem("token");
     if (id) {
@@ -21,12 +21,7 @@ export default function LikeIcon({ color, counter, postId }: Props) {
           Authorization: `Bearer ${token}`,
         },
         withCredentials: true,
-      })
-        .then(res => {
-          console.log(res);
-          setLikes(prevState => prevState + 1);
-        })
-        .catch(err => console.log(err));
+      }).then(() => setLikes(prevState => prevState + 1));
     }
   };
   return (

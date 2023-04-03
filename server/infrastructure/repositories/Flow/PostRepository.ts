@@ -3,14 +3,14 @@ import {
   PostInterface,
 } from "../../../core/entities/PostInterface";
 import { PostRepositoryInterface } from "../../../core/repositories/PostRepositoryInterface";
-import prisma from "../../prisma/db/client";
+import db from "../../prisma/db/client";
 import { Prisma } from "@prisma/client";
 
 export class PostRepository implements PostRepositoryInterface {
   async getPosts(cursor: number, limit: number): Promise<PostInterface[]> {
     try {
       const cursorObj = cursor === 0 ? undefined : { id: cursor };
-      const posts = await prisma.post.findMany({
+      const posts = await db.post.findMany({
         skip: cursor > 0 ? 1 : 0,
         cursor: cursorObj,
         take: limit,
@@ -41,7 +41,7 @@ export class PostRepository implements PostRepositoryInterface {
       });
       return posts;
     } catch (e) {
-      // @ts-ignore
+      // @ts-nocheck
       if (e instanceof Prisma.PrismaClientKnownRequestError) {
         console.log("Prisma Code Error = ", e);
         throw new Error("Les données ne cont pas accessibles pour le moment.");
@@ -64,7 +64,7 @@ export class PostRepository implements PostRepositoryInterface {
     console.log("POST REPOSITORY", post);
 
     try {
-      const newPost = await prisma.post.create({
+      const newPost = await db.post.create({
         data: {
           title: post.title,
           content: post.content,
@@ -89,7 +89,7 @@ export class PostRepository implements PostRepositoryInterface {
   }
 
   async getPost(id: number): Promise<PostInterface | null> {
-    const post = await prisma.post.findUnique({
+    const post = await db.post.findUnique({
       where: {
         id: id,
       },

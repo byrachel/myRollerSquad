@@ -5,7 +5,6 @@ import NewPostBar from "app/components/layouts/NewPostBar";
 import { PostInterface } from "app/interfaces/flowInterfaces";
 import axios from "axios";
 import withAuth from "app/utils/withAuth";
-import { UserInterface } from "app/interfaces/userInterfaces";
 
 const breakpointColumnsObj = {
   default: 2,
