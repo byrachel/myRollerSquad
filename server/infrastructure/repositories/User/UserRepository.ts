@@ -12,11 +12,11 @@ export async function newUserSignIn(user: {
     return await db.user.create({
       data: user,
     });
-  } catch (e) {
-    // @ts-nocheck
-    if (e instanceof Prisma.PrismaClientKnownRequestError) {
-      console.log("Prisma Code Error = ", e);
-      if (e.code === "P2002") {
+  } catch (error) {
+    // @ts-ignore
+    if (error instanceof Prisma.PrismaClientKnownRequestError) {
+      console.log("Prisma Code Error = ", error);
+      if (error.code === "P2002") {
         throw new Error("Il semble que cet email soit déjà utilisé.");
       }
     }
@@ -30,11 +30,10 @@ export function findUserByEmail(email: string) {
         email,
       },
     });
-  } catch (e) {
-    // @ts-nocheck
-    if (e instanceof Prisma.PrismaClientKnownRequestError) {
-      console.log("Prisma Code Error = ", e);
-      if (e.code === "P2002") {
+  } catch (error) {
+    if (error instanceof Prisma.PrismaClientKnownRequestError) {
+      console.log("Prisma Code Error = ", error);
+      if (error.code === "P2002") {
         throw new Error("L'identifiant ou le mot de passe est incorrect.");
       }
     }
@@ -48,10 +47,9 @@ export function findUserById(id: number) {
         id,
       },
     });
-  } catch (e) {
-    // @ts-nocheck
-    if (e instanceof Prisma.PrismaClientKnownRequestError) {
-      console.log("Prisma Code Error = ", e);
+  } catch (error) {
+    if (error instanceof Prisma.PrismaClientKnownRequestError) {
+      console.log("Prisma Code Error = ", error);
     }
   }
 }
