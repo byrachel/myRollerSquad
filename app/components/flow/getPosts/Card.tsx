@@ -90,7 +90,7 @@ export default function Card({ post, isLast, newLimit }: Props) {
         {content ? content : null}
         {post.link ? (
           <div className="linkContainer">
-            <p className="linkText">{post.link}</p>
+            <p className="linkText">{ReactHtmlParser(post.link)}</p>
           </div>
         ) : (
           <div className="cardSeparator" />

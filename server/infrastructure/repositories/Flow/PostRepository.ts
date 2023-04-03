@@ -52,17 +52,6 @@ export class PostRepository implements PostRepositoryInterface {
   }
 
   async createPost(post: CreatePostInterface): Promise<PostInterface | null> {
-    // let country = "France";
-    // if (post.location) {
-    //   const geocoding = await fetch(
-    //     `https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${post.location.latitude}&lon=${post.location.longitude}`
-    //   );
-    //   const json = await geocoding.json();
-    //   country = json.address.country;
-    // }
-
-    console.log("POST REPOSITORY", post);
-
     try {
       const newPost = await db.post.create({
         data: {
@@ -75,7 +64,7 @@ export class PostRepository implements PostRepositoryInterface {
           country: post.country,
           pictures: post.pictures,
           squad_ids: post.squad_ids,
-          style_id: post.style_id,
+          style_id: post.style_id === 0 ? null : post.style_id,
           link: post.link,
           distance: post.distance,
           duration: post.duration,

@@ -13,4 +13,5 @@ export const newPostInitialState = {
   displayLocation: false,
   position: undefined,
   content: "",
+  map: null,
 } as NewPostInterface;

@@ -75,7 +75,7 @@ model Post {
   place_id      Int?
   created_at    DateTime   @default(now())
   duration      String?
-  distance      Int?
+  distance      Decimal?
   distance_unit String?
   hashtags      String[]
   squad_ids     Int[]

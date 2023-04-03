@@ -1,0 +1,2 @@
+-- AlterTable
+ALTER TABLE "Post" ALTER COLUMN "distance" SET DATA TYPE DECIMAL(65,30);

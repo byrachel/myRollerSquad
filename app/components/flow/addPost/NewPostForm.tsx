@@ -50,9 +50,8 @@ export default function NewPostForm({ post, postDispatch, setShowMap }: Props) {
             name="title"
             id="text"
             type="text"
+            maxLength={30}
             required
-            min-length="3"
-            max-length="50"
           />
         </div>
         <div className="flexStartNoWrap mt5">
@@ -103,6 +102,7 @@ export default function NewPostForm({ post, postDispatch, setShowMap }: Props) {
               name="distance"
               id="distance"
               type="number"
+              step=".01"
             />
           </div>
           <div style={{ width: "100%", marginLeft: 5 }}>

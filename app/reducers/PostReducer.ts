@@ -15,6 +15,11 @@ export const PostReducer = (
         ...state,
         category: action.payload,
       };
+    case "SAVE_MAP":
+      return {
+        ...state,
+        map: action.payload,
+      };
     case "TITLE_ERROR":
       return {
         ...state,

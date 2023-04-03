@@ -32,12 +32,12 @@ const upload = multer({ storage: multer.memoryStorage() });
 
 flowRouter.post(
   "/api/flow",
-
+  isAuthenticated,
   upload.array("pictures", 5),
   [
     check("title")
-      .isLength({ min: 3, max: 25 })
-      .withMessage("the name must have minimum length of 3")
+      .isLength({ min: 3, max: 30 })
+      .withMessage("the name must have minimum length of 3 and maximum 30")
       .trim()
       .escape(),
     check("category_id").exists().withMessage("Category id is missing"),

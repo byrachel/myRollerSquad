@@ -1,12 +1,12 @@
 import { PutObjectCommand } from "@aws-sdk/client-s3";
 import s3 from "./aws";
 
-export const uploadImage = async (bucket: string, file: any, data: any) => {
+export const uploadImage = async (bucket: string, file: any) => {
   const timestamp = Date.now();
   const params = {
     Bucket: bucket,
     Key: `${timestamp}-${file.originalname}`,
-    Body: data,
+    Body: file.buffer,
     ContentType: file.mimetype,
   };
 

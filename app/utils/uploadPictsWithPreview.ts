@@ -17,12 +17,24 @@ export const uploadPictsWithPreview = (e: any, dispatch: any) => {
       let image = new Image();
       image.src = file["preview"];
       image.onload = () => {
-        file["width"] = image.naturalWidth;
-        file["height"] = image.naturalHeight;
+        const MAX_WIDTH = 768;
+        const width = image.naturalWidth;
+        const height = image.naturalHeight;
+
+        const ratio = width / height;
+        const canvas = document.createElement("canvas");
+        canvas.width = MAX_WIDTH;
+        canvas.height = MAX_WIDTH / ratio;
+
+        file["width"] = width > MAX_WIDTH ? canvas.width : width;
+        file["height"] = width > MAX_WIDTH ? canvas.height : height;
+
+        const ctx = canvas.getContext("2d");
+        if (!ctx) return;
+        ctx.drawImage(image, 0, 0, canvas.width, canvas.height);
+        return canvas.toDataURL();
       };
     });
-
-    console.log(files);
 
     dispatch({ type: "SAVE_PICTURES", payload: files });
   }

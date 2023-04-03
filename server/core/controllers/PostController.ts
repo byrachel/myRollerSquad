@@ -1,4 +1,3 @@
-import sharp from "sharp";
 import { Request, Response } from "express";
 import { CreatePostUseCase } from "server/core/use-cases/Flow/createPost";
 import { GetPostUseCase } from "../use-cases/Flow/getPost";
@@ -31,18 +30,12 @@ export class PostController {
   async addPost(req: Request, res: Response): Promise<PostInterface | null> {
     const files: any = req.files;
     const resizedImages = [];
-
     try {
       for (const file of files) {
-        const buffer = await sharp(file.buffer)
-          .resize({ width: 700 })
-          .toBuffer();
-
         if (process.env.S3_FLOW_BUCKET_NAME) {
           const image = await uploadImage(
             process.env.S3_FLOW_BUCKET_NAME,
-            file,
-            buffer
+            file
           );
           if (!image || !image.Key) {
             return null;
@@ -66,7 +59,7 @@ export class PostController {
         distance:
           !req.body.distance || req.body.distance === "null"
             ? null
-            : req.body.distance,
+            : parseFloat(req.body.distance),
         hashtags: req.body.hashtags ? req.body.hashtags : [],
         pictures: resizedImages,
         squad_ids: req.body.squad_ids ? req.body.squad_ids : [],

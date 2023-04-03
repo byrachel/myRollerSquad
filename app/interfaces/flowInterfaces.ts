@@ -37,6 +37,7 @@ export interface NewPostInterface {
   displayLocation: boolean;
   position: [number, number] | undefined;
   content: string;
+  map: Blob | null;
 }
 
 export interface NewPostFactoryInterface {

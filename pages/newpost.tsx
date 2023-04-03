@@ -54,27 +54,33 @@ const NewPost = ({ user }: Props) => {
             : null,
         distance:
           target.distance && target.distance.value
-            ? parseInt(target.distance.value)
+            ? parseFloat(target.distance.value)
             : null,
         position: post.position ? post.position : null,
         country: post.country ? post.country : null,
         squad_ids: [],
       };
 
+      console.log(newPost);
+
       const newPostFactory = new NewPostFactory();
       const newPostToSave = newPostFactory.create(newPost);
-
-      console.log("post to save : ", newPostToSave);
 
       const data = new FormData();
 
       for (const [key, value] of Object.entries(newPostToSave)) {
         data.append(key, value);
       }
-
-      for (const image of post.pictures) {
-        data.append("pictures", image);
+      if (post.map) {
+        data.append("pictures", post.map, "map.png");
       }
+      for (const image of post.pictures) {
+        if (image.name !== "map.png") {
+          data.append("pictures", image);
+        }
+      }
+
+      // console.log(Object.fromEntries(data));
 
       const token = localStorage.getItem("token");
 

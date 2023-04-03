@@ -20,12 +20,9 @@ export class UserProfileController {
       const buffer = await sharp(file.buffer)
         .resize({ width: 200, height: 200 })
         .toBuffer();
+      file.buffer = buffer;
 
-      const avatar = await uploadImage(
-        process.env.S3_AVATAR_BUCKET_NAME,
-        file,
-        buffer
-      );
+      const avatar = await uploadImage(process.env.S3_AVATAR_BUCKET_NAME, file);
       if (!avatar || !avatar.Key) {
         let err = new Error(
           "Une erreur s'est produite. L'avatar n'a pas pu être sauvegardé."

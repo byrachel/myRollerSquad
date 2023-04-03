@@ -14,8 +14,6 @@ interface Props {
 export default function Map({ position, dispatch }: Props) {
   const markerRef = useRef<any>(null);
 
-  console.log(position);
-
   var icon = new L.Icon({
     iconUrl:
       "https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png",
@@ -46,7 +44,7 @@ export default function Map({ position, dispatch }: Props) {
   return (
     <MapContainer
       center={position}
-      zoom={16}
+      zoom={15}
       scrollWheelZoom={false}
       style={{ height: "100%", width: "100%" }}
       preferCanvas

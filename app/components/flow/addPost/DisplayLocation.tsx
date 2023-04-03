@@ -63,14 +63,15 @@ export default function DisplayLocation({
     const canvas = document.getElementsByClassName(
       "leaflet-container"
     )[0] as HTMLCanvasElement;
-    let image: BlobImageInterface = {};
     await html2canvas(canvas, canvasConfig).then((canvas: any) => {
       canvas.toBlob((blob: any) => {
+        let image: BlobImageInterface = {};
         image.preview = URL.createObjectURL(blob);
         image.size = blob.size;
         image.type = blob.type;
         image.name = "map.png";
         dispatch({ type: "SAVE_PICTURES", payload: [image] });
+        dispatch({ type: "SAVE_MAP", payload: blob });
         setShowMap(false);
       });
     });

@@ -14,6 +14,9 @@ export default function UploadedPicturesPreview({ pictures, dispatch }: Props) {
       pict => pict.name !== picture.name
     );
     dispatch({ type: "SAVE_ONLY_THIS_PICTURES", payload: newListOfPictures });
+    if (picture.name === "map.png") {
+      dispatch({ type: "SAVE_MAP", payload: null });
+    }
   };
   return (
     <>
