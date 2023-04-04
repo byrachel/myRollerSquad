@@ -13,10 +13,11 @@
     font-family: $titleFont;
     font-size: $fontSize-sm;
     text-align: center;
+    letter-spacing: 0.3px;
   }
   .rollerStylesIcon {
-    stroke: $primaryColor;
-    fill: white;
+    stroke: none;
+    fill: $yellowColor;
   }
 }
 
@@ -54,14 +55,7 @@
         stroke: $secondaryColor;
         background: white;
       }
-      .rollerSkaterLinks {
-        display: flex;
-        justify-content: space-around;
-        padding: 1.2em 0.7em 0.5em 0.7em;
-        .linkIcon {
-          stroke: $primaryColor;
-        }
-      }
+
       .profileButton {
         display: flex;
         justify-content: center;
@@ -127,16 +121,36 @@
   width: 100%;
   background-color: $primaryColor;
   display: flex;
-  justify-content: space-evenly;
+  justify-content: space-between;
   align-items: center;
   margin: 0;
-  padding: 0;
+  padding: 2.5em;
+  position: fixed;
+  bottom: 0;
+
+  .rollerLevelTitle {
+    color: white;
+    font-family: $titleFont;
+    font-size: $fontSize-md;
+    letter-spacing: 0.3px;
+    margin-right: 2.5em;
+    padding-top: 0.3em;
+  }
 
   .rollerStarIcon {
     fill: $yellowColor;
+    margin-right: 0.2em;
   }
   .rollerNoStarIcon {
     stroke: lighten($color: $primaryColor, $amount: 20);
+    margin-right: 0.2em;
+  }
+  .rollerSkaterLinks {
+    .linkIcon {
+      margin: 0.5em;
+      stroke: white;
+      fill: none;
+    }
   }
 }
 

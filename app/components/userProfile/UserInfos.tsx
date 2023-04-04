@@ -3,10 +3,6 @@ import Image from "next/image";
 import { useRouter } from "next/router";
 
 import Pin from "app/svg/pin.svg";
-import Message from "app/svg/mail.svg";
-import Instagram from "app/svg/instagram.svg";
-import Tiktok from "app/svg/tiktok.svg";
-import Youtube from "app/svg/youtube.svg";
 import Avatar from "app/svg/add-media-image.svg";
 import Logout from "app/svg/logout.svg";
 
@@ -59,16 +55,19 @@ export default function UserInfos({ user }: Props) {
   };
 
   const logout = (userId: number) => {
+    const token = localStorage.getItem("token");
     if (userId) {
-      localStorage.removeItem("token");
       axios({
         method: "post",
         url: "/api/logout",
-        data: { userId },
+        headers: {
+          "Content-Type": "multipart/form-data",
+          Authorization: `Bearer ${token}`,
+        },
         withCredentials: true,
       })
-        .then(res => {
-          console.log(res);
+        .then(() => {
+          localStorage.removeItem("token");
           router.push("/");
         })
         .catch(err => console.log(err));
@@ -116,12 +115,6 @@ export default function UserInfos({ user }: Props) {
               />
             </label>
 
-            <div className={styles.rollerSkaterLinks}>
-              <Message className={styles.linkIcon} width={28} height={28} />
-              <Youtube className={styles.linkIcon} width={28} height={28} />
-              <Instagram className={styles.linkIcon} width={28} height={28} />
-              <Tiktok className={styles.linkIcon} width={28} height={28} />
-            </div>
             <div className={styles.profileButton}>
               <RegularButton type="button" text="+ MA SQUAD" style="full" />
             </div>

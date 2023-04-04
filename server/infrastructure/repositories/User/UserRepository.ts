@@ -47,6 +47,25 @@ export function findUserById(id: number) {
       where: {
         id,
       },
+      select: {
+        id: true,
+        resume: true,
+        social_medias: true,
+        my_squad: true,
+        roller_dance_level: true,
+        skatepark_level: true,
+        artistic_level: true,
+        freestyle_level: true,
+        urban_level: true,
+        role: true,
+        name: true,
+        avatar: true,
+        posts: true,
+        email: true,
+        country: true,
+        city: true,
+        postLiked: true,
+      },
     });
   } catch (error) {
     // @eslint-ignore

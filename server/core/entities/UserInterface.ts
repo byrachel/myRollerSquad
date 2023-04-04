@@ -3,7 +3,6 @@ export interface UserInterface {
   email: string;
   name: string;
   role: "ADMIN" | "USER" | "PRO";
-  profile?: UserProfileInterface;
   // posts         Post[]      @relation("post_author")
   // places        Place[]     @relation("favorite_places")
   rgpd: boolean;
@@ -15,20 +14,11 @@ export interface UserInterface {
   updatedAt: Date;
   country: string;
   city: string | null;
-}
 
-export interface UserProfileInterface {
-  id: number;
-  bio: string;
-  social_medias: {
-    instagram: string;
-    facebook: string;
-    youtube: string;
-    tiktok: string;
-  };
-  website: string;
+  social_medias?: {} | null;
+  website?: string | null;
   // pictures      String[]
-  my_squad_ids: number[];
+  my_squad: number[];
   my_followers: number[];
   roller_dance_level: number;
   skatepark_level: number;

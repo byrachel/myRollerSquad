@@ -13,17 +13,15 @@ export interface UserInterface {
   email: string;
   avatar: string;
   posts: PostInterface[];
-  profile: {
-    bio: string;
-    my_followers: number[];
-    my_squad_ids: number[];
-    pictures: string[];
-    social_medias: { instagram: string };
-    website: string;
-    roller_dance_level: number;
-    skatepark_level: number;
-    artistic_level: number;
-    urban_level: number;
-    freestyle_level: number;
-  } | null;
+  resume: string;
+  my_followers: number[];
+  my_squad_ids: number[];
+  pictures: string[];
+  social_medias: { instagram: string };
+  website: string;
+  roller_dance_level: number;
+  skatepark_level: number;
+  artistic_level: number;
+  urban_level: number;
+  freestyle_level: number;
 }

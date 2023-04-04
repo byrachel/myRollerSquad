@@ -68,7 +68,11 @@ export default function Header() {
                 className={styles.icon}
                 width={38}
                 height={38}
-                onClick={() => goTo("/myaccount")}
+                onClick={() =>
+                  userState.user && userState.user.id
+                    ? goTo(`/profile/${userState.user.id}`)
+                    : goTo("/signin")
+                }
                 role="button"
               />
               {isAdmin ? (
@@ -95,7 +99,14 @@ export default function Header() {
           <p className={styles.iconText} onClick={() => goTo("/flow")}>
             My Roller Squad
           </p>
-          <p className={styles.iconText} onClick={() => goTo("/myaccount")}>
+          <p
+            className={styles.iconText}
+            onClick={() =>
+              userState.user && userState.user.id
+                ? goTo(`/profile/${userState.user.id}`)
+                : goTo("/signin")
+            }
+          >
             Mon compte
           </p>
           {isAdmin ? (

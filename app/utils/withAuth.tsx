@@ -10,7 +10,7 @@ const withAuth = (Component: any) => {
     useEffect(() => {
       const token = localStorage.getItem("token")
         ? localStorage.getItem("token")
-        : "_";
+        : "";
       console.log(token);
       axios(`/api/user`, {
         method: "GET",
@@ -21,12 +21,16 @@ const withAuth = (Component: any) => {
         withCredentials: true,
       })
         .then(res => {
-          const token = res.headers["authorization"];
-          if (token) {
-            localStorage.setItem("token", token);
+          if (res.data.user) {
+            const token = res.headers["authorization"];
+            if (token) {
+              localStorage.setItem("token", token);
+            }
+            // userDispatch({ type: "SET_USER", payload: res.data.user });
+            setUser(res.data.user);
+          } else {
+            router.push("/signin");
           }
-          // userDispatch({ type: "SET_USER", payload: res.data.user });
-          setUser(res.data.user);
         })
         .catch(() => router.push("/signin"));
     }, []);

@@ -23,7 +23,6 @@ export function isAuthenticated(req: any, res: Response, next: NextFunction) {
       accessToken,
       process.env.JWT_ACCESS_SECRET as string
     );
-
     req.payload = payload;
     req.headers.authorization = accessToken;
     next();
@@ -31,7 +30,6 @@ export function isAuthenticated(req: any, res: Response, next: NextFunction) {
     if (!refreshToken) {
       return res.status(401).send("Access Denied. No refresh token provided.");
     }
-
     try {
       const { userId, role, jti } = jwt.verify(
         refreshToken,
@@ -42,18 +40,22 @@ export function isAuthenticated(req: any, res: Response, next: NextFunction) {
       const newRefreshToken = generateRefreshToken(userId, role, jti);
 
       if (accessToken && newRefreshToken) {
-        req.payload = { userId };
+        req.payload = { userId, jti };
         req.headers.authorization = accessToken;
         req.cookies.refreshToken = newRefreshToken;
 
         next();
       } else {
-        return res.status(417).send("Access Token Not generated !");
+        let err = new Error(
+          "Veuillez vous connecter pour accéder à cette ressource."
+        ) as ErrorInterface;
+        err.status = 400;
+        throw err;
       }
     } catch (error) {
       console.log("isAuthenticated >> ", error);
       let err = new Error(
-        "Veuillez vous reconnecter pour accéder à cette ressource."
+        "Veuillez vous connecter pour accéder à cette ressource."
       ) as ErrorInterface;
       err.status = 400;
       throw err;

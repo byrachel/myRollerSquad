@@ -14,7 +14,6 @@ model User {
   email         String      @unique
   name          String
   role          Role        @default(USER)
-  profile       Profile?
   posts         Post[]      @relation("post_author")
   places        Place[]     @relation("favorite_places")
   rgpd          Boolean     @default(false)
@@ -27,6 +26,17 @@ model User {
   country       String      @default("France")
   city          String?
   postLiked     PostLiked[] @relation("post_liked")
+  social_medias Json?     
+  website       String?
+  pictures      String[]
+  my_squad      Int[]
+  my_followers  Int[]
+  roller_dance_level Int @default(0)
+  skatepark_level    Int @default(0)
+  artistic_level     Int @default(0)
+  freestyle_level    Int @default(0)
+  urban_level       Int @default(0)
+  resume        String?
 }
 
 model RefreshToken {
@@ -37,23 +47,6 @@ model RefreshToken {
   revoked       Boolean     @default(false)
   createdAt     DateTime    @default(now())
   updatedAt     DateTime    @updatedAt
-}
-
-model Profile {
-  id            Int       @id @default(autoincrement())
-  bio           String
-  user          User      @relation(fields: [user_id], references: [id])
-  user_id       Int       @unique
-  social_medias Json?
-  website       String?
-  pictures      String[]
-  my_squad_ids  Int[]
-  my_followers  Int[]
-  roller_dance_level Int @default(0)
-  skatepark_level    Int @default(0)
-  artistic_level     Int @default(0)
-  freestyle_level    Int @default(0)
-  urban_level       Int @default(0)
 }
 
 model Comment {

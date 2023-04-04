@@ -35,9 +35,11 @@ export default function LoginForm() {
         if (token) {
           localStorage.setItem("token", token);
         }
+        localStorage.setItem("id", JSON.stringify(user.id));
+        localStorage.setItem("role", JSON.stringify(user.role));
         userDispatch({
           type: "LOGIN",
-          payload: { user: { name: user.name, id: user.id, role: user.role } },
+          payload: { name: user.name, id: user.id, role: user.role },
         });
         router.push("/flow");
       })
