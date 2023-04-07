@@ -1,17 +1,15 @@
-import React, { useEffect, useState } from "react";
-import { useRouter } from "next/router";
+import React, { useEffect, useState, useContext } from "react";
 import axios from "axios";
 
 import withAuth from "app/utils/withAuth";
 import RollerStylesbar from "@/components/layouts/RollerStylesBar";
 import UserInfos from "@/components/userProfile/UserInfos";
-import LastPostsShared from "@/components/userProfile/LastPostsShared";
-import RollerSkateLevel from "@/components/userProfile/RollerSkateLevel";
 import { UserInterface } from "app/interfaces/userInterfaces";
+import { UserContext } from "app/context/UserContext";
 
-const UserProfile = () => {
-  const router = useRouter();
-  const { user } = router.query;
+const UpdateAccount = () => {
+  const { userState } = useContext(UserContext);
+  const userConnectedId = userState.user?.id;
 
   const [userProfile, setUserProfile] = useState<{
     loading: boolean;
@@ -24,10 +22,10 @@ const UserProfile = () => {
   });
 
   useEffect(() => {
-    if (user) {
+    if (userConnectedId) {
       const token = localStorage.getItem("token");
       if (token) {
-        axios(`/api/${user}/userprofile`, {
+        axios(`/api/${userConnectedId}/userprofile`, {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
@@ -48,7 +46,7 @@ const UserProfile = () => {
           });
       }
     }
-  }, [user]);
+  }, [userConnectedId]);
 
   return (
     <>
@@ -56,15 +54,6 @@ const UserProfile = () => {
       {userProfile.user ? (
         <>
           <UserInfos user={userProfile.user} />
-          <RollerSkateLevel
-            rollerDanceLevel={userProfile.user.roller_dance_level}
-            skateParkLevel={userProfile.user.skatepark_level}
-            artisticLevel={userProfile.user.artistic_level}
-            freestyleLevel={userProfile.user.freestyle_level}
-            urbanLevel={userProfile.user.urban_level}
-            derbyLevel={userProfile.user.derby_level}
-          />
-          <LastPostsShared posts={userProfile.user.posts} />
         </>
       ) : userProfile.loading ? (
         <div className="loader" />
@@ -72,4 +61,4 @@ const UserProfile = () => {
     </>
   );
 };
-export default withAuth(UserProfile);
+export default withAuth(UpdateAccount);

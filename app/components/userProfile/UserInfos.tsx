@@ -1,58 +1,30 @@
-import React, { useState } from "react";
-import Image from "next/image";
+import React, { useContext, useState } from "react";
 import { useRouter } from "next/router";
-
-import Pin from "app/svg/pin.svg";
-import Avatar from "app/svg/add-media-image.svg";
-import Logout from "app/svg/logout.svg";
+import Image from "next/image";
+import axios from "axios";
 
 import RegularButton from "@/components/buttons/RegularButton";
 import styles from "../../styles/Profile.module.scss";
-import Modal from "../layouts/Modal";
-import UploadAvatar from "./UploadAvatar";
+import { UserContext } from "app/context/UserContext";
 import { UserInterface } from "app/interfaces/userInterfaces";
-import axios from "axios";
+
+import Pin from "app/svg/pin.svg";
+import Logout from "app/svg/logout.svg";
+import Edit from "app/svg/edit.svg";
+import Instagram from "app/svg/instagram.svg";
+import Tiktok from "app/svg/tiktok.svg";
+import Youtube from "app/svg/youtube.svg";
+import UploadAvatarButton from "./UploadAvatarButton";
 
 interface Props {
   user: UserInterface;
 }
 
 export default function UserInfos({ user }: Props) {
-  const [displayNewAvatar, setDisplayNewAvatar] = useState(false);
-  const [newAvatarFile, setNewAvatarFile] = useState<any | null>(null);
   const router = useRouter();
-
-  const newAvatar = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (!e.target.files) {
-      return;
-    }
-
-    let files = e.target.files;
-    let file = files[0] as any;
-
-    if (file.size > 1000000) {
-      console.log("file too large");
-    } else {
-      file["preview"] = URL.createObjectURL(file);
-
-      const image: HTMLImageElement = new window.Image();
-
-      const imageDimensions: { width: number; height: number } =
-        await new Promise(resolve => {
-          image.onload = () => {
-            const dimensions = {
-              height: image.height,
-              width: image.width,
-            };
-            resolve(dimensions);
-          };
-          image.src = file["preview"];
-        });
-
-      setNewAvatarFile({ file, ...imageDimensions });
-      setDisplayNewAvatar(true);
-    }
-  };
+  const [displayNewAvatar, setDisplayNewAvatar] = useState(false);
+  const { userState } = useContext(UserContext);
+  const userConnectedId = userState.user?.id;
 
   const logout = (userId: number) => {
     const token = localStorage.getItem("token");
@@ -75,84 +47,114 @@ export default function UserInfos({ user }: Props) {
   };
 
   return (
-    <>
-      <div className={styles.rollerSkaterInfoBar}>
-        <div className={styles.rollerSkaterInfoBackground} />
-        <div className={styles.rollerSkaterInfoContainer}>
-          <div className={styles.rollerSkaterAvatarContainer}>
-            {user.avatar ? (
-              <Image
-                src={`https://mys3rollerpicts.s3.eu-west-3.amazonaws.com/${user.avatar}`}
-                alt="Roller Skater Avatar"
-                className={styles.rollerSkaterAvatar}
-                width={200}
-                height={200}
-              />
-            ) : (
-              <Image
-                // src="/img/avatar_myRollerSquad.jpg"
-                src="https://mys3rollerpicts.s3.eu-west-3.amazonaws.com/1679840613112-_2343b71e-e1d0-4da2-be68-d6d9d79104d8.jpeg"
-                alt="Roller Quad"
-                className={styles.rollerSkaterAvatar}
-                width={200}
-                height={200}
-              />
-            )}
-
-            <label htmlFor="fileInput" className="flowFileInput">
-              <Avatar
-                className={styles.updateAvatarIcon}
-                width={28}
-                height={28}
-              />
-              <input
-                id="fileInput"
-                className="input"
-                type="file"
-                accept="image/*"
-                multiple
-                onChange={newAvatar}
-              />
-            </label>
-
-            <div className={styles.profileButton}>
-              <RegularButton type="button" text="+ MA SQUAD" style="full" />
-            </div>
-          </div>
-          <div className={styles.rollerSkaterInfo}>
-            <div className={styles.rollerSkaterName}>
-              <h1>{user.name}</h1>
+    <div className={styles.rollerSkaterInfoBar}>
+      <div className={styles.rollerSkaterInfoContainer}>
+        <div className={styles.rollerSkaterAvatarContainer}>
+          {user.avatar ? (
+            <Image
+              src={`https://mys3rollerpicts.s3.eu-west-3.amazonaws.com/${user.avatar}`}
+              alt="Roller Skater Avatar"
+              className={styles.rollerSkaterAvatar}
+              width={200}
+              height={200}
+            />
+          ) : (
+            <Image
+              // src="/img/avatar_myRollerSquad.jpg"
+              src="https://mys3rollerpicts.s3.eu-west-3.amazonaws.com/1679840613112-_2343b71e-e1d0-4da2-be68-d6d9d79104d8.jpeg"
+              alt="Roller Quad"
+              className={styles.rollerSkaterAvatar}
+              width={200}
+              height={200}
+            />
+          )}
+          {user.id === userConnectedId ? (
+            <UploadAvatarButton
+              displayNewAvatar={displayNewAvatar}
+              setDisplayNewAvatar={setDisplayNewAvatar}
+            />
+          ) : null}
+        </div>
+        <div className={styles.rollerSkaterInfo}>
+          <div className={styles.rollerSkaterName}>
+            <h1>{user.name}</h1>
+            <div>
+              {userConnectedId === user.id ? (
+                <Edit
+                  className={styles.editIcon}
+                  width={30}
+                  height={30}
+                  onClick={() => router.push("/updateaccount")}
+                />
+              ) : null}
               <Logout
                 className={styles.logoutIcon}
-                width={28}
-                height={28}
+                width={30}
+                height={30}
                 onClick={() => logout(user.id)}
               />
             </div>
-            <div className={styles.rollerSkaterLocation}>
-              <p>
-                <Pin className={styles.locationIcon} width={20} height={20} />
-                Cannes, France
-              </p>
-            </div>
-            <div className={styles.rollerSkaterDescription}>
-              <p>dsjbvds jebfezljb jbfzeljf ajzfbeljfb zljfb</p>
-              <RegularButton
-                type="button"
-                text="Modifier mon profil"
-                style="outline"
-              />
-            </div>
+          </div>
+          <div className={styles.rollerSkaterLocation}>
+            <p>
+              <Pin className={styles.locationIcon} width={20} height={20} />
+              Cannes, France
+            </p>
+          </div>
+          <div className={styles.rollerSkaterLinks}>
+            <Youtube
+              className={
+                user.social_medias && user.social_medias.youtube
+                  ? styles.linkIcon
+                  : styles.noLinkIcon
+              }
+              width={35}
+              height={35}
+            />
+            <Instagram
+              className={
+                user.social_medias && user.social_medias.instagram
+                  ? styles.linkIcon
+                  : styles.noLinkIcon
+              }
+              width={35}
+              height={35}
+            />
+            <Tiktok
+              className={
+                user.social_medias && user.social_medias.tiktok
+                  ? styles.linkIcon
+                  : styles.noLinkIcon
+              }
+              width={35}
+              height={35}
+            />
           </div>
         </div>
       </div>
-      <Modal
-        show={displayNewAvatar}
-        setShow={setDisplayNewAvatar}
-        title="Photo de profil"
-      >
-        <UploadAvatar avatar={newAvatarFile} />
-      </Modal>
-    </>
+      <div className={styles.rollerSkaterResume}>
+        <div className={styles.profileButton}>
+          <RegularButton type="button" text="+ MA SQUAD" style="full" />
+        </div>
+        <div className={styles.rollerSkaterDescription}>
+          {user.resume ? (
+            <p>{user.resume}</p>
+          ) : (
+            <div>
+              <p className="meta">Aucune information pour le moment...</p>
+              {user.id === userConnectedId ? (
+                <p
+                  role="button"
+                  className="textLink"
+                  onClick={() => router.push("/updateaccount")}
+                >
+                  Mettre à jour mon profil
+                </p>
+              ) : null}
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
   );
 }

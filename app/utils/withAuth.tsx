@@ -11,7 +11,6 @@ const withAuth = (Component: any) => {
       const token = localStorage.getItem("token")
         ? localStorage.getItem("token")
         : "";
-      console.log(token);
       axios(`/api/user`, {
         method: "GET",
         headers: {

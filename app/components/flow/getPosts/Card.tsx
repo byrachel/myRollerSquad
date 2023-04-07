@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useRef } from "react";
+import React, { useMemo } from "react";
 import ReactHtmlParser from "react-html-parser";
 
 import { PostInterface } from "../../../interfaces/flowInterfaces";
@@ -17,15 +17,12 @@ import CardFeaturedPict from "./CardFeaturedPict";
 
 interface Props {
   post: PostInterface;
-  isLast: boolean;
-  newLimit: any;
+  cardRef?: React.RefObject<HTMLDivElement>;
+  isAuthor?: boolean;
 }
 
-export default function Card({ post, isLast, newLimit }: Props) {
+export default function Card({ post, cardRef, isAuthor }: Props) {
   const color = useMemo(() => cardColor(post.category_id), [post.category_id]);
-  const cardRef = useRef(null);
-
-  console.log(post);
 
   const content = useMemo(() => {
     if (post.content) {
@@ -38,23 +35,10 @@ export default function Card({ post, isLast, newLimit }: Props) {
     }
   }, [post.content]);
 
-  useEffect(() => {
-    if (!cardRef?.current) return;
-
-    const observer = new IntersectionObserver(([entry]) => {
-      if (isLast && entry.isIntersecting) {
-        newLimit();
-        observer.unobserve(entry.target);
-      }
-    });
-
-    observer.observe(cardRef.current);
-  }, [isLast]);
-
   return (
     <div className={`cardContainer ${color}`} key={post.id} ref={cardRef}>
       <div className="flexStart">
-        <Avatar />
+        {isAuthor ? null : <Avatar userId={post.user.id} />}
         <div className="cardTitle">
           <div className="flexStart">
             <div className={`badge ${color}`}>
@@ -65,7 +49,9 @@ export default function Card({ post, isLast, newLimit }: Props) {
             </div>
           </div>
           <h2 className="title">{post.title}</h2>
-          <h3 className={`userName ${color}`}>{post.user.name}</h3>
+          {isAuthor ? null : (
+            <h3 className={`userName ${color}`}>{post.user.name}</h3>
+          )}
         </div>
       </div>
       {post.pictures.length > 0 ? (

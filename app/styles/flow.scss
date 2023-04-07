@@ -1,10 +1,21 @@
 @import "./variables.scss";
 
+.userFlowContainer {
+  padding: 3em 0;
+  background-color: $lightColor;
+  h2.title {
+    text-align: center;
+    margin-bottom: 1em;
+  }
+}
+
 .flowContainer {
   margin: 1em;
+
   div.cardContainer {
     border-radius: 6px;
     margin-top: 1em;
+    background-color: white;
 
     &.blue {
       border: solid 1px $blueColor;
@@ -28,21 +39,24 @@
     }
 
     .avatarContainer {
-      margin: 0.5em 0.75em 0.5em 0.5em;
+      margin: 0.5em;
 
       .avatar {
         border-radius: 50%;
+        cursor: pointer;
+      }
+      .avatar:hover {
+        border: solid 3px $secondaryColor;
       }
     }
 
     div.cardTitle {
-      margin-top: 0.5em;
+      margin: 0.5em 0 0 0.5em;
 
       h2.title {
         font-family: $titleFont;
         font-size: $fontSize-lg;
         color: $primaryColor;
-        line-height: normal;
       }
       h3.userName {
         font-family: $textFont;

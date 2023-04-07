@@ -25,4 +25,5 @@ export interface UserInterface {
   artistic_level: number;
   freestyle_level: number;
   urban_level: number;
+  derby_level: number;
 }

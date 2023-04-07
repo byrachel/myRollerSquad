@@ -60,7 +60,7 @@ export default function Editor({ content, dispatchContent }) {
             { list: "ordered" },
             { list: "bullet" },
             { indent: "-1" },
-            { indent: "+1" },
+            // { indent: "+1" },
           ],
           ["clean"],
         ],

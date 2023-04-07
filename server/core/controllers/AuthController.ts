@@ -15,6 +15,7 @@ import {
 import { generateTokens } from "../../infrastructure/middleware/jwt";
 import { ErrorInterface } from "../entities/ErrorInterface";
 import prisma from "../../infrastructure/prisma/db/client";
+import { validationResult } from "express-validator";
 
 interface JwtPayload {
   userId: number;
@@ -27,15 +28,12 @@ export const signIn = async (
   res: Response,
   next: NextFunction
 ) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return next({ message: errors.array(), status: 400 });
+  }
   try {
     const { email, password, name } = req.body;
-    if (!email || !password || !name) {
-      let error = new Error(
-        "Une erreur s'est produite. Veuillez vérifier que tous les champs obligatoires soient bien saisis."
-      ) as ErrorInterface;
-      error.status = 400;
-      throw error;
-    }
     const user = await newUserSignIn({ email, password, name });
     if (!user) throw new Error();
     res.status(201).send({ user });

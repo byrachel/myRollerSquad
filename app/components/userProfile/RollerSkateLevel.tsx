@@ -1,11 +1,6 @@
-import React, { useState } from "react";
+import React from "react";
 import Star from "app/svg/star.svg";
 import styles from "../../styles/Profile.module.scss";
-
-import Message from "app/svg/mail.svg";
-import Instagram from "app/svg/instagram.svg";
-import Tiktok from "app/svg/tiktok.svg";
-import Youtube from "app/svg/youtube.svg";
 
 interface Props {
   rollerDanceLevel: number;
@@ -13,6 +8,7 @@ interface Props {
   artisticLevel: number;
   freestyleLevel: number;
   urbanLevel: number;
+  derbyLevel: number;
 }
 
 export default function RollerSkateLevel({
@@ -21,6 +17,7 @@ export default function RollerSkateLevel({
   artisticLevel,
   freestyleLevel,
   urbanLevel,
+  derbyLevel,
 }: Props) {
   const handleRollerSkateLevel = (level: number) => {
     const maxLevel = 5;
@@ -42,47 +39,43 @@ export default function RollerSkateLevel({
     ));
   };
   return (
-    <>
-      <div className={styles.rollerLevelContainer}>
-        <div>
-          <div className="spaceBetween">
-            <p className={styles.rollerLevelTitle}>Roller Dance</p>
-            <div className="flexStart">
-              {handleRollerSkateLevel(rollerDanceLevel)}
-            </div>
-          </div>
-          <div className="spaceBetween">
-            <p className={styles.rollerLevelTitle}>Skate Park</p>
-            <div className="flexStart">
-              {handleRollerSkateLevel(skateParkLevel)}
-            </div>
-          </div>
-          <div className="spaceBetween">
-            <p className={styles.rollerLevelTitle}>Artistique</p>
-            <div className="flexStart">
-              {handleRollerSkateLevel(artisticLevel)}
-            </div>
-          </div>
-          <div className="spaceBetween">
-            <p className={styles.rollerLevelTitle}>Freestyle</p>
-            <div className="flexStart">
-              {handleRollerSkateLevel(freestyleLevel)}
-            </div>
-          </div>
-          <div className="spaceBetween">
-            <p className={styles.rollerLevelTitle}>Roller Urbain</p>
-            <div className="flexStart">
-              {handleRollerSkateLevel(urbanLevel)}
-            </div>
+    <div className={styles.rollerLevelContainer}>
+      <div>
+        <div className="spaceBetween">
+          <p className={styles.rollerLevelTitle}>Roller Dance</p>
+          <div className="flexStart">
+            {handleRollerSkateLevel(rollerDanceLevel)}
           </div>
         </div>
-        <div className={styles.rollerSkaterLinks}>
-          <Message className={styles.linkIcon} width={35} height={35} />
-          <Youtube className={styles.linkIcon} width={35} height={35} />
-          <Instagram className={styles.linkIcon} width={35} height={35} />
-          <Tiktok className={styles.linkIcon} width={35} height={35} />
+        <div className="spaceBetween">
+          <p className={styles.rollerLevelTitle}>Skate Park</p>
+          <div className="flexStart">
+            {handleRollerSkateLevel(skateParkLevel)}
+          </div>
+        </div>
+        <div className="spaceBetween">
+          <p className={styles.rollerLevelTitle}>Artistique</p>
+          <div className="flexStart">
+            {handleRollerSkateLevel(artisticLevel)}
+          </div>
         </div>
       </div>
-    </>
+      <div>
+        <div className="spaceBetween">
+          <p className={styles.rollerLevelTitle}>Freestyle</p>
+          <div className="flexStart">
+            {handleRollerSkateLevel(freestyleLevel)}
+          </div>
+        </div>
+        <div className="spaceBetween">
+          <p className={styles.rollerLevelTitle}>Roller Urbain</p>
+          <div className="flexStart">{handleRollerSkateLevel(urbanLevel)}</div>
+        </div>
+        <div className="spaceBetween">
+          <p className={styles.rollerLevelTitle}>Roller Urbain</p>
+          <div className="flexStart">{handleRollerSkateLevel(derbyLevel)}</div>
+        </div>
+      </div>
+    </div>
   );
 }

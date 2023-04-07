@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import Masonry from "react-masonry-css";
-import Card from "app/components/flow/getPosts/Card";
-import NewPostBar from "app/components/layouts/NewPostBar";
-import { PostInterface } from "app/interfaces/flowInterfaces";
 import axios from "axios";
 import withAuth from "app/utils/withAuth";
+import NewPostBar from "app/components/layouts/NewPostBar";
+import CardContainer from "@/components/flow/getPosts/CardContainer";
+import { PostInterface } from "app/interfaces/flowInterfaces";
 
 const breakpointColumnsObj = {
   default: 2,
@@ -48,7 +48,7 @@ const Flow = () => {
         >
           {posts && posts.length > 0
             ? posts.map((post, index) => (
-                <Card
+                <CardContainer
                   post={post}
                   isLast={index === posts.length - 1}
                   newLimit={() => setRefetch(refetch + 1)}

@@ -17,11 +17,12 @@ export interface UserInterface {
   my_followers: number[];
   my_squad_ids: number[];
   pictures: string[];
-  social_medias: { instagram: string };
+  social_medias: { instagram: string; youtube: string; tiktok: string };
   website: string;
   roller_dance_level: number;
   skatepark_level: number;
   artistic_level: number;
   urban_level: number;
   freestyle_level: number;
+  derby_level: number;
 }

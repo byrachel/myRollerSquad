@@ -2,7 +2,7 @@ import getPosts from "./Flow/getPosts";
 
 const api_documentation = {
   paths: {
-    "/flow": {
+    "/api/flow": {
       tags: "FLOW",
       ...getPosts,
     },

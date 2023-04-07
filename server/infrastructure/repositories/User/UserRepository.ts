@@ -57,10 +57,17 @@ export function findUserById(id: number) {
         artistic_level: true,
         freestyle_level: true,
         urban_level: true,
+        derby_level: true,
         role: true,
         name: true,
         avatar: true,
-        posts: true,
+        posts: {
+          take: 3,
+          include: {
+            comments: true,
+            user_likes: true,
+          },
+        },
         email: true,
         country: true,
         city: true,
