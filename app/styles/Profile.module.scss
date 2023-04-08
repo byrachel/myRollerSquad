@@ -191,4 +191,10 @@
       display: none;
     }
   }
+
+  .rollerLevelContainer {
+    gap: 0;
+    display: flex;
+    flex-wrap: wrap;
+  }
 }
