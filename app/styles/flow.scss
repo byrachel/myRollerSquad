@@ -287,20 +287,20 @@
   }
 }
 
-.newPostSpaceBetween {
+.sidebarLayout {
   display: flex;
   justify-content: space-between;
-  .newPostContainer {
+  .sidebarContainer {
     margin: 1.75em;
     width: 65%;
   }
-  .newPostSidebar {
+  .sidebarContent {
     background-color: $lightColor;
     height: 100vh;
     position: relative;
     width: 35%;
 
-    .newPostSidebarText {
+    .sidebarText {
       margin: 2.5em 1.5em 1.5em 1.5em;
       h2 {
         font-size: $fontSize-xl;
@@ -354,12 +354,12 @@
 }
 
 @media (max-width: 768px) {
-  .newPostSpaceBetween {
-    .newPostContainer {
+  .sidebarLayout {
+    .sidebarContainer {
       margin: 1em;
       width: 100%;
     }
-    .newPostSidebar {
+    .sidebarContent {
       display: none;
     }
   }

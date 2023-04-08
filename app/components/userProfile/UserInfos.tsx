@@ -1,7 +1,5 @@
 import React, { useContext, useState } from "react";
-import { useRouter } from "next/router";
 import Image from "next/image";
-import axios from "axios";
 
 import RegularButton from "@/components/buttons/RegularButton";
 import styles from "../../styles/Profile.module.scss";
@@ -9,41 +7,25 @@ import { UserContext } from "app/context/UserContext";
 import { UserInterface } from "app/interfaces/userInterfaces";
 
 import Pin from "app/svg/pin.svg";
-import Logout from "app/svg/logout.svg";
-import Edit from "app/svg/edit.svg";
 import Instagram from "app/svg/instagram.svg";
 import Tiktok from "app/svg/tiktok.svg";
 import Youtube from "app/svg/youtube.svg";
 import UploadAvatarButton from "./UploadAvatarButton";
+import LogoutButton from "../buttons/LogoutButton";
+import UpdateProfileButton from "../buttons/UpdateProfileButton";
 
 interface Props {
   user: UserInterface;
+  userProfileDispatch: React.Dispatch<any>;
 }
 
-export default function UserInfos({ user }: Props) {
-  const router = useRouter();
+export default function UserInfos({ user, userProfileDispatch }: Props) {
   const [displayNewAvatar, setDisplayNewAvatar] = useState(false);
   const { userState } = useContext(UserContext);
   const userConnectedId = userState.user?.id;
 
-  const logout = (userId: number) => {
-    const token = localStorage.getItem("token");
-    if (userId) {
-      axios({
-        method: "post",
-        url: "/api/logout",
-        headers: {
-          "Content-Type": "multipart/form-data",
-          Authorization: `Bearer ${token}`,
-        },
-        withCredentials: true,
-      })
-        .then(() => {
-          localStorage.removeItem("token");
-          router.push("/");
-        })
-        .catch(err => console.log(err));
-    }
+  const updateUserProfile = () => {
+    userProfileDispatch({ type: "UPDATE_USER_PROFILE", payload: true });
   };
 
   return (
@@ -80,19 +62,13 @@ export default function UserInfos({ user }: Props) {
             <h1>{user.name}</h1>
             <div>
               {userConnectedId === user.id ? (
-                <Edit
-                  className={styles.editIcon}
-                  width={30}
-                  height={30}
-                  onClick={() => router.push("/updateaccount")}
-                />
+                <>
+                  <UpdateProfileButton
+                    userProfileDispatch={userProfileDispatch}
+                  />
+                  <LogoutButton userId={user.id} />
+                </>
               ) : null}
-              <Logout
-                className={styles.logoutIcon}
-                width={30}
-                height={30}
-                onClick={() => logout(user.id)}
-              />
             </div>
           </div>
           <div className={styles.rollerSkaterLocation}>
@@ -146,7 +122,7 @@ export default function UserInfos({ user }: Props) {
                 <p
                   role="button"
                   className="textLink"
-                  onClick={() => router.push("/updateaccount")}
+                  onClick={updateUserProfile}
                 >
                   Mettre à jour mon profil
                 </p>

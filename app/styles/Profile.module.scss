@@ -3,21 +3,23 @@
 .rollerStylesSeparator {
   width: 100%;
   background-color: $primaryColor;
-  display: flex;
-  justify-content: space-evenly;
-  align-items: center;
   margin: 0;
   padding: 0.5em 0;
-  p {
-    color: white;
-    font-family: $titleFont;
-    font-size: $fontSize-sm;
-    text-align: center;
-    letter-spacing: 0.3px;
-  }
-  .rollerStylesIcon {
-    stroke: none;
-    fill: $yellowColor;
+  .rollerStylesContent {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    p {
+      color: white;
+      font-family: $titleFont;
+      font-size: $fontSize-sm;
+      text-align: center;
+      letter-spacing: 0.3px;
+    }
+    .rollerStylesIcon {
+      stroke: none;
+      fill: $yellowColor;
+    }
   }
 }
 
@@ -181,37 +183,12 @@
 
 @media (max-width: 700px) {
   .rollerStylesSeparator {
-    display: none;
-  }
-
-  .rollerSkaterInfoBar {
-    .rollerSkaterInfoBackground {
-      height: 6.5em;
-    }
-    .rollerSkaterInfoContainer {
-      margin: 0.5em;
-
-      .rollerSkaterAvatarContainer {
-        .rollerSkaterAvatar {
-          width: 125px;
-          height: 125px;
-          border-radius: 50%;
-        }
-        .updateAvatarIcon {
-          position: absolute;
-          top: 90px;
-          right: 20px;
-        }
-      }
-      .rollerSkaterInfo {
-        margin: 0.7em 0 0 1.5em;
-        h1 {
-          font-size: $fontSize-lg;
-        }
-        .rollerSkaterLocation {
-          margin-top: 0.35em;
-        }
-      }
+    width: 100%;
+    background-color: $primaryColor;
+    margin: 0;
+    padding: 0.5em 0;
+    .rollerStylesContent {
+      display: none;
     }
   }
 }

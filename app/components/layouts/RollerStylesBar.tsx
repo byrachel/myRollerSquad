@@ -5,17 +5,19 @@ import Star from "app/svg/star.svg";
 export default function RollerStylesbar() {
   return (
     <div className={styles.rollerStylesSeparator}>
-      <p>Roller Dance</p>
-      <Star className={styles.rollerStylesIcon} width={18} height={18} />
-      <p>Patinage Artistique</p>
-      <Star className={styles.rollerStylesIcon} width={18} height={18} />
-      <p>Roller Derby</p>
-      <Star className={styles.rollerStylesIcon} width={18} height={18} />
-      <p>Freestyle</p>
-      <Star className={styles.rollerStylesIcon} width={18} height={18} />
-      <p>Skate Park</p>
-      <Star className={styles.rollerStylesIcon} width={18} height={18} />
-      <p>Roller Urbain</p>
+      <div className={styles.rollerStylesContent}>
+        <p>Roller Dance</p>
+        <Star className={styles.rollerStylesIcon} width={18} height={18} />
+        <p>Patinage Artistique</p>
+        <Star className={styles.rollerStylesIcon} width={18} height={18} />
+        <p>Roller Derby</p>
+        <Star className={styles.rollerStylesIcon} width={18} height={18} />
+        <p>Freestyle</p>
+        <Star className={styles.rollerStylesIcon} width={18} height={18} />
+        <p>Skate Park</p>
+        <Star className={styles.rollerStylesIcon} width={18} height={18} />
+        <p>Roller Urbain</p>
+      </div>
     </div>
   );
 }

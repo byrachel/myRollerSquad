@@ -102,10 +102,10 @@ const NewPost = ({ user }: Props) => {
   return (
     <>
       <div className="coloredSeparator" />
-      <div className="newPostSpaceBetween">
+      <div className="sidebarLayout">
         <Sidebar />
 
-        <form onSubmit={onSubmit} className="newPostContainer">
+        <form onSubmit={onSubmit} className="sidebarContainer">
           <NewPostForm
             post={post}
             postDispatch={postDispatch}

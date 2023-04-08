@@ -2,8 +2,8 @@ import React from "react";
 
 export default function Sidebar() {
   return (
-    <div className="newPostSidebar">
-      <div className="newPostSidebarText">
+    <div className="sidebarContent">
+      <div className="sidebarText">
         <h2>Quoi de beau à partager aujourd'hui ?</h2>
         <ul>
           <li>Un tuto ou une astuce ?</li>

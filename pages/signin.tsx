@@ -8,9 +8,9 @@ export default function MyAccount() {
   return (
     <>
       <div className="coloredSeparator" />
-      <div className="newPostSpaceBetween">
-        <div className="newPostSidebar">
-          <div className="newPostSidebarText">
+      <div className="sidebarLayout">
+        <div className="sidebarContent">
+          <div className="sidebarText">
             <h2>Fais partie de la plus grande communauté francophone !</h2>
             <ul>
               <li>Découvre des astuces pour passer au niveau supérieur !</li>
@@ -27,7 +27,7 @@ export default function MyAccount() {
             </p>
           </div>
         </div>
-        <div className="newPostContainer">
+        <div className="sidebarContainer">
           {showLoginForm ? (
             <>
               <div className="spaceBetween">
