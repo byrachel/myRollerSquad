@@ -4,11 +4,12 @@ import { useRouter } from "next/router";
 import BigButton from "../buttons/BigButton";
 import axios from "axios";
 import ErrorLayout from "../layouts/ErrorLayout";
+import InputText from "../form/InputText";
+import InputMail from "../form/InputMail";
+import InputPassword from "../form/InputPassword";
 
 export default function RegisterForm() {
   const router = useRouter();
-  const passwordConstraintsRegex =
-    "^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$";
   const [error, setError] = useState({ status: false, message: "" });
 
   const onSubmit = (event: SyntheticEvent) => {
@@ -20,6 +21,13 @@ export default function RegisterForm() {
       email: { value: string };
       password: { value: string };
     };
+
+    if (target.pseudo.value.length < 3 || target.pseudo.value.length > 20) {
+      return setError({
+        status: true,
+        message: "Le pseudo doit faire entre 3 et 20 caractères",
+      });
+    }
 
     const data = {
       name: target.pseudo.value,
@@ -55,30 +63,26 @@ export default function RegisterForm() {
           setError={setError}
         />
       ) : null}
-      <label>Nom ou pseudonyme</label>
-      <input
-        type="text"
+      <InputText
+        label="Nom ou pseudonyme"
+        placeholder="Nom ou pseudonyme"
         name="pseudo"
-        className={"input"}
         required
-        min-length="3"
-        max-length="50"
+        error={error.status}
       />
-      <label>eMail</label>
-      <input
-        type="text"
+      <InputMail
+        label="eMail"
+        placeholder="eMail"
         name="email"
-        className={"input"}
-        pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
         required
+        error={error.status}
       />
-      <label>Mot de passe</label>
-      <input
-        type="text"
+      <InputPassword
+        label="Mot de passe"
+        placeholder="Mot de passe"
         name="password"
-        className={"input"}
-        pattern={passwordConstraintsRegex}
         required
+        error={error.status}
       />
       <p className="blackMeta mt5">
         Le mot de passe doit contenir au moins 8 caractères, dont une majuscule,

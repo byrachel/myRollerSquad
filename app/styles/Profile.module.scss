@@ -23,6 +23,31 @@
   }
 }
 
+.rollerSkaterAvatarContainer {
+  position: relative;
+
+  .rollerSkaterAvatar {
+    width: 175px;
+    height: 175px;
+    border-radius: 50%;
+    border: solid 4px white;
+    object-fit: cover;
+  }
+  .updateAvatarIcon {
+    position: absolute;
+    top: 130px;
+    right: 5px;
+    stroke: $secondaryColor;
+    background: white;
+  }
+}
+
+.updateUserSidebarAvatar {
+  display: flex;
+  justify-content: center;
+  margin: 2em 0;
+}
+
 .rollerSkaterInfoBar {
   width: 100%;
 
@@ -31,25 +56,6 @@
     display: flex;
     margin: 0.3em 0 0 0;
     padding: 1.25em 1.25em 0 1.25em;
-
-    .rollerSkaterAvatarContainer {
-      position: relative;
-
-      .rollerSkaterAvatar {
-        width: 175px;
-        height: 175px;
-        border-radius: 50%;
-        border: solid 4px white;
-        object-fit: cover;
-      }
-      .updateAvatarIcon {
-        position: absolute;
-        top: 130px;
-        right: 5px;
-        stroke: $secondaryColor;
-        background: white;
-      }
-    }
 
     .rollerSkaterInfo {
       margin: 0 0 0 2.5em;
@@ -179,6 +185,27 @@
     fill: none;
     margin-right: 0.2em;
   }
+}
+
+.updateRollerStarIcon {
+  stroke: $secondaryColor;
+  fill: $secondaryColor;
+  margin-right: 0.2em;
+  cursor: pointer;
+}
+.updateRollerStarIcon:hover {
+  stroke: lighten($color: $secondaryColor, $amount: 25);
+  fill: none;
+}
+.updateRollerNoStarIcon {
+  stroke: lighten($color: $secondaryColor, $amount: 25);
+  fill: none;
+  margin-right: 0.2em;
+  cursor: pointer;
+}
+.updateRollerNoStarIcon:hover {
+  stroke: $secondaryColor;
+  fill: $secondaryColor;
 }
 
 @media (max-width: 700px) {

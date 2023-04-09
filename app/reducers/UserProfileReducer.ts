@@ -43,6 +43,18 @@ const UserProfileReducer = (
         ...state,
         updateProfile: true,
       };
+
+    case "SAVE_CONTENT":
+      return {
+        ...state,
+        user: { ...state.user, resume: action.payload },
+      };
+    case "UPDATE_USER_ROLLER_SKATE_LEVEL":
+      return {
+        ...state,
+        user: { ...state.user, ...action.payload },
+      };
+
     case "USER_PROFILE_UPDATED":
       return {
         ...state,

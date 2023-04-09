@@ -262,22 +262,25 @@
 .newPostBar {
   align-items: center;
   background: linear-gradient(135deg, $yellowColor 0%, $secondaryColor 100%);
+  cursor: pointer;
   display: flex;
   gap: 1em;
   justify-content: space-between;
-  padding: 1em;
+  padding: 1.5em 1em;
+  margin: 1em;
+  border-radius: 7px;
 
   .newPostButton {
     background-color: white;
     border: none;
     border-radius: 7px;
     margin: 0;
-    padding: 10px;
+    padding: 0.75em;
     width: 100%;
 
     p {
       font-family: $textFont;
-      font-size: $fontSize-sm;
+      font-size: $fontSize-md;
     }
   }
 
@@ -287,9 +290,18 @@
   }
 }
 
+.newPostBar:hover {
+  background: linear-gradient(135deg, $blueColor 0%, $yellowColor 100%);
+}
+
 .sidebarLayout {
   display: flex;
   justify-content: space-between;
+
+  .sidebarAvatarContainer {
+    display: flex;
+    justify-content: center;
+  }
   .sidebarContainer {
     margin: 1.75em;
     width: 65%;

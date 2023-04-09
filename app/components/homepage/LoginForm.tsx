@@ -4,10 +4,11 @@ import { UserContext } from "app/context/UserContext";
 import RegularButton from "../buttons/RegularButton";
 import axios from "axios";
 import ErrorLayout from "../layouts/ErrorLayout";
+import InputText from "../form/InputText";
+import InputPassword from "../form/InputPassword";
 
 export default function LoginForm() {
   const router = useRouter();
-  const [displayPassword, setDisplayPassword] = useState(false);
   const [error, setError] = useState({ status: false, message: "" });
   const { userDispatch } = useContext(UserContext);
 
@@ -58,26 +59,21 @@ export default function LoginForm() {
           setError={setError}
         />
       ) : null}
-      <label>Identifiant (email)</label>
-      <input
-        type="text"
-        placeholder={"email"}
+      <InputText
+        label="Identifiant (email)"
+        placeholder="email"
         name="email"
-        defaultValue="byrachel@gmail.com"
-        className="input"
+        value="rachel@gmail.com"
         required
+        error={error.status}
       />
-
-      <label onClick={() => setDisplayPassword(prevState => !prevState)}>
-        Mot de passe
-      </label>
-      <input
-        type={displayPassword ? "text" : "password"}
-        placeholder={"password"}
+      <InputPassword
+        label="Mot de passe"
+        placeholder="Mot de passe"
         name="password"
-        defaultValue="test"
-        className="input"
+        value="Admin007!"
         required
+        error={error.status}
       />
       <RegularButton type="submit" style="full" text="SE CONNECTER" />
     </form>

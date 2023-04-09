@@ -113,6 +113,19 @@ blockquote {
   }
 }
 
+.inputContainer {
+  margin: 0.5em 0;
+  position: relative;
+
+  .displayPassword {
+    position: absolute;
+    top: 3.35em;
+    right: 0.6em;
+    cursor: pointer;
+    stroke: $greyColor;
+  }
+}
+
 .input {
   background-color: white;
   border: 1px solid $greyColor;
@@ -125,13 +138,19 @@ blockquote {
   width: 100%;
 
   &.error {
-    border: 2px solid $primaryColor;
+    border: 1px solid $primaryColor;
+    box-shadow: 2px 2px $primaryColor;
   }
 }
 
 .input:focus {
   border-color: $primaryColor;
   outline: 3px solid transparent;
+}
+
+.required {
+  color: $secondaryColor;
+  margin: 1.4em 0.3em 0 0;
 }
 
 // .input:not(textarea) {

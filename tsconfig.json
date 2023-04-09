@@ -30,7 +30,7 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
-    "app/components/Editor/Editor.jsx",
+    "app/components/form/Editor/Editor.jsx",
     "global.d.ts"
     // "app/services/createAxiosClient.js",
     // "app/context/UserContext.js"

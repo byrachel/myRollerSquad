@@ -3,7 +3,6 @@ import { useRouter } from "next/router";
 import axios from "axios";
 
 import withAuth from "app/utils/withAuth";
-import RollerStylesbar from "@/components/layouts/RollerStylesBar";
 import UserInfos from "@/components/userProfile/UserInfos";
 import LastPostsShared from "@/components/userProfile/LastPostsShared";
 import RollerSkateLevel from "@/components/userProfile/RollerSkateLevel";
@@ -60,7 +59,6 @@ const UserProfile = () => {
 
   return (
     <>
-      <RollerStylesbar />
       {userProfile.user ? (
         userProfile.updateProfile ? (
           <UpdateUserProfile
