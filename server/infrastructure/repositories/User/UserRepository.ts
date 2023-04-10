@@ -1,5 +1,5 @@
 import bcrypt from "bcrypt";
-import db from "../../prisma/db/client";
+import prisma from "../../prisma/db/client";
 import { Prisma } from "@prisma/client";
 
 export async function newUserSignIn(user: {
@@ -9,7 +9,7 @@ export async function newUserSignIn(user: {
 }) {
   try {
     user.password = bcrypt.hashSync(user.password, 12);
-    return await db.user.create({
+    return await prisma.user.create({
       data: user,
     });
   } catch (error) {
@@ -25,7 +25,7 @@ export async function newUserSignIn(user: {
 
 export function findUserByEmail(email: string) {
   try {
-    return db.user.findUnique({
+    return prisma.user.findUnique({
       where: {
         email,
       },
@@ -43,7 +43,7 @@ export function findUserByEmail(email: string) {
 
 export function findUserById(id: number) {
   try {
-    return db.user.findUnique({
+    return prisma.user.findUnique({
       where: {
         id,
       },

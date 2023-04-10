@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "target": "es5",
+    "target": "es6",
     "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
     "skipLibCheck": true,
@@ -25,13 +25,16 @@
   "ts-node": {
     "files": true
   },
+  "files": [
+    // "next-env.d.ts",
+    "global.d.ts"
+  ],
   "exclude": ["node_modules"],
   "include": [
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
-    "app/components/form/Editor/Editor.jsx",
-    "global.d.ts"
+    "app/components/form/Editor/Editor.jsx"
     // "app/services/createAxiosClient.js",
     // "app/context/UserContext.js"
   ]
