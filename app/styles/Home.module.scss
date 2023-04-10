@@ -51,9 +51,9 @@
 }
 
 .blueBox {
-  background: $blueColor;
+  background: $primaryColor;
   margin: 0;
-  padding: 4em;
+  padding: 5em 2em;
 
   h2.blueBoxTitle {
     color: white;
@@ -82,15 +82,18 @@
 
   form {
     background: white;
-    border: 3px solid $primaryColor;
+    border: none;
     border-radius: 8px;
     color: $primaryColor;
     display: flex;
-    margin: 2.5em auto;
-    max-width: 400px;
-    padding: 2px;
-    position: relative;
+    margin: 3em auto;
     width: 100%;
+    max-width: 768px;
+    padding: 0.5em;
+    position: relative;
+    font-size: $fontSize-lg;
+    font-family: $textFont;
+    cursor: pointer;
 
     input[type="search"] {
       background: transparent;
@@ -98,17 +101,7 @@
       border: 1px solid transparent;
       border-radius: inherit;
       color: inherit;
-      font-family: $textFont;
-      font-size: $fontSize-md;
-      font-weight: 300;
       margin: 0;
-      max-width: 350px;
-      padding: 7px 8px;
-      width: 100%;
-    }
-
-    input[type="search"]::placeholder {
-      color: $primaryColor;
     }
 
     button[type="submit"] {
@@ -141,30 +134,28 @@
       outline: none;
     }
   }
-
-  .fourRoundImages {
+  .imagesBox {
     display: flex;
-    flex-direction: row;
-    justify-content: space-evenly;
+    justify-content: center;
+    .fourRoundImages {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-evenly;
+      width: 100%;
+      max-width: 820px;
 
-    .roundImage {
-      height: 150px;
-      position: relative;
-      width: 150px;
-    }
-    .pinkImage {
-      border: solid 3px $secondaryColor;
-      border-radius: 50%;
-      height: 150px !important;
-      object-fit: cover;
-      width: 150px !important;
-    }
-    .yellowImage {
-      border: solid 3px $yellowColor;
-      border-radius: 50%;
-      height: 150px !important;
-      object-fit: cover;
-      width: 150px !important;
+      .roundImage {
+        height: 160px;
+        position: relative;
+        width: 160px;
+      }
+      .image {
+        border: solid 3px white;
+        border-radius: 50%;
+        height: 160px !important;
+        object-fit: cover;
+        width: 160px !important;
+      }
     }
   }
 }
@@ -226,11 +217,22 @@
       height: auto;
     }
   }
+  .blueBox {
+    .imagesBox {
+      .fourRoundImages {
+        .roundImage {
+          height: 125px;
+          position: relative;
+          width: 125px;
+        }
+        .image {
+          border: solid 2px white;
+          border-radius: 50%;
+          height: 125px !important;
+          object-fit: cover;
+          width: 125px !important;
+        }
+      }
+    }
+  }
 }
-
-/* Tablet and Smaller Desktop */
-// @media (min-width: 701px) and (max-width: 1120px) {
-//   .grid {
-//     grid-template-columns: repeat(2, 50%);
-//   }
-// }
