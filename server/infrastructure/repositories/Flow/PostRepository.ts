@@ -44,7 +44,7 @@ export class PostRepository implements PostRepositoryInterface {
       });
       return posts;
     } catch (error) {
-      // @eslint-ignore
+      // @ts-check
       if (error instanceof Prisma.PrismaClientKnownRequestError) {
         console.log("Prisma Code Error = ", error);
         throw new Error("Les données ne sont pas accessibles pour le moment.");

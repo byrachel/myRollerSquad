@@ -13,7 +13,7 @@ export async function newUserSignIn(user: {
       data: user,
     });
   } catch (error) {
-    // @eslint-ignore
+    // @ts-check
     if (error instanceof Prisma.PrismaClientKnownRequestError) {
       console.log("Prisma Code Error = ", error);
       if (error.code === "P2002") {
@@ -31,7 +31,7 @@ export function findUserByEmail(email: string) {
       },
     });
   } catch (error) {
-    // @eslint-ignore
+    // @ts-check
     if (error instanceof Prisma.PrismaClientKnownRequestError) {
       console.log("Prisma Code Error = ", error);
       if (error.code === "P2002") {
@@ -75,7 +75,7 @@ export function findUserById(id: number) {
       },
     });
   } catch (error) {
-    // @eslint-ignore
+    // @ts-check
     if (error instanceof Prisma.PrismaClientKnownRequestError) {
       console.log("Prisma Code Error = ", error);
     }
