@@ -1,7 +1,7 @@
 import db from "../../prisma/db/client";
 import { UserInterface } from "server/core/entities/UserInterface";
 import { UserProfileRepositoryInterface } from "server/core/repositories/UserProfileRepositoryInterface";
-import { Prisma } from "@prisma/client";
+// import { Prisma } from "@prisma/client";
 
 export class UserProfileRepository implements UserProfileRepositoryInterface {
   async saveUserAvatar(
@@ -21,11 +21,11 @@ export class UserProfileRepository implements UserProfileRepositoryInterface {
       });
       return user ? user : { status: 400, message: "Une erreur est survenue" };
     } catch (error) {
-      // @ts-check
-      if (error instanceof Prisma.PrismaClientKnownRequestError) {
-        console.log("Prisma Code Error = ", error);
-        return { status: 400, message: "Une erreur est survenue" };
-      }
+      console.log("SAVE USER AVATAR ERR", error);
+      // if (error instanceof Prisma.PrismaClientKnownRequestError) {
+      //   console.log("Prisma Code Error = ", error);
+      //   return { status: 400, message: "Une erreur est survenue" };
+      // }
     }
   }
   async updateUserProfile(

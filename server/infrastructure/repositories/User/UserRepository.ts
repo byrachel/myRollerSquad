@@ -1,6 +1,6 @@
 import bcrypt from "bcrypt";
 import prisma from "../../prisma/db/client";
-import { Prisma } from "@prisma/client";
+// import { Prisma } from "@prisma/client";
 
 export async function newUserSignIn(user: {
   email: string;
@@ -13,13 +13,13 @@ export async function newUserSignIn(user: {
       data: user,
     });
   } catch (error) {
-    // @ts-check
-    if (error instanceof Prisma.PrismaClientKnownRequestError) {
-      console.log("Prisma Code Error = ", error);
-      if (error.code === "P2002") {
-        throw new Error("Il semble que cet email soit déjà utilisé.");
-      }
-    }
+    console.log("NEW USER SIGN IN ERR", error);
+    // if (error instanceof Prisma.PrismaClientKnownRequestError) {
+    //   console.log("Prisma Code Error = ", error);
+    //   if (error.code === "P2002") {
+    //     throw new Error("Il semble que cet email soit déjà utilisé.");
+    //   }
+    // }
   }
 }
 
@@ -31,13 +31,13 @@ export function findUserByEmail(email: string) {
       },
     });
   } catch (error) {
-    // @ts-check
-    if (error instanceof Prisma.PrismaClientKnownRequestError) {
-      console.log("Prisma Code Error = ", error);
-      if (error.code === "P2002") {
-        throw new Error("L'identifiant ou le mot de passe est incorrect.");
-      }
-    }
+    console.log("FIND USER BY EMAIL ERR", error);
+    // if (error instanceof Prisma.PrismaClientKnownRequestError) {
+    //   console.log("Prisma Code Error = ", error);
+    //   if (error.code === "P2002") {
+    //     throw new Error("L'identifiant ou le mot de passe est incorrect.");
+    //   }
+    // }
   }
 }
 
@@ -75,9 +75,9 @@ export function findUserById(id: number) {
       },
     });
   } catch (error) {
-    // @ts-check
-    if (error instanceof Prisma.PrismaClientKnownRequestError) {
-      console.log("Prisma Code Error = ", error);
-    }
+    console.log("FIND USER BY ID ERR", error);
+    // if (error instanceof Prisma.PrismaClientKnownRequestError) {
+    //   console.log("Prisma Code Error = ", error);
+    // }
   }
 }

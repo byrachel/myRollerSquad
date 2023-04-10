@@ -4,10 +4,10 @@ import {
 } from "../../../core/entities/PostInterface";
 import { PostRepositoryInterface } from "../../../core/repositories/PostRepositoryInterface";
 import db from "../../prisma/db/client";
-import { Prisma } from "@prisma/client";
+// import { Prisma } from "@prisma/client";
 
 export class PostRepository implements PostRepositoryInterface {
-  async getPosts(cursor: number, limit: number): Promise<PostInterface[]> {
+  async getPosts(cursor: number, limit: number): Promise<any> {
     try {
       const cursorObj = cursor === 0 ? undefined : { id: cursor };
       const posts = await db.post.findMany({
@@ -44,14 +44,16 @@ export class PostRepository implements PostRepositoryInterface {
       });
       return posts;
     } catch (error) {
-      // @ts-check
-      if (error instanceof Prisma.PrismaClientKnownRequestError) {
-        console.log("Prisma Code Error = ", error);
-        throw new Error("Les données ne sont pas accessibles pour le moment.");
-      } else {
-        throw new Error("Les données ne sont pas accessibles pour le moment.");
-      }
+      console.log("GET POSTS ERR", error);
     }
+
+    //   if (error instanceof Prisma.PrismaClientKnownRequestError) {
+    //     console.log("Prisma Code Error = ", error);
+    //     throw new Error("Les données ne sont pas accessibles pour le moment.");
+    //   } else {
+    //     throw new Error("Les données ne sont pas accessibles pour le moment.");
+    //   }
+    // }
   }
 
   async createPost(post: CreatePostInterface): Promise<PostInterface | null> {
