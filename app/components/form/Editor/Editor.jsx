@@ -7,7 +7,6 @@ import "react-quill/dist/quill.snow.css";
 const ReactQuill = dynamic(
   async () => {
     const { default: RQ } = await import("react-quill");
-
     return ({ forwardedRef, ...props }) => <RQ ref={forwardedRef} {...props} />;
   },
   {
@@ -95,7 +94,8 @@ export default function Editor({ content, dispatchContent }) {
         // placeholder="Quoi de beau aujourd'hui ?"
       />
     ),
-    [content]
+    // eslint-disable-next-line
+    [content, modules]
   );
 
   return (

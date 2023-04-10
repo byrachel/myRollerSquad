@@ -30,13 +30,15 @@ function Modal({ show, setShow, children, title }: Props) {
         <div className={styles.modal}>
           <div className={styles.modalHeader}>
             {title && <h2 className={styles.modalTitle}>{title}</h2>}
-            <a
+            <div
+              role="button"
               className={styles.modalCloseIcon}
-              href="#"
+              tabIndex={0}
               onClick={handleCloseClick}
+              onKeyDown={handleCloseClick}
             >
               x
-            </a>
+            </div>
           </div>
           <div>{children}</div>
         </div>

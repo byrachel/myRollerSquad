@@ -27,8 +27,6 @@ export default function UserInfos({ user, userProfileDispatch }: Props) {
     userProfileDispatch({ type: "UPDATE_USER_PROFILE", payload: true });
   };
 
-  console.log(user);
-
   return (
     <div className={styles.rollerSkaterInfoBar}>
       <div className={styles.rollerSkaterInfoContainer}>
@@ -100,13 +98,14 @@ export default function UserInfos({ user, userProfileDispatch }: Props) {
             <div>
               <p className="meta">Aucune information pour le moment...</p>
               {user.id === userConnectedId ? (
-                <p
+                <div
                   role="button"
-                  className="textLink"
+                  tabIndex={0}
+                  onKeyDown={updateUserProfile}
                   onClick={updateUserProfile}
                 >
-                  Mettre à jour mon profil
-                </p>
+                  <p className="textLink">Mettre à jour mon profil</p>
+                </div>
               ) : null}
             </div>
           )}

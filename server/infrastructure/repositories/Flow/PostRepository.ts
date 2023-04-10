@@ -37,6 +37,9 @@ export class PostRepository implements PostRepositoryInterface {
               user_id: true,
             },
           },
+          price: true,
+          distance: true,
+          duration: true,
         },
       });
       return posts;
@@ -44,9 +47,9 @@ export class PostRepository implements PostRepositoryInterface {
       // @eslint-ignore
       if (error instanceof Prisma.PrismaClientKnownRequestError) {
         console.log("Prisma Code Error = ", error);
-        throw new Error("Les données ne cont pas accessibles pour le moment.");
+        throw new Error("Les données ne sont pas accessibles pour le moment.");
       } else {
-        throw new Error("Les données ne cont pas accessibles pour le moment.");
+        throw new Error("Les données ne sont pas accessibles pour le moment.");
       }
     }
   }
@@ -68,6 +71,8 @@ export class PostRepository implements PostRepositoryInterface {
           link: post.link,
           distance: post.distance,
           duration: post.duration,
+          price: post.price,
+          city: post.city,
         },
       });
       return newPost;
@@ -97,6 +102,9 @@ export class PostRepository implements PostRepositoryInterface {
         squad_ids: true,
         city: true,
         country: true,
+        distance: true,
+        duration: true,
+        price: true,
       },
     });
     return post;

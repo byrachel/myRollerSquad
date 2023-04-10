@@ -58,10 +58,9 @@ const NewPost = ({ user }: Props) => {
             : null,
         position: post.position ? post.position : null,
         country: post.country ? post.country : null,
+        city: post.city ? post.city : null,
         squad_ids: [],
       };
-
-      console.log(newPost);
 
       const newPostFactory = new NewPostFactory();
       const newPostToSave = newPostFactory.create(newPost);

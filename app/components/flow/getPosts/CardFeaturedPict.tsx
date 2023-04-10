@@ -26,10 +26,12 @@ export default function CardFeaturedPict({ urlPicts, color }: Props) {
           fill
         />
         {pictCounter > 1 ? (
-          <p
-            className={`pictCounter ${color}`}
+          <div
             role="button"
+            tabIndex={0}
+            className={`pictCounter ${color}`}
             onClick={() => setShowSlider(true)}
+            onKeyDown={() => setShowSlider(true)}
           >
             <Camera
               className={`pictCounterIcon ${color}`}
@@ -37,7 +39,7 @@ export default function CardFeaturedPict({ urlPicts, color }: Props) {
               height={18}
             />
             {pictCounter}
-          </p>
+          </div>
         ) : null}
       </div>
       <Modal show={showSlider} setShow={setShowSlider}>

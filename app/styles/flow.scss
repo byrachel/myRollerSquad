@@ -39,7 +39,7 @@
     }
 
     .avatarContainer {
-      margin: 0.5em;
+      margin: 0.7em;
 
       .avatar {
         border-radius: 50%;
@@ -51,7 +51,7 @@
     }
 
     div.cardTitle {
-      margin: 0.5em 0 0 0.5em;
+      margin: 0.7em 0 0 0.5em;
 
       h2.title {
         font-family: $titleFont;
@@ -137,9 +137,37 @@
         }
       }
     }
-
+    div.cardMeta {
+      margin: 0 0 1em 0.7em;
+    }
+    p.cardMetaText {
+      color: $greyColor;
+      font-family: $textFont;
+      font-size: $fontSize-sm;
+      display: inline;
+      letter-spacing: 0.5px;
+    }
+    .metaIcon {
+      fill: none;
+      stroke: $primaryColor;
+      margin: 0 7px;
+    }
+    div.sessionTracking {
+      background-color: $lightColor;
+      margin: 0.5em 0;
+      padding: 0.5em;
+      display: flex;
+      justify-content: space-around;
+      p {
+        font-family: $titleFont;
+      }
+      .sessionIcon {
+        fill: none;
+        stroke: $primaryColor;
+      }
+    }
     div.cardContent {
-      margin: 0.5em;
+      margin: 0.7em;
 
       ol {
         li {
@@ -153,37 +181,25 @@
         }
       }
 
-      div.cardMeta {
-        margin: 0 0 1em 0;
-      }
-      p.cardMetaText {
-        color: $greyColor;
-        font-family: $textFont;
-        font-size: $fontSize-sm;
-        display: inline;
-        letter-spacing: 0.5px;
-      }
-      .metaIcon {
-        fill: none;
-        stroke: $primaryColor;
-        margin: 0 7px;
-      }
       div.cardSeparator {
-        background-color: $greyColor;
-        height: 1px;
-        margin-top: 1.2em;
+        background: $lightColor;
+        height: 3px;
+        margin-top: 1em;
       }
 
       div.linkContainer {
-        background-color: $lightColor;
         width: 100%;
         border-radius: 7px;
-        margin: 1.2em 0;
-        padding: 0.3em;
+        margin: 1.5em 0 0 0;
+        padding: 0;
         .linkText {
           font-family: $titleFont;
           font-size: $fontSize-md;
           text-align: center;
+          cursor: pointer;
+        }
+        .linkText:hover {
+          color: $secondaryColor;
         }
       }
     }
@@ -208,6 +224,50 @@
           margin-right: 1.5em;
           display: flex;
           align-items: center;
+        }
+        .iconfilled {
+          margin: 0 0.8em 0 0;
+          transition: fill 0.2s ease-in-out;
+          width: 2em;
+          height: auto;
+          cursor: pointer;
+          &.blue {
+            stroke: $blueColor;
+            fill: $blueColor;
+          }
+          &.pink {
+            stroke: $secondaryColor;
+            fill: $secondaryColor;
+          }
+          &.yellow {
+            stroke: $yellowColor;
+            fill: $yellowColor;
+          }
+          &.green {
+            stroke: $greenColor;
+            fill: $greenColor;
+          }
+          &.dark {
+            stroke: $primaryColor;
+            fill: $primaryColor;
+          }
+        }
+        .iconfilled:hover {
+          &.blue {
+            fill: none;
+          }
+          &.pink {
+            fill: none;
+          }
+          &.yellow {
+            fill: none;
+          }
+          &.green {
+            fill: none;
+          }
+          &.dark {
+            fill: none;
+          }
         }
         .icon {
           fill: none;

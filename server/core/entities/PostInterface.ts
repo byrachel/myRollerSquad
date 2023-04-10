@@ -20,6 +20,9 @@ export interface PostInterface {
   // comments: number;
   category_id: number;
   style_id: number | null;
+  duration: string | null;
+  distance: any | null;
+  price: number | null;
 }
 
 export interface CreatePostInterface {
@@ -32,7 +35,7 @@ export interface CreatePostInterface {
   squad_ids: number[];
   link: string | null;
   pictures: string[];
-  // city: string | null;
+  city: string | null;
   country: string;
   // location?: {
   //   latitude: string;
@@ -41,5 +44,6 @@ export interface CreatePostInterface {
   category_id: number;
   style_id: number | null;
   duration: string | null;
-  distance: number | null;
+  distance: any | null;
+  price: number | null;
 }

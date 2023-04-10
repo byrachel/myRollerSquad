@@ -51,6 +51,7 @@ app
     server.use(
       (error: any, req: Request, res: Response, next: NextFunction) => {
         console.log("ERROR HANDLER >> ", error);
+        console.log("NEXT >> ", next);
         const status = error.status || 500;
         res.status(status).send({ message: error.message });
       }
@@ -67,4 +68,4 @@ app
       console.log("> Ready on http://localhost:3000");
     });
   })
-  .catch(ex => process.exit(1));
+  .catch(() => process.exit(1));

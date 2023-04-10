@@ -32,7 +32,7 @@ const withAuth = (Component: any) => {
           }
         })
         .catch(() => router.push("/signin"));
-    }, []);
+    }, [router]);
 
     return user ? <Component user={user} /> : null;
   };

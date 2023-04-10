@@ -52,10 +52,11 @@ export const PostReducer = (
         ...state,
         position: action.payload,
       };
-    case "SAVE_COUNTRY":
+    case "SAVE_LOCATION":
       return {
         ...state,
-        country: action.payload,
+        country: action.payload.country,
+        city: action.payload.city,
       };
     case "SAVE_CONTENT":
       return {

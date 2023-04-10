@@ -41,6 +41,11 @@ export default function Header() {
             <div
               className={styles.responsiveNavigationIcon}
               onClick={() => setDisplayResponsiveMenu(prevState => !prevState)}
+              onKeyDown={() =>
+                setDisplayResponsiveMenu(prevState => !prevState)
+              }
+              role="button"
+              tabIndex={0}
             >
               {displayResponsiveMenu ? (
                 <Cancel className={styles.icon} width={42} height={42} />
@@ -90,32 +95,60 @@ export default function Header() {
       </header>
       {displayResponsiveMenu ? (
         <div className={styles.responsiveNavigationText}>
-          <p className={styles.iconText} onClick={() => goTo("/calendar")}>
+          <div
+            role="button"
+            tabIndex={0}
+            onKeyDown={() => goTo("/calendar")}
+            className={styles.iconText}
+            onClick={() => goTo("/calendar")}
+          >
             Agenda
-          </p>
-          <p className={styles.iconText} onClick={() => goTo("/places")}>
+          </div>
+          <div
+            role="button"
+            tabIndex={0}
+            className={styles.iconText}
+            onClick={() => goTo("/places")}
+            onKeyDown={() => goTo("/places")}
+          >
             Annuaire
-          </p>
-          <p className={styles.iconText} onClick={() => goTo("/flow")}>
+          </div>
+          <div
+            role="button"
+            tabIndex={0}
+            className={styles.iconText}
+            onClick={() => goTo("/flow")}
+            onKeyDown={() => goTo("/flow")}
+          >
             My Roller Squad
-          </p>
-          <p
+          </div>
+          <div
+            role="button"
+            tabIndex={0}
             className={styles.iconText}
             onClick={() =>
               userState.user && userState.user.id
                 ? goTo(`/profile/${userState.user.id}`)
                 : goTo("/signin")
             }
+            onKeyDown={() =>
+              userState.user && userState.user.id
+                ? goTo(`/profile/${userState.user.id}`)
+                : goTo("/signin")
+            }
           >
             Mon compte
-          </p>
+          </div>
           {isAdmin ? (
-            <p
+            <div
+              role="button"
+              tabIndex={0}
               className={styles.iconText}
               onClick={() => goTo("/board/manager")}
+              onKeyDown={() => goTo("/board/manager")}
             >
               Manager Board
-            </p>
+            </div>
           ) : null}
         </div>
       ) : null}

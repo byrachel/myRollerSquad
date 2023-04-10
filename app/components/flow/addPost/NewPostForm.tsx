@@ -24,13 +24,21 @@ export default function NewPostForm({ post, postDispatch, setShowMap }: Props) {
       <div className="flexStart">
         {category.flowCategories.map(category => (
           <div
+            role="button"
             key={category.id}
+            tabIndex={0}
             className={
               category.id === post.category
                 ? `badge ${cardColor(category.id)}`
                 : "outlineBadge grey"
             }
             onClick={() =>
+              postDispatch({
+                type: "SAVE_CATEGORY",
+                payload: category.id,
+              })
+            }
+            onKeyDown={() =>
               postDispatch({
                 type: "SAVE_CATEGORY",
                 payload: category.id,
@@ -106,7 +114,7 @@ export default function NewPostForm({ post, postDispatch, setShowMap }: Props) {
             />
           </div>
           <div style={{ width: "100%", marginLeft: 5 }}>
-            <label>Durée</label>
+            <label htmlFor="duration_hour">Durée</label>
             <input
               className="input"
               name="duration_hour"
@@ -124,11 +132,12 @@ export default function NewPostForm({ post, postDispatch, setShowMap }: Props) {
         </>
       ) : (
         <>
-          <label>Choisis ton style</label>
+          <label htmlFor="rollerStyle">Choisis ton style</label>
           <div className="flexStart">
             {rollerSkateStyles.map(style => (
               <div
                 key={style.id}
+                role="button"
                 className={
                   style.id === post.style ? "badge blue" : "outlineBadge grey"
                 }
@@ -138,6 +147,13 @@ export default function NewPostForm({ post, postDispatch, setShowMap }: Props) {
                     payload: style.id,
                   })
                 }
+                onKeyDown={() =>
+                  postDispatch({
+                    type: "SAVE_STYLE",
+                    payload: style.id,
+                  })
+                }
+                tabIndex={0}
               >
                 {style.name}
               </div>
@@ -147,26 +163,6 @@ export default function NewPostForm({ post, postDispatch, setShowMap }: Props) {
           <input className="input" name="link" id="link" type="url" />
         </>
       )}
-
-      {/* <div className="select">
-          <select
-            id="standard-select"
-            onChange={e => {
-              postDispatch({
-                type: "SAVE_STYLE",
-                payload: e.target.value,
-              });
-            }}
-          >
-            <option>Choisis ton style</option>
-            {rollerSkateStyles.map(style => (
-              <option key={style.id} value={style.id}>
-                {style.name}
-              </option>
-            ))}
-          </select>
-          <span className="focus"></span>
-        </div> */}
     </>
   );
 }

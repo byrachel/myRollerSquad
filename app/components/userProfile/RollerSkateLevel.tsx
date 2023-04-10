@@ -21,7 +21,7 @@ export default function RollerSkateLevel({
 }: Props) {
   const handleRollerSkateLevel = (level: number) => {
     const maxLevel = 5;
-    let stars = [];
+    const stars = [];
     for (let i = 0; i < maxLevel; i++) {
       if (i < level) {
         stars.push(1);

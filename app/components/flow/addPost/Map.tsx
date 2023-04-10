@@ -14,7 +14,7 @@ interface Props {
 export default function Map({ position, dispatch }: Props) {
   const markerRef = useRef<any>(null);
 
-  var icon = new L.Icon({
+  const icon = new L.Icon({
     iconUrl:
       "https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png",
     shadowUrl:
@@ -38,6 +38,7 @@ export default function Map({ position, dispatch }: Props) {
         }
       },
     }),
+    // eslint-disable-next-line
     []
   );
 

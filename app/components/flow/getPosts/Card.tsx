@@ -11,7 +11,9 @@ import CommentIcon from "./CommentIcon";
 
 import Pin from "app/svg/pin.svg";
 import Arrow from "app/svg/nav-arrow-right.svg";
-import { getCategoryName } from "app/constants/PostCategories";
+import Roller from "app/svg/rollerquad.svg";
+
+import { SALE, getCategoryName } from "app/constants/PostCategories";
 import { getStyleName } from "app/constants/RollerSkateStyles";
 import CardFeaturedPict from "./CardFeaturedPict";
 
@@ -23,6 +25,8 @@ interface Props {
 
 export default function Card({ post, cardRef, isAuthor }: Props) {
   const color = useMemo(() => cardColor(post.category_id), [post.category_id]);
+
+  console.log(post);
 
   return (
     <div className={`cardContainer ${color}`} key={post.id} ref={cardRef}>
@@ -43,33 +47,40 @@ export default function Card({ post, cardRef, isAuthor }: Props) {
           )}
         </div>
       </div>
+      <div className="cardMeta">
+        <p className="cardMetaText">
+          {displayLightDateTime(post.created_at)}
+          <Pin width={12} height={12} className="metaIcon" />
+          {post.city ? `${post.city}, ` : null}
+          {post.country}
+        </p>
+      </div>
+      {post.distance || post.duration ? (
+        <div className="sessionTracking">
+          <Roller className="sessionIcon" width={28} height={28} />
+          {post.distance ? <p>{post.distance} km</p> : null}
+          {post.duration ? <p>{post.duration}</p> : null}
+        </div>
+      ) : null}
+
+      {post.category_id === SALE && post.price ? (
+        <div className="sessionTracking">
+          <p>{post.price} €</p>
+        </div>
+      ) : null}
+
       {post.pictures.length > 0 ? (
         <CardFeaturedPict urlPicts={post.pictures} color={color} />
       ) : null}
       <div className="cardContent">
-        <div className="cardMeta">
-          <p className="cardMetaText">
-            {displayLightDateTime(post.created_at)}
-            <Pin width={12} height={12} className="metaIcon" />
-            {post.city ? `${post.city}, ` : null}
-            {post.country}
-          </p>
-          {/* {post.hashtags.length > 0
-        ? post.hashtags.map((hashtag, index) => (
-            <p className="hashtags" key={index}>
-              #{hashtag}
-            </p>
-          ))
-        : null} */}
-        </div>
         {post.content ? parseContent(post.content) : null}
+
         {post.link ? (
           <div className="linkContainer">
             <p className="linkText">{post.link}</p>
           </div>
-        ) : (
-          <div className="cardSeparator" />
-        )}
+        ) : null}
+        <div className="cardSeparator" />
       </div>
       <div className="cardIcons">
         <div className="cardSocialIcons">
@@ -77,6 +88,7 @@ export default function Card({ post, cardRef, isAuthor }: Props) {
             color={color}
             counter={post.user_likes.length}
             postId={post.id}
+            likedBy={post.user_likes.map(like => like.user_id)}
           />
           {/* TO UPDATE !!! */}
           <CommentIcon color={color} counter={2} />

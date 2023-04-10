@@ -50,7 +50,7 @@ export const login = async (
   try {
     const { email, password } = req.body;
     if (!email || !password) {
-      let error = new Error(
+      const error = new Error(
         "L'identifiant ou le mot de passe est manquant."
       ) as ErrorInterface;
       error.status = 400;
@@ -65,7 +65,7 @@ export const login = async (
         existingUser.password
       );
       if (!validPassword) {
-        let error = new Error(
+        const error = new Error(
           "L'identifiant ou le mot de passe est incorrect."
         ) as ErrorInterface;
         error.status = 400;
@@ -87,7 +87,7 @@ export const login = async (
         .header("Authorization", accessToken)
         .send({ user: existingUser });
     } else {
-      let error = new Error(
+      const error = new Error(
         "L'identifiant ou le mot de passe est incorrect."
       ) as ErrorInterface;
       error.status = 400;

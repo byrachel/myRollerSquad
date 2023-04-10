@@ -1,5 +1,5 @@
 import express, { NextFunction, Request, Response } from "express";
-const { check, validationResult } = require("express-validator");
+import { check, validationResult } from "express-validator";
 
 import { PostRepository } from "../infrastructure/repositories/Flow/PostRepository";
 import {
@@ -43,14 +43,18 @@ flowRouter.post(
     check("user_id").exists().withMessage("User id is missing"),
     check("content").trim(),
     check("link").trim(),
+    check("price").trim(),
+    check("country").trim(),
+    check("city").trim(),
   ],
   async (req: Request, res: Response) => {
+    console.log(req.body);
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
       return res.status(400).json({ errors: errors.array() });
     }
 
-    const post = await postController.addPost(req, res);
+    const post = await postController.addPost(req);
     if (!post) {
       return res.status(500);
     }
@@ -61,7 +65,7 @@ flowRouter.post(
 flowRouter.post(
   "/api/post/like/:id",
   isAuthenticated,
-  async (req: any, res: Response, next: NextFunction) => {
+  async (req: any, res: Response) => {
     const id = parseInt(req.params.id);
     if (!id) return res.status(400).json({ message: "Post ID is missing" });
     const postExists = await prisma.post.findUnique({ where: { id } });

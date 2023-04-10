@@ -17,20 +17,23 @@ const Flow = () => {
   const [refetch, setRefetch] = useState(0);
 
   const fetchPosts = () => {
-    const token = localStorage.getItem("token");
-    axios({
-      method: "get",
-      url: `/api/flow/${cursor}`,
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-      withCredentials: true,
-    })
-      .then(res => {
-        setPosts([...posts, ...res.data.posts]);
-        setCursor(res.data.nextId);
+    if (cursor === undefined) return;
+    if (cursor >= 0) {
+      const token = localStorage.getItem("token");
+      axios({
+        method: "get",
+        url: `/api/flow/${cursor}`,
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        withCredentials: true,
       })
-      .catch(err => console.log(err));
+        .then(res => {
+          setPosts([...posts, ...res.data.posts]);
+          setCursor(res.data.nextId);
+        })
+        .catch(err => console.log(err));
+    }
   };
 
   useEffect(() => {
@@ -51,7 +54,9 @@ const Flow = () => {
                 <CardContainer
                   post={post}
                   isLast={index === posts.length - 1}
-                  newLimit={() => setRefetch(refetch + 1)}
+                  newLimit={() =>
+                    cursor !== undefined ? setRefetch(refetch + 1) : null
+                  }
                   key={post.id}
                 />
               ))

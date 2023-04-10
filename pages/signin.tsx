@@ -32,9 +32,14 @@ export default function MyAccount() {
             <>
               <div className="spaceBetween">
                 <h3 className="mt5">Se connecter :</h3>
-                <p className="link mt5" onClick={() => setShowLoginForm(false)}>
-                  X
-                </p>
+                <div
+                  role="button"
+                  tabIndex={0}
+                  onKeyDown={() => setShowLoginForm(false)}
+                  onClick={() => setShowLoginForm(false)}
+                >
+                  <p className="link mt5">X</p>
+                </div>
               </div>
               <div className="lightSeparator mt5" />
 
@@ -42,13 +47,15 @@ export default function MyAccount() {
               <hr />
               <div className="signinContainer">
                 <Roller className="rollerColoredIcon" width={48} height={48} />
-                <p
+                <div
                   className="link mt5"
                   onClick={() => setShowLoginForm(false)}
                   role="button"
+                  tabIndex={0}
+                  onKeyDown={() => setShowLoginForm(false)}
                 >
-                  Pas encore membre ? Clique ici et crée un compte !
-                </p>
+                  <p>Pas encore membre ? Clique ici et crée un compte !</p>
+                </div>
               </div>
             </>
           ) : (

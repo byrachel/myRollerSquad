@@ -32,8 +32,11 @@ export default function UploadedPicturesPreview({ pictures, dispatch }: Props) {
                 height={1}
               />
               <div
+                role="button"
+                tabIndex={0}
                 className="removePictIcon"
                 onClick={() => removePict(picture)}
+                onKeyDown={() => removePict(picture)}
               >
                 X
               </div>

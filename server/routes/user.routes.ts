@@ -1,7 +1,6 @@
 import express, { NextFunction, Request, Response } from "express";
 import multer from "multer";
-import db from "../infrastructure/prisma/db/client";
-import { check, validationResult } from "express-validator";
+import { check } from "express-validator";
 
 import { UserProfileRepository } from "../infrastructure/repositories/User/UserProfileRepository";
 import { SaveAvatarUseCase } from "../core/use-cases/User/saveAvatarUseCase";

@@ -31,7 +31,7 @@ export class UserProfileController {
 
       const avatar = await uploadImage(process.env.S3_AVATAR_BUCKET_NAME, file);
       if (!avatar || !avatar.Key) {
-        let err = new Error(
+        const err = new Error(
           "Une erreur s'est produite. L'avatar n'a pas pu être sauvegardé."
         ) as ResponseError;
         err.status = 400;
@@ -39,7 +39,7 @@ export class UserProfileController {
       }
       return await this.saveAvatarUseCase.execute(userId, avatar.Key);
     } catch (error) {
-      let err = new Error(
+      const err = new Error(
         "Une erreur s'est produite. L'avatar n'a pas pu être sauvegardé."
       ) as ResponseError;
       err.status = 400;

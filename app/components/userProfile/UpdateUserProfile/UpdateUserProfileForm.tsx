@@ -27,7 +27,7 @@ const UpdateUserProfileForm = ({ userProfile, userProfileDispatch }: Props) => {
         maxLength={20}
       />
       <UpdateUserCountry country={user.country} city={user.city} />
-      <label>Bio :</label>
+      <label htmlFor="resume">Bio :</label>
       <Editor content={user.resume} dispatchContent={userProfileDispatch} />
       <br />
       <UpdateRollerSkateLevel

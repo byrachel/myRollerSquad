@@ -22,33 +22,51 @@ export default function Manager() {
       <div className={styles.adminContainer}>
         <div className={styles.adminSidebar}>
           <ul className={styles.adminSidebarNav}>
-            <li
-              className={componentToDisplay === CATEGORIES ? styles.active : ""}
-              role="button"
-              onClick={() => setComponentToDisplay(CATEGORIES)}
-            >
-              Catégories
+            <li>
+              <div
+                className={
+                  componentToDisplay === CATEGORIES ? styles.active : ""
+                }
+                role="button"
+                onClick={() => setComponentToDisplay(CATEGORIES)}
+                onKeyDown={() => setComponentToDisplay(CATEGORIES)}
+                tabIndex={0}
+              >
+                Catégories
+              </div>
             </li>
-            <li
-              className={componentToDisplay === STYLES ? styles.active : ""}
-              role="button"
-              onClick={() => setComponentToDisplay(STYLES)}
-            >
-              Styles
+            <li>
+              <div
+                className={componentToDisplay === STYLES ? styles.active : ""}
+                role="button"
+                onClick={() => setComponentToDisplay(STYLES)}
+                onKeyDown={() => setComponentToDisplay(STYLES)}
+                tabIndex={0}
+              >
+                Styles
+              </div>
             </li>
-            <li
-              className={componentToDisplay === USERS ? styles.active : ""}
-              role="button"
-              onClick={() => setComponentToDisplay(USERS)}
-            >
-              Utilisateurs
+            <li>
+              <div
+                tabIndex={0}
+                className={componentToDisplay === USERS ? styles.active : ""}
+                role="button"
+                onClick={() => setComponentToDisplay(USERS)}
+                onKeyDown={() => setComponentToDisplay(USERS)}
+              >
+                Utilisateurs
+              </div>
             </li>
-            <li
-              className={componentToDisplay === EVENTS ? styles.active : ""}
-              role="button"
-              onClick={() => setComponentToDisplay(EVENTS)}
-            >
-              Evénements
+            <li>
+              <div
+                tabIndex={0}
+                className={componentToDisplay === EVENTS ? styles.active : ""}
+                role="button"
+                onClick={() => setComponentToDisplay(EVENTS)}
+                onKeyDown={() => setComponentToDisplay(EVENTS)}
+              >
+                Evénements
+              </div>
             </li>
           </ul>
         </div>

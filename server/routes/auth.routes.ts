@@ -1,5 +1,5 @@
 import express from "express";
-const { check } = require("express-validator");
+import { check } from "express-validator";
 
 import { isAuthenticated } from "../infrastructure/middleware/isAuthenticated";
 import {

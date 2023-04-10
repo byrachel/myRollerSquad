@@ -1,4 +1,4 @@
-import { Request, Response } from "express";
+import { Request } from "express";
 import { CreatePostUseCase } from "server/core/use-cases/Flow/createPost";
 import { GetPostUseCase } from "../use-cases/Flow/getPost";
 import { GetPostsUseCase } from "../use-cases/Flow/getPosts";
@@ -27,7 +27,7 @@ export class PostController {
     const post = await this.getPostUseCase.execute(id);
     return post;
   }
-  async addPost(req: Request, res: Response): Promise<PostInterface | null> {
+  async addPost(req: Request): Promise<PostInterface | null> {
     const files: any = req.files;
     const resizedImages = [];
     try {
@@ -60,11 +60,19 @@ export class PostController {
           !req.body.distance || req.body.distance === "null"
             ? null
             : parseFloat(req.body.distance),
-        hashtags: req.body.hashtags ? req.body.hashtags : [],
+        hashtags: [],
         pictures: resizedImages,
         squad_ids: req.body.squad_ids ? req.body.squad_ids : [],
         created_at: new Date().toISOString(),
-        country: req.body.country ? req.body.country : "France",
+        country:
+          req.body.country && req.body.city !== "null"
+            ? req.body.country
+            : "France",
+        city: req.body.city && req.body.city !== "null" ? req.body.city : null,
+        price:
+          req.body.price && req.body.price !== "null"
+            ? parseFloat(req.body.price)
+            : null,
       };
 
       const post = await this.createPostUseCase.execute(newPost);

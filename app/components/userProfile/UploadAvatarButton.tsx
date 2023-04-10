@@ -22,8 +22,8 @@ export default function UploadAvatarButton({
       return;
     }
 
-    let files = e.target.files;
-    let file = files[0] as any;
+    const files = e.target.files;
+    const file = files[0] as any;
 
     if (file.size > 1000000) {
       console.log("file too large");

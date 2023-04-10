@@ -23,9 +23,15 @@ export default function ErrorLayout({
   return error ? (
     <div className="errorBox">
       <p className="errorMessage">{message}</p>
-      <p className="closeErrorBox" onClick={hideErrorMessage}>
+      <div
+        role="button"
+        tabIndex={0}
+        className="closeErrorBox"
+        onClick={hideErrorMessage}
+        onKeyDown={hideErrorMessage}
+      >
         X
-      </p>
+      </div>
     </div>
   ) : null;
 }

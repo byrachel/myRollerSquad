@@ -33,6 +33,7 @@ export default function DisplayLocation({
         payload: [position.coords.latitude, position.coords.longitude],
       });
     });
+    // eslint-disable-next-line
   }, []);
 
   useEffect(() => {
@@ -42,7 +43,11 @@ export default function DisplayLocation({
       )
         .then(res => res.json())
         .then(data => {
-          console.log(data);
+          const currentLocation = {
+            country: data.address.country,
+            city: data.address.county,
+          };
+          dispatch({ type: "SAVE_LOCATION", payload: currentLocation });
           const address = `${
             data.address.city ? data.address.city : data.address.municipality
           }, ${data.address.country}`;
@@ -59,13 +64,12 @@ export default function DisplayLocation({
   };
 
   const saveAsImage = async () => {
-    dispatch({ type: "SAVE_COUNTRY", payload: location });
     const canvas = document.getElementsByClassName(
       "leaflet-container"
     )[0] as HTMLCanvasElement;
     await html2canvas(canvas, canvasConfig).then((canvas: any) => {
       canvas.toBlob((blob: any) => {
-        let image: BlobImageInterface = {};
+        const image: BlobImageInterface = {};
         image.preview = URL.createObjectURL(blob);
         image.size = blob.size;
         image.type = blob.type;

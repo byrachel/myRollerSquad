@@ -13,10 +13,33 @@
   "plugins": ["@typescript-eslint", "react", "jsx-a11y", "prettier"],
   "rules": {
     "react/react-in-jsx-scope": "off",
+    "react/prop-types": "off",
+    "react/no-unescaped-entities": "off",
+    "react/display-name": "off",
+    "react/no-unknown-property": "off",
     "@typescript-eslint/no-unused-vars": "error",
     "@typescript-eslint/no-explicit-any": "off",
     "no-nested-ternary": "off",
-    "import/prefer-default-export": "off"
+    "import/prefer-default-export": "off",
+    "jsx-a11y/no-noninteractive-element-interactions": [
+      "error",
+      {
+        "handlers": [
+          "onClick",
+          "onMouseDown",
+          "onMouseUp",
+          "onKeyPress",
+          "onKeyDown",
+          "onKeyUp"
+        ]
+      }
+    ]
+    // "no-noninteractive-element-to-interactive-role": [
+    //   "error",
+    //   {
+    //     "li": ["button"]
+    //   }
+    // ]
   },
   "globals": {
     "React": "writable"

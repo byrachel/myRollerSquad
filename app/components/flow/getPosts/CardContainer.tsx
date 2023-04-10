@@ -23,7 +23,7 @@ export default function CardContainer({ post, isLast, newLimit }: Props) {
     });
 
     observer.observe(cardRef.current);
-  }, [isLast]);
+  }, [isLast, newLimit]);
 
   return <Card post={post} cardRef={cardRef} />;
 }

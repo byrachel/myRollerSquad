@@ -1,15 +1,15 @@
 import Image from "next/image";
-import { useEffect, useState } from "react";
+// import { useEffect, useState } from "react";
 import styles from "../../styles/Home.module.scss";
 
 export default function FindACoach() {
-  const [userLocation, setUserLocation] = useState(null);
+  // const [userLocation, setUserLocation] = useState(null);
 
-  useEffect(() => {
-    fetch(`https://geolocation-db.com/json/`)
-      .then(res => res.json())
-      .then(data => setUserLocation(data.city));
-  }, []);
+  // useEffect(() => {
+  //   fetch(`https://geolocation-db.com/json/`)
+  //     .then(res => res.json())
+  //     .then(data => setUserLocation(data.city));
+  // }, []);
 
   return (
     <div className={styles.blueBox}>
@@ -22,12 +22,7 @@ export default function FindACoach() {
         supérieur !
       </p>
       <form>
-        <input
-          type="search"
-          placeholder={
-            userLocation ? userLocation : "Dans quelle ville es-tu ?"
-          }
-        />
+        <input type="search" placeholder={"Dans quel département es-tu ?"} />
         <button type="submit">Rechercher</button>
       </form>
       <div className={styles.fourRoundImages}>

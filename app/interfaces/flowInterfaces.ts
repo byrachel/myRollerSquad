@@ -14,6 +14,9 @@ export interface PostInterface {
   user: { id: number; name: string };
   user_likes: any[];
   comments: any[];
+  price: number | null;
+  distance: string | null;
+  duration: string | null;
 }
 
 export interface UploadedPictureInterface {
@@ -55,4 +58,5 @@ export interface NewPostFactoryInterface {
   country: string;
   position: [number, number] | undefined;
   price: number | null;
+  city: string | null;
 }

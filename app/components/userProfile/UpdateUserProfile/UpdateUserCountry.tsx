@@ -11,7 +11,7 @@ export default function UpdateUserCountry({ country, city }: Props) {
   const [selectedCountry, setSelectedCountry] = useState(country);
   return (
     <>
-      <label>Pays :</label>
+      <label htmlFor="country">Pays :</label>
       <div className="select">
         <select
           id="standard-select"
@@ -28,7 +28,7 @@ export default function UpdateUserCountry({ country, city }: Props) {
       </div>
       {selectedCountry === "France" ? (
         <>
-          <label>Département :</label>
+          <label htmlFor="city">Département :</label>
           <div className="select">
             <select id="standard-select" name="city" value={city || ""}>
               {departments.map(elt => (

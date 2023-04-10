@@ -10,11 +10,11 @@ export const fileSize = (size: number) => {
 
 export const uploadPictsWithPreview = (e: any, dispatch: any) => {
   if (e.target.files && e.target.files.length > 0) {
-    let files = [...e.target.files];
+    const files = [...e.target.files];
 
     files.map(file => {
       file["preview"] = URL.createObjectURL(file);
-      let image = new Image();
+      const image = new Image();
       image.src = file["preview"];
       image.onload = () => {
         const MAX_WIDTH = 768;

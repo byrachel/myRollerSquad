@@ -86,6 +86,7 @@ model Post {
   style         Style?      @relation("roller_style", fields: [style_id], references: [id])
   style_id      Int?
   user_likes    PostLiked[] @relation("user_likes")
+  price         Int?
 }
 
 model PostLiked {

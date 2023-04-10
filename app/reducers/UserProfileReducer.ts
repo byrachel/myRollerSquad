@@ -43,7 +43,6 @@ const UserProfileReducer = (
         ...state,
         updateProfile: action.payload,
       };
-
     case "SAVE_CONTENT":
       return {
         ...state,
@@ -58,7 +57,7 @@ const UserProfileReducer = (
     case "USER_PROFILE_UPDATED":
       return {
         ...state,
-        user: action.payload,
+        user: { ...state.user, ...action.payload },
         updateProfile: false,
       };
     default:
