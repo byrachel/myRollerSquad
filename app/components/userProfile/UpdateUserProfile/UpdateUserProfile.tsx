@@ -17,6 +17,10 @@ const UpdateUserProfile = ({ userProfile, userProfileDispatch }: Props) => {
   const { userState } = useContext(UserContext);
   const userConnectedId = userState.user?.id;
 
+  const cancelUpdate = () => {
+    userProfileDispatch({ type: "UPDATE_USER_PROFILE", payload: false });
+  };
+
   const onSubmit = (event: SyntheticEvent) => {
     event.preventDefault();
 
@@ -25,10 +29,14 @@ const UpdateUserProfile = ({ userProfile, userProfileDispatch }: Props) => {
       instagram: { value: string };
       tiktok: { value: string };
       youtube: { value: string };
+      country: { value: string };
+      city: { value: string };
     };
 
     const data = {
       name: target.name.value,
+      country: target.country.value,
+      city: target.city.value,
       resume: userProfile.user.resume,
       social_medias: {
         instagram: target.instagram.value,
@@ -45,7 +53,6 @@ const UpdateUserProfile = ({ userProfile, userProfileDispatch }: Props) => {
 
     const token = localStorage.getItem("token");
 
-    console.log(data);
     axios({
       method: "put",
       url: `/api/userprofile/update/${userConnectedId}`,
@@ -91,6 +98,12 @@ const UpdateUserProfile = ({ userProfile, userProfileDispatch }: Props) => {
             <UpdateUserProfileForm
               userProfile={userProfile}
               userProfileDispatch={userProfileDispatch}
+            />
+            <RegularButton
+              type="button"
+              style="outline"
+              text="ANNULER"
+              onClick={cancelUpdate}
             />
             <RegularButton type="submit" style="full" text="ENREGISTRER" />
           </form>

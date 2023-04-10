@@ -16,10 +16,12 @@ export interface UserInterface {
   city: string | null;
 
   social_medias?: {} | null;
+
   website?: string | null;
-  // pictures      String[]
+
   my_squad: number[];
   my_followers: number[];
+
   roller_dance_level: number;
   skatepark_level: number;
   artistic_level: number;

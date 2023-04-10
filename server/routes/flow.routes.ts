@@ -38,12 +38,11 @@ flowRouter.post(
     check("title")
       .isLength({ min: 3, max: 30 })
       .withMessage("the name must have minimum length of 3 and maximum 30")
-      .trim()
-      .escape(),
+      .trim(),
     check("category_id").exists().withMessage("Category id is missing"),
     check("user_id").exists().withMessage("User id is missing"),
-    check("content").trim().escape(),
-    check("link").trim().escape(),
+    check("content").trim(),
+    check("link").trim(),
   ],
   async (req: Request, res: Response) => {
     const errors = validationResult(req);

@@ -1,3 +1,4 @@
+import { min } from "date-fns";
 import React from "react";
 
 interface Props {
@@ -8,6 +9,8 @@ interface Props {
   required: boolean;
   error?: boolean;
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  minLength?: number;
+  maxLength?: number;
 }
 
 export default function InputText({
@@ -18,6 +21,8 @@ export default function InputText({
   required,
   error,
   onChange,
+  minLength,
+  maxLength,
 }: Props) {
   return (
     <div className="inputContainer">
@@ -33,6 +38,8 @@ export default function InputText({
         required={required}
         className={error ? "input error" : "input"}
         onChange={onChange}
+        minLength={minLength || 0}
+        maxLength={maxLength || 1000}
       />
     </div>
   );

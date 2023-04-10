@@ -69,6 +69,8 @@ export default function RegisterForm() {
         name="pseudo"
         required
         error={error.status}
+        minLength={3}
+        maxLength={20}
       />
       <InputMail
         label="eMail"

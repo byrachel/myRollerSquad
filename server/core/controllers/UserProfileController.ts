@@ -2,6 +2,8 @@ import sharp from "sharp";
 import { UserInterface } from "../entities/UserInterface";
 import { SaveAvatarUseCase } from "../use-cases/User/saveAvatarUseCase";
 import { uploadImage } from "../../infrastructure/middleware/imageUpload";
+import { UpdateUserProfileUseCase } from "../use-cases/User/updateUserProfile";
+import { validationResult } from "express-validator";
 
 interface ResponseError extends Error {
   status?: number;
@@ -9,9 +11,14 @@ interface ResponseError extends Error {
 
 export class UserProfileController {
   private saveAvatarUseCase: SaveAvatarUseCase;
+  private updateUserProfileUseCase: UpdateUserProfileUseCase;
 
-  constructor(saveAvatarUseCase: SaveAvatarUseCase) {
+  constructor(
+    saveAvatarUseCase: SaveAvatarUseCase,
+    updateUserProfileUseCase: UpdateUserProfileUseCase
+  ) {
     this.saveAvatarUseCase = saveAvatarUseCase;
+    this.updateUserProfileUseCase = updateUserProfileUseCase;
   }
 
   async saveAvatar(userId: number, file: any): Promise<UserInterface | any> {
@@ -37,6 +44,29 @@ export class UserProfileController {
       ) as ResponseError;
       err.status = 400;
       throw err;
+    }
+  }
+  async updateUserProfile(req: any, res: any, next: any): Promise<any> {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return next({ message: errors.array(), status: 400 });
+    }
+    try {
+      const userIdFromRequest = parseInt(req.params.id);
+      const { userId } = req.payload;
+
+      if (!userId || !userIdFromRequest || userId !== userIdFromRequest)
+        return next({ status: 400, message: "UserId is missing" });
+
+      const userUpdated = await this.updateUserProfileUseCase.execute(
+        req.body,
+        userId
+      );
+
+      return userUpdated;
+    } catch (err) {
+      console.log(err);
+      next({ status: 500, message: err });
     }
   }
 }

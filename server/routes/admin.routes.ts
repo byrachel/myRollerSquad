@@ -42,7 +42,7 @@ adminRouter.get(
 
 adminRouter.post(
   "/api/admin/category",
-  check("name").exists().trim().escape(),
+  check("name").exists().trim(),
   async (req: Request, res: Response) => {
     const newCategory = await categoryController.createCategory({
       name: req.body.name,
@@ -56,7 +56,7 @@ adminRouter.post(
 
 adminRouter.put(
   "/api/admin/category",
-  check("name").exists().trim().escape(),
+  check("name").exists().trim(),
   check("id").exists().isNumeric(),
   async (req: Request, res: Response, next: NextFunction) => {
     if (req.body.id && req.body.name) {

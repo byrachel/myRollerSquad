@@ -1,4 +1,5 @@
 import React, { useContext } from "react";
+import ReactHtmlParser from "react-html-parser";
 
 import RegularButton from "@/components/buttons/RegularButton";
 import styles from "../../styles/Profile.module.scss";
@@ -26,6 +27,8 @@ export default function UserInfos({ user, userProfileDispatch }: Props) {
     userProfileDispatch({ type: "UPDATE_USER_PROFILE", payload: true });
   };
 
+  console.log(user);
+
   return (
     <div className={styles.rollerSkaterInfoBar}>
       <div className={styles.rollerSkaterInfoContainer}>
@@ -51,7 +54,8 @@ export default function UserInfos({ user, userProfileDispatch }: Props) {
           <div className={styles.rollerSkaterLocation}>
             <p>
               <Pin className={styles.locationIcon} width={20} height={20} />
-              Cannes, France
+              {user.city ? `${user.city}, ` : null}
+              {user.country}
             </p>
           </div>
           <div className={styles.rollerSkaterLinks}>
@@ -91,7 +95,7 @@ export default function UserInfos({ user, userProfileDispatch }: Props) {
         </div>
         <div className={styles.rollerSkaterDescription}>
           {user.resume ? (
-            <p>{user.resume}</p>
+            ReactHtmlParser(user.resume)
           ) : (
             <div>
               <p className="meta">Aucune information pour le moment...</p>

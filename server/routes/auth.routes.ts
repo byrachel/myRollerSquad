@@ -1,5 +1,5 @@
 import express from "express";
-const { check, validationResult } = require("express-validator");
+const { check } = require("express-validator");
 
 import { isAuthenticated } from "../infrastructure/middleware/isAuthenticated";
 import {
@@ -29,7 +29,7 @@ authRouter.post(
       pointsForContainingSymbol: 10,
     }),
     check("email").isEmail().normalizeEmail(),
-    check("name").not().isEmpty().trim().escape(),
+    check("name").not().isEmpty().trim(),
   ],
   signIn
 );

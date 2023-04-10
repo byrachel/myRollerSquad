@@ -6,4 +6,8 @@ export interface UserProfileRepositoryInterface {
     userId: number,
     fileName: string
   ): Promise<UserInterface | PrismaErrorInterface>;
+  updateUserProfile(
+    userToUpdate: UserInterface,
+    userId: number
+  ): Promise<UserInterface | PrismaErrorInterface>;
 }

@@ -4,6 +4,7 @@ import { UserProfileInterface } from "app/reducers/UserProfileReducer";
 import InputText from "@/components/form/InputText";
 import Editor from "@/components/form/Editor/Editor";
 import UpdateRollerSkateLevel from "./UpdateRollerSkateLevel";
+import UpdateUserCountry from "./UpdateUserCountry";
 
 interface Props {
   userProfile: UserProfileInterface;
@@ -12,34 +13,6 @@ interface Props {
 
 const UpdateUserProfileForm = ({ userProfile, userProfileDispatch }: Props) => {
   const user = userProfile.user;
-
-  const saveName = (e: React.ChangeEvent<HTMLInputElement>) => {
-    userProfileDispatch({
-      type: "UPDATE_USER_NAME",
-      payload: e.target.value,
-    });
-  };
-
-  const saveInstagram = (e: React.ChangeEvent<HTMLInputElement>) => {
-    userProfileDispatch({
-      type: "UPDATE_USER_INSTAGRAM",
-      payload: e.target.value,
-    });
-  };
-
-  const saveTikTok = (e: React.ChangeEvent<HTMLInputElement>) => {
-    userProfileDispatch({
-      type: "UPDATE_USER_TIKTOK",
-      payload: e.target.value,
-    });
-  };
-
-  const saveYoutube = (e: React.ChangeEvent<HTMLInputElement>) => {
-    userProfileDispatch({
-      type: "UPDATE_USER_YOUTUBE",
-      payload: e.target.value,
-    });
-  };
 
   return (
     <>
@@ -50,7 +23,10 @@ const UpdateUserProfileForm = ({ userProfile, userProfileDispatch }: Props) => {
         value={user.name}
         required
         error={userProfile.error}
+        minLength={3}
+        maxLength={20}
       />
+      <UpdateUserCountry country={user.country} city={user.city} />
       <label>Bio :</label>
       <Editor content={user.resume} dispatchContent={userProfileDispatch} />
       <br />

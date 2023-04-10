@@ -1,9 +1,9 @@
 import React, { useMemo } from "react";
-import ReactHtmlParser from "react-html-parser";
 
-import { PostInterface } from "../../../interfaces/flowInterfaces";
-import { cardColor } from "../../../utils/colorManager";
-import { displayLightDateTime } from "../../../utils/handleDates";
+import { PostInterface } from "app/interfaces/flowInterfaces";
+import { cardColor } from "app/utils/colorManager";
+import { displayLightDateTime } from "app/utils/handleDates";
+import { parseContent } from "app/utils/parseContent";
 
 import Avatar from "./Avatar";
 import LikeIcon from "./LikeIcon";
@@ -23,17 +23,6 @@ interface Props {
 
 export default function Card({ post, cardRef, isAuthor }: Props) {
   const color = useMemo(() => cardColor(post.category_id), [post.category_id]);
-
-  const content = useMemo(() => {
-    if (post.content) {
-      const decoded = post.content
-        .replace(/&lt;/g, "<")
-        .replace(/&gt;/g, ">")
-        .replace(/&#x2F;/g, "/")
-        .replace(/&quot;/g, '"');
-      return ReactHtmlParser(`<div className="content">${decoded}</div>`);
-    }
-  }, [post.content]);
 
   return (
     <div className={`cardContainer ${color}`} key={post.id} ref={cardRef}>
@@ -73,10 +62,10 @@ export default function Card({ post, cardRef, isAuthor }: Props) {
           ))
         : null} */}
         </div>
-        {content ? content : null}
+        {post.content ? parseContent(post.content) : null}
         {post.link ? (
           <div className="linkContainer">
-            <p className="linkText">{ReactHtmlParser(post.link)}</p>
+            <p className="linkText">{post.link}</p>
           </div>
         ) : (
           <div className="cardSeparator" />

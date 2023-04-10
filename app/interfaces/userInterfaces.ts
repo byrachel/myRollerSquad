@@ -25,4 +25,6 @@ export interface UserInterface {
   urban_level: number;
   freestyle_level: number;
   derby_level: number;
+  country: string;
+  city: string | null;
 }
