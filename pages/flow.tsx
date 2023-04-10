@@ -38,6 +38,7 @@ const Flow = () => {
 
   useEffect(() => {
     fetchPosts();
+    // eslint-disable-next-line
   }, [refetch]);
 
   return (

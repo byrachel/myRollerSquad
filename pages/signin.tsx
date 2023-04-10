@@ -62,9 +62,14 @@ export default function MyAccount() {
             <>
               <div className="spaceBetween">
                 <h3 className="mt5">Créer un compte :</h3>
-                <p className="link mt5" onClick={() => setShowLoginForm(true)}>
-                  X
-                </p>
+                <div
+                  role="button"
+                  tabIndex={0}
+                  onKeyDown={() => setShowLoginForm(true)}
+                  onClick={() => setShowLoginForm(true)}
+                >
+                  <p className="link mt5">X</p>
+                </div>
               </div>
               <div className="lightSeparator mt5" />
               <RegisterForm />
