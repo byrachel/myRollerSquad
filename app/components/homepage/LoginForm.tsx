@@ -6,7 +6,6 @@ import axios from "axios";
 import ErrorLayout from "../layouts/ErrorLayout";
 import InputText from "../form/InputText";
 import InputPassword from "../form/InputPassword";
-import { API_URL } from "app/constants/URL";
 
 export default function LoginForm() {
   const router = useRouter();
@@ -28,7 +27,7 @@ export default function LoginForm() {
 
     axios({
       method: "post",
-      url: `${API_URL}/api/login`,
+      url: `/api/login`,
       data,
     })
       .then((res: any) => {

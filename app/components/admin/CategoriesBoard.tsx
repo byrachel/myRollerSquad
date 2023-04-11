@@ -19,7 +19,6 @@ export default function CategoriesBoard({ token }: Props) {
 
   useEffect(() => {
     if (token && isAdmin) {
-      console.log("test");
       axios({
         method: "get",
         url: `${API_URL}/api/admin/categories`,
