@@ -35,7 +35,5 @@
     "**/*.ts",
     "**/*.tsx",
     "app/components/form/Editor/Editor.jsx"
-    // "app/services/createAxiosClient.js",
-    // "app/context/UserContext.js"
   ]
 }
