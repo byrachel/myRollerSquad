@@ -13,7 +13,7 @@ export default async function handler(
   try {
     const { email, password } = req.body;
     if (!email || !password) {
-      console.log("L'identifiant ou le mot de passe est manquant.");
+      res.status(417).json({ name: "BODY IS MISSING" });
     }
 
     const existingUser = await prisma.user.findUnique({
@@ -28,7 +28,7 @@ export default async function handler(
         existingUser.password
       );
       if (!validPassword) {
-        console.log("L'identifiant ou le mot de passe est incorrect.");
+        res.status(417).json({ name: "PASSWORD" });
       }
       //   const jti = uuidv4();
       //   const { accessToken, refreshToken } = generateTokens(existingUser, jti);
@@ -47,9 +47,9 @@ export default async function handler(
         // .header("Authorization", accessToken)
         .send({ name: "test" });
     } else {
-      console.log("L'identifiant ou le mot de passe est incorrect.");
+      res.status(417).json({ name: "failed to load data" });
     }
   } catch (err) {
-    console.log("Signin error.");
+    res.status(500).json({ name: "failed to load data" });
   }
 }
