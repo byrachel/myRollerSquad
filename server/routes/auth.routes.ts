@@ -33,7 +33,7 @@ authRouter.post(
   ],
   signIn
 );
-authRouter.post("/api/login", login);
+// authRouter.post("/api/login", login);
 authRouter.post("/api/logout", logout);
 authRouter.get("/api/user", isAuthenticated, userIsLoggedIn);
 

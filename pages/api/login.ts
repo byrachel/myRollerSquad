@@ -37,14 +37,15 @@ export default async function handler(
       //     refreshToken,
       //     userId: existingUser.id,
       //   });
-
+      console.log(existingUser);
       res
+        .status(200)
         // .cookie("refreshToken", refreshToken, {
         //   httpOnly: true,
         //   sameSite: "strict",
         // })
         // .header("Authorization", accessToken)
-        .send({ name: existingUser.name });
+        .send({ name: "test" });
     } else {
       console.log("L'identifiant ou le mot de passe est incorrect.");
     }
