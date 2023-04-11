@@ -35,6 +35,14 @@ module.exports = {
     });
     return config;
   },
+  async rewrites() {
+    return [
+      {
+        source: "/api/:path*",
+        destination: "https://myrollersquad.vercel.app/api/:path*", // Proxy to Backend
+      },
+    ];
+  },
   async headers() {
     return [
       {

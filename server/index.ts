@@ -12,7 +12,7 @@ import authRouter from "./routes/auth.routes";
 import userRouter from "./routes/user.routes";
 
 const dev = process.env.NODE_ENV !== "production";
-const hostname = dev ? "localhost" : process.env.PRODUCTION_URL;
+const hostname = dev ? "localhost" : process.env.HOSTNAME;
 const port = dev ? 3000 : 80;
 const app = next({ dev, hostname, port });
 const handle = app.getRequestHandler();
@@ -24,6 +24,13 @@ app
     server.use(cookieParser());
     server.use(bodyParser.json());
     server.use(bodyParser.urlencoded({ extended: true }));
+
+    // PRODUCTION CONFIG
+    server.use((req, res, next) => {
+      res.setHeader("Cache-Control", "max-age=31536000, public");
+      next();
+    });
+    //
 
     server.get("/api/users", async (req, res) => {
       const users = await prisma.user.findMany({
