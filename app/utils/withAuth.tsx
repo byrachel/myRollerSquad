@@ -1,4 +1,3 @@
-import { API_URL } from "app/constants/URL";
 import axios from "axios";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
@@ -12,7 +11,7 @@ const withAuth = (Component: any) => {
       const token = localStorage.getItem("token")
         ? localStorage.getItem("token")
         : "";
-      axios(`${API_URL}/api/user`, {
+      axios(`/api/user`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",

@@ -8,7 +8,6 @@ import LastPostsShared from "@/components/userProfile/LastPostsShared";
 import RollerSkateLevel from "@/components/userProfile/RollerSkateLevel";
 import UpdateUserProfile from "@/components/userProfile/UpdateUserProfile/UpdateUserProfile";
 import UserProfileReducer from "app/reducers/UserProfileReducer";
-import { API_URL } from "app/constants/URL";
 
 const initialState = {
   loading: false,
@@ -34,7 +33,7 @@ const UserProfile = () => {
       });
       const token = localStorage.getItem("token");
       if (token) {
-        axios(`${API_URL}/api/${user}/userprofile`, {
+        axios(`/api/${user}/userprofile`, {
           method: "GET",
           headers: {
             "Content-Type": "application/json",

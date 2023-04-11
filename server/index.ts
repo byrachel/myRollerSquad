@@ -12,7 +12,9 @@ import authRouter from "./routes/auth.routes";
 import userRouter from "./routes/user.routes";
 
 const dev = process.env.NODE_ENV !== "production";
-const app = next({ dev });
+const hostname = dev ? "localhost" : process.env.PRODUCTION_URL;
+const port = dev ? 3000 : 80;
+const app = next({ dev, hostname, port });
 const handle = app.getRequestHandler();
 
 app

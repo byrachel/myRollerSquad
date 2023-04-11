@@ -7,7 +7,6 @@ import ErrorLayout from "../layouts/ErrorLayout";
 import InputText from "../form/InputText";
 import InputMail from "../form/InputMail";
 import InputPassword from "../form/InputPassword";
-import { API_URL } from "app/constants/URL";
 
 export default function RegisterForm() {
   const router = useRouter();
@@ -38,7 +37,7 @@ export default function RegisterForm() {
 
     axios({
       method: "post",
-      url: `${API_URL}/api/register`,
+      url: `/api/register`,
       data,
     })
       .then((res: any) => {

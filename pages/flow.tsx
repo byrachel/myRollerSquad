@@ -5,7 +5,6 @@ import withAuth from "app/utils/withAuth";
 import NewPostBar from "app/components/layouts/NewPostBar";
 import CardContainer from "@/components/flow/getPosts/CardContainer";
 import { PostInterface } from "app/interfaces/flowInterfaces";
-import { API_URL } from "app/constants/URL";
 
 const breakpointColumnsObj = {
   default: 2,
@@ -23,7 +22,7 @@ const Flow = () => {
       const token = localStorage.getItem("token");
       axios({
         method: "get",
-        url: `${API_URL}/api/flow/${cursor}`,
+        url: `/api/flow/${cursor}`,
         headers: {
           Authorization: `Bearer ${token}`,
         },
