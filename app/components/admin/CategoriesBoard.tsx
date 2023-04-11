@@ -1,3 +1,4 @@
+import { API_URL } from "app/constants/URL";
 import { UserContext } from "app/context/UserContext";
 import axios from "axios";
 import React, { useContext, useEffect, useState } from "react";
@@ -21,7 +22,7 @@ export default function CategoriesBoard({ token }: Props) {
       console.log("test");
       axios({
         method: "get",
-        url: "/api/admin/categories",
+        url: `${API_URL}/api/admin/categories`,
         headers: {
           "Content-Type": "multipart/form-data",
           Authorization: `Bearer ${token}`,

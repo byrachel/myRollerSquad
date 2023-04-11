@@ -12,6 +12,7 @@ import { newPostInitialState } from "@/components/flow/addPost/utils/newPostInit
 import NewPostForm from "@/components/flow/addPost/NewPostForm";
 import { UserInterface } from "app/interfaces/userInterfaces";
 import withAuth from "app/utils/withAuth";
+import { API_URL } from "app/constants/URL";
 
 interface Props {
   user: UserInterface;
@@ -85,7 +86,7 @@ const NewPost = ({ user }: Props) => {
 
       axios({
         method: "post",
-        url: "/api/flow",
+        url: `${API_URL}/api/flow`,
         data: data,
         headers: {
           "Content-Type": "multipart/form-data",

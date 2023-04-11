@@ -2,6 +2,7 @@ import React, { useContext, useState } from "react";
 import Heart from "app/svg/heart.svg";
 import axios from "axios";
 import { UserContext } from "app/context/UserContext";
+import { API_URL } from "app/constants/URL";
 
 interface Props {
   color: string;
@@ -21,7 +22,7 @@ export default function LikeIcon({ color, counter, postId, likedBy }: Props) {
     if (id) {
       axios({
         method: "post",
-        url: `/api/post/like/${id}`,
+        url: `${API_URL}/api/post/like/${id}`,
         headers: {
           Authorization: `Bearer ${token}`,
         },

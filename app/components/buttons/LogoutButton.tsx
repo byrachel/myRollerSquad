@@ -5,6 +5,7 @@ import axios from "axios";
 import styles from "../../styles/Profile.module.scss";
 
 import Logout from "app/svg/logout.svg";
+import { API_URL } from "app/constants/URL";
 
 interface Props {
   userId: number;
@@ -18,7 +19,7 @@ export default function LogoutButton({ userId }: Props) {
     if (userId && token) {
       axios({
         method: "post",
-        url: "/api/logout",
+        url: `${API_URL}/api/logout`,
         headers: {
           "Content-Type": "multipart/form-data",
           Authorization: `Bearer ${token}`,

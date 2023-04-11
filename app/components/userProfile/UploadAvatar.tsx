@@ -3,6 +3,7 @@ import Image from "next/image";
 import styles from "../../styles/Profile.module.scss";
 import RegularButton from "../buttons/RegularButton";
 import axios from "axios";
+import { API_URL } from "app/constants/URL";
 
 interface Props {
   avatar: {
@@ -20,7 +21,7 @@ export default function UploadAvatar({ avatar }: Props) {
     data.append("avatar", avatar.file);
     axios({
       method: "post",
-      url: "/api/avatar",
+      url: `${API_URL}/api/avatar`,
       data: data,
       headers: {
         "Content-Type": "multipart/form-data",
