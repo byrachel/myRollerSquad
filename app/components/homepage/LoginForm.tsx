@@ -47,7 +47,7 @@ export default function LoginForm() {
       })
       .catch((err: any) => {
         console.log(err);
-        setError({ status: true, message: err.response.data.message });
+        // setError({ status: true, message: err.response.data.message });
       });
   };
 
