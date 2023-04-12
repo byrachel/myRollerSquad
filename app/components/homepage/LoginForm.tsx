@@ -31,18 +31,19 @@ export default function LoginForm() {
       data,
     })
       .then((res: any) => {
-        const token = res.headers["authorization"];
-        const user = res.data.user;
-        if (token) {
-          localStorage.setItem("token", token);
-        }
-        localStorage.setItem("id", JSON.stringify(user.id));
-        localStorage.setItem("role", JSON.stringify(user.role));
-        userDispatch({
-          type: "LOGIN",
-          payload: { name: user.name, id: user.id, role: user.role },
-        });
-        router.push("/flow");
+        console.log(res.data);
+        // const token = res.headers["authorization"];
+        // const user = res.data.user;
+        // if (token) {
+        //   localStorage.setItem("token", token);
+        // }
+        // localStorage.setItem("id", JSON.stringify(user.id));
+        // localStorage.setItem("role", JSON.stringify(user.role));
+        // userDispatch({
+        //   type: "LOGIN",
+        //   payload: { name: user.name, id: user.id, role: user.role },
+        // });
+        // router.push("/flow");
       })
       .catch((err: any) => {
         console.log(err);
