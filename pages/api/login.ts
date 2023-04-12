@@ -27,6 +27,8 @@ export default async function handler(
       },
     });
 
+    console.log(existingUser);
+
     if (existingUser && existingUser.password) {
       const validPassword = await bcrypt.compare(
         password,

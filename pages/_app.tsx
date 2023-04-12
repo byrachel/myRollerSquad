@@ -1,5 +1,5 @@
 import type { AppProps } from "next/app";
-import { Poppins, Oxygen } from "@next/font/google";
+import { Poppins, Oxygen } from "next/font/google";
 
 import MainLayout from "../app/components/layouts/MainLayout";
 import { UserContextProvider } from "app/context/UserContext";
