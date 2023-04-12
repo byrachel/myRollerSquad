@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "ts-node --project tsconfig.server.json server/index.ts",
     "build:server": "tsc --project tsconfig.server.json",
     "build:next": "npm run build:next && npm run build:server",
     "build": "prisma generate --schema ./server/infrastructure/prisma/schema.prisma && prisma migrate deploy --schema ./server/infrastructure/prisma/schema.prisma && next build",
