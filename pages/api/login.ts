@@ -1,14 +1,19 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import prisma from "../../server/infrastructure/prisma/db/client";
 import bcrypt from "bcrypt";
+import { UserInterface } from "app/interfaces/userInterfaces";
 
 type Data = {
+  user: UserInterface;
+};
+
+type Error = {
   name: string;
 };
 
 export default async function handler(
   req: NextApiRequest,
-  res: NextApiResponse<Data>
+  res: NextApiResponse<Data | Error>
 ) {
   try {
     const { email, password } = req.body;
@@ -37,7 +42,7 @@ export default async function handler(
       //     refreshToken,
       //     userId: existingUser.id,
       //   });
-      console.log(existingUser);
+      console.log("NEXT API", existingUser);
       res
         .status(200)
         // .cookie("refreshToken", refreshToken, {
@@ -45,7 +50,7 @@ export default async function handler(
         //   sameSite: "strict",
         // })
         // .header("Authorization", accessToken)
-        .send({ name: "test" });
+        .send({ user: existingUser });
     } else {
       res.status(417).json({ name: "failed to load data" });
     }
