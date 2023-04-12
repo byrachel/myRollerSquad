@@ -4,7 +4,7 @@ import Image from "next/image";
 import UploadAvatarButton from "./UploadAvatarButton";
 
 interface Props {
-  avatar: string;
+  avatar: string | null;
   userId: number;
   userConnectedId?: number;
 }

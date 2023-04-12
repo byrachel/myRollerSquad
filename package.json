@@ -6,7 +6,7 @@
     "dev": "ts-node --project tsconfig.server.json server/index.ts",
     "build:server": "tsc --project tsconfig.server.json",
     "build:next": "npm run build:next && npm run build:server",
-    "build": "prisma generate --schema ./server/infrastructure/prisma/schema.prisma && prisma migrate deploy --schema ./server/infrastructure/prisma/schema.prisma && next build",
+    "build": "prisma generate --schema ./server/infrastructure/prisma/schema.prisma && prisma migrate dev --schema ./server/infrastructure/prisma/schema.prisma && next build",
     "start": "next start",
     "lint": "next lint",
     "storybook": "start-storybook -p 6006",
