@@ -28,7 +28,7 @@ export function generateRefreshToken(
   );
 }
 
-export function generateTokens(user: UserInterface, jti: any) {
+export function generateTokens(user: UserInterface, jti: string) {
   const accessToken = generateAccessToken(user.id, user.role);
   const refreshToken = generateRefreshToken(user.id, user.role, jti);
 

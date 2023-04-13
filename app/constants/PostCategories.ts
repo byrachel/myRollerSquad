@@ -1,7 +1,7 @@
 export const STORY = 1;
 export const TUTORIAL = 2;
 export const SALE = 3;
-export const QUESTION = 4;
+export const SPOT = 4;
 export const OTHER = 5;
 
 export const getCategoryName = (category: number) => {
@@ -12,8 +12,8 @@ export const getCategoryName = (category: number) => {
       return "Tuto";
     case SALE:
       return "[re]vente";
-    case QUESTION:
-      return "Question";
+    case SPOT:
+      return "Spot";
     default:
       return "Autre";
   }
@@ -33,8 +33,8 @@ export const flowCategories = [
     name: "[re]vente",
   },
   {
-    id: QUESTION,
-    name: "Question",
+    id: SPOT,
+    name: "Spot",
   },
   {
     id: OTHER,

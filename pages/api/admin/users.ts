@@ -1,27 +1,25 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import prisma from "../../../server/infrastructure/prisma/db/client";
+import handler, { isAuthenticated } from "../middleware/isAuthenticated";
 
-type Data = {
-  users: any;
-};
+export default handler
+  .use(isAuthenticated)
 
-export default async function handler(
-  req: NextApiRequest,
-  res: NextApiResponse<Data>
-) {
-  if (req.method === "GET") {
-    const users = await prisma.user.findMany({
-      select: {
-        id: true,
-        name: true,
-        posts: true,
-        role: true,
-        rgpd: true,
-        avatar: true,
-      },
-    });
-    res.json({ users });
-  } else {
-    res.status(500).json({ users: "failed to load USERS data" });
-  }
-}
+  .get(async (req: NextApiRequest, res: NextApiResponse, next: any) => {
+    try {
+      const users = await prisma.user.findMany({
+        select: {
+          id: true,
+          name: true,
+          posts: true,
+          role: true,
+          rgpd: true,
+          avatar: true,
+        },
+      });
+      res.status(200).json(users);
+    } catch (err) {
+      console.log(err);
+      res.status(500).json({ name: "USERS NOT FOUND" });
+    }
+  });

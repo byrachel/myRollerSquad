@@ -12,7 +12,7 @@ import {
   newUserSignIn,
   findUserByEmail,
 } from "../../infrastructure/repositories/User/UserRepository";
-import { generateTokens } from "../../infrastructure/middleware/jwt";
+import { generateTokens } from "../../../pages/api/auth/jwt";
 import { ErrorInterface } from "../entities/ErrorInterface";
 import prisma from "../../infrastructure/prisma/db/client";
 import { validationResult } from "express-validator";

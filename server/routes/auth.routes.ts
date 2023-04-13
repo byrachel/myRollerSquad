@@ -3,7 +3,7 @@ import { check } from "express-validator";
 
 import { isAuthenticated } from "../infrastructure/middleware/isAuthenticated";
 import {
-  login,
+  // login,
   logout,
   signIn,
   userIsLoggedIn,

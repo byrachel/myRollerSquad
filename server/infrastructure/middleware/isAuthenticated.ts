@@ -1,6 +1,9 @@
 import { NextFunction, Response } from "express";
 import jwt from "jsonwebtoken";
-import { generateAccessToken, generateRefreshToken } from "./jwt";
+import {
+  generateAccessToken,
+  generateRefreshToken,
+} from "../../../pages/api/auth/jwt";
 import { ErrorInterface } from "../../core/entities/ErrorInterface";
 
 interface JwtPayload {
