@@ -11,26 +11,22 @@ interface JwtPayload {
   jti: string;
 }
 
-interface ExtendedRequest extends NextApiRequest {
-  user: number;
-}
-
-const isAuthenticated = (
-  req: ExtendedRequest,
-  res: NextApiResponse,
-  next: any
-) => {
+const isAdmin = (req: NextApiRequest, res: NextApiResponse, next: any) => {
   if (!req.headers.authorization) {
     res.status(401).json({ error: "Unauthorized" });
   } else {
     const accessToken = req.headers.authorization.split(" ")[1];
     try {
-      jwt.verify(
+      const { role } = jwt.verify(
         accessToken,
         process.env.JWT_ACCESS_SECRET as string
       ) as JwtPayload;
+      if (role !== "ADMIN")
+        return res.status(401).json({ error: "ADMIN ONLY -> Unauthorized" });
       next();
     } catch (e) {
+      console.log(e);
+
       const refreshToken = req.cookies["refreshToken"];
       if (!refreshToken)
         return res.status(401).json({ error: "RT invalid -> Unauthorized" });
@@ -40,6 +36,9 @@ const isAuthenticated = (
           refreshToken,
           process.env.JWT_REFRESH_ACCESS_SECRET as string
         ) as JwtPayload;
+
+        if (role !== "ADMIN")
+          return res.status(401).json({ error: "ADMIN ONLY -> Unauthorized" });
 
         const newAccessToken = generateAccessToken(userId, role);
         const newRefreshToken = generateRefreshToken(userId, role, jti);
@@ -61,7 +60,6 @@ const isAuthenticated = (
           }),
         ]);
 
-        req.user = userId;
         next();
       } catch (err) {
         res.status(401).json({ error: "Unauthorized" });
@@ -72,15 +70,5 @@ const isAuthenticated = (
 
 const handler = nextConnect<NextApiRequest, NextApiResponse>();
 
-// const get = (middleware: any) => {
-//   console.log("middleware", middleware);
-//   return nextConnect().get(middleware);
-// };
-
-// const put = (middleware: any) => {
-//   console.log("middleware", middleware);
-//   return nextConnect().put(middleware);
-// };
-
 export default handler;
-export { isAuthenticated };
+export { isAdmin };

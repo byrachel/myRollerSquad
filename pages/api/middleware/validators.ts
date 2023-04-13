@@ -4,7 +4,7 @@ import nextConnect from "next-connect";
 
 const initValidation = (validations: any) => {
   //   console.log("validations", validations);
-  return async (req: any, res: any, next: any) => {
+  return async (req: NextApiRequest, res: NextApiResponse, next: any) => {
     await Promise.all(
       validations.map((validation: any) => validation.run(req))
     );

@@ -5,7 +5,7 @@ import { v4 as uuidv4 } from "uuid";
 
 import prisma from "../../../server/infrastructure/prisma/db/client";
 import { generateTokens } from "./jwt";
-import handler, { initValidation, post, check } from "../middleware/handler";
+import handler, { initValidation, post, check } from "../middleware/validators";
 
 const validator = initValidation([
   check("email").isEmail().normalizeEmail().withMessage("Check your email."),

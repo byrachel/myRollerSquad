@@ -1,7 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import cookie from "cookie";
 
-import handler from "../middleware/handler";
+import handler from "../middleware/validators";
 
 export default handler.post(
   async (req: NextApiRequest, res: NextApiResponse) => {

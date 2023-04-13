@@ -1,11 +1,10 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import prisma from "../../../server/infrastructure/prisma/db/client";
-import handler, { isAuthenticated } from "../middleware/isAuthenticated";
+import handler, { isAdmin } from "../middleware/isAdmin";
 
 export default handler
-  .use(isAuthenticated)
-
-  .get(async (req: NextApiRequest, res: NextApiResponse, next: any) => {
+  .use(isAdmin)
+  .get(async (req: NextApiRequest, res: NextApiResponse) => {
     try {
       const users = await prisma.user.findMany({
         select: {
