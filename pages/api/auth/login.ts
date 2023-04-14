@@ -56,20 +56,15 @@ export default handler
         //   });
 
         const user = { ...existingUser, password: undefined };
+
         res
           .status(200)
+          .setHeader("Authorization", accessToken)
           .setHeader("Set-Cookie", [
             cookie.serialize("refreshToken", refreshToken, {
               httpOnly: true,
               // secure: process.env.NODE_ENV !== "development",
               maxAge: 60 * 60 * 24 * 7, // 1 week
-              sameSite: "strict",
-              path: "/",
-            }),
-            cookie.serialize("accessToken", accessToken, {
-              httpOnly: false,
-              // secure: process.env.NODE_ENV !== "development",
-              maxAge: 60 * 60,
               sameSite: "strict",
               path: "/",
             }),

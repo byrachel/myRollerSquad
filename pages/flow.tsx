@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import Masonry from "react-masonry-css";
 import axios from "axios";
-import withAuth from "app/utils/withAuth";
 import NewPostBar from "app/components/layouts/NewPostBar";
 import CardContainer from "@/components/flow/getPosts/CardContainer";
 import { PostInterface } from "app/interfaces/flowInterfaces";
+import { useRouter } from "next/router";
 
 const breakpointColumnsObj = {
   default: 2,
@@ -15,14 +15,15 @@ const Flow = () => {
   const [cursor, setCursor] = useState(0);
   const [posts, setPosts] = useState<PostInterface[]>([]);
   const [refetch, setRefetch] = useState(0);
+  const router = useRouter();
 
   const fetchPosts = () => {
-    if (cursor === undefined) return;
-    if (cursor >= 0) {
-      const token = localStorage.getItem("token");
+    const token = localStorage.getItem("token");
+    if (token) {
+      const nextId = cursor ? cursor : 0;
       axios({
         method: "get",
-        url: `/api/flow/${cursor}`,
+        url: `/api/flow/posts/${nextId}`,
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -32,7 +33,10 @@ const Flow = () => {
           setPosts([...posts, ...res.data.posts]);
           setCursor(res.data.nextId);
         })
-        .catch(err => console.log(err));
+        .catch(err => {
+          console.log(err);
+          router.push("/signin");
+        });
     }
   };
 
@@ -67,4 +71,4 @@ const Flow = () => {
     </>
   );
 };
-export default withAuth(Flow);
+export default Flow;

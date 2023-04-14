@@ -4,13 +4,10 @@ import handler, { isAuthenticated } from "../middleware/isAuthenticated";
 
 export default handler
   .use(isAuthenticated)
-  .get(async (req: any, res: NextApiResponse) => {
+  .get(async (req: NextApiRequest, res: NextApiResponse) => {
     const { id } = req.query;
     const userId = Array.isArray(id) ? id[0] : id;
     if (!userId) return res.status(400).json({ name: "USER ID NOT FOUND" });
-
-    const payload = req.user;
-    console.log(payload);
 
     try {
       const user = await prisma.user.findUnique({

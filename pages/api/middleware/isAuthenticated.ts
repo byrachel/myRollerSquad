@@ -4,15 +4,12 @@ import jwt from "jsonwebtoken";
 import cookie from "cookie";
 
 import { generateAccessToken, generateRefreshToken } from "../auth/jwt";
+import { ExtendedRequest } from "../interfaces/ApiInterfaces";
 
 interface JwtPayload {
   userId: number;
   role: "ADMIN" | "USER" | "PRO";
   jti: string;
-}
-
-interface ExtendedRequest extends NextApiRequest {
-  user: number;
 }
 
 const isAuthenticated = (
@@ -44,6 +41,7 @@ const isAuthenticated = (
         const newAccessToken = generateAccessToken(userId, role);
         const newRefreshToken = generateRefreshToken(userId, role, jti);
 
+        res.setHeader("Authorization", newAccessToken);
         res.setHeader("Set-Cookie", [
           cookie.serialize("refreshToken", newRefreshToken, {
             httpOnly: true,
@@ -52,13 +50,14 @@ const isAuthenticated = (
             sameSite: "strict",
             path: "/",
           }),
-          cookie.serialize("accessToken", newAccessToken, {
-            httpOnly: false,
-            // secure: process.env.NODE_ENV !== "development",
-            maxAge: 60 * 60,
-            sameSite: "strict",
-            path: "/",
-          }),
+
+          // cookie.serialize("accessToken", newAccessToken, {
+          //   httpOnly: false,
+          //   // secure: process.env.NODE_ENV !== "development",
+          //   maxAge: 60 * 60,
+          //   sameSite: "strict",
+          //   path: "/",
+          // }),
         ]);
 
         req.user = userId;

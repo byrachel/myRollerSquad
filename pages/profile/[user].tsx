@@ -2,7 +2,6 @@ import React, { useEffect, useReducer } from "react";
 import { useRouter } from "next/router";
 import axios from "axios";
 
-import withAuth from "app/utils/withAuth";
 import UserInfos from "@/components/userProfile/UserInfos";
 import LastPostsShared from "@/components/userProfile/LastPostsShared";
 import RollerSkateLevel from "@/components/userProfile/RollerSkateLevel";
@@ -33,7 +32,7 @@ const UserProfile = () => {
       });
       const token = localStorage.getItem("token");
       if (token) {
-        axios(`/api/${user}/userprofile`, {
+        axios(`/api/user/${user}`, {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
@@ -47,14 +46,17 @@ const UserProfile = () => {
               payload: res.data.user,
             })
           )
-          .catch(() => {
-            userProfileDispatch({
-              type: "ERROR",
-              payload: "Les données ne sont pas accessibles pour le moment.",
-            });
+          .catch(err => {
+            console.log(err);
+            router.push("/signin");
+            // userProfileDispatch({
+            //   type: "ERROR",
+            //   payload: "Les données ne sont pas accessibles pour le moment.",
+            // });
           });
       }
     }
+    // eslint-disable-next-line
   }, [user]);
 
   return (
@@ -90,4 +92,4 @@ const UserProfile = () => {
     </>
   );
 };
-export default withAuth(UserProfile);
+export default UserProfile;

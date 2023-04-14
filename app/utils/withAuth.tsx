@@ -11,7 +11,8 @@ const withAuth = (Component: any) => {
       const token = localStorage.getItem("token")
         ? localStorage.getItem("token")
         : "";
-      axios(`/api/user`, {
+      console.log(token);
+      axios(`/api/user/islogged`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -20,6 +21,7 @@ const withAuth = (Component: any) => {
         withCredentials: true,
       })
         .then(res => {
+          console.log(res);
           if (res.data.user) {
             const token = res.headers["authorization"];
             if (token) {
@@ -31,7 +33,10 @@ const withAuth = (Component: any) => {
             router.push("/signin");
           }
         })
-        .catch(() => router.push("/signin"));
+        .catch(err => {
+          console.log(err);
+          router.push("/signin");
+        });
     }, [router]);
 
     return user ? <Component user={user} /> : null;

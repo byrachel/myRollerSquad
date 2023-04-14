@@ -27,27 +27,24 @@ export default function LoginForm() {
 
     axios({
       method: "post",
-      url: `/api/login`,
+      url: `/api/auth/login`,
       data,
     })
       .then((res: any) => {
-        console.log(res.data);
-        // const token = res.headers["authorization"];
-        // const user = res.data.user;
-        // if (token) {
-        //   localStorage.setItem("token", token);
-        // }
-        // localStorage.setItem("id", JSON.stringify(user.id));
-        // localStorage.setItem("role", JSON.stringify(user.role));
-        // userDispatch({
-        //   type: "LOGIN",
-        //   payload: { name: user.name, id: user.id, role: user.role },
-        // });
-        // router.push("/flow");
+        const token = res.headers["authorization"];
+        const user = res.data.user;
+        localStorage.setItem("token", token);
+        localStorage.setItem("id", JSON.stringify(user.id));
+        localStorage.setItem("role", JSON.stringify(user.role));
+        userDispatch({
+          type: "LOGIN",
+          payload: { name: user.name, id: user.id, role: user.role },
+        });
+        router.push("/flow");
       })
       .catch((err: any) => {
         console.log(err);
-        // setError({ status: true, message: err.response.data.message });
+        setError({ status: true, message: err });
       });
   };
 

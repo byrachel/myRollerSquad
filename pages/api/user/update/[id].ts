@@ -1,4 +1,4 @@
-import type { NextApiRequest, NextApiResponse } from "next";
+import type { NextApiResponse } from "next";
 import prisma from "../../../../server/infrastructure/prisma/db/client";
 import { isAuthenticated } from "../../middleware/isAuthenticated";
 import handler, {
@@ -6,6 +6,7 @@ import handler, {
   put,
   check,
 } from "../../middleware/validators";
+import { ExtendedRequest } from "pages/api/interfaces/ApiInterfaces";
 
 const validator = initValidation([
   check("name").not().isEmpty().trim().withMessage("Name can't be empty"),
@@ -15,14 +16,17 @@ const validator = initValidation([
 export default handler
   .use(put(validator))
   .use(isAuthenticated)
-  .put(async (req: NextApiRequest, res: NextApiResponse) => {
+  .put(async (req: ExtendedRequest, res: NextApiResponse) => {
     const { id } = req.query;
     const userId = Array.isArray(id) ? id[0] : id;
     if (!userId) return res.status(400).json({ name: "USER ID NOT FOUND" });
+    const userIdFromToken = req.user;
+
+    if (userIdFromToken !== parseInt(userId))
+      return res.status(401).json({ name: "UNAUTHORIZED" });
 
     try {
       const userToUpdate = req.body;
-      console.log("userToUpdate", userToUpdate);
 
       const user = await prisma.user.update({
         where: {
