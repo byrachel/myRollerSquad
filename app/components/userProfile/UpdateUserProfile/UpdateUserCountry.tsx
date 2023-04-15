@@ -17,7 +17,7 @@ export default function UpdateUserCountry({ country, city }: Props) {
           id="standard-select"
           name="country"
           onChange={e => setSelectedCountry(e.target.value)}
-          value={country}
+          defaultValue={country}
         >
           {countries.map(elt => (
             <option key={elt.name} value={elt.name}>
@@ -30,7 +30,7 @@ export default function UpdateUserCountry({ country, city }: Props) {
         <>
           <label htmlFor="city">Département :</label>
           <div className="select">
-            <select id="standard-select" name="city" value={city || ""}>
+            <select id="standard-select" name="city" defaultValue={city || ""}>
               {departments.map(elt => (
                 <option key={elt.dep_name} value={elt.dep_name}>
                   {elt.dep_name}

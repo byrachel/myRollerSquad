@@ -12,7 +12,7 @@ import Tiktok from "app/svg/tiktok.svg";
 import Youtube from "app/svg/youtube.svg";
 import LogoutButton from "../buttons/LogoutButton";
 import UpdateProfileButton from "../buttons/UpdateProfileButton";
-import Avatar from "./Avatar";
+import Avatar from "./Avatar/Avatar";
 
 interface Props {
   user: UserInterface;
@@ -34,6 +34,7 @@ export default function UserInfos({ user, userProfileDispatch }: Props) {
           avatar={user.avatar}
           userId={user.id}
           userConnectedId={userConnectedId}
+          userProfileDispatch={userProfileDispatch}
         />
         <div className={styles.rollerSkaterInfo}>
           <div className={styles.rollerSkaterName}>

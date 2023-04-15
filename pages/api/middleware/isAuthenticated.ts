@@ -50,14 +50,6 @@ const isAuthenticated = (
             sameSite: "strict",
             path: "/",
           }),
-
-          // cookie.serialize("accessToken", newAccessToken, {
-          //   httpOnly: false,
-          //   // secure: process.env.NODE_ENV !== "development",
-          //   maxAge: 60 * 60,
-          //   sameSite: "strict",
-          //   path: "/",
-          // }),
         ]);
 
         req.user = userId;
@@ -76,10 +68,10 @@ const handler = nextConnect<NextApiRequest, NextApiResponse>();
 //   return nextConnect().get(middleware);
 // };
 
-// const put = (middleware: any) => {
-//   console.log("middleware", middleware);
-//   return nextConnect().put(middleware);
-// };
+const put = (middleware: any) => {
+  console.log("middleware", middleware);
+  return nextConnect().put(middleware);
+};
 
 export default handler;
-export { isAuthenticated };
+export { isAuthenticated, put };

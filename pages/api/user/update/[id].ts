@@ -11,6 +11,7 @@ import { ExtendedRequest } from "pages/api/interfaces/ApiInterfaces";
 const validator = initValidation([
   check("name").not().isEmpty().trim().withMessage("Name can't be empty"),
   check("resume").trim(),
+  check("country").not().isEmpty().trim(),
 ]);
 
 export default handler

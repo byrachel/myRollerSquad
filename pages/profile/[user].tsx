@@ -49,11 +49,9 @@ const UserProfile = () => {
           .catch(err => {
             console.log(err);
             router.push("/signin");
-            // userProfileDispatch({
-            //   type: "ERROR",
-            //   payload: "Les données ne sont pas accessibles pour le moment.",
-            // });
           });
+      } else {
+        router.push("/signin");
       }
     }
     // eslint-disable-next-line

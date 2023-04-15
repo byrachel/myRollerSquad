@@ -17,6 +17,8 @@ const Flow = () => {
   const [refetch, setRefetch] = useState(0);
   const router = useRouter();
 
+  console.log("posts", posts);
+
   const fetchPosts = () => {
     const token = localStorage.getItem("token");
     if (token) {
@@ -37,6 +39,8 @@ const Flow = () => {
           console.log(err);
           router.push("/signin");
         });
+    } else {
+      router.push("/signin");
     }
   };
 

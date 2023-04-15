@@ -1,15 +1,22 @@
 import React, { useState } from "react";
-import styles from "../../styles/Profile.module.scss";
 import Image from "next/image";
+
 import UploadAvatarButton from "./UploadAvatarButton";
+import styles from "app/styles/Profile.module.scss";
 
 interface Props {
   avatar: string | null;
   userId: number;
   userConnectedId?: number;
+  userProfileDispatch: React.Dispatch<any>;
 }
 
-export default function Avatar({ avatar, userId, userConnectedId }: Props) {
+export default function Avatar({
+  avatar,
+  userId,
+  userConnectedId,
+  userProfileDispatch,
+}: Props) {
   const [displayNewAvatar, setDisplayNewAvatar] = useState(false);
 
   return (
@@ -36,6 +43,7 @@ export default function Avatar({ avatar, userId, userConnectedId }: Props) {
         <UploadAvatarButton
           displayNewAvatar={displayNewAvatar}
           setDisplayNewAvatar={setDisplayNewAvatar}
+          userProfileDispatch={userProfileDispatch}
         />
       ) : null}
     </div>

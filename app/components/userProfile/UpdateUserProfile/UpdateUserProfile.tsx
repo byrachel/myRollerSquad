@@ -2,11 +2,12 @@ import React, { useContext, SyntheticEvent } from "react";
 
 import { UserContext } from "app/context/UserContext";
 import { UserProfileInterface } from "app/reducers/UserProfileReducer";
-import Avatar from "../Avatar";
+import Avatar from "../Avatar/Avatar";
 import UpdateUserProfileForm from "./UpdateUserProfileForm";
 import style from "app/styles/Profile.module.scss";
 import RegularButton from "@/components/buttons/RegularButton";
 import axios from "axios";
+import { useRouter } from "next/router";
 
 interface Props {
   userProfile: UserProfileInterface;
@@ -16,6 +17,7 @@ interface Props {
 const UpdateUserProfile = ({ userProfile, userProfileDispatch }: Props) => {
   const { userState } = useContext(UserContext);
   const userConnectedId = userState.user?.id;
+  const router = useRouter();
 
   const cancelUpdate = () => {
     userProfileDispatch({ type: "UPDATE_USER_PROFILE", payload: false });
@@ -52,26 +54,29 @@ const UpdateUserProfile = ({ userProfile, userProfileDispatch }: Props) => {
     };
 
     const token = localStorage.getItem("token");
-
-    axios({
-      method: "put",
-      url: `/api/userprofile/update/${userConnectedId}`,
-      data: data,
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-      withCredentials: true,
-    })
-      .then(res => {
-        userProfileDispatch({
-          type: "USER_PROFILE_UPDATED",
-          payload: res.data.user,
-        });
+    if (token) {
+      axios({
+        method: "put",
+        url: `/api/user/update/${userConnectedId}`,
+        data: data,
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        withCredentials: true,
       })
-      .catch(response => {
-        //handle error
-        console.log("err", response);
-      });
+        .then(res => {
+          userProfileDispatch({
+            type: "USER_PROFILE_UPDATED",
+            payload: res.data.user,
+          });
+        })
+        .catch(err => {
+          //handle error
+          console.log("err", err);
+        });
+    } else {
+      router.push("/signin");
+    }
   };
 
   return (

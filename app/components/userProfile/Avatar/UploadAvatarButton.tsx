@@ -1,19 +1,21 @@
 import React, { useState } from "react";
 
-import Modal from "../layouts/Modal";
 import UploadAvatar from "./UploadAvatar";
-import styles from "../../styles/Profile.module.scss";
+import Modal from "app/components/layouts/Modal";
+import styles from "app/styles/Profile.module.scss";
 
 import Avatar from "app/svg/add-media-image.svg";
 
 interface Props {
   displayNewAvatar: boolean;
   setDisplayNewAvatar: (arg: boolean) => void;
+  userProfileDispatch: React.Dispatch<any>;
 }
 
 export default function UploadAvatarButton({
   displayNewAvatar,
   setDisplayNewAvatar,
+  userProfileDispatch,
 }: Props) {
   const [newAvatarFile, setNewAvatarFile] = useState<any | null>(null);
 
@@ -25,28 +27,24 @@ export default function UploadAvatarButton({
     const files = e.target.files;
     const file = files[0] as any;
 
-    if (file.size > 1000000) {
-      console.log("file too large");
-    } else {
-      file["preview"] = URL.createObjectURL(file);
+    file["preview"] = URL.createObjectURL(file);
 
-      const image: HTMLImageElement = new window.Image();
+    const image: HTMLImageElement = new window.Image();
 
-      const imageDimensions: { width: number; height: number } =
-        await new Promise(resolve => {
-          image.onload = () => {
-            const dimensions = {
-              height: image.height,
-              width: image.width,
-            };
-            resolve(dimensions);
+    const imageDimensions: { width: number; height: number } =
+      await new Promise(resolve => {
+        image.onload = () => {
+          const dimensions = {
+            height: image.height,
+            width: image.width,
           };
-          image.src = file["preview"];
-        });
+          resolve(dimensions);
+        };
+        image.src = file["preview"];
+      });
 
-      setNewAvatarFile({ file, ...imageDimensions });
-      setDisplayNewAvatar(true);
-    }
+    setNewAvatarFile({ file, ...imageDimensions });
+    setDisplayNewAvatar(true);
   };
 
   return (
@@ -68,7 +66,11 @@ export default function UploadAvatarButton({
         setShow={setDisplayNewAvatar}
         title="Photo de profil"
       >
-        <UploadAvatar avatar={newAvatarFile} />
+        <UploadAvatar
+          avatar={newAvatarFile}
+          setDisplayNewAvatar={setDisplayNewAvatar}
+          userProfileDispatch={userProfileDispatch}
+        />
       </Modal>
     </>
   );
