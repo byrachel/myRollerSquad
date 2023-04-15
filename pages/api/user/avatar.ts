@@ -6,7 +6,8 @@ import sharp from "sharp";
 import prisma from "../../../server/infrastructure/prisma/db/client";
 import { ExtendedRequest } from "../interfaces/ApiInterfaces";
 import { isAuthenticated } from "../middleware/isAuthenticated";
-import { uploadImage } from "../utlis/uploadImage";
+import { uploadImage } from "../utils/uploadImage";
+import { E1, E2 } from "app/constants/ErrorMessages";
 
 const upload = multer({
   storage: multer.memoryStorage(),
@@ -21,15 +22,14 @@ handler.put(async (req, res) => {
   const { userId } = req.body;
   const userFromToken = req.user;
 
-  if (parseInt(userId) !== userFromToken)
-    return res.status(401).json({ error: "Unauthorized" });
+  if (userId || !userFromToken || parseInt(userId) !== userFromToken)
+    return res.status(401).json({ code: E2 });
+
+  const file = req.file;
+  if (!file || !process.env.S3_AVATAR_BUCKET_NAME)
+    return res.status(401).json({ code: E1 });
 
   try {
-    const file = req.file;
-
-    if (!file || !process.env.S3_AVATAR_BUCKET_NAME)
-      return new Error("No file");
-
     const buffer = await sharp(file.buffer)
       .resize({ width: 200, height: 200 })
       .toBuffer();
@@ -37,7 +37,7 @@ handler.put(async (req, res) => {
 
     const avatar = await uploadImage(process.env.S3_AVATAR_BUCKET_NAME, file);
 
-    if (!avatar || !avatar.Key) return new Error("No file");
+    if (!avatar || !avatar.Key) return res.status(401).json({ code: E1 });
 
     const user = await prisma.user.update({
       where: {
@@ -51,7 +51,7 @@ handler.put(async (req, res) => {
     res.status(200).json({ user });
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: "Failed to upload file" });
+    res.status(400).json({ code: E1 });
   }
 });
 

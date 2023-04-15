@@ -61,7 +61,6 @@ export default function LoginForm() {
         label="Identifiant (email)"
         placeholder="email"
         name="email"
-        value="rachel@gmail.com"
         required
         error={error.status}
       />
@@ -69,7 +68,6 @@ export default function LoginForm() {
         label="Mot de passe"
         placeholder="Mot de passe"
         name="password"
-        value="Admin007!"
         required
         error={error.status}
       />

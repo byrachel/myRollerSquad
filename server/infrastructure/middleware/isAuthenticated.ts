@@ -3,7 +3,7 @@ import jwt from "jsonwebtoken";
 import {
   generateAccessToken,
   generateRefreshToken,
-} from "../../../pages/api/auth/jwt";
+} from "../../../pages/api/utils/jwt";
 import { ErrorInterface } from "../../core/entities/ErrorInterface";
 
 interface JwtPayload {

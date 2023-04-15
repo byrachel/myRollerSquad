@@ -4,8 +4,9 @@ import cookie from "cookie";
 import { v4 as uuidv4 } from "uuid";
 
 import prisma from "../../../server/infrastructure/prisma/db/client";
-import { generateTokens } from "./jwt";
 import handler, { initValidation, post, check } from "../middleware/validators";
+import { generateTokens } from "../utils/jwt";
+import { E1, E3 } from "app/constants/ErrorMessages";
 
 const validator = initValidation([
   check("email").isEmail().normalizeEmail().withMessage("Check your email."),
@@ -45,7 +46,7 @@ export default handler
           existingUser.password
         );
         if (!validPassword) {
-          res.status(417).json({ name: "PASSWORD is incorrect" });
+          res.status(400).json({ code: E3 });
         }
         const jti = uuidv4();
         const { accessToken, refreshToken } = generateTokens(existingUser, jti);
@@ -71,9 +72,9 @@ export default handler
           ])
           .send({ user });
       } else {
-        res.status(417).json({ name: "failed to load data" });
+        res.status(400).json({ code: E3 });
       }
     } catch (err) {
-      res.status(500).json({ name: "failed to load data" });
+      res.status(400).json({ code: E1 });
     }
   });

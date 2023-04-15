@@ -3,6 +3,7 @@ import bcrypt from "bcrypt";
 
 import prisma from "../../../server/infrastructure/prisma/db/client";
 import handler, { initValidation, post, check } from "../middleware/validators";
+import { E1, E3 } from "app/constants/ErrorMessages";
 
 const validator = initValidation([
   check("password")
@@ -31,6 +32,8 @@ export default handler
   .post(async (req: NextApiRequest, res: NextApiResponse) => {
     const { email, password, name } = req.body;
 
+    if (!email || !password || !name) return res.status(400).json({ code: E3 });
+
     try {
       const user = await prisma.user.create({
         data: {
@@ -46,11 +49,9 @@ export default handler
         },
       });
 
-      if (!user)
-        return res.status(400).json({ name: "failed to CREATE USER IN DB" });
       res.status(201).send({ user });
     } catch (err) {
       console.log(err);
-      res.status(417).json({ name: "failed to REGISTER" });
+      res.status(400).json({ code: E1 });
     }
   });

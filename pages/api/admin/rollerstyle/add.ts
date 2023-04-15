@@ -9,12 +9,12 @@ export default handler
   .post(async (req: NextApiRequest, res: NextApiResponse) => {
     if (!req.body.name) return res.status(400).json({ code: E3 });
     try {
-      const category = await prisma.category.create({
+      const style = await prisma.style.create({
         data: {
           name: req.body.name,
         },
       });
-      res.status(200).json({ category });
+      res.status(200).json({ style });
     } catch (error) {
       res.status(400).json({ code: E1 });
     }

@@ -1,6 +1,8 @@
 import type { NextApiRequest, NextApiResponse } from "next";
+
 import prisma from "../../../../server/infrastructure/prisma/db/client";
 import handler, { isAuthenticated } from "../../middleware/isAuthenticated";
+import { E1 } from "app/constants/ErrorMessages";
 
 export default handler
   .use(isAuthenticated)
@@ -49,6 +51,7 @@ export default handler
       });
       res.status(200).json({ posts });
     } catch (error) {
-      res.status(500).json({ name: "POSTS ???" });
+      console.log(error);
+      res.status(400).json({ code: E1 });
     }
   });

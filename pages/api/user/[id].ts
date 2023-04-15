@@ -1,13 +1,14 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import prisma from "../../../server/infrastructure/prisma/db/client";
 import handler, { isAuthenticated } from "../middleware/isAuthenticated";
+import { E1 } from "app/constants/ErrorMessages";
 
 export default handler
   .use(isAuthenticated)
   .get(async (req: NextApiRequest, res: NextApiResponse) => {
     const { id } = req.query;
     const userId = Array.isArray(id) ? id[0] : id;
-    if (!userId) return res.status(400).json({ name: "USER ID NOT FOUND" });
+    if (!userId) return res.status(400).json({ code: E1 });
 
     try {
       const user = await prisma.user.findUnique({
@@ -43,7 +44,7 @@ export default handler
       });
       res.status(200).json({ user });
     } catch (error) {
-      console.log("FIND USER BY ID ERR", error);
-      res.status(500).json({ name: "USER NOT FOUND" });
+      console.log(error);
+      res.status(400).json({ code: E1 });
     }
   });

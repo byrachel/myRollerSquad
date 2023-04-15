@@ -1,4 +1,5 @@
 import type { NextApiResponse } from "next";
+
 import prisma from "../../../../server/infrastructure/prisma/db/client";
 import { isAuthenticated } from "../../middleware/isAuthenticated";
 import handler, {
@@ -7,6 +8,7 @@ import handler, {
   check,
 } from "../../middleware/validators";
 import { ExtendedRequest } from "pages/api/interfaces/ApiInterfaces";
+import { E1, E2, E3 } from "app/constants/ErrorMessages";
 
 const validator = initValidation([
   check("name").not().isEmpty().trim().withMessage("Name can't be empty"),
@@ -20,11 +22,10 @@ export default handler
   .put(async (req: ExtendedRequest, res: NextApiResponse) => {
     const { id } = req.query;
     const userId = Array.isArray(id) ? id[0] : id;
-    if (!userId) return res.status(400).json({ name: "USER ID NOT FOUND" });
     const userIdFromToken = req.user;
 
-    if (userIdFromToken !== parseInt(userId))
-      return res.status(401).json({ name: "UNAUTHORIZED" });
+    if (!userId || !userIdFromToken || userIdFromToken !== parseInt(userId))
+      return res.status(401).json({ code: E2 });
 
     try {
       const userToUpdate = req.body;
@@ -55,7 +56,7 @@ export default handler
       };
       res.status(200).json({ user: updatedUser });
     } catch (error) {
-      console.log("FIND USER BY ID ERR", error);
-      res.status(500).json({ name: "USER NOT FOUND" });
+      console.log(error);
+      res.status(400).json({ name: E1 });
     }
   });

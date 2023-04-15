@@ -3,7 +3,7 @@ import nextConnect from "next-connect";
 import jwt from "jsonwebtoken";
 import cookie from "cookie";
 
-import { generateAccessToken, generateRefreshToken } from "../auth/jwt";
+import { generateAccessToken, generateRefreshToken } from "../utils/jwt";
 
 interface JwtPayload {
   userId: number;

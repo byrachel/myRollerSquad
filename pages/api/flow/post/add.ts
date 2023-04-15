@@ -6,7 +6,8 @@ import prisma from "../../../../server/infrastructure/prisma/db/client";
 // import { initValidation, check, post } from "../../middleware/validators";
 import { ExtendedRequest } from "../../interfaces/ApiInterfaces";
 import { isAuthenticated } from "../../middleware/isAuthenticated";
-import { uploadImage } from "../../utlis/uploadImage";
+import { uploadImage } from "../../utils/uploadImage";
+import { E1, E2, E3 } from "app/constants/ErrorMessages";
 
 const upload = multer({
   storage: multer.memoryStorage(),
@@ -42,8 +43,24 @@ handler.post(async (req, res) => {
   const { user_id } = req.body;
   const userFromToken = req.user;
 
-  if (parseInt(user_id) !== userFromToken)
-    return res.status(401).json({ error: "Unauthorized" });
+  if (!userFromToken || !user_id || parseInt(user_id) !== userFromToken)
+    return res.status(401).json({ code: E2 });
+
+  const {
+    title,
+    content,
+    category_id,
+    style_id,
+    link,
+    duration,
+    distance,
+    squad_ids,
+    country,
+    city,
+    price,
+  } = req.body;
+
+  if (!title || !category_id) return res.status(400).json({ code: E3 });
 
   try {
     const files = req.files;
@@ -51,7 +68,7 @@ handler.post(async (req, res) => {
 
     if (files && files.length > 0) {
       if (!process.env.S3_FLOW_BUCKET_NAME)
-        return res.status(401).json({ error: "Bucket failed" });
+        return res.status(400).json({ code: E1 });
       for (const file of files) {
         if (process.env.S3_FLOW_BUCKET_NAME) {
           const image = await uploadImage(
@@ -65,22 +82,6 @@ handler.post(async (req, res) => {
         }
       }
     }
-
-    const {
-      title,
-      content,
-      category_id,
-      style_id,
-      link,
-      duration,
-      distance,
-      squad_ids,
-      country,
-      city,
-      price,
-    } = req.body;
-
-    console.log(req.body);
 
     const newPost = await prisma.post.create({
       data: {
@@ -102,12 +103,10 @@ handler.post(async (req, res) => {
       },
     });
 
-    console.log("END", newPost);
-
     res.status(200).json({ post: newPost });
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: "Failed to save New Post" });
+    res.status(400).json({ code: E1 });
   }
 });
 

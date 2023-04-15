@@ -2,12 +2,14 @@ import type { NextApiRequest, NextApiResponse } from "next";
 import cookie from "cookie";
 
 import handler from "../middleware/validators";
+import { E1 } from "app/constants/ErrorMessages";
 
 export default handler.post(
   async (req: NextApiRequest, res: NextApiResponse) => {
     try {
       res
         .status(200)
+        .setHeader("Authorization", "")
         .setHeader("Set-Cookie", [
           cookie.serialize("refreshToken", "", {
             httpOnly: true,
@@ -16,17 +18,9 @@ export default handler.post(
             sameSite: "strict",
             path: "/",
           }),
-          cookie.serialize("accessToken", "", {
-            httpOnly: false,
-            // secure: process.env.NODE_ENV !== "development",
-            maxAge: 60 * 60,
-            sameSite: "strict",
-            path: "/",
-          }),
-        ])
-        .send({ message: "LOGOUT ok" });
+        ]);
     } catch (err) {
-      res.status(500).json({ name: "LOGOUT failed" });
+      res.status(400).json({ code: E1 });
     }
   }
 );
