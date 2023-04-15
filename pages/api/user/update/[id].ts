@@ -8,7 +8,7 @@ import handler, {
   check,
 } from "../../middleware/validators";
 import { ExtendedRequest } from "pages/api/interfaces/ApiInterfaces";
-import { E1, E2, E3 } from "app/constants/ErrorMessages";
+import { E1, E2 } from "app/constants/ErrorMessages";
 
 const validator = initValidation([
   check("name").not().isEmpty().trim().withMessage("Name can't be empty"),

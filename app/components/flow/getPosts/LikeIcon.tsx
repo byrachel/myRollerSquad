@@ -18,15 +18,29 @@ export default function LikeIcon({ color, counter, postId, likedBy }: Props) {
 
   const addLike = (id: number) => {
     const token = localStorage.getItem("token");
+    const data = {
+      post_id: id,
+      user_id: userConnectId,
+    };
     if (id) {
       axios({
         method: "post",
-        url: `/api/post/like/${id}`,
+        url: `/api/flow/post/like`,
+        data,
         headers: {
           Authorization: `Bearer ${token}`,
         },
         withCredentials: true,
-      }).then(() => setLikes(prevState => prevState + 1));
+      })
+        .then(res => {
+          console.log(res.data);
+          if (res.data.liked) {
+            setLikes(likes + 1);
+          } else {
+            setLikes(likes - 1);
+          }
+        })
+        .catch(err => console.log(err));
     }
   };
   return (
