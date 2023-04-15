@@ -89,6 +89,7 @@ const UpdateUserProfile = ({ userProfile, userProfileDispatch }: Props) => {
                 avatar={userProfile.user.avatar}
                 userId={userProfile.user.id}
                 userConnectedId={userConnectedId}
+                userProfileDispatch={userProfileDispatch}
               />
             </div>
             <div className="sidebarText">

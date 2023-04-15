@@ -22,10 +22,11 @@ const isAuthenticated = (
   } else {
     const accessToken = req.headers.authorization.split(" ")[1];
     try {
-      jwt.verify(
+      const { userId } = jwt.verify(
         accessToken,
         process.env.JWT_ACCESS_SECRET as string
       ) as JwtPayload;
+      req.user = userId;
       next();
     } catch (e) {
       const refreshToken = req.cookies["refreshToken"];
@@ -51,7 +52,6 @@ const isAuthenticated = (
             path: "/",
           }),
         ]);
-
         req.user = userId;
         next();
       } catch (err) {

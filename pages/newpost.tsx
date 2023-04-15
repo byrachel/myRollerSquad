@@ -46,7 +46,7 @@ const NewPost = ({ user }: Props) => {
         content: post.content,
         price: target.price && target.price.value ? target.price.value : null,
         category_id: post.category,
-        style_id: post.style,
+        style_id: post.style ? post.style : null,
         link: target.link && target.link.value ? target.link.value : null,
         duration:
           target.duration && target.duration.value
@@ -85,7 +85,7 @@ const NewPost = ({ user }: Props) => {
 
       axios({
         method: "post",
-        url: `/api/flow`,
+        url: `/api/flow/post/add`,
         data: data,
         headers: {
           "Content-Type": "multipart/form-data",

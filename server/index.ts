@@ -2,11 +2,9 @@ import next from "next";
 import express, { NextFunction, Request, Response } from "express";
 import bodyParser from "body-parser";
 import cookieParser from "cookie-parser";
-import swaggerUI from "swagger-ui-express";
 
 import adminRouter from "./routes/admin.routes";
 import flowRouter from "./routes/flow.routes";
-import documentation from "./documentation";
 import prisma from "./infrastructure/prisma/db/client";
 import authRouter from "./routes/auth.routes";
 import userRouter from "./routes/user.routes";
@@ -50,12 +48,6 @@ app
     server.use(adminRouter);
     server.use(authRouter);
     server.use(userRouter);
-
-    server.use(
-      "/api_documentation",
-      swaggerUI.serve,
-      swaggerUI.setup(documentation, { explorer: true })
-    );
 
     server.use(
       (error: any, req: Request, res: Response, next: NextFunction) => {

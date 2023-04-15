@@ -4,4 +4,5 @@ export interface ExtendedRequest extends NextApiRequest {
   user: number;
   file?: any;
   user_id?: number;
+  files?: [];
 }
