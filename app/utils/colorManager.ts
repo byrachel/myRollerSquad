@@ -7,7 +7,7 @@ export const cardColor = (categoryId: number) => {
     case 3:
       return "blue";
     case 4:
-      return "yellow";
+      return "purple";
     default:
       return "dark";
   }

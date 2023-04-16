@@ -1,4 +1,4 @@
-import React, { SyntheticEvent, useReducer, useState } from "react";
+import React, { SyntheticEvent, useContext, useReducer, useState } from "react";
 import { useRouter } from "next/router";
 import axios from "axios";
 
@@ -10,21 +10,19 @@ import { PostReducer } from "app/reducers/PostReducer";
 import { NewPostFactory } from "@/components/flow/addPost/utils/NewPostFactory";
 import { newPostInitialState } from "@/components/flow/addPost/utils/newPostInitialState";
 import NewPostForm from "@/components/flow/addPost/NewPostForm";
-import { UserInterface } from "app/interfaces/userInterfaces";
 import withAuth from "app/utils/withAuth";
+import { UserContext } from "app/context/UserContext";
 
-interface Props {
-  user: UserInterface;
-}
-
-const NewPost = ({ user }: Props) => {
+const NewPost = () => {
   const router = useRouter();
+  const { userState } = useContext(UserContext);
 
   const [post, postDispatch] = useReducer(PostReducer, newPostInitialState);
   const [showMap, setShowMap] = useState(false);
 
   const onSubmit = async (event: SyntheticEvent) => {
     event.preventDefault();
+    if (!userState.user) return router.push("/signin");
 
     const target = event.target as typeof event.target & {
       title: { value: string };
@@ -41,7 +39,7 @@ const NewPost = ({ user }: Props) => {
       });
     } else {
       const newPost = {
-        user_id: user.id,
+        user_id: userState.user.id,
         title: target.title.value,
         content: post.content,
         price: target.price && target.price.value ? target.price.value : null,

@@ -19,10 +19,10 @@ handler.use(isAuthenticated);
 handler.use(upload.single("avatar"));
 
 handler.put(async (req, res) => {
-  const { userId } = req.body;
+  const { user_id } = req.body;
   const userFromToken = req.user;
 
-  if (userId || !userFromToken || parseInt(userId) !== userFromToken)
+  if (!user_id || !userFromToken || parseInt(user_id) !== userFromToken)
     return res.status(401).json({ code: E2 });
 
   const file = req.file;
@@ -50,7 +50,7 @@ handler.put(async (req, res) => {
 
     res.status(200).json({ user });
   } catch (error) {
-    console.error(error);
+    console.error("AVATAR", error);
     res.status(400).json({ code: E1 });
   }
 });

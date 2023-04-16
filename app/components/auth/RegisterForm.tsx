@@ -37,7 +37,7 @@ export default function RegisterForm() {
 
     axios({
       method: "post",
-      url: `/api/register`,
+      url: `/api/auth/register`,
       data,
     })
       .then((res: any) => {

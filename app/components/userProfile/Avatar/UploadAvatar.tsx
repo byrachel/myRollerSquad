@@ -1,9 +1,8 @@
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import { useRouter } from "next/router";
 import Image from "next/image";
 import axios from "axios";
 
-import { UserContext } from "app/context/UserContext";
 import RegularButton from "app/components/buttons/RegularButton";
 import ErrorLayout from "app/components/layouts/ErrorLayout";
 import styles from "app/styles/Profile.module.scss";
@@ -16,18 +15,19 @@ interface Props {
   } | null;
   setDisplayNewAvatar: (arg: boolean) => void;
   userProfileDispatch: React.Dispatch<any>;
+  userId: number;
 }
 
 export default function UploadAvatar({
   avatar,
   setDisplayNewAvatar,
   userProfileDispatch,
+  userId,
 }: Props) {
   const [uploadError, setUploadError] = useState({
     status: false,
     message: "",
   });
-  const { userState } = useContext(UserContext);
   const router = useRouter();
 
   const saveThisAvatar = () => {
@@ -35,15 +35,14 @@ export default function UploadAvatar({
     if (!avatar || !avatar.file)
       return setUploadError({
         status: true,
-        message: "Veuillez sélectionner une impage",
+        message: "Veuillez sélectionner une image",
       });
-    const userId = userState.user?.id;
     const token = localStorage.getItem("token");
 
     if (token && userId) {
       const data = new FormData();
       data.append("avatar", avatar.file);
-      data.append("userId", `${userId}`);
+      data.append("user_id", `${userId}`);
       axios({
         method: "put",
         url: `/api/user/avatar`,
@@ -55,6 +54,7 @@ export default function UploadAvatar({
         withCredentials: true,
       })
         .then(res => {
+          console.log(res.data);
           userProfileDispatch({
             type: "USER_PROFILE_UPDATED",
             payload: res.data.user,

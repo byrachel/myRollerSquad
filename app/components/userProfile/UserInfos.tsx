@@ -20,7 +20,7 @@ interface Props {
 }
 
 export default function UserInfos({ user, userProfileDispatch }: Props) {
-  const { userState } = useContext(UserContext);
+  const { userState, userDispatch } = useContext(UserContext);
   const userConnectedId = userState.user?.id;
 
   const updateUserProfile = () => {
@@ -45,7 +45,7 @@ export default function UserInfos({ user, userProfileDispatch }: Props) {
                   <UpdateProfileButton
                     userProfileDispatch={userProfileDispatch}
                   />
-                  <LogoutButton userId={user.id} />
+                  <LogoutButton userDispatch={userDispatch} />
                 </>
               ) : null}
             </div>

@@ -1,8 +1,13 @@
 import React from "react";
 import prisma from "../../server/prisma/db/client";
 import NewPostBar from "@/components/layouts/NewPostBar";
+import { PostInterface } from "app/interfaces/flowInterfaces";
 
-export default function Post({ post }: any) {
+interface Props {
+  post: PostInterface;
+}
+
+export default function Post({ post }: Props) {
   console.log(post);
   return (
     <>
@@ -29,7 +34,13 @@ export async function getStaticPaths() {
   };
 }
 
-export async function getStaticProps({ params: { id } }: any) {
+interface IParams {
+  params: {
+    id: string;
+  };
+}
+
+export async function getStaticProps({ params: { id } }: IParams) {
   const post = await prisma.post.findUnique({
     where: {
       id: parseInt(id),

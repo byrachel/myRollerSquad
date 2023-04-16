@@ -6,10 +6,16 @@ import { PostInterface } from "../../../interfaces/flowInterfaces";
 interface Props {
   post: PostInterface;
   isLast: boolean;
-  newLimit: any;
+  newLimit: () => void;
+  flowDispatch: React.Dispatch<any>;
 }
 
-export default function CardContainer({ post, isLast, newLimit }: Props) {
+export default function CardContainer({
+  post,
+  isLast,
+  newLimit,
+  flowDispatch,
+}: Props) {
   const cardRef = useRef(null);
 
   useEffect(() => {
@@ -25,5 +31,5 @@ export default function CardContainer({ post, isLast, newLimit }: Props) {
     observer.observe(cardRef.current);
   }, [isLast, newLimit]);
 
-  return <Card post={post} cardRef={cardRef} />;
+  return <Card post={post} cardRef={cardRef} flowDispatch={flowDispatch} />;
 }

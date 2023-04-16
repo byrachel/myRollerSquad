@@ -1,10 +1,12 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useReducer } from "react";
 import Masonry from "react-masonry-css";
 import axios from "axios";
 import NewPostBar from "app/components/layouts/NewPostBar";
 import CardContainer from "@/components/flow/getPosts/CardContainer";
-import { PostInterface } from "app/interfaces/flowInterfaces";
 import { useRouter } from "next/router";
+import withAuth from "app/utils/withAuth";
+import FlowReducer from "app/reducers/FlowReducer";
+import FlowFilters from "@/components/flow/getPosts/FlowFilters";
 
 const breakpointColumnsObj = {
   default: 3,
@@ -12,46 +14,96 @@ const breakpointColumnsObj = {
   768: 1,
 };
 
-const Flow = () => {
-  const [cursor, setCursor] = useState(0);
-  const [posts, setPosts] = useState<PostInterface[]>([]);
-  const [refetch, setRefetch] = useState(0);
-  const router = useRouter();
+const initialState = {
+  cursor: 0,
+  category: null,
+  style: null,
+  posts: [],
+  refetch: 0,
+};
 
-  console.log("posts", posts);
-  console.log("cursor", cursor);
-  console.log("refetch", refetch);
+const Flow = () => {
+  const router = useRouter();
+  const [flowStore, flowDispatch] = useReducer(FlowReducer, initialState);
+  const posts = flowStore.posts;
+
+  const nextId = flowStore.cursor ? flowStore.cursor : 0;
+  const category = flowStore.category ? `&category=${flowStore.category}` : "";
+  const style = flowStore.style ? `&style=${flowStore.style}` : "";
+  const url = `/api/flow/posts/filtered?cursor=${nextId}&${category}&${style}`;
 
   const fetchPosts = (token: string | null) => {
-    if (!token) router.push("/signin");
-    const nextId = cursor ? cursor : 0;
     axios({
       method: "get",
-      url: `/api/flow/posts/${nextId}`,
+      url,
       headers: {
         Authorization: `Bearer ${token}`,
       },
       withCredentials: true,
     })
       .then(res => {
-        setPosts([...posts, ...res.data.posts]);
-        setCursor(res.data.nextId);
+        flowDispatch({
+          type: "SET_POSTS",
+          payload: {
+            posts: res.data.posts,
+            cursor: res.data.nextId ? res.data.nextId : null,
+          },
+        });
+      })
+      .catch(() => router.push("/signin"));
+  };
+
+  const fetchNewPosts = (token: string | null) => {
+    axios({
+      method: "get",
+      url,
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+      withCredentials: true,
+    })
+      .then(res => {
+        flowDispatch({
+          type: "SET_POSTS",
+          payload: {
+            posts: [...flowStore.posts, ...res.data.posts],
+            cursor: res.data.nextId ? res.data.nextId : null,
+          },
+        });
       })
       .catch(() => router.push("/signin"));
   };
 
   useEffect(() => {
     const token = localStorage.getItem("token");
-    console.log("token", token);
-    fetchPosts(token);
+    if (token) {
+      fetchNewPosts(token);
+    } else {
+      router.push("/signin");
+    }
     // eslint-disable-next-line
-  }, [refetch]);
+  }, [flowStore.refetch]);
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      fetchPosts(token);
+    } else {
+      router.push("/signin");
+    }
+    // eslint-disable-next-line
+  }, [flowStore.category, flowStore.style]);
+
+  const newLimit = () => {
+    flowDispatch({ type: "SET_REFETCH", payload: flowStore.refetch + 1 });
+  };
 
   return (
     <>
       <NewPostBar />
       <div className="responsiveFlowContainer">
         <div className="flowContainer">
+          <FlowFilters flowStore={flowStore} flowDispatch={flowDispatch} />
           <Masonry
             breakpointCols={breakpointColumnsObj}
             className="my-masonry-grid"
@@ -62,10 +114,9 @@ const Flow = () => {
                   <CardContainer
                     post={post}
                     isLast={index === posts.length - 1}
-                    newLimit={() =>
-                      cursor !== undefined ? setRefetch(refetch + 1) : null
-                    }
+                    newLimit={newLimit}
                     key={post.id}
+                    flowDispatch={flowDispatch}
                   />
                 ))
               : null}
@@ -75,4 +126,4 @@ const Flow = () => {
     </>
   );
 };
-export default Flow;
+export default withAuth(Flow);

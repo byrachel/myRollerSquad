@@ -7,30 +7,22 @@ import styles from "../../styles/Profile.module.scss";
 import Logout from "app/svg/logout.svg";
 
 interface Props {
-  userId: number;
+  userDispatch: React.Dispatch<any>;
 }
 
-export default function LogoutButton({ userId }: Props) {
+export default function LogoutButton({ userDispatch }: Props) {
   const router = useRouter();
 
-  const logout = (userId: number) => {
-    const token = localStorage.getItem("token");
-    if (userId && token) {
-      axios({
-        method: "post",
-        url: `/api/logout`,
-        headers: {
-          "Content-Type": "multipart/form-data",
-          Authorization: `Bearer ${token}`,
-        },
-        withCredentials: true,
-      })
-        .then(() => {
-          localStorage.removeItem("token");
-          router.push("/");
-        })
-        .catch(err => console.log(err));
-    }
+  const logout = () => {
+    axios({
+      method: "post",
+      url: `/api/auth/logout`,
+      data: {},
+    }).then(() => {
+      localStorage.removeItem("token");
+      userDispatch({ type: "LOGOUT" });
+      router.push("/signin");
+    });
   };
 
   return (
@@ -38,7 +30,7 @@ export default function LogoutButton({ userId }: Props) {
       className={styles.logoutIcon}
       width={30}
       height={30}
-      onClick={() => logout(userId)}
+      onClick={logout}
     />
   );
 }

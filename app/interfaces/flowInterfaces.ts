@@ -11,7 +11,7 @@ export interface PostInterface {
   squad_ids: number[];
   city?: string;
   country: string;
-  user: { id: number; name: string };
+  user: { id: number; avatar: string | null; name: string };
   user_likes: any[];
   comments: any[];
   price: number | null;

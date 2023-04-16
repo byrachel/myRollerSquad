@@ -21,6 +21,7 @@ const UserReducer = (
     case "LOGOUT":
       return {
         ...state,
+        user: {},
         // isLogged: false,
       };
 

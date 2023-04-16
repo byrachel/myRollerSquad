@@ -4,13 +4,13 @@ import axios from "axios";
 import { UserContext } from "app/context/UserContext";
 
 interface Props {
-  color: string;
   counter: number;
   postId: number;
   likedBy: number[];
+  color: string;
 }
 
-export default function LikeIcon({ color, counter, postId, likedBy }: Props) {
+export default function LikeIcon({ counter, postId, likedBy, color }: Props) {
   const [likes, setLikes] = useState<number>(counter);
   const { userState } = useContext(UserContext);
   const userConnectId = userState.user?.id;
@@ -33,7 +33,6 @@ export default function LikeIcon({ color, counter, postId, likedBy }: Props) {
         withCredentials: true,
       })
         .then(res => {
-          console.log(res.data);
           if (res.data.liked) {
             setLikes(likes + 1);
           } else {
@@ -52,7 +51,7 @@ export default function LikeIcon({ color, counter, postId, likedBy }: Props) {
       onKeyDown={() => addLike(postId)}
     >
       <Heart
-        className={liked ? `iconfilled ${color}` : `icon ${color}`}
+        className={liked ? `fullLinksIcon ${color}` : `linksIcon ${color}`}
         width={38}
         height={38}
       />

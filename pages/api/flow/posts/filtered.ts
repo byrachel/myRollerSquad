@@ -10,7 +10,8 @@ const handler = nextConnect<NextApiRequest, NextApiResponse>();
 export default handler
   .use(isAuthenticated)
   .get(async (req: NextApiRequest, res: NextApiResponse) => {
-    const { cursor } = req.query;
+    const { cursor, category, style } = req.query;
+
     const apiCursor = cursor
       ? Array.isArray(cursor)
         ? cursor[0]
@@ -21,6 +22,10 @@ export default handler
     try {
       const cursorObj = postsCursor === 0 ? undefined : { id: postsCursor };
       const posts = await prisma.post.findMany({
+        where: {
+          category_id: category ? parseInt(category as string) : undefined,
+          style_id: style ? parseInt(style as string) : undefined,
+        },
         skip: postsCursor,
         cursor: cursorObj,
         take: 4,

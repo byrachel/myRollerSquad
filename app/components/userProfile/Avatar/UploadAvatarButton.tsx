@@ -10,12 +10,14 @@ interface Props {
   displayNewAvatar: boolean;
   setDisplayNewAvatar: (arg: boolean) => void;
   userProfileDispatch: React.Dispatch<any>;
+  userId: number;
 }
 
 export default function UploadAvatarButton({
   displayNewAvatar,
   setDisplayNewAvatar,
   userProfileDispatch,
+  userId,
 }: Props) {
   const [newAvatarFile, setNewAvatarFile] = useState<any | null>(null);
 
@@ -67,6 +69,7 @@ export default function UploadAvatarButton({
         title="Photo de profil"
       >
         <UploadAvatar
+          userId={userId}
           avatar={newAvatarFile}
           setDisplayNewAvatar={setDisplayNewAvatar}
           userProfileDispatch={userProfileDispatch}

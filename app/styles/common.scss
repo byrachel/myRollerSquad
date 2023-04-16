@@ -75,6 +75,9 @@ div.inline {
   &.yellow {
     stroke: $yellowColor;
   }
+  &.purple {
+    stroke: $purpleColor;
+  }
 }
 
 .outlineIcon:hover {

@@ -1,45 +1,41 @@
 import axios from "axios";
 import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 
 const withAuth = (Component: any) => {
   const AuthenticatedComponent = () => {
     const router = useRouter();
-    const [user, setUser] = useState({});
 
     useEffect(() => {
-      const token = localStorage.getItem("token")
-        ? localStorage.getItem("token")
-        : "";
-      console.log(token);
-      axios(`/api/user/islogged`, {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-        withCredentials: true,
-      })
-        .then(res => {
-          console.log(res);
-          if (res.data.user) {
-            const token = res.headers["authorization"];
-            if (token) {
-              localStorage.setItem("token", token);
-            }
-            // userDispatch({ type: "SET_USER", payload: res.data.user });
-            setUser(res.data.user);
-          } else {
-            router.push("/signin");
-          }
+      const token = localStorage.getItem("token");
+      if (token) {
+        console.log("WITH AUTH", token);
+        axios(`/api/user/islogged`, {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          withCredentials: true,
         })
-        .catch(err => {
-          console.log(err);
-          router.push("/signin");
-        });
-    }, [router]);
+          .then(res => {
+            if (res.data.user) {
+              const token = res.headers["authorization"];
+              if (token) {
+                localStorage.setItem("token", token);
+              }
+            } else {
+              router.push("/signin");
+            }
+          })
+          .catch(() => router.push("/signin"));
+      } else {
+        router.push("/signin");
+      }
+      // eslint-disable-next-line
+    }, []);
 
-    return user ? <Component user={user} /> : null;
+    return <Component />;
   };
 
   return AuthenticatedComponent;

@@ -31,9 +31,8 @@ export default function Avatar({
         />
       ) : (
         <Image
-          // src="/img/avatar_myRollerSquad.jpg"
-          src="https://mys3rollerpicts.s3.eu-west-3.amazonaws.com/1679840613112-_2343b71e-e1d0-4da2-be68-d6d9d79104d8.jpeg"
-          alt="Roller Quad"
+          src="/img/myrollersquad_avatar.jpeg"
+          alt="My Roller Squad"
           className={styles.rollerSkaterAvatar}
           width={200}
           height={200}
@@ -41,6 +40,7 @@ export default function Avatar({
       )}
       {userId === userConnectedId ? (
         <UploadAvatarButton
+          userId={userId}
           displayNewAvatar={displayNewAvatar}
           setDisplayNewAvatar={setDisplayNewAvatar}
           userProfileDispatch={userProfileDispatch}

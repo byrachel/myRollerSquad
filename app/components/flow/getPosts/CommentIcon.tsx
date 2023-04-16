@@ -2,14 +2,14 @@ import React from "react";
 import Comment from "app/svg/multi-bubble.svg";
 
 interface Props {
-  color: string;
   counter: number;
+  color: string;
 }
 
-export default function CommentIcon({ color, counter }: Props) {
+export default function CommentIcon({ counter, color }: Props) {
   return (
     <div className="socialIconContainer">
-      <Comment className={`icon ${color}`} width={38} height={38} />
+      <Comment className={`linksIcon ${color}`} width={38} height={38} />
       <p className="cardMetaText">{counter}</p>
     </div>
   );

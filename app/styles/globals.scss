@@ -344,6 +344,7 @@ label {
   margin: 0.5em 0.2em 0.5em 0;
   padding: 2px 8px 1px 8px;
   width: fit-content;
+  cursor: pointer;
 
   &.blue {
     background-color: $blueColor;
@@ -365,16 +366,50 @@ label {
     background-color: $primaryColor;
     border: solid 2px $primaryColor;
   }
+  &.purple {
+    background-color: $purpleColor;
+    border: solid 2px $purpleColor;
+  }
+}
+
+.badge:hover {
+  background-color: white;
+
+  &.blue {
+    color: $blueColor;
+    border: solid 2px $blueColor;
+  }
+  &.pink {
+    color: $secondaryColor;
+    border: solid 2px $secondaryColor;
+  }
+  &.yellow {
+    color: $yellowColor;
+    border: solid 2px $yellowColor;
+  }
+  &.green {
+    color: $greenColor;
+    border: solid 2px $greenColor;
+  }
+  &.dark {
+    color: $primaryColor;
+    border: solid 2px $primaryColor;
+  }
+  &.purple {
+    color: $purpleColor;
+    border: solid 2px $purpleColor;
+  }
 }
 
 .outlineBadge {
-  background-color: width;
+  background-color: white;
   border-radius: 8px;
   font-family: $titleFont;
   font-size: $fontSize-sm;
   margin: 0.5em 0.2em 0.5em 0;
   padding: 2px 8px 1px 8px;
   width: fit-content;
+  cursor: pointer;
 
   &.blue {
     border: solid 2px $blueColor;
@@ -399,10 +434,45 @@ label {
   &.grey {
     border: solid 2px $greyColor;
     color: $greyColor;
-    cursor: pointer;
+  }
+  &.purple {
+    color: $purpleColor;
+    border: solid 2px $purpleColor;
   }
 }
 
+.outlineBadge:hover {
+  color: white;
+
+  &.blue {
+    border: solid 2px $blueColor;
+    background-color: $blueColor;
+  }
+  &.pink {
+    border: solid 2px $secondaryColor;
+    background-color: $secondaryColor;
+  }
+  &.yellow {
+    border: solid 2px $yellowColor;
+    background-color: $yellowColor;
+  }
+  &.green {
+    border: solid 2px $greenColor;
+    background-color: $greenColor;
+  }
+  &.dark {
+    border: solid 2px $primaryColor;
+    background-color: $primaryColor;
+  }
+  &.grey {
+    border: solid 2px $greyColor;
+    background-color: $greyColor;
+  }
+  &.purple {
+    background-color: $purpleColor;
+    border: solid 2px $purpleColor;
+  }
+}
 .mapContainer {
   display: block;
   width: 100%;

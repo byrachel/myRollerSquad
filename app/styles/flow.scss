@@ -1,5 +1,13 @@
 @import "./variables.scss";
 
+.flowFilters {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  margin: 1em 0.5em;
+  gap: 15px;
+}
+
 .userFlowContainer {
   padding: 3em 0;
   background-color: $lightColor;
@@ -41,9 +49,12 @@
       border: solid 1px $primaryColor;
       box-shadow: 4px 4px $primaryColor;
     }
-
+    &.purple {
+      border: solid 1px $purpleColor;
+      box-shadow: 4px 4px $purpleColor;
+    }
     .avatarContainer {
-      margin: 0.7em;
+      margin: 0.5em;
 
       .avatar {
         border-radius: 50%;
@@ -80,6 +91,9 @@
         }
         &.dark {
           color: $primaryColor;
+        }
+        &.purple {
+          color: $purpleColor;
         }
       }
     }
@@ -118,6 +132,9 @@
         &.yellow {
           color: $yellowColor;
         }
+        &.purple {
+          color: $purpleColor;
+        }
         .pictCounterIcon {
           margin: 0 0.2em 0 0;
           &.pink {
@@ -131,6 +148,9 @@
           }
           &.yellow {
             stroke: $yellowColor;
+          }
+          &.purple {
+            stroke: $purpleColor;
           }
         }
       }
@@ -208,115 +228,72 @@
       }
     }
     div.cardIcons {
-      margin: 0.5em;
+      margin: 0.5em 0 0.7em 0.7em;
       display: flex;
       justify-content: space-between;
-      .linkIcon {
+      .linksIcon {
         fill: none;
         stroke: $greyColor;
         transition: fill 0.2s ease-in-out;
         cursor: pointer;
+        margin-right: 0.5em;
       }
-      .linkIcon:hover {
-        stroke: $primaryColor;
+      .linksIcon:hover {
+        &.blue {
+          stroke: $blueColor;
+        }
+        &.pink {
+          stroke: $secondaryColor;
+        }
+        &.green {
+          stroke: $greenColor;
+        }
+        &.primary {
+          stroke: $primaryColor;
+        }
+        &.yellow {
+          stroke: $yellowColor;
+        }
+        &.purple {
+          stroke: $purpleColor;
+        }
+      }
+      .fullLinksIcon {
+        fill: none;
+        transition: fill 0.2s ease-in-out;
+        cursor: pointer;
+        margin-right: 0.5em;
+        &.blue {
+          stroke: $blueColor;
+        }
+        &.pink {
+          stroke: $secondaryColor;
+        }
+        &.green {
+          stroke: $greenColor;
+        }
+        &.primary {
+          stroke: $primaryColor;
+        }
+        &.yellow {
+          stroke: $yellowColor;
+        }
+        &.purple {
+          stroke: $purpleColor;
+        }
+      }
+      .fullLinksIcon:hover {
+        fill: none;
+        stroke: $greyColor;
       }
       div.cardSocialIcons {
         display: flex;
         justify-content: flex-start;
         align-items: center;
         div.socialIconContainer {
-          margin-right: 1.5em;
+          margin-right: 2em;
           display: flex;
           align-items: center;
-        }
-        .iconfilled {
-          margin: 0 0.8em 0 0;
-          transition: fill 0.2s ease-in-out;
-          width: 2em;
-          height: auto;
-          cursor: pointer;
-          &.blue {
-            stroke: $blueColor;
-            fill: $blueColor;
-          }
-          &.pink {
-            stroke: $secondaryColor;
-            fill: $secondaryColor;
-          }
-          &.yellow {
-            stroke: $yellowColor;
-            fill: $yellowColor;
-          }
-          &.green {
-            stroke: $greenColor;
-            fill: $greenColor;
-          }
-          &.dark {
-            stroke: $primaryColor;
-            fill: $primaryColor;
-          }
-        }
-        .iconfilled:hover {
-          &.blue {
-            fill: none;
-          }
-          &.pink {
-            fill: none;
-          }
-          &.yellow {
-            fill: none;
-          }
-          &.green {
-            fill: none;
-          }
-          &.dark {
-            fill: none;
-          }
-        }
-        .icon {
-          fill: none;
-          margin: 0 0.8em 0 0;
-          transition: fill 0.2s ease-in-out;
-          width: 2em;
-          height: auto;
-          cursor: pointer;
-          &.blue {
-            stroke: $blueColor;
-          }
-          &.pink {
-            stroke: $secondaryColor;
-          }
-          &.yellow {
-            stroke: $yellowColor;
-          }
-          &.green {
-            stroke: $greenColor;
-          }
-          &.dark {
-            stroke: $primaryColor;
-          }
-        }
-        .icon:hover {
-          &.blue {
-            fill: $blueColor;
-            stroke: $blueColor;
-          }
-          &.pink {
-            fill: $secondaryColor;
-            stroke: $secondaryColor;
-          }
-          &.yellow {
-            fill: $yellowColor;
-            stroke: $yellowColor;
-          }
-          &.green {
-            fill: $greenColor;
-            stroke: $greenColor;
-          }
-          &.dark {
-            fill: $primaryColor;
-            stroke: $primaryColor;
-          }
         }
       }
     }

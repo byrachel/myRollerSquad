@@ -1,9 +1,10 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import prisma from "../../../server/prisma/db/client";
-import handler, {
-  isAuthenticated,
-} from "../../../server/middleware/isAuthenticated";
+import { isAuthenticated } from "../../../server/middleware/isAuthenticated";
 import { E1 } from "app/constants/ErrorMessages";
+import nextConnect from "next-connect";
+
+const handler = nextConnect<NextApiRequest, NextApiResponse>();
 
 export default handler
   .use(isAuthenticated)

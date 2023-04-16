@@ -22,25 +22,54 @@ interface Props {
   post: PostInterface;
   cardRef?: React.RefObject<HTMLDivElement>;
   isAuthor?: boolean;
+  flowDispatch: React.Dispatch<any>;
 }
 
-export default function Card({ post, cardRef, isAuthor }: Props) {
+export default function Card({ post, cardRef, isAuthor, flowDispatch }: Props) {
   const color = useMemo(() => cardColor(post.category_id), [post.category_id]);
 
-  console.log(post);
+  const categoryFilter = (category: number) => {
+    flowDispatch({
+      type: "SET_CATEGORY",
+      payload: category,
+    });
+  };
+
+  const styleFilter = (style: number) => {
+    flowDispatch({
+      type: "SET_STYLE",
+      payload: style,
+    });
+  };
 
   return (
     <div className={`cardContainer ${color}`} key={post.id} ref={cardRef}>
       <div className="flexStart">
-        {isAuthor ? null : <Avatar userId={post.user.id} />}
+        {isAuthor ? null : (
+          <Avatar userId={post.user.id} userAvatar={post.user.avatar} />
+        )}
         <div className="cardTitle">
           <div className="flexStart">
-            <div className={`badge ${color}`}>
+            <div
+              className={`badge ${color}`}
+              onClick={() => categoryFilter(post.category_id)}
+              onKeyDown={() => categoryFilter(post.category_id)}
+              role="button"
+              tabIndex={0}
+            >
               {getCategoryName(post.category_id)}
             </div>
-            <div className={`outlineBadge ${color}`}>
-              {getStyleName(post.style_id)}
-            </div>
+            {post.style_id ? (
+              <div
+                className={`outlineBadge ${color}`}
+                onClick={() => styleFilter(post.style_id)}
+                onKeyDown={() => styleFilter(post.style_id)}
+                role="button"
+                tabIndex={0}
+              >
+                {getStyleName(post.style_id)}
+              </div>
+            ) : null}
           </div>
           <h2 className="title">{post.title}</h2>
           {isAuthor ? null : (
@@ -91,11 +120,10 @@ export default function Card({ post, cardRef, isAuthor }: Props) {
             postId={post.id}
             likedBy={post.user_likes.map(like => like.user_id)}
           />
-          {/* TO UPDATE !!! */}
-          <CommentIcon color={color} counter={2} />
+          <CommentIcon counter={post.comments.length} color={color} />
         </div>
         <Link href={`/post/${post.id}`}>
-          <Arrow className="linkIcon" width={38} height={38} />
+          <Arrow className="linksIcon" width={38} height={38} />
         </Link>
       </div>
     </div>

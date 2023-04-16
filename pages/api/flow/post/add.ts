@@ -43,6 +43,9 @@ handler.post(async (req, res) => {
   const { user_id } = req.body;
   const userFromToken = req.user;
 
+  console.log("user_id", user_id);
+  console.log("userFromToken", userFromToken);
+
   if (!userFromToken || !user_id || parseInt(user_id) !== userFromToken)
     return res.status(401).json({ code: E2 });
 
