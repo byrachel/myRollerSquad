@@ -22,7 +22,7 @@ interface Props {
   post: PostInterface;
   cardRef?: React.RefObject<HTMLDivElement>;
   isAuthor?: boolean;
-  flowDispatch: React.Dispatch<any>;
+  flowDispatch?: React.Dispatch<any>;
 }
 
 export default function Card({ post, cardRef, isAuthor, flowDispatch }: Props) {
