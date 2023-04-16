@@ -7,6 +7,7 @@ import { useRouter } from "next/router";
 import withAuth from "app/utils/withAuth";
 import FlowReducer from "app/reducers/FlowReducer";
 import FlowFilters from "@/components/flow/getPosts/FlowFilters";
+import { PostInterface } from "app/interfaces/flowInterfaces";
 
 const breakpointColumnsObj = {
   default: 3,
@@ -110,7 +111,7 @@ const Flow = () => {
             columnClassName="my-masonry-grid_column"
           >
             {posts && posts.length > 0
-              ? posts.map((post, index) => (
+              ? posts.map((post: PostInterface, index: number) => (
                   <CardContainer
                     post={post}
                     isLast={index === posts.length - 1}

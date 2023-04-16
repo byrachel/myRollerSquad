@@ -29,6 +29,7 @@ export default function Card({ post, cardRef, isAuthor, flowDispatch }: Props) {
   const color = useMemo(() => cardColor(post.category_id), [post.category_id]);
 
   const categoryFilter = (category: number) => {
+    if (flowDispatch === undefined) return;
     flowDispatch({
       type: "SET_CATEGORY",
       payload: category,
@@ -36,6 +37,7 @@ export default function Card({ post, cardRef, isAuthor, flowDispatch }: Props) {
   };
 
   const styleFilter = (style: number) => {
+    if (flowDispatch === undefined) return;
     flowDispatch({
       type: "SET_STYLE",
       payload: style,
