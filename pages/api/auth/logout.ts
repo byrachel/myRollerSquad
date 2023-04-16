@@ -1,7 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import cookie from "cookie";
 
-import handler from "../middleware/validators";
+import handler from "../../../server/middleware/validators";
 import { E1 } from "app/constants/ErrorMessages";
 
 export default handler.post(

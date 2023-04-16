@@ -1,7 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 
-import prisma from "../../../../server/infrastructure/prisma/db/client";
-import handler, { isAdmin } from "pages/api/middleware/isAdmin";
+import prisma from "../../../../server/prisma/db/client";
+import handler, { isAdmin } from "@/server/middleware/isAdmin";
 import { E1, E3 } from "app/constants/ErrorMessages";
 
 export default handler

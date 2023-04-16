@@ -3,9 +3,13 @@ import bcrypt from "bcrypt";
 import cookie from "cookie";
 import { v4 as uuidv4 } from "uuid";
 
-import prisma from "../../../server/infrastructure/prisma/db/client";
-import handler, { initValidation, post, check } from "../middleware/validators";
-import { generateTokens } from "../utils/jwt";
+import prisma from "../../../server/prisma/db/client";
+import handler, {
+  initValidation,
+  post,
+  check,
+} from "../../../server/middleware/validators";
+import { generateTokens } from "../../../server/utils/jwt";
 import { E1, E3 } from "app/constants/ErrorMessages";
 
 const validator = initValidation([

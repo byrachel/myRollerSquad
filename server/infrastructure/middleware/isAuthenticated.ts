@@ -1,10 +1,7 @@
 import { NextFunction, Response } from "express";
 import jwt from "jsonwebtoken";
-import {
-  generateAccessToken,
-  generateRefreshToken,
-} from "../../../pages/api/utils/jwt";
-import { ErrorInterface } from "../../core/entities/ErrorInterface";
+import { generateAccessToken, generateRefreshToken } from "../../utils/jwt";
+import { ErrorInterface } from "../../interfaces/ErrorInterface";
 
 interface JwtPayload {
   userId: number;
@@ -49,7 +46,7 @@ export function isAuthenticated(req: any, res: Response, next: NextFunction) {
 
         next();
       } else {
-        let err = new Error(
+        const err = new Error(
           "Veuillez vous connecter pour accéder à cette ressource."
         ) as ErrorInterface;
         err.status = 400;
@@ -57,7 +54,7 @@ export function isAuthenticated(req: any, res: Response, next: NextFunction) {
       }
     } catch (error) {
       console.log("isAuthenticated >> ", error);
-      let err = new Error(
+      const err = new Error(
         "Veuillez vous connecter pour accéder à cette ressource."
       ) as ErrorInterface;
       err.status = 400;

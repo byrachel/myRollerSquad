@@ -1,9 +1,6 @@
 import { NextFunction, Response, Request } from "express";
 import jwt from "jsonwebtoken";
-import {
-  generateAccessToken,
-  generateRefreshToken,
-} from "../../../pages/api/utils/jwt";
+import { generateAccessToken, generateRefreshToken } from "../../utils/jwt";
 
 interface JwtPayload {
   userId: number;

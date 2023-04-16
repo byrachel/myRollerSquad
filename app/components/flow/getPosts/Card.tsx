@@ -16,6 +16,7 @@ import Roller from "app/svg/rollerquad.svg";
 import { SALE, getCategoryName } from "app/constants/PostCategories";
 import { getStyleName } from "app/constants/RollerSkateStyles";
 import CardFeaturedPict from "./CardFeaturedPict";
+import Link from "next/link";
 
 interface Props {
   post: PostInterface;
@@ -93,7 +94,9 @@ export default function Card({ post, cardRef, isAuthor }: Props) {
           {/* TO UPDATE !!! */}
           <CommentIcon color={color} counter={2} />
         </div>
-        <Arrow className="linkIcon" width={38} height={38} />
+        <Link href={`/post/${post.id}`}>
+          <Arrow className="linkIcon" width={38} height={38} />
+        </Link>
       </div>
     </div>
   );

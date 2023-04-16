@@ -1,8 +1,12 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import bcrypt from "bcrypt";
 
-import prisma from "../../../server/infrastructure/prisma/db/client";
-import handler, { initValidation, post, check } from "../middleware/validators";
+import prisma from "../../../server/prisma/db/client";
+import handler, {
+  initValidation,
+  post,
+  check,
+} from "../../../server/middleware/validators";
 import { E1, E3 } from "app/constants/ErrorMessages";
 
 const validator = initValidation([

@@ -22,9 +22,9 @@
       "@/server/*": ["server/*"]
     }
   },
-  "ts-node": {
-    "files": true
-  },
+  // "ts-node": {
+  //   "files": true
+  // },
   "files": [
     // "next-env.d.ts",
     "global.d.ts"

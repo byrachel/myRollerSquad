@@ -1,9 +1,11 @@
 import type { NextApiResponse } from "next";
 
-import prisma from "../../../../server/infrastructure/prisma/db/client";
-import handler, { isAuthenticated } from "../../middleware/isAuthenticated";
+import prisma from "../../../../server/prisma/db/client";
+import handler, {
+  isAuthenticated,
+} from "../../../../server/middleware/isAuthenticated";
 import { E1, E2 } from "app/constants/ErrorMessages";
-import { ExtendedRequest } from "pages/api/interfaces/ApiInterfaces";
+import { ExtendedRequest } from "@/server/interfaces/ApiInterfaces";
 
 export default handler
   .use(isAuthenticated)

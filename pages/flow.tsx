@@ -7,8 +7,9 @@ import { PostInterface } from "app/interfaces/flowInterfaces";
 import { useRouter } from "next/router";
 
 const breakpointColumnsObj = {
-  default: 2,
-  700: 1,
+  default: 3,
+  1600: 2,
+  768: 1,
 };
 
 const Flow = () => {
@@ -18,59 +19,58 @@ const Flow = () => {
   const router = useRouter();
 
   console.log("posts", posts);
+  console.log("cursor", cursor);
+  console.log("refetch", refetch);
 
-  const fetchPosts = () => {
-    const token = localStorage.getItem("token");
-    if (token) {
-      const nextId = cursor ? cursor : 0;
-      axios({
-        method: "get",
-        url: `/api/flow/posts/${nextId}`,
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-        withCredentials: true,
+  const fetchPosts = (token: string | null) => {
+    if (!token) router.push("/signin");
+    const nextId = cursor ? cursor : 0;
+    axios({
+      method: "get",
+      url: `/api/flow/posts/${nextId}`,
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+      withCredentials: true,
+    })
+      .then(res => {
+        setPosts([...posts, ...res.data.posts]);
+        setCursor(res.data.nextId);
       })
-        .then(res => {
-          setPosts([...posts, ...res.data.posts]);
-          setCursor(res.data.nextId);
-        })
-        .catch(err => {
-          console.log(err);
-          router.push("/signin");
-        });
-    } else {
-      router.push("/signin");
-    }
+      .catch(() => router.push("/signin"));
   };
 
   useEffect(() => {
-    fetchPosts();
+    const token = localStorage.getItem("token");
+    console.log("token", token);
+    fetchPosts(token);
     // eslint-disable-next-line
   }, [refetch]);
 
   return (
     <>
       <NewPostBar />
-      <div className="flowContainer">
-        <Masonry
-          breakpointCols={breakpointColumnsObj}
-          className="my-masonry-grid"
-          columnClassName="my-masonry-grid_column"
-        >
-          {posts && posts.length > 0
-            ? posts.map((post, index) => (
-                <CardContainer
-                  post={post}
-                  isLast={index === posts.length - 1}
-                  newLimit={() =>
-                    cursor !== undefined ? setRefetch(refetch + 1) : null
-                  }
-                  key={post.id}
-                />
-              ))
-            : null}
-        </Masonry>
+      <div className="responsiveFlowContainer">
+        <div className="flowContainer">
+          <Masonry
+            breakpointCols={breakpointColumnsObj}
+            className="my-masonry-grid"
+            columnClassName="my-masonry-grid_column"
+          >
+            {posts && posts.length > 0
+              ? posts.map((post, index) => (
+                  <CardContainer
+                    post={post}
+                    isLast={index === posts.length - 1}
+                    newLimit={() =>
+                      cursor !== undefined ? setRefetch(refetch + 1) : null
+                    }
+                    key={post.id}
+                  />
+                ))
+              : null}
+          </Masonry>
+        </div>
       </div>
     </>
   );

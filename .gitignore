@@ -10,8 +10,5 @@
 *.log
 npm-debug.log*
 
-# storybook
-**/storybook-static
-
 # production
 **/build

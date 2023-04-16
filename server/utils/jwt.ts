@@ -1,4 +1,4 @@
-import { UserInterface } from "@/server/core/entities/UserInterface";
+import { UserInterface } from "@/server/interfaces/UserInterface";
 import jwt from "jsonwebtoken";
 
 export function generateAccessToken(

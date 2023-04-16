@@ -2,11 +2,11 @@ import type { NextApiResponse } from "next";
 import multer from "multer";
 import nextConnect from "next-connect";
 
-import prisma from "../../../../server/infrastructure/prisma/db/client";
+import prisma from "../../../../server/prisma/db/client";
 // import { initValidation, check, post } from "../../middleware/validators";
-import { ExtendedRequest } from "../../interfaces/ApiInterfaces";
-import { isAuthenticated } from "../../middleware/isAuthenticated";
-import { uploadImage } from "../../utils/uploadImage";
+import { ExtendedRequest } from "../../../../server/interfaces/ApiInterfaces";
+import { isAuthenticated } from "../../../../server/middleware/isAuthenticated";
+import { uploadImage } from "../../../../server/utils/uploadImage";
 import { E1, E2, E3 } from "app/constants/ErrorMessages";
 
 const upload = multer({

@@ -46,10 +46,7 @@ const UserProfile = () => {
               payload: res.data.user,
             })
           )
-          .catch(err => {
-            console.log(err);
-            router.push("/signin");
-          });
+          .catch(() => router.push("/signin"));
       } else {
         router.push("/signin");
       }

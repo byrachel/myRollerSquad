@@ -1,13 +1,13 @@
 import type { NextApiResponse } from "next";
 
-import prisma from "../../../../server/infrastructure/prisma/db/client";
-import { isAuthenticated } from "../../middleware/isAuthenticated";
+import prisma from "../../../../server/prisma/db/client";
+import { isAuthenticated } from "../../../../server/middleware/isAuthenticated";
 import handler, {
   initValidation,
   put,
   check,
-} from "../../middleware/validators";
-import { ExtendedRequest } from "pages/api/interfaces/ApiInterfaces";
+} from "../../../../server/middleware/validators";
+import { ExtendedRequest } from "@/server/interfaces/ApiInterfaces";
 import { E1, E2 } from "app/constants/ErrorMessages";
 
 const validator = initValidation([
