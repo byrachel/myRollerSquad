@@ -22,7 +22,8 @@ const NewPost = () => {
 
   const onSubmit = async (event: SyntheticEvent) => {
     event.preventDefault();
-    if (!userState.user) return router.push("/signin");
+
+    if (!userState.user.id) return router.push("/signin");
 
     const target = event.target as typeof event.target & {
       title: { value: string };
@@ -76,10 +77,9 @@ const NewPost = () => {
           data.append("pictures", image);
         }
       }
+      const token = localStorage.getItem("token");
 
       // console.log(Object.fromEntries(data));
-
-      const token = localStorage.getItem("token");
 
       axios({
         method: "post",
