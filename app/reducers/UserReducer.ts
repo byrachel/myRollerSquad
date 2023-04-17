@@ -1,6 +1,6 @@
-interface UserStateInterface {
-  user: any;
-  // isLogged: boolean;
+export interface UserStateInterface {
+  user: { id: number | null; role: "USER" | "PRO" | "ADMIN" };
+  isLogged: boolean;
 }
 
 const UserReducer = (
@@ -12,17 +12,13 @@ const UserReducer = (
       return {
         ...state,
         user: action.payload,
-      };
-    case "SET_USER":
-      return {
-        ...state,
-        user: action.payload,
+        isLogged: true,
       };
     case "LOGOUT":
       return {
         ...state,
         user: {},
-        // isLogged: false,
+        isLogged: false,
       };
 
     default:

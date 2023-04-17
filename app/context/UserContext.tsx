@@ -1,16 +1,12 @@
-import { createContext, useReducer, useEffect } from "react";
-import UserReducer from "../reducers/UserReducer";
-
-interface UserStateInterface {
-  user: {
-    id: number;
-    name?: string;
-    role: "ADMIN" | "USER" | "PRO";
-  } | null;
-}
+import { createContext, useReducer } from "react";
+import UserReducer, { UserStateInterface } from "../reducers/UserReducer";
 
 export const initialState: UserStateInterface = {
-  user: null,
+  user: {
+    id: null,
+    role: "USER",
+  },
+  isLogged: false,
 };
 
 export const UserContext = createContext<{
@@ -23,20 +19,6 @@ export const UserContext = createContext<{
 
 export const UserContextProvider = ({ children }: { children: any }) => {
   const [userState, userDispatch] = useReducer(UserReducer, initialState);
-
-  useEffect(() => {
-    if (localStorage.getItem("id")) {
-      const id = JSON.parse(localStorage.getItem("id")!);
-      const role = localStorage.getItem("role")
-        ? JSON.parse(localStorage.getItem("role")!)
-        : "USER";
-
-      userDispatch({
-        type: "LOGIN",
-        payload: { id: parseInt(id), role },
-      });
-    }
-  }, []);
 
   return (
     <UserContext.Provider

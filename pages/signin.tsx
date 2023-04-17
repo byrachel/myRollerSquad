@@ -3,7 +3,7 @@ import LoginForm from "@/components/auth/LoginForm";
 import RegisterForm from "@/components/auth/RegisterForm";
 import Roller from "app/svg/rollerquad.svg";
 
-export default function MyAccount() {
+export default function Signin() {
   const [showLoginForm, setShowLoginForm] = useState(true);
 
   return (

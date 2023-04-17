@@ -1,4 +1,3 @@
-import { UserInterface } from "@/server/interfaces/UserInterface";
 import jwt from "jsonwebtoken";
 
 export function generateAccessToken(
@@ -28,7 +27,10 @@ export function generateRefreshToken(
   );
 }
 
-export function generateTokens(user: UserInterface, jti: string) {
+export function generateTokens(
+  user: { id: number; role: "ADMIN" | "USER" | "PRO" },
+  jti: string
+) {
   const accessToken = generateAccessToken(user.id, user.role);
   const refreshToken = generateRefreshToken(user.id, user.role, jti);
 

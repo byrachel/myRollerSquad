@@ -1,11 +1,5 @@
 import { PostInterface } from "./flowInterfaces";
 
-export interface UserStateInterface {
-  id: number;
-  name: string;
-  role: string;
-}
-
 export interface UserInterface {
   id: number;
   name: string;

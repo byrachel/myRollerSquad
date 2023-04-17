@@ -1,15 +1,17 @@
+import { UserContext } from "app/context/UserContext";
 import axios from "axios";
 import { useRouter } from "next/router";
-import { useEffect } from "react";
+import { useContext, useEffect } from "react";
 
 const withAuth = (Component: any) => {
   const AuthenticatedComponent = () => {
     const router = useRouter();
+    const { userState, userDispatch } = useContext(UserContext);
+    console.log(userState);
 
     useEffect(() => {
       const token = localStorage.getItem("token");
       if (token) {
-        console.log("WITH AUTH", token);
         axios(`/api/user/islogged`, {
           method: "GET",
           headers: {
@@ -19,11 +21,13 @@ const withAuth = (Component: any) => {
           withCredentials: true,
         })
           .then(res => {
-            if (res.data.user) {
-              const token = res.headers["authorization"];
-              if (token) {
-                localStorage.setItem("token", token);
-              }
+            const token = res.headers["authorization"];
+            if (token) {
+              localStorage.setItem("token", token);
+              userDispatch({
+                type: "LOGIN",
+                payload: { id: res.data.user.id, role: res.data.user.role },
+              });
             } else {
               router.push("/signin");
             }
@@ -35,7 +39,7 @@ const withAuth = (Component: any) => {
       // eslint-disable-next-line
     }, []);
 
-    return <Component />;
+    return userState.isLogged ? <Component /> : <div className="loader" />;
   };
 
   return AuthenticatedComponent;
