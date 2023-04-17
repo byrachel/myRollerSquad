@@ -15,37 +15,33 @@ model User {
   email         String         @unique
   name          String         @unique
   role          Role           @default(USER)
-  posts         Post[]         @relation("post_author")
-  // places             Place[]        @relation("favorite_places")
   rgpd          Boolean        @default(false)
   rgpd_ok_at    DateTime?
   avatar        String?
   password      String
-  refreshTokens RefreshToken[]
-  createdAt     DateTime       @default(now())
-  updatedAt     DateTime       @updatedAt
   country       String         @default("France")
+  county String?
   city          String?
-  postLiked     PostLiked[]    @relation("post_liked")
   social_medias Json?
   website       String?
   pictures      String[]
-
-  my_squad     User[] @relation("MySquad")
-  my_followers User[] @relation("MySquad")
-
+  resume             String?
   roller_dance_level Int     @default(0)
   skatepark_level    Int     @default(0)
   artistic_level     Int     @default(0)
   freestyle_level    Int     @default(0)
   urban_level        Int     @default(0)
   derby_level        Int     @default(0)
-  resume             String?
 
-  county String?
-
-  // my_places Place[] @relation("place_owner")
+  posts         Post[]         @relation("post_author")
+  postLiked     PostLiked[]    @relation("post_liked")
+  my_squad     User[] @relation("MySquad")
+  my_followers User[] @relation("MySquad")
   my_events Event[] @relation("event_author")
+
+  refreshTokens RefreshToken[]
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
 }
 
 model RefreshToken {
@@ -70,9 +66,7 @@ model Event {
   updatedAt  DateTime @updatedAt
   start_date DateTime
   end_date   DateTime
-
   styles Style[] @relation("event_roller_styles")
-
   author    User @relation("event_author", fields: [author_id], references: [id])
   author_id Int
 }
@@ -84,7 +78,6 @@ model Comment {
   author_id    Int
   post         Post     @relation(fields: [post_id], references: [id])
   post_id      Int
-
   unread Boolean @default(true)
 }
 
@@ -94,8 +87,6 @@ model Post {
   content       String
   user          User        @relation("post_author", fields: [user_id], references: [id])
   user_id       Int
-  // place         Place?      @relation("post_place", fields: [place_id], references: [id])
-  // place_id      Int?
   created_at    DateTime    @default(now())
   duration      String?
   distance      Decimal?
@@ -107,8 +98,6 @@ model Post {
   city          String?
   county        String?
   country       String
-  // location      Json?
-  // views         Int         @default(0)
   comments      Comment[]
   category      Category    @relation("post_category", fields: [category_id], references: [id])
   category_id   Int         @default(1)
@@ -159,7 +148,6 @@ model Style {
 //   type          Type      @relation("place_type", fields: [type_id], references: [id])
 //   type_id       Int
 //   posts         Post[]    @relation("post_place")
-
 //   owner    User @relation("place_owner", fields: [owner_id], references: [id])
 //   owner_id Int
 // }

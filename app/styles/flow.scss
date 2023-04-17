@@ -53,17 +53,6 @@
       border: solid 1px $purpleColor;
       box-shadow: 4px 4px $purpleColor;
     }
-    .avatarContainer {
-      margin: 0.5em;
-
-      .avatar {
-        border-radius: 50%;
-        cursor: pointer;
-      }
-      .avatar:hover {
-        border: solid 3px $secondaryColor;
-      }
-    }
 
     div.cardTitle {
       margin: 0.7em 0 0 0.5em;
@@ -298,6 +287,41 @@
       }
     }
   }
+}
+
+.avatarContainer {
+  margin: 0.5em;
+
+  .avatar {
+    border-radius: 50%;
+    cursor: pointer;
+  }
+  .avatar:hover {
+    border: solid 3px $secondaryColor;
+  }
+}
+
+.singleCardMeta {
+  margin: 0.2em 0 1em 0;
+  .cardMetaText {
+    color: $greyColor;
+    font-family: $textFont;
+    font-size: $fontSize-sm;
+    display: inline;
+    letter-spacing: 0.5px;
+  }
+  .metaIcon {
+    fill: none;
+    stroke: $greyColor;
+    margin: 0 1em;
+    vertical-align: middle;
+  }
+}
+
+.singlePostContent {
+  margin: 0.5em 0 1em 0;
+  padding-top: 1.5em;
+  border-top: solid 3px $lightColor;
 }
 
 .newPostBar {
