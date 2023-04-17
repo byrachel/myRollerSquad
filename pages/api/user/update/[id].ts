@@ -44,7 +44,6 @@ export default handler
         avatar: user.avatar,
         resume: user.resume,
         social_medias: user.social_medias,
-        my_squad: user.my_squad,
         roller_dance_level: user.roller_dance_level,
         skatepark_level: user.skatepark_level,
         artistic_level: user.artistic_level,
@@ -52,6 +51,7 @@ export default handler
         urban_level: user.urban_level,
         derby_level: user.derby_level,
         country: user.country,
+        county: user.county,
         city: user.city,
       };
       res.status(200).json({ user: updatedUser });

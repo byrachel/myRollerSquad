@@ -22,7 +22,6 @@ export default handler
           id: true,
           resume: true,
           social_medias: true,
-          my_squad: true,
           roller_dance_level: true,
           skatepark_level: true,
           artistic_level: true,
@@ -41,8 +40,12 @@ export default handler
           },
           email: true,
           country: true,
+          county: true,
           city: true,
           postLiked: true,
+          my_events: true,
+          my_followers: true,
+          my_squad: true,
         },
       });
       res.status(200).json({ user });
