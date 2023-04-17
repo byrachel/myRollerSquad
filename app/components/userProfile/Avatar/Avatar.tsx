@@ -7,7 +7,7 @@ import styles from "app/styles/Profile.module.scss";
 interface Props {
   avatar: string | null;
   userId: number;
-  userConnectedId?: number;
+  userConnectedId: number | null;
   userProfileDispatch: React.Dispatch<any>;
 }
 
