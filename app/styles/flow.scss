@@ -150,143 +150,145 @@
         }
       }
     }
-    div.cardMeta {
-      margin: 0 0 1em 0.7em;
-    }
-    p.cardMetaText {
-      color: $greyColor;
-      font-family: $textFont;
-      font-size: $fontSize-sm;
-      display: inline;
-      letter-spacing: 0.5px;
-    }
-    .metaIcon {
-      fill: none;
-      stroke: $primaryColor;
-      margin: 0 7px;
-    }
-    div.sessionTracking {
-      background-color: $lightColor;
-      margin: 0.5em 0;
-      padding: 0.5em;
-      display: flex;
-      justify-content: space-around;
-      p {
-        font-family: $titleFont;
-      }
-      .sessionIcon {
-        fill: none;
-        stroke: $primaryColor;
-      }
-    }
-    div.cardContent {
-      margin: 0.7em;
+  }
+}
 
-      ol {
-        li {
-          margin: 0.5em 0 0 1.25em;
-        }
-      }
+div.cardMeta {
+  margin: 0 0 1em 0.7em;
+  p.cardMetaText {
+    color: $greyColor;
+    font-family: $textFont;
+    font-size: $fontSize-sm;
+    display: inline;
+    letter-spacing: 0.5px;
+  }
+  .metaIcon {
+    fill: none;
+    stroke: $primaryColor;
+    margin: 0 7px;
+  }
+}
+div.sessionTracking {
+  background-color: $lightColor;
+  margin: 0.5em 0;
+  padding: 0.5em;
+  display: flex;
+  justify-content: space-around;
+  p {
+    font-family: $titleFont;
+  }
+  .sessionIcon {
+    fill: none;
+    stroke: $primaryColor;
+  }
+}
+div.cardContent {
+  margin: 0.7em;
 
-      ul {
-        li {
-          margin: 0.5em 0 0 0.25em;
-        }
-      }
-
-      div.cardSeparator {
-        background: $lightColor;
-        height: 3px;
-        margin-top: 1em;
-      }
-
-      div.linkContainer {
-        width: 100%;
-        border-radius: 7px;
-        margin: 1.5em 0 0 0;
-        padding: 0;
-        .linkText {
-          font-family: $titleFont;
-          font-size: $fontSize-md;
-          text-align: center;
-          cursor: pointer;
-        }
-        .linkText:hover {
-          color: $secondaryColor;
-        }
-      }
-    }
-    div.cardIcons {
-      margin: 0.5em 0 0.7em 0.7em;
-      display: flex;
-      justify-content: space-between;
-      .linksIcon {
-        fill: none;
-        stroke: $greyColor;
-        transition: fill 0.2s ease-in-out;
-        cursor: pointer;
-        margin-right: 0.5em;
-      }
-      .linksIcon:hover {
-        &.blue {
-          stroke: $blueColor;
-        }
-        &.pink {
-          stroke: $secondaryColor;
-        }
-        &.green {
-          stroke: $greenColor;
-        }
-        &.primary {
-          stroke: $primaryColor;
-        }
-        &.yellow {
-          stroke: $yellowColor;
-        }
-        &.purple {
-          stroke: $purpleColor;
-        }
-      }
-      .fullLinksIcon {
-        fill: none;
-        transition: fill 0.2s ease-in-out;
-        cursor: pointer;
-        margin-right: 0.5em;
-        &.blue {
-          stroke: $blueColor;
-        }
-        &.pink {
-          stroke: $secondaryColor;
-        }
-        &.green {
-          stroke: $greenColor;
-        }
-        &.primary {
-          stroke: $primaryColor;
-        }
-        &.yellow {
-          stroke: $yellowColor;
-        }
-        &.purple {
-          stroke: $purpleColor;
-        }
-      }
-      .fullLinksIcon:hover {
-        fill: none;
-        stroke: $greyColor;
-      }
-      div.cardSocialIcons {
-        display: flex;
-        justify-content: flex-start;
-        align-items: center;
-        div.socialIconContainer {
-          margin-right: 2em;
-          display: flex;
-          align-items: center;
-        }
-      }
+  ol {
+    li {
+      margin: 0.5em 0 0 1.25em;
     }
   }
+
+  ul {
+    li {
+      margin: 0.5em 0 0 0.25em;
+    }
+  }
+
+  div.cardSeparator {
+    background: $lightColor;
+    height: 3px;
+    margin-top: 1em;
+  }
+
+  div.linkContainer {
+    width: 100%;
+    border-radius: 7px;
+    margin: 1.5em 0 0 0;
+    padding: 0;
+    .linkText {
+      font-family: $titleFont;
+      font-size: $fontSize-md;
+      text-align: center;
+      cursor: pointer;
+    }
+    .linkText:hover {
+      color: $secondaryColor;
+    }
+  }
+}
+div.cardIcons {
+  margin: 0.5em 0 0.7em 0.7em;
+  display: flex;
+  justify-content: space-between;
+
+  div.cardSocialIcons {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    div.socialIconContainer {
+      margin-right: 2em;
+      display: flex;
+      align-items: center;
+    }
+  }
+}
+.linksIcon {
+  fill: none;
+  stroke: $greyColor;
+  transition: fill 0.2s ease-in-out;
+  cursor: pointer;
+  margin-right: 0.5em;
+}
+.linksIcon:hover {
+  &.blue {
+    stroke: $blueColor;
+  }
+  &.pink {
+    stroke: $secondaryColor;
+  }
+  &.green {
+    stroke: $greenColor;
+  }
+  &.primary {
+    stroke: $primaryColor;
+  }
+  &.yellow {
+    stroke: $yellowColor;
+  }
+  &.purple {
+    stroke: $purpleColor;
+  }
+}
+.fullLinksIcon {
+  fill: none;
+  transition: fill 0.2s ease-in-out;
+  cursor: pointer;
+  margin-right: 0.5em;
+  &.blue {
+    stroke: $blueColor;
+  }
+  &.pink {
+    stroke: $secondaryColor;
+  }
+  &.green {
+    stroke: $greenColor;
+  }
+  &.primary {
+    stroke: $primaryColor;
+  }
+  &.yellow {
+    stroke: $yellowColor;
+  }
+  &.purple {
+    stroke: $purpleColor;
+  }
+}
+.fullLinksIcon:hover {
+  fill: none;
+  stroke: $greyColor;
 }
 
 .avatarContainer {
@@ -316,12 +318,6 @@
     margin: 0 1em;
     vertical-align: middle;
   }
-}
-
-.singlePostContent {
-  margin: 0.5em 0 1em 0;
-  padding-top: 1.5em;
-  border-top: solid 3px $lightColor;
 }
 
 .newPostBar {
@@ -390,6 +386,19 @@
     //   width: 100%;
     //   object-fit: cover;
     // }
+  }
+}
+
+.lastPosts {
+  margin: 2em 1em;
+  p {
+    margin: 1em 0;
+  }
+  ul {
+    margin: 0;
+  }
+  li {
+    margin: 0.5em 1em;
   }
 }
 

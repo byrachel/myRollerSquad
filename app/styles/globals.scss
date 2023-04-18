@@ -19,7 +19,24 @@ body {
 
 a {
   color: inherit;
-  text-decoration: none;
+}
+
+h1 {
+  font-family: $titleFont;
+  font-size: $fontSize-xl;
+  margin: 0.5em 0;
+}
+
+h2 {
+  font-family: $titleFont;
+  font-size: $fontSize-lg;
+  margin: 0.5em 0;
+}
+
+h3 {
+  font-family: $titleFont;
+  font-size: $fontSize-md;
+  margin: 0.5em 0;
 }
 
 ul {
@@ -44,6 +61,7 @@ ul {
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-direction: column;
 }
 
 .coloredSeparator {
@@ -473,6 +491,81 @@ label {
     border: solid 2px $purpleColor;
   }
 }
+
+.staticBadge {
+  border-radius: 8px;
+  color: white;
+  font-family: $titleFont;
+  font-size: $fontSize-sm;
+  margin: 0.5em 0.2em 0.5em 0;
+  padding: 2px 8px 1px 8px;
+  width: fit-content;
+
+  &.blue {
+    background-color: $blueColor;
+    border: solid 2px $blueColor;
+  }
+  &.pink {
+    background-color: $secondaryColor;
+    border: solid 2px $secondaryColor;
+  }
+  &.yellow {
+    background-color: $yellowColor;
+    border: solid 2px $yellowColor;
+  }
+  &.green {
+    background-color: $greenColor;
+    border: solid 2px $greenColor;
+  }
+  &.dark {
+    background-color: $primaryColor;
+    border: solid 2px $primaryColor;
+  }
+  &.purple {
+    background-color: $purpleColor;
+    border: solid 2px $purpleColor;
+  }
+}
+
+.staticOutlineBadge {
+  background-color: white;
+  border-radius: 8px;
+  font-family: $titleFont;
+  font-size: $fontSize-sm;
+  margin: 0.5em 0.2em 0.5em 0;
+  padding: 2px 8px 1px 8px;
+  width: fit-content;
+
+  &.blue {
+    border: solid 2px $blueColor;
+    color: $blueColor;
+  }
+  &.pink {
+    border: solid 2px $secondaryColor;
+    color: $secondaryColor;
+  }
+  &.yellow {
+    border: solid 2px $yellowColor;
+    color: $yellowColor;
+  }
+  &.green {
+    border: solid 2px $greenColor;
+    color: $greenColor;
+  }
+  &.dark {
+    border: solid 2px $primaryColor;
+    color: $primaryColor;
+  }
+  &.grey {
+    border: solid 2px $greyColor;
+    color: $greyColor;
+  }
+  &.purple {
+    color: $purpleColor;
+    border: solid 2px $purpleColor;
+  }
+}
+
 .mapContainer {
   display: block;
   width: 100%;
