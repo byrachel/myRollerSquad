@@ -168,12 +168,20 @@ div.cardMeta {
     margin: 0 7px;
   }
 }
-div.sessionTracking {
+
+div.lightBox {
   background-color: $lightColor;
   margin: 0.5em 0;
   padding: 0.5em;
   display: flex;
-  justify-content: space-around;
+  justify-content: space-evenly;
+}
+div.sessionTracking {
+  background-color: $lightColor;
+  margin: 0.5em 0;
+  padding: 0.5em 1em;
+  display: flex;
+  justify-content: space-between;
   p {
     font-family: $titleFont;
   }
@@ -223,50 +231,93 @@ div.cardIcons {
   margin: 0.5em 0 0.7em 0.7em;
   display: flex;
   justify-content: space-between;
-
-  div.cardSocialIcons {
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    div.socialIconContainer {
-      margin-right: 2em;
-      display: flex;
-      align-items: center;
-    }
-  }
 }
+div.socialIconContainer {
+  align-items: center;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 10px;
+}
+
 .linksIcon {
   fill: none;
-  stroke: $greyColor;
   transition: fill 0.2s ease-in-out;
   cursor: pointer;
   margin-right: 0.5em;
+  &.blue {
+    stroke: $blueColor;
+  }
+  &.pink {
+    stroke: $secondaryColor;
+  }
+  &.green {
+    stroke: $greenColor;
+  }
+  &.primary {
+    stroke: $primaryColor;
+  }
+  &.yellow {
+    stroke: $yellowColor;
+  }
+  &.purple {
+    stroke: $purpleColor;
+  }
+  &.dark {
+    stroke: $greyColor;
+  }
 }
 .linksIcon:hover {
   &.blue {
-    stroke: $blueColor;
+    fill: $blueColor;
   }
   &.pink {
-    stroke: $secondaryColor;
+    fill: $secondaryColor;
   }
   &.green {
-    stroke: $greenColor;
+    fill: $greenColor;
   }
   &.primary {
-    stroke: $primaryColor;
+    fill: $primaryColor;
   }
   &.yellow {
-    stroke: $yellowColor;
+    fill: $yellowColor;
   }
   &.purple {
-    stroke: $purpleColor;
+    fill: $purpleColor;
+  }
+  &.dark {
+    fill: $greyColor;
   }
 }
 .fullLinksIcon {
-  fill: none;
   transition: fill 0.2s ease-in-out;
   cursor: pointer;
   margin-right: 0.5em;
+  stroke: none;
+  &.blue {
+    fill: $blueColor;
+  }
+  &.pink {
+    fill: $secondaryColor;
+  }
+  &.green {
+    fill: $greenColor;
+  }
+  &.primary {
+    fill: $primaryColor;
+  }
+  &.yellow {
+    fill: $yellowColor;
+  }
+  &.purple {
+    fill: $purpleColor;
+  }
+  &.dark {
+    fill: $greyColor;
+  }
+}
+.fullLinksIcon:hover {
   &.blue {
     stroke: $blueColor;
   }
@@ -285,10 +336,9 @@ div.cardIcons {
   &.purple {
     stroke: $purpleColor;
   }
-}
-.fullLinksIcon:hover {
-  fill: none;
-  stroke: $greyColor;
+  &.dark {
+    stroke: $greyColor;
+  }
 }
 
 .avatarContainer {

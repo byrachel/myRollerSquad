@@ -115,17 +115,15 @@ export default function Card({ post, cardRef, isAuthor, flowDispatch }: Props) {
         <div className="cardSeparator" />
       </div>
       <div className="cardIcons">
-        <div className="cardSocialIcons">
-          <LikeIcon
-            color={color}
-            counter={post.user_likes.length}
-            postId={post.id}
-            likedBy={post.user_likes.map(like => like.user_id)}
-          />
-          <CommentIcon counter={post.comments.length} color={color} />
-        </div>
+        <LikeIcon
+          color={color}
+          counter={post.user_likes.length}
+          postId={post.id}
+          likedBy={post.user_likes.map(like => like.user_id)}
+        />
+        <CommentIcon counter={post.comments.length} color={color} />
         <Link href={`/post/${post.id}`}>
-          <Arrow className="linksIcon" width={38} height={38} />
+          <Arrow className={`linksIcon ${color}`} width={38} height={38} />
         </Link>
       </div>
     </div>

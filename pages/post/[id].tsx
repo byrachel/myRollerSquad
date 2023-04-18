@@ -13,6 +13,7 @@ import Pin from "app/svg/pin.svg";
 import Avatar from "@/components/flow/getPosts/Avatar";
 import Roller from "app/svg/rollerquad.svg";
 import Edit from "app/svg/edit.svg";
+import CommentIcon from "@/components/flow/getPosts/CommentIcon";
 
 interface Props {
   post: PostInterface;
@@ -49,22 +50,7 @@ export default function Post({ post }: Props) {
               </ul>
             </div>
           ) : null}
-          <div className="sidebarText">
-            <div className="cardIcons">
-              <div className="cardSocialIcons">
-                <LikeIcon
-                  color={color}
-                  counter={post.user_likes.length}
-                  postId={post.id}
-                  likedBy={post.user_likes.map(like => like.user_id)}
-                />
-              </div>
-            </div>
-            <p className="meta">
-              myRollerSquad est une communauté active & bienveillante de
-              passionnés de roller quad.
-            </p>
-          </div>
+          <div className="sidebarText"></div>
         </div>
         <div className="sidebarContainer">
           <div className="spaceBetween">
@@ -98,6 +84,19 @@ export default function Post({ post }: Props) {
               {post.duration ? <p>{post.duration}</p> : null}
             </div>
           ) : null}
+
+          <div className="lightBox">
+            <div className="flexStart">
+              <LikeIcon
+                color={color}
+                counter={post.user_likes.length}
+                postId={post.id}
+                likedBy={post.user_likes.map(like => like.user_id)}
+              />
+            </div>
+            <CommentIcon counter={post.comments.length} color={color} />
+          </div>
+
           <div className="postContent mt5">
             {post.content ? parseContent(post.content) : null}
           </div>
