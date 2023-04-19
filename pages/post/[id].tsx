@@ -14,7 +14,6 @@ import Avatar from "app/components/flow/getPosts/Avatar";
 import Roller from "app/svg/rollerquad.svg";
 import Edit from "app/svg/edit.svg";
 import CommentIcon from "app/components/flow/getPosts/CommentIcon";
-import CardFeaturedPict from "app/components/flow/getPosts/CardFeaturedPict";
 import Image from "next/image";
 
 interface Props {
@@ -22,7 +21,6 @@ interface Props {
 }
 
 export default function Post({ post }: Props) {
-  console.log(post);
   const color = useMemo(() => cardColor(post.category_id), [post.category_id]);
   const { userState } = useContext(UserContext);
   const userConnectedId = userState.user.id;
