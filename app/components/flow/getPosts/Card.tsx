@@ -10,7 +10,7 @@ import LikeIcon from "./LikeIcon";
 import CommentIcon from "./CommentIcon";
 
 import Pin from "app/svg/pin.svg";
-import Arrow from "app/svg/nav-arrow-right.svg";
+import Arrow from "app/svg/arrow-right.svg";
 import Roller from "app/svg/rollerquad.svg";
 
 import { SALE, getCategoryName } from "app/constants/PostCategories";

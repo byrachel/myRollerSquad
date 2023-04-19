@@ -5,7 +5,7 @@ import { UserProfileInterface } from "app/reducers/UserProfileReducer";
 import Avatar from "../Avatar/Avatar";
 import UpdateUserProfileForm from "./UpdateUserProfileForm";
 import style from "app/styles/Profile.module.scss";
-import RegularButton from "@/components/buttons/RegularButton";
+import RegularButton from "app/components/buttons/RegularButton";
 import axios from "axios";
 import { useRouter } from "next/router";
 

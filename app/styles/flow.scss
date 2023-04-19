@@ -24,6 +24,14 @@
 .flowContainer {
   padding: 1em;
 
+  h2 {
+    margin: 0;
+  }
+
+  h3 {
+    margin: 0;
+  }
+
   div.cardContainer {
     border-radius: 6px;
     margin-top: 1em;
@@ -91,6 +99,22 @@
       height: auto;
       position: relative;
       width: 100%;
+
+      .pictSliderArrow {
+        fill: none;
+        stroke: $lightColor;
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        cursor: pointer;
+        &.left {
+          left: 0;
+        }
+        &.right {
+          right: 0;
+        }
+      }
+
       .pict {
         height: 100% !important;
         max-height: 500px;
@@ -98,58 +122,20 @@
         position: relative !important;
         width: 100% !important;
       }
-      .pictCounter {
-        position: absolute;
-        bottom: 1.5em;
-        right: 1.5em;
-        background-color: white;
-        font-size: $fontSize-md;
-        border-radius: 8px;
-        padding: 0.1em 0.3em;
-        display: flex;
-        align-items: center;
-        cursor: pointer;
-        &.pink {
-          color: $secondaryColor;
-        }
-        &.blue {
-          color: $blueColor;
-        }
-        &.green {
-          color: $greenColor;
-        }
-        &.yellow {
-          color: $yellowColor;
-        }
-        &.purple {
-          color: $purpleColor;
-        }
-        .pictCounterIcon {
-          margin: 0 0.2em 0 0;
-          &.pink {
-            stroke: $secondaryColor;
-          }
-          &.blue {
-            stroke: $blueColor;
-          }
-          &.green {
-            stroke: $greenColor;
-          }
-          &.yellow {
-            stroke: $yellowColor;
-          }
-          &.purple {
-            stroke: $purpleColor;
-          }
-        }
-      }
-      .pictCounter:hover {
-        color: $primaryColor;
-        .pictCounterIcon {
-          stroke: $primaryColor;
-        }
-      }
     }
+  }
+}
+
+.singlePostPicts {
+  margin: 2em auto;
+  width: 100%;
+  max-width: 700px;
+  .pict {
+    height: 100% !important;
+    max-height: 500px;
+    object-fit: cover;
+    position: relative !important;
+    width: 100% !important;
   }
 }
 
@@ -171,7 +157,7 @@ div.cardMeta {
 
 div.lightBox {
   background-color: $lightColor;
-  margin: 0.5em 0;
+  margin: 2em 0 0.5em 0;
   padding: 0.5em;
   display: flex;
   justify-content: space-evenly;

@@ -1,7 +1,7 @@
 import React from "react";
 
 import { UserProfileInterface } from "app/reducers/UserProfileReducer";
-import InputText from "@/components/form/InputText";
+import InputText from "app/components/form/InputText";
 import Editor from "@/components/form/Editor/Editor";
 import UpdateRollerSkateLevel from "./UpdateRollerSkateLevel";
 import UpdateUserCountry from "./UpdateUserCountry";

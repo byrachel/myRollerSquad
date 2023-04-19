@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import ReactHtmlParser from "react-html-parser";
 
-import RegularButton from "@/components/buttons/RegularButton";
+import RegularButton from "app/components/buttons/RegularButton";
 import styles from "../../styles/Profile.module.scss";
 import { UserContext } from "app/context/UserContext";
 import { UserInterface } from "app/interfaces/userInterfaces";

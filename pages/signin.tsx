@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import LoginForm from "@/components/auth/LoginForm";
-import RegisterForm from "@/components/auth/RegisterForm";
+import LoginForm from "app/components/auth/LoginForm";
+import RegisterForm from "app/components/auth/RegisterForm";
 import Roller from "app/svg/rollerquad.svg";
 
 export default function Signin() {

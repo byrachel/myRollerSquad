@@ -9,7 +9,7 @@ import Map from "app/svg/pin-alt.svg";
 import Pin from "app/svg/pin.svg";
 
 import { cardColor } from "app/utils/colorManager";
-import UploadedPicturesPreview from "@/components/layouts/UploadedPicturesPreview";
+import UploadedPicturesPreview from "app/components/layouts/UploadedPicturesPreview";
 import Editor from "@/components/form/Editor/Editor";
 
 interface Props {

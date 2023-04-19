@@ -2,11 +2,11 @@ import React, { useEffect, useReducer } from "react";
 import Masonry from "react-masonry-css";
 import axios from "axios";
 import NewPostBar from "app/components/layouts/NewPostBar";
-import CardContainer from "@/components/flow/getPosts/CardContainer";
+import CardContainer from "app/components/flow/getPosts/CardContainer";
 import { useRouter } from "next/router";
 import withAuth from "app/utils/withAuth";
 import FlowReducer from "app/reducers/FlowReducer";
-import FlowFilters from "@/components/flow/getPosts/FlowFilters";
+import FlowFilters from "app/components/flow/getPosts/FlowFilters";
 import { PostInterface } from "app/interfaces/flowInterfaces";
 
 const breakpointColumnsObj = {

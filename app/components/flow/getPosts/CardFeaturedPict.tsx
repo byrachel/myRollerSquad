@@ -1,9 +1,8 @@
 import Image from "next/image";
-import React, { useMemo } from "react";
+import React, { useState } from "react";
 
-import Camera from "app/svg/add-media-image.svg";
-import Modal from "@/components/layouts/Modal";
-import PicturesSlider from "./PicturesSlider";
+import Right from "app/svg/nav-arrow-right.svg";
+import Left from "app/svg/nav-arrow-left.svg";
 
 interface Props {
   urlPicts: string[];
@@ -11,40 +10,43 @@ interface Props {
 }
 
 export default function CardFeaturedPict({ urlPicts, color }: Props) {
-  const [showSlider, setShowSlider] = React.useState(false);
-
-  const featuredPict = useMemo(() => urlPicts[0], [urlPicts]);
-  const pictCounter = useMemo(() => urlPicts.length, [urlPicts]);
+  const [currentPict, setCurrentPict] = useState(0);
 
   return (
     <>
       <div className="featuredPict">
         <Image
-          src={`https://myrollersquadflow.s3.eu-west-3.amazonaws.com/${featuredPict}`}
+          src={`https://myrollersquadflow.s3.eu-west-3.amazonaws.com/${urlPicts[currentPict]}`}
           alt="Roller Skateur"
           className="pict"
           fill
         />
-        {pictCounter > 1 ? (
-          <div
-            role="button"
-            tabIndex={0}
-            className={`pictCounter ${color}`}
-            onClick={() => setShowSlider(true)}
-            onKeyDown={() => setShowSlider(true)}
-          >
-            <Camera
-              className={`pictCounterIcon ${color}`}
-              width={18}
-              height={18}
+
+        {urlPicts.length > 1 ? (
+          <>
+            <Left
+              width="50"
+              height="50"
+              className={`pictSliderArrow left ${color}`}
+              onClick={() =>
+                setCurrentPict(
+                  currentPict === 0 ? urlPicts.length - 1 : currentPict - 1
+                )
+              }
             />
-            {pictCounter}
-          </div>
+            <Right
+              width="50"
+              height="50"
+              className={`pictSliderArrow right ${color}`}
+              onClick={() =>
+                setCurrentPict(
+                  currentPict === urlPicts.length - 1 ? 0 : currentPict + 1
+                )
+              }
+            />
+          </>
         ) : null}
       </div>
-      <Modal show={showSlider} setShow={setShowSlider}>
-        <PicturesSlider urlPicts={urlPicts} />
-      </Modal>
     </>
   );
 }

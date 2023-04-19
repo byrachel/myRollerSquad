@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import styles from "app/styles/AdminLayout.module.scss";
-import CategoriesBoard from "@/components/admin/CategoriesBoard";
+import CategoriesBoard from "app/components/admin/CategoriesBoard";
 
 const CATEGORIES = 1;
 const STYLES = 2;

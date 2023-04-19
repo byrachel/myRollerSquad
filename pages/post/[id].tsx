@@ -1,19 +1,21 @@
 import React, { useContext, useMemo } from "react";
 import { UserContext } from "app/context/UserContext";
 import prisma from "../../server/prisma/db/client";
-import NewPostBar from "@/components/layouts/NewPostBar";
+import NewPostBar from "app/components/layouts/NewPostBar";
 import { PostInterface } from "app/interfaces/flowInterfaces";
 import { getCategoryName } from "app/constants/PostCategories";
 import { cardColor } from "app/utils/colorManager";
 import { getStyleName } from "app/constants/RollerSkateStyles";
-import LikeIcon from "@/components/flow/getPosts/LikeIcon";
+import LikeIcon from "app/components/flow/getPosts/LikeIcon";
 import { parseContent } from "app/utils/parseContent";
 import { displayLightDateTime } from "app/utils/handleDates";
 import Pin from "app/svg/pin.svg";
-import Avatar from "@/components/flow/getPosts/Avatar";
+import Avatar from "app/components/flow/getPosts/Avatar";
 import Roller from "app/svg/rollerquad.svg";
 import Edit from "app/svg/edit.svg";
-import CommentIcon from "@/components/flow/getPosts/CommentIcon";
+import CommentIcon from "app/components/flow/getPosts/CommentIcon";
+import CardFeaturedPict from "app/components/flow/getPosts/CardFeaturedPict";
+import Image from "next/image";
 
 interface Props {
   post: PostInterface;
@@ -85,6 +87,23 @@ export default function Post({ post }: Props) {
             </div>
           ) : null}
 
+          <div className="postContent mt5">
+            {post.content ? parseContent(post.content) : null}
+          </div>
+
+          <div className="singlePostPicts">
+            {post.pictures.length > 0
+              ? post.pictures.map((pict, index) => (
+                  <Image
+                    src={`https://myrollersquadflow.s3.eu-west-3.amazonaws.com/${pict}`}
+                    alt="Roller Skateur"
+                    className="pict"
+                    fill
+                    key={index}
+                  />
+                ))
+              : null}
+          </div>
           <div className="lightBox">
             <div className="flexStart">
               <LikeIcon
@@ -95,10 +114,6 @@ export default function Post({ post }: Props) {
               />
             </div>
             <CommentIcon counter={post.comments.length} color={color} />
-          </div>
-
-          <div className="postContent mt5">
-            {post.content ? parseContent(post.content) : null}
           </div>
         </div>
       </div>

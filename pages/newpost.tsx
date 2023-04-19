@@ -2,14 +2,14 @@ import React, { SyntheticEvent, useContext, useReducer, useState } from "react";
 import { useRouter } from "next/router";
 import axios from "axios";
 
-import Sidebar from "@/components/flow/addPost/Sidebar";
-import RegularButton from "@/components/buttons/RegularButton";
-import DisplayLocation from "@/components/flow/addPost/DisplayLocation";
-import Modal from "@/components/layouts/Modal";
+import Sidebar from "app/components/flow/addPost/Sidebar";
+import RegularButton from "app/components/buttons/RegularButton";
+import DisplayLocation from "app/components/flow/addPost/DisplayLocation";
+import Modal from "app/components/layouts/Modal";
 import { PostReducer } from "app/reducers/PostReducer";
-import { NewPostFactory } from "@/components/flow/addPost/utils/NewPostFactory";
-import { newPostInitialState } from "@/components/flow/addPost/utils/newPostInitialState";
-import NewPostForm from "@/components/flow/addPost/NewPostForm";
+import { NewPostFactory } from "app/components/flow/addPost/utils/NewPostFactory";
+import { newPostInitialState } from "app/components/flow/addPost/utils/newPostInitialState";
+import NewPostForm from "app/components/flow/addPost/NewPostForm";
 import withAuth from "app/utils/withAuth";
 import { UserContext } from "app/context/UserContext";
 

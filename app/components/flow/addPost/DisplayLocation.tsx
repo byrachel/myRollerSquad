@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import dynamic from "next/dynamic";
 import html2canvas from "html2canvas";
-import RegularButton from "@/components/buttons/RegularButton";
+import RegularButton from "app/components/buttons/RegularButton";
 
 interface Props {
   position: [number, number] | undefined;
