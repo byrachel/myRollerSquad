@@ -10,7 +10,6 @@ import { PostReducer } from "app/reducers/PostReducer";
 import { NewPostFactory } from "app/components/flow/addPost/utils/NewPostFactory";
 import { newPostInitialState } from "app/components/flow/addPost/utils/newPostInitialState";
 import NewPostForm from "app/components/flow/addPost/NewPostForm";
-import withAuth from "app/utils/withAuth";
 import { UserContext } from "app/context/UserContext";
 
 const NewPost = () => {
@@ -121,4 +120,4 @@ const NewPost = () => {
     </>
   );
 };
-export default withAuth(NewPost);
+export default NewPost;

@@ -10,7 +10,7 @@ export default function MainLayout({ children }: Props) {
     <>
       <Header />
       <RollerStylesBar />
-      <main>{children}</main>
+      {children}
       {/* <Footer /> */}
     </>
   );

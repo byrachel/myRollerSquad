@@ -4,33 +4,33 @@ import bcrypt from "bcrypt";
 // import { v4 as uuidv4 } from "uuid";
 
 import prisma from "../../../server/prisma/db/client";
-// import handler, {
-//   initValidation,
-//   post,
-//   check,
-// } from "../../../server/middleware/validators";
+import handler, {
+  initValidation,
+  post,
+  check,
+} from "../../../server/middleware/validators";
 // import { generateTokens } from "../../../server/utils/jwt";
 import { E1, E3 } from "app/constants/ErrorMessages";
 
-// const validator = initValidation([
-//   check("email").isEmail().normalizeEmail().withMessage("Check your email."),
-//   check("password")
-//     .isStrongPassword({
-//       minLength: 8,
-//       minLowercase: 1,
-//       minUppercase: 1,
-//       minNumbers: 1,
-//       minSymbols: 1,
-//       returnScore: false,
-//       pointsPerUnique: 1,
-//       pointsPerRepeat: 0.5,
-//       pointsForContainingLower: 10,
-//       pointsForContainingUpper: 10,
-//       pointsForContainingNumber: 10,
-//       pointsForContainingSymbol: 10,
-//     })
-//     .withMessage("password is empty or incorrect."),
-// ]);
+const validator = initValidation([
+  check("email").isEmail().normalizeEmail().withMessage("Check your email."),
+  check("password")
+    .isStrongPassword({
+      minLength: 8,
+      minLowercase: 1,
+      minUppercase: 1,
+      minNumbers: 1,
+      minSymbols: 1,
+      returnScore: false,
+      pointsPerUnique: 1,
+      pointsPerRepeat: 0.5,
+      pointsForContainingLower: 10,
+      pointsForContainingUpper: 10,
+      pointsForContainingNumber: 10,
+      pointsForContainingSymbol: 10,
+    })
+    .withMessage("password is empty or incorrect."),
+]);
 
 // export default handler
 //   .use(post(validator))
@@ -109,7 +109,7 @@ async function loginRoute(req: any, res: NextApiResponse) {
 
       req.session.user = {
         id: existingUser.id,
-        admin: existingUser.role === "ADMIN",
+        role: existingUser.role,
       };
       await req.session.save();
 

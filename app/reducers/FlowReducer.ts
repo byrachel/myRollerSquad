@@ -36,6 +36,11 @@ const FlowReducer = (
         posts: action.payload.posts,
         cursor: action.payload.cursor,
       };
+    case "SET_CURSOR":
+      return {
+        ...state,
+        cursor: action.payload,
+      };
     default:
       return state;
   }

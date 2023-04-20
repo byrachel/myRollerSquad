@@ -2,33 +2,17 @@ import React, { useState } from "react";
 import LoginForm from "app/components/auth/LoginForm";
 import RegisterForm from "app/components/auth/RegisterForm";
 import Roller from "app/svg/rollerquad.svg";
+import SidebarLayout from "@/components/layouts/SidebarLayout";
+import UnloggedUserSidebar from "@/components/layouts/UnloggedUserSidebar";
 
 export default function Signin() {
   const [showLoginForm, setShowLoginForm] = useState(true);
 
   return (
-    <>
-      <div className="coloredSeparator" />
-      <div className="sidebarLayout">
-        <div className="sidebarContent">
-          <div className="sidebarText">
-            <h2>Fais partie de la plus grande communauté francophone !</h2>
-            <ul>
-              <li>Découvre des astuces pour passer au niveau supérieur !</li>
-              <li>Partage ton joli set-up, tes progrès et fiertés.</li>
-              <li>
-                Rencontre d'autres passionnés de ta région, ou de ton lieu de
-                vacances !
-              </li>
-              <li>...</li>
-            </ul>
-            <p className="meta">
-              myRollerSquad est une communauté active & bienveillante de
-              passionnés de roller quad.
-            </p>
-          </div>
-        </div>
-        <div className="sidebarContainer">
+    <SidebarLayout
+      sidebar={<UnloggedUserSidebar />}
+      content={
+        <>
           {showLoginForm ? (
             <>
               <div className="spaceBetween">
@@ -76,8 +60,8 @@ export default function Signin() {
               <RegisterForm />
             </>
           )}
-        </div>
-      </div>
-    </>
+        </>
+      }
+    />
   );
 }

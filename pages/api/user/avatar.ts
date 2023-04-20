@@ -9,53 +9,99 @@ import { isAuthenticated } from "../../../server/middleware/isAuthenticated";
 import { uploadImage } from "../../../server/utils/uploadImage";
 import { E1, E2 } from "app/constants/ErrorMessages";
 
+import { withIronSessionApiRoute } from "iron-session/next";
+import { ironConfig } from "app/utils/ironConfig";
+
 const upload = multer({
   storage: multer.memoryStorage(),
 });
+const avatarUpload = upload.single("avatar");
 
-const handler = nextConnect<ExtendedRequest, NextApiResponse>();
+// const handler = nextConnect<ExtendedRequest, NextApiResponse>();
 
-handler.use(isAuthenticated);
-handler.use(upload.single("avatar"));
+export default withIronSessionApiRoute(avatarRoute, ironConfig);
 
-handler.put(async (req, res) => {
-  const { user_id } = req.body;
-  const userFromToken = req.user;
-
-  if (!user_id || !userFromToken || parseInt(user_id) !== userFromToken)
-    return res.status(401).json({ code: E2 });
-
-  const file = req.file;
-  if (!file || !process.env.S3_AVATAR_BUCKET_NAME)
-    return res.status(401).json({ code: E1 });
+async function avatarRoute(req: any, res: any) {
+  const user = req.session.user;
+  if (!user) return res.status(401).json({ code: E2 });
 
   try {
-    const buffer = await sharp(file.buffer)
-      .resize({ width: 200, height: 200 })
-      .toBuffer();
-    file.buffer = buffer;
+    avatarUpload(req, res, async err => {
+      if (err) return res.status(401).json({ code: E2 });
 
-    const avatar = await uploadImage(process.env.S3_AVATAR_BUCKET_NAME, file);
+      const { buffer } = req.file;
 
-    if (!avatar || !avatar.Key) return res.status(401).json({ code: E1 });
+      const resizedBuffer = await sharp(buffer)
+        .resize({ width: 200, height: 200 })
+        .toBuffer();
 
-    const user = await prisma.user.update({
-      where: {
-        id: req.user,
-      },
-      data: {
-        avatar: avatar.Key,
-      },
+      if (!resizedBuffer || !process.env.S3_AVATAR_BUCKET_NAME)
+        return res.status(401).json({ code: E2 });
+      const avatar = await uploadImage(
+        process.env.S3_AVATAR_BUCKET_NAME,
+        resizedBuffer
+      );
+
+      if (!avatar || !avatar.Key) return res.status(401).json({ code: E1 });
+
+      const user = await prisma.user.update({
+        where: {
+          id: req.user,
+        },
+        data: {
+          avatar: avatar.Key,
+        },
+      });
+
+      res.status(200).json({ user });
     });
-
-    res.status(200).json({ user });
-  } catch (error) {
-    console.error("AVATAR", error);
-    res.status(400).json({ code: E1 });
+  } catch (e) {
+    console.log("avatar", e);
+    return res.status(401).json({ code: E1 });
   }
-});
+}
 
-export default handler;
+// handler.use(isAuthenticated);
+// handler.use(upload.single("avatar"));
+
+// handler.put(async (req, res) => {
+//   const { user_id } = req.body;
+//   const userFromToken = req.user;
+
+//   if (!user_id || !userFromToken || parseInt(user_id) !== userFromToken)
+//     return res.status(401).json({ code: E2 });
+
+//   const file = req.file;
+//   if (!file || !process.env.S3_AVATAR_BUCKET_NAME)
+//     return res.status(401).json({ code: E1 });
+
+//   try {
+//     const buffer = await sharp(file.buffer)
+//       .resize({ width: 200, height: 200 })
+//       .toBuffer();
+//     file.buffer = buffer;
+
+//     const avatar = await uploadImage(process.env.S3_AVATAR_BUCKET_NAME, file);
+
+//     if (!avatar || !avatar.Key) return res.status(401).json({ code: E1 });
+
+//     const user = await prisma.user.update({
+//       where: {
+//         id: req.user,
+//       },
+//       data: {
+//         avatar: avatar.Key,
+//       },
+//     });
+
+//     res.status(200).json({ user });
+//   } catch (error) {
+//     console.error("AVATAR", error);
+//     res.status(400).json({ code: E1 });
+//   }
+// });
+
+// export default handler;
 
 export const config = {
   api: {

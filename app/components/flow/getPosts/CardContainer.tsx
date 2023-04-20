@@ -29,7 +29,7 @@ export default function CardContainer({
     });
 
     observer.observe(cardRef.current);
-  }, [isLast, newLimit]);
+  }, [isLast]);
 
   return <Card post={post} cardRef={cardRef} flowDispatch={flowDispatch} />;
 }

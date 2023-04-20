@@ -1,13 +1,26 @@
-// Next.js API route support: https://nextjs.org/docs/api-routes/introduction
-import type { NextApiRequest, NextApiResponse } from "next";
+import type { NextApiResponse } from "next";
+import { withIronSessionApiRoute } from "iron-session/next";
+import { ironConfig } from "app/utils/ironConfig";
+import sendEmail from "./sendEmail";
 
-type Data = {
-  name: string;
-};
+export default withIronSessionApiRoute(userRoute, ironConfig);
 
-export default function handler(
-  req: NextApiRequest,
-  res: NextApiResponse<Data>
-) {
-  res.status(200).json({ name: "John Doe" });
+async function userRoute(req: any, res: NextApiResponse<any>) {
+  const user = req.session.user;
+  console.log(user);
+
+  sendEmail(
+    "byrachel@gmail.com",
+    "Welcome to MyRollerSquad !",
+    "<p>This is a test email</p>"
+  );
+
+  if (user) {
+    res.status(200);
+  } else {
+    res.status(401).json({
+      isLoggedIn: false,
+      login: "",
+    });
+  }
 }

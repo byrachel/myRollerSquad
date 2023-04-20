@@ -3,10 +3,7 @@ import FindACoach from "../app/components/homepage/FindACoach";
 import Hero from "../app/components/homepage/Hero";
 import NextEvent from "../app/components/homepage/NextEvent";
 
-import { withSessionSsr } from "app/utils/withSession";
-
-export default function Home({ user }: any) {
-  console.log(user);
+export default function Home() {
   return (
     <>
       <Hero />
@@ -15,16 +12,3 @@ export default function Home({ user }: any) {
     </>
   );
 }
-export const getServerSideProps = withSessionSsr(async ({ req, res }) => {
-  const user = req.session;
-
-  if (!user) {
-    return {
-      notFound: true,
-    };
-  }
-
-  return {
-    props: { user },
-  };
-});

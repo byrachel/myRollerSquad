@@ -6,6 +6,7 @@ import prisma from "../../../server/prisma/db/client";
 //   check,
 // } from "../../../server/middleware/validators";
 import { E1, E3 } from "app/constants/ErrorMessages";
+import jwt from "jsonwebtoken";
 
 // const validator = initValidation([
 //   check("password")
@@ -60,13 +61,16 @@ import { E1, E3 } from "app/constants/ErrorMessages";
 
 import { withSessionRoute } from "app/utils/withSession";
 import { hashPassword } from "app/utils/password";
+import sendEmail from "../sendEmail";
 
 export default withSessionRoute(async (req: any, res: NextApiResponse) => {
   if (req.method !== "POST") return res.status(401).json({ code: E1 });
 
   const { email, password, name } = req.body;
   if (!email || !password || !name) return res.status(400).json({ code: E3 });
+
   const hashedPassword = await hashPassword(password);
+  if (!hashedPassword) return res.status(400).json({ code: E1 });
 
   try {
     const user = await prisma.user.create({
@@ -77,18 +81,26 @@ export default withSessionRoute(async (req: any, res: NextApiResponse) => {
       },
       select: {
         id: true,
-        name: true,
-        role: true,
       },
     });
 
-    req.session.user = { email, isLoggedIn: true };
+    const token = jwt.sign({}, process.env.JWT_ACCESS_SECRET as string, {
+      expiresIn: "1h",
+    });
 
-    console.log(req.session.user);
+    if (!user.id || !token) return res.status(400).json({ code: E1 });
 
-    await req.session.save();
+    console.log("USER", user);
 
-    res.status(201).send({ user });
+    sendEmail(
+      email,
+      "Welcome to MyRollerSquad !",
+      `<p>Click <a href=` +
+        `https://myrollersquad.vercel.app/login/${user.id}/${token}` +
+        `>here</a> to login and activate your account.</p>`
+    );
+
+    res.status(201);
   } catch (err) {
     console.log(err);
     res.status(400).json({ code: E1 });

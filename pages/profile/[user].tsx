@@ -7,7 +7,6 @@ import LastPostsShared from "app/components/userProfile/LastPostsShared";
 import RollerSkateLevel from "app/components/userProfile/RollerSkateLevel";
 import UpdateUserProfile from "app/components/userProfile/UpdateUserProfile/UpdateUserProfile";
 import UserProfileReducer from "app/reducers/UserProfileReducer";
-import withAuth from "app/utils/withAuth";
 
 const initialState = {
   loading: false,
@@ -88,4 +87,4 @@ const UserProfile = () => {
     </>
   );
 };
-export default withAuth(UserProfile);
+export default UserProfile;

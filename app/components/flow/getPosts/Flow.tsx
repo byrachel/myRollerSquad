@@ -4,7 +4,6 @@ import axios from "axios";
 import NewPostBar from "app/components/layouts/NewPostBar";
 import CardContainer from "app/components/flow/getPosts/CardContainer";
 import { useRouter } from "next/router";
-import withAuth from "app/utils/withAuth";
 import FlowReducer from "app/reducers/FlowReducer";
 import FlowFilters from "app/components/flow/getPosts/FlowFilters";
 import { PostInterface } from "app/interfaces/flowInterfaces";
@@ -29,8 +28,10 @@ const Flow = () => {
   const posts = flowStore.posts;
 
   const nextId = flowStore.cursor ? flowStore.cursor : 0;
-  const category = flowStore.category ? `&category=${flowStore.category}` : "";
-  const style = flowStore.style ? `&style=${flowStore.style}` : "";
+  const category = flowStore.category
+    ? `&category=${flowStore.category}`
+    : `category=1`;
+  const style = flowStore.style ? `&style=${flowStore.style}` : `style=1`;
   const url = `/api/flow/posts/filtered?cursor=${nextId}&${category}&${style}`;
 
   const fetchPosts = (token: string | null) => {
@@ -127,4 +128,4 @@ const Flow = () => {
     </>
   );
 };
-export default withAuth(Flow);
+export default Flow;
