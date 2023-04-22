@@ -55,6 +55,7 @@ const Flow = ({ userConnectedId }: Props) => {
 
   useEffect(() => {
     fetchPosts();
+    // eslint-disable-next-line
   }, [category, style]);
 
   const newLimit = () => {

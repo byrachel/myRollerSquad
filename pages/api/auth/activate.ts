@@ -1,4 +1,4 @@
-import type { NextApiRequest, NextApiResponse } from "next";
+import type { NextApiResponse } from "next";
 import prisma from "../../../server/prisma/db/client";
 import { E1, E3 } from "src/constants/ErrorMessages";
 import { withSessionRoute } from "@/server/middleware/auth/withSession";

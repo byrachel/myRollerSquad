@@ -54,6 +54,7 @@ export default function DisplayLocation({
           setLocation(address);
         });
     }
+    // eslint-disable-next-line
   }, [position]);
 
   const canvasConfig = {

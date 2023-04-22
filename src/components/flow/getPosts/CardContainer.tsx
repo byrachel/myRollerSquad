@@ -31,6 +31,7 @@ export default function CardContainer({
     });
 
     observer.observe(cardRef.current);
+    // eslint-disable-next-line
   }, [isLast]);
 
   return (

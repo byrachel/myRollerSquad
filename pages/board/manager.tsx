@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import styles from "src/styles/AdminLayout.module.scss";
 import CategoriesBoard from "src/components/admin/CategoriesBoard";
 

@@ -24,7 +24,7 @@ const UserProfile = ({ user }: Props) => {
 };
 export default UserProfile;
 
-export const getServerSideProps = withSessionSsr(async ({ req, res }) => {
+export const getServerSideProps = withSessionSsr(async ({ req }) => {
   const user = req.session as any;
 
   return {

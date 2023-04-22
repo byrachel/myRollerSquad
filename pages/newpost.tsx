@@ -52,7 +52,7 @@ const NewPost = ({ user }: Props) => {
 };
 export default NewPost;
 
-export const getServerSideProps = withSessionSsr(async ({ req, res }) => {
+export const getServerSideProps = withSessionSsr(async ({ req }) => {
   const user = req.session as any;
 
   return {

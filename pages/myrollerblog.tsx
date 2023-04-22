@@ -22,7 +22,7 @@ const MyRollerBlog = ({ user }: Props) => {
 };
 export default MyRollerBlog;
 
-export const getServerSideProps = withSessionSsr(async ({ req, res }) => {
+export const getServerSideProps = withSessionSsr(async ({ req }) => {
   const user = req.session as any;
 
   return {

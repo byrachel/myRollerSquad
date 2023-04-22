@@ -8,7 +8,7 @@ import styles from "../../styles/Profile.module.scss";
 import Logout from "src/svg/logout.svg";
 
 export default function LogoutButton() {
-  const { userState, userDispatch } = useContext(UserContext);
+  const { userDispatch } = useContext(UserContext);
   const router = useRouter();
 
   const logout = () => {
