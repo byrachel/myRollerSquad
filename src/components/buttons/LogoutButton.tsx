@@ -8,15 +8,16 @@ import styles from "../../styles/Profile.module.scss";
 import Logout from "src/svg/logout.svg";
 
 export default function LogoutButton() {
-  const { userDispatch } = useContext(UserContext);
+  const { userState, userDispatch } = useContext(UserContext);
   const router = useRouter();
 
   const logout = () => {
     axios({
-      method: "post",
+      method: "POST",
       url: `/api/auth/logout`,
-      data: {},
+      withCredentials: true,
     }).then(() => {
+      localStorage.removeItem("userId");
       userDispatch({ type: "LOGOUT" });
       router.push("/");
     });

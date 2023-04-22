@@ -34,6 +34,7 @@ async function userRoute(req: any, res: NextApiResponse<any>) {
           include: {
             comments: true,
             user_likes: true,
+            style: true,
           },
         },
         email: true,
