@@ -7,6 +7,7 @@ import { useRouter } from "next/router";
 
 interface Props {
   posts: PostInterface[];
+  userConnectedId: number;
 }
 
 const breakpointColumnsObj = {
@@ -14,7 +15,7 @@ const breakpointColumnsObj = {
   700: 1,
 };
 
-export default function LastPostsShared({ posts }: Props) {
+export default function LastPostsShared({ posts, userConnectedId }: Props) {
   const router = useRouter();
   return (
     <div className="userFlowContainer">
@@ -29,7 +30,7 @@ export default function LastPostsShared({ posts }: Props) {
           >
             {posts.map(post => (
               <div key={post.id}>
-                <Card post={post} isAuthor />
+                <Card post={post} userConnectedId={userConnectedId} isAuthor />
               </div>
             ))}
           </Masonry>

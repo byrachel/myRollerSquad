@@ -74,7 +74,10 @@ const UserInfosContainer = ({ userConnectedId, userToDisplay }: Props) => {
               urbanLevel={userProfile.user.urban_level}
               derbyLevel={userProfile.user.derby_level}
             />
-            <LastPostsShared posts={userProfile.user.posts} />
+            <LastPostsShared
+              posts={userProfile.user.posts}
+              userConnectedId={userConnectedId}
+            />
           </>
         )
       ) : userProfile.loading ? (
