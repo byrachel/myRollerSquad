@@ -5,7 +5,7 @@ import prisma from "../../../server/prisma/db/client";
 //   post,
 //   check,
 // } from "../../../server/middleware/validators";
-import { E1, E3 } from "app/constants/ErrorMessages";
+import { E1, E3 } from "src/constants/ErrorMessages";
 import jwt from "jsonwebtoken";
 
 // const validator = initValidation([
@@ -59,9 +59,9 @@ import jwt from "jsonwebtoken";
 //     }
 //   });
 
-import { withSessionRoute } from "app/utils/withSession";
-import { hashPassword } from "app/utils/password";
-import sendEmail from "../sendEmail";
+import { withSessionRoute } from "@/server/middleware/auth/withSession";
+import { hashPassword } from "@/server/middleware/auth/password";
+import sendEmail from "../../../server/middleware/sendEmail";
 
 export default withSessionRoute(async (req: any, res: NextApiResponse) => {
   if (req.method !== "POST") return res.status(401).json({ code: E1 });
@@ -94,7 +94,7 @@ export default withSessionRoute(async (req: any, res: NextApiResponse) => {
 
     sendEmail(
       email,
-      "Welcome to MyRollerSquad !",
+      `<h2>Welcome ${name}to MyRollerSquad !</h2>`,
       `<p>Click <a href=` +
         `https://myrollersquad.vercel.app/login/${user.id}/${token}` +
         `>here</a> to login and activate your account.</p>`
@@ -102,7 +102,7 @@ export default withSessionRoute(async (req: any, res: NextApiResponse) => {
 
     res.status(201);
   } catch (err) {
-    console.log(err);
+    // console.log(err);
     res.status(400).json({ code: E1 });
   }
 });

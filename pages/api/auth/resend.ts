@@ -1,9 +1,9 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import prisma from "../../../server/prisma/db/client";
-import { E1, E3 } from "app/constants/ErrorMessages";
+import { E1, E3 } from "src/constants/ErrorMessages";
 import jwt from "jsonwebtoken";
-import { withSessionRoute } from "app/utils/withSession";
-import sendEmail from "../sendEmail";
+import { withSessionRoute } from "@/server/middleware/auth/withSession";
+import sendEmail from "../../../server/middleware/sendEmail";
 
 export default withSessionRoute(async (req: any, res: NextApiResponse) => {
   if (req.method !== "POST") return res.status(401).json({ code: E1 });

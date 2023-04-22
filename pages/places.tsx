@@ -1,5 +1,10 @@
 import React from "react";
 
 export default function Places() {
-  return <h1>Places</h1>;
+  return (
+    <>
+      <div className="coloredSeparator" />
+      <h1>Places</h1>
+    </>
+  );
 }

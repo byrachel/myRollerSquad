@@ -39,22 +39,23 @@ model User {
   my_followers User[] @relation("MySquad")
   my_events Event[] @relation("event_author")
 
-  refreshTokens RefreshToken[]
+  // refreshTokens RefreshToken[]
   createdAt     DateTime       @default(now())
   updatedAt     DateTime       @updatedAt
 
   active        Boolean        @default(false)
+  place         Place[]         @relation("place_owner")
 }
 
-model RefreshToken {
-  id          String   @id @unique @default(uuid())
-  hashedToken String
-  userId      Int
-  User        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  revoked     Boolean  @default(false)
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-}
+// model RefreshToken {
+//   id          String   @id @unique @default(uuid())
+//   hashedToken String
+//   userId      Int
+//   User        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+//   revoked     Boolean  @default(false)
+//   createdAt   DateTime @default(now())
+//   updatedAt   DateTime @updatedAt
+// }
 
 model Event {
   id         Int      @id @default(autoincrement())
@@ -103,8 +104,7 @@ model Post {
   comments      Comment[]
   category      Category    @relation("post_category", fields: [category_id], references: [id])
   category_id   Int         @default(1)
-  style         Style?      @relation("roller_style", fields: [style_id], references: [id])
-  style_id      Int?
+  style         Style[]      @relation("post_roller_style")
   user_likes    PostLiked[] @relation("user_likes")
   price         Int?
 }
@@ -129,39 +129,28 @@ model Category {
 model Style {
   id     Int     @id @default(autoincrement())
   name   String  @unique
-  posts  Post[]  @relation("roller_style")
+  posts  Post[]  @relation("post_roller_style")
   events Event[] @relation("event_roller_styles")
-  // pro User[] @relation("pro_styles")
 }
 
-// model Place {
-//   id            Int       @id @default(autoincrement())
-//   name          String
-//   resume        String
-//   logo          String?
-//   pictures      String[]
-//   social_medias Json?
-//   website       String?
-//   address       Json?
-//   favorites     User[]    @relation("favorite_places")
-//   created_at    DateTime  @default(now())
-//   updated_at    DateTime?
-//   views         Int       @default(0)
-//   type          Type      @relation("place_type", fields: [type_id], references: [id])
-//   type_id       Int
-//   posts         Post[]    @relation("post_place")
-//   owner    User @relation("place_owner", fields: [owner_id], references: [id])
-//   owner_id Int
-// }
-
-// model Type {
-//   id     Int     @id @default(autoincrement())
-//   name   String  @unique
-//   places Place[] @relation("place_type")
-// }
+model Place {
+  id            Int       @id @default(autoincrement())
+  logo          String?
+  created_at    DateTime  @default(now())
+  updated_at    DateTime?
+  type        Type      @default(PROFESIONAL)
+  owner       User       @relation("place_owner", fields: [user_id], references: [id])
+  user_id       Int
+}
 
 enum Role {
   USER
   PRO
   ADMIN
+}
+
+enum Type {
+  ASSOCIATION
+  PROFESIONAL
+  BUSINESS
 }

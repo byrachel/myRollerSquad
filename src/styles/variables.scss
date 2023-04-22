@@ -1,0 +1,34 @@
+$primaryColor: #28152b;
+$secondaryColor: #e4287d;
+$greenColor: #13d1ba;
+$blueColor: #3abff8;
+$yellowColor: #feed63;
+$greyColor: #8c8a8a;
+$lightColor: #f7f7f7;
+$redColor: #ff0000;
+$purpleColor: #b873d9;
+
+$fontSize-sm: 0.75em;
+$fontSize-md: 0.98em;
+$fontSize-lg: 1.2em;
+$fontSize-xl: 1.8em;
+$fontSize-xxl: 2.5em;
+
+$textFont: var(--font-text);
+$titleFont: var(--font-title);
+
+$gradient: linear-gradient(
+  to right top,
+  #e4287d,
+  #d650b0,
+  #b873d9,
+  #8f90f3,
+  #62a7fd,
+  #1fbaff,
+  #00caf9,
+  #00d7eb,
+  #23e5d0,
+  #72eea9,
+  #b8f17f,
+  #feed63
+);

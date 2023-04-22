@@ -18,7 +18,7 @@
     "sourceMap": true,
     "baseUrl": ".",
     "paths": {
-      "@/components/*": ["app/components/*"],
+      "@/components/*": ["src/components/*"],
       "@/server/*": ["server/*"]
     }
   },
@@ -34,7 +34,7 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
-    "app/components/form/Editor/Editor.jsx",
-    "app/context/AuthContext.js"
+    "src/components/form/Editor/Editor.jsx",
+    "src/context/AuthContext.js"
   ]
 }

@@ -1,16 +1,23 @@
 import type { AppProps } from "next/app";
 import { Poppins, Oxygen } from "next/font/google";
 
-import MainLayout from "../app/components/layouts/MainLayout";
-import { UserContextProvider } from "app/context/UserContext";
+import MainLayout from "../src/components/layouts/MainLayout";
+import { UserContextProvider } from "src/context/UserContext";
 
-const bigPoppins = Poppins({ weight: "800", subsets: ["latin"] });
-const poppins = Poppins({ weight: "600", subsets: ["latin"] });
-const oxygen = Oxygen({ weight: ["300", "700"], subsets: ["latin"] });
+const poppins = Poppins({
+  weight: ["800", "600"],
+  subsets: ["latin"],
+  display: "fallback",
+});
+const oxygen = Oxygen({
+  weight: ["300", "700"],
+  subsets: ["latin"],
+  display: "fallback",
+});
 
-import "../app/styles/globals.scss";
-import "../app/styles/common.scss";
-import "../app/styles/flow.scss";
+import "../src/styles/globals.scss";
+import "../src/styles/common.scss";
+import "../src/styles/flow.scss";
 
 function App({ Component, pageProps }: AppProps) {
   return (
@@ -19,7 +26,6 @@ function App({ Component, pageProps }: AppProps) {
         <>
           <style jsx global>{`
             :root {
-              --font-bigTitle: ${bigPoppins.style.fontFamily};
               --font-title: ${poppins.style.fontFamily};
               --font-text: ${oxygen.style.fontFamily};
             }

@@ -1,6 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import prisma from "../../../../server/prisma/db/client";
-import { E1 } from "app/constants/ErrorMessages";
+import { E1 } from "src/constants/ErrorMessages";
 
 export default async function handler(
   req: NextApiRequest,
@@ -17,10 +17,32 @@ export default async function handler(
       where: {
         id: parseInt(id),
       },
+      include: {
+        style: true,
+        comments: true,
+        user_likes: {
+          select: {
+            user_id: true,
+          },
+        },
+        user: {
+          select: {
+            id: true,
+            name: true,
+            posts: {
+              take: 3,
+              select: {
+                id: true,
+                title: true,
+              },
+            },
+            country: true,
+          },
+        },
+      },
     });
     res.status(200).json({ post });
   } catch (err) {
-    console.log(err);
     res.status(400).json({ code: E1 });
   }
 }

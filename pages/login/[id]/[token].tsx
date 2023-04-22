@@ -1,13 +1,11 @@
-import React, { SyntheticEvent, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import axios from "axios";
 import { verify } from "jsonwebtoken";
-import LoginForm from "@/components/auth/LoginForm";
-import InputMail from "@/components/form/InputMail";
-import BigButton from "@/components/buttons/BigButton";
-import SidebarLayout from "@/components/layouts/SidebarLayout";
-import UnloggedUserSidebar from "@/components/layouts/UnloggedUserSidebar";
-import ActivationAccount from "@/components/auth/ActivationAccount";
+import LoginForm from "src/components/auth/LoginForm";
+import SidebarLayout from "src/components/layouts/SidebarLayout";
+import UnloggedUserSidebar from "src/components/layouts/UnloggedUserSidebar";
+import ActivationAccount from "src/components/auth/ActivationAccount";
 
 const Login = () => {
   const router = useRouter();
@@ -72,7 +70,6 @@ const Login = () => {
               <div className="loader" />
             </div>
           )}
-          )
         </>
       }
     />

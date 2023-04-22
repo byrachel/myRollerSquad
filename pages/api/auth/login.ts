@@ -10,7 +10,7 @@ import handler, {
   check,
 } from "../../../server/middleware/validators";
 // import { generateTokens } from "../../../server/utils/jwt";
-import { E1, E3 } from "app/constants/ErrorMessages";
+import { E1, E3 } from "src/constants/ErrorMessages";
 
 const validator = initValidation([
   check("email").isEmail().normalizeEmail().withMessage("Check your email."),
@@ -32,58 +32,7 @@ const validator = initValidation([
     .withMessage("password is empty or incorrect."),
 ]);
 
-// export default handler
-//   .use(post(validator))
-
-//   .post(async (req: NextApiRequest, res: NextApiResponse) => {
-//     const { email, password } = req.body;
-//     try {
-//       const existingUser = await prisma.user.findUnique({
-//         where: {
-//           email,
-//         },
-//       });
-
-//       if (existingUser && existingUser.password) {
-//         const validPassword = await bcrypt.compare(
-//           password,
-//           existingUser.password
-//         );
-//         if (!validPassword) {
-//           res.status(400).json({ code: E3 });
-//         }
-//         const jti = uuidv4();
-//         const { accessToken, refreshToken } = generateTokens(existingUser, jti);
-//         //   await addRefreshTokenToWhitelist({
-//         //     jti,
-//         //     refreshToken,
-//         //     userId: existingUser.id,
-//         //   });
-
-//         const user = { ...existingUser, password: undefined };
-
-//         res
-//           .status(200)
-//           .setHeader("Authorization", accessToken)
-//           .setHeader("Set-Cookie", [
-//             cookie.serialize("refreshToken", refreshToken, {
-//               httpOnly: true,
-//               // secure: process.env.NODE_ENV !== "development",
-//               maxAge: 60 * 60 * 24 * 7, // 1 week
-//               sameSite: "strict",
-//               path: "/",
-//             }),
-//           ])
-//           .send({ user });
-//       } else {
-//         res.status(400).json({ code: E3 });
-//       }
-//     } catch (err) {
-//       res.status(400).json({ code: E1 });
-//     }
-//   });
-
-import { withSessionRoute } from "app/utils/withSession";
+import { withSessionRoute } from "@/server/middleware/auth/withSession";
 
 export default withSessionRoute(loginRoute);
 
@@ -107,15 +56,14 @@ async function loginRoute(req: any, res: NextApiResponse) {
       );
       if (!validPassword) return res.status(400).json({ code: E3 });
 
-      req.session.user = {
+      const user = (req.session.user = {
         id: existingUser.id,
         role: existingUser.role,
-      };
+        isLoggedIn: true,
+      });
       await req.session.save();
 
-      console.log(req.session.user);
-
-      res.status(200).json({ user: existingUser });
+      res.status(200).json({ user });
     } else {
       res.status(400).json({ code: E3 });
     }
