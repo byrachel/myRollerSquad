@@ -39,8 +39,8 @@ export const onRegister = (
 };
 
 export const sendActivationMail = (
-  setError: (error: { status: boolean; message: string }) => void,
   id: number | null,
+  setError: (error: { status: boolean; message: string }) => void,
   setActivationEmailSent: (status: boolean) => void
 ) => {
   setError({ status: false, message: "" });
