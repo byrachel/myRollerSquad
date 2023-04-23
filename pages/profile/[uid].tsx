@@ -11,9 +11,9 @@ interface Props {
 const UserProfile = ({ user }: Props) => {
   const router = useRouter();
   const { uid } = router.query;
-  const userToDisplay = parseInt(uid as string);
+  const userToDisplay = uid !== "null" ? parseInt(uid as string) : null;
 
-  return user && user.isLoggedIn && user.id ? (
+  return user && user.id && userToDisplay ? (
     <UserInfosContainer
       userConnectedId={user.id}
       userToDisplay={userToDisplay}

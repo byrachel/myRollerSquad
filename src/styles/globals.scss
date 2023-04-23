@@ -121,7 +121,11 @@ blockquote {
 
 .signinContainer {
   display: flex;
-  margin-top: 1.5em;
+  justify-content: center;
+  margin: 0;
+  padding: 1em;
+  background-color: $lightColor;
+  cursor: pointer;
   .rollerColoredIcon {
     fill: white;
     stroke: $secondaryColor;

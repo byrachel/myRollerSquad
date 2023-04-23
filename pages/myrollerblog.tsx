@@ -9,9 +9,7 @@ interface Props {
 }
 
 const MyRollerBlog = ({ user }: Props) => {
-  console.log("ROLLER", user);
-
-  return user && user.isLoggedIn && user.id ? (
+  return user && user.id ? (
     <>
       <NewPostBar />
       <Flow userConnectedId={user.id} />

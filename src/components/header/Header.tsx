@@ -16,12 +16,14 @@ export default function Header() {
   const router = useRouter();
   const { userState } = useContext(UserContext);
   const [displayResponsiveMenu, setDisplayResponsiveMenu] = useState(false);
-  const isAdmin = userState.isLoggedIn && userState.role === "ADMIN";
+  const isAdmin = userState.role === "ADMIN";
 
   const goTo = (link: string) => {
     setDisplayResponsiveMenu(false);
     router.push(link);
   };
+
+  console.log(userState);
 
   return (
     <>
@@ -73,11 +75,7 @@ export default function Header() {
                 className={styles.icon}
                 width={38}
                 height={38}
-                onClick={() =>
-                  userState.id
-                    ? goTo(`/profile/${userState.id}`)
-                    : goTo("/signin")
-                }
+                onClick={() => goTo(`/profile/${userState.id}`)}
                 role="button"
               />
               {isAdmin ? (
@@ -126,16 +124,8 @@ export default function Header() {
             role="button"
             tabIndex={0}
             className={styles.iconText}
-            onClick={() =>
-              userState.isLoggedIn && userState.id
-                ? goTo(`/profile/${userState.id}`)
-                : goTo("/signin")
-            }
-            onKeyDown={() =>
-              userState.isLoggedIn && userState.id
-                ? goTo(`/profile/${userState.id}`)
-                : goTo("/signin")
-            }
+            onClick={() => goTo(`/profile/${userState.id}`)}
+            onKeyDown={() => goTo(`/profile/${userState.id}`)}
           >
             Mon compte
           </div>

@@ -16,10 +16,6 @@ const Login = () => {
 
   const userId = id && typeof id === "string" ? parseInt(id) : null;
 
-  console.log("is activated ? ", userAccountIsActivate);
-  console.log("id", id);
-  console.log("token", token);
-
   useEffect(() => {
     async function activateUserAccount(
       token: string,
