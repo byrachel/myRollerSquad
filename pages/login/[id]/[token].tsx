@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
-import axios from "axios";
 import { verify } from "jsonwebtoken";
+import axios from "axios";
+
 import LoginForm from "src/components/auth/LoginForm";
 import SidebarLayout from "src/components/layouts/SidebarLayout";
 import UnloggedUserSidebar from "src/components/layouts/UnloggedUserSidebar";
@@ -29,12 +30,8 @@ const Login = () => {
 
         await axios
           .put("/api/auth/activate", { data: { id } })
-          .then(res => {
-            setUserAccountIsActive(true);
-          })
-          .catch(e => {
-            setUserAccountIsActive(false);
-          });
+          .then(() => setUserAccountIsActive(true))
+          .catch(() => setUserAccountIsActive(false));
       } catch (error) {
         // console.error(error);
         setUserAccountIsActive(false);
