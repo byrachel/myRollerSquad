@@ -1,8 +1,11 @@
 import React, { useState } from "react";
+
 import LoginForm from "src/components/auth/LoginForm";
 import RegisterForm from "src/components/auth/RegisterForm";
 import SidebarLayout from "src/components/layouts/SidebarLayout";
 import UnloggedUserSidebar from "src/components/layouts/UnloggedUserSidebar";
+
+import Roller from "src/svg/rollerquad.svg";
 
 export default function Login() {
   const [showLoginForm, setShowLoginForm] = useState(true);
@@ -27,7 +30,20 @@ export default function Login() {
               </div>
               <div className="lightSeparator mt5" />
 
-              <LoginForm setShowLoginForm={setShowLoginForm} />
+              <LoginForm />
+              <br />
+              <div
+                className="signinContainer"
+                onClick={() => setShowLoginForm(false)}
+                role="button"
+                tabIndex={0}
+                onKeyDown={() => setShowLoginForm(false)}
+              >
+                <Roller className="rollerColoredIcon" width={50} height={50} />
+                <div className="link">
+                  <p>Pas encore membre ? Clique ici et crée un compte !</p>
+                </div>
+              </div>
             </>
           ) : (
             <>

@@ -30,15 +30,13 @@ const Login = () => {
         await axios
           .put("/api/auth/activate", { data: { id } })
           .then(res => {
-            console.log(res);
             setUserAccountIsActive(true);
           })
           .catch(e => {
-            console.log(e);
             setUserAccountIsActive(false);
           });
       } catch (error) {
-        console.error(error);
+        // console.error(error);
         setUserAccountIsActive(false);
       }
     }
