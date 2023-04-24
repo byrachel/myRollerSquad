@@ -388,6 +388,7 @@ div.socialIconContainer {
 .sidebarLayout {
   display: flex;
   justify-content: space-between;
+  min-height: 100vh;
 
   .sidebarAvatarContainer {
     display: flex;
@@ -403,19 +404,16 @@ div.socialIconContainer {
     width: 35%;
 
     .sidebarText {
-      margin: 2.5em 1.5em 1.5em 1.5em;
+      margin: 2.5em 1.5em 01.5em 1.5em;
       h2 {
         font-size: $fontSize-xl;
       }
-      p {
-        margin: 2em 0;
+      li {
+        font-size: 1em;
+        margin: 1.1em 0;
+        letter-spacing: 0.1px;
       }
     }
-    // .newPostSidebardPict {
-    //   height: auto;
-    //   width: 100%;
-    //   object-fit: cover;
-    // }
   }
 }
 
@@ -468,7 +466,7 @@ div.socialIconContainer {
   }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 700px) {
   .sidebarLayout {
     .sidebarContainer {
       margin: 1em;

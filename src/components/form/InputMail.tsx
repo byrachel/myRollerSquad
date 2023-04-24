@@ -30,7 +30,7 @@ export default function InputMail({
         defaultValue={value || ""}
         required={required}
         className={error ? "input error" : "input"}
-        pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
+        pattern="^[a-zA-Z0-9!#$%&amp;'*+\/=?^_`\{\|\}~.\-]+@[a-zA-Z0-9\-]+(\.[a-zA-Z0-9\-]+)*$"
       />
     </div>
   );

@@ -23,7 +23,8 @@ export default handler
   .use(validator)
   .delete(async (req: any, res: NextApiResponse) => {
     const user = await ironSessionMiddleware(req);
-    if (!user || !user.role || user.role !== "ADMIN") return res.status(401);
+    if (!user || !user.role || user.role !== "ADMIN")
+      return res.status(401).json({ code: E1 });
 
     const { id } = req.body;
     if (!id) return res.status(400).json({ code: E3 });
@@ -35,7 +36,7 @@ export default handler
       if (!deletedStyle) {
         return res.status(400).json({ code: E3 });
       }
-      res.status(200);
+      res.status(200).json({});
     } catch (error) {
       res.status(400).json({ code: E1 });
     }

@@ -5,7 +5,7 @@ import prisma from "../../../server/prisma/db/client";
 import { initValidation, check } from "../../../server/middleware/validators";
 import { E1, E3, E4 } from "src/constants/ErrorMessages";
 import { hashPassword } from "@/server/middleware/auth/password";
-import sendEmail, { transporter } from "../../../server/middleware/sendEmail";
+import { transporter } from "../../../server/middleware/sendEmail";
 import { NextApiResponse } from "next";
 import { Prisma } from "@prisma/client";
 
@@ -61,9 +61,9 @@ export default handler
       if (!user.id || !token) return res.status(400).json({ code: E1 });
 
       const html =
-        `<h2>Hey !  Bienvenue dans la squad !</h2><p><a href=` +
+        `<h2>Bienvenue dans la squad !</h2><p><a href=` +
         `https://myrollersquad.vercel.app/login/${user.id}/${token}` +
-        `>Voici le lien pour activer ton compte</a>.</p><p>Attention : Il n'est actif qu'une heure.</p><h3>My Roller Squad</h3>`;
+        `>Voici le lien pour activer ton compte</a>.</p><p>Attention : Il n'est actif qu'une heure, ne tarde pas à l'activer et partager tes prouesses !</p><h3>My Roller Squad</h3>`;
 
       transporter.sendMail(
         {

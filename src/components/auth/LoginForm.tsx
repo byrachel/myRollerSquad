@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { SyntheticEvent, useContext, useState } from "react";
 import { useRouter } from "next/router";
 import { UserContext } from "src/context/UserContext";
 import { onLogin } from "./utils/services";
@@ -14,7 +14,11 @@ export default function LoginForm() {
   const { userDispatch } = useContext(UserContext);
 
   return (
-    <form onSubmit={e => onLogin(e, userDispatch, router, setError)}>
+    <form
+      onSubmit={(e: SyntheticEvent) =>
+        onLogin(e, userDispatch, router, setError)
+      }
+    >
       <ErrorLayout
         error={error.status}
         message={error.message}

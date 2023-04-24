@@ -47,7 +47,7 @@ export default handler
         console.log(html);
       }
 
-      res.status(201);
+      res.status(201).json({});
     } catch (err) {
       res.status(500).json({ code: E3 });
     }

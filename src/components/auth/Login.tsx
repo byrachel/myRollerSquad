@@ -31,7 +31,7 @@ export default function Login() {
               <div className="lightSeparator mt5" />
 
               <LoginForm />
-              <br />
+
               <div
                 className="signinContainer"
                 onClick={() => setShowLoginForm(false)}

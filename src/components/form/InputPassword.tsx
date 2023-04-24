@@ -20,7 +20,7 @@ export default function InputPassword({
   required,
   error,
 }: Props) {
-  const [displayPassword, setDisplayPassword] = useReducer(state => {
+  const [displayPassword, setDisplayPassword] = useReducer((state: boolean) => {
     return !state;
   }, false);
 
@@ -37,7 +37,7 @@ export default function InputPassword({
         defaultValue={value || ""}
         required={required}
         className={error ? "input error" : "input"}
-        pattern="^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%;^&*-]).{8,}$"
+        pattern="^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{12,}$"
       />
       {displayPassword ? (
         <Eye

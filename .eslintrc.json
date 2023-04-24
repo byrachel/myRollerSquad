@@ -4,10 +4,10 @@
   "extends": [
     "next/core-web-vitals",
     "eslint:recommended",
-    "plugin:@typescript-eslint/recommended",
     "plugin:@typescript-eslint/eslint-recommended",
+    "plugin:@typescript-eslint/recommended",
     "plugin:react/recommended",
-    "plugin:prettier/recommended",
+    // "plugin:prettier/recommended",
     // "plugin:prettier/react",
     "plugin:jsx-a11y/recommended",
     "prettier"
@@ -24,6 +24,7 @@
     "no-nested-ternary": "off",
     "import/prefer-default-export": "off",
     // "@typescript-eslint/ban-ts-comment": "error",
+    "prettier/prettier": "warn",
     "jsx-a11y/no-noninteractive-element-interactions": [
       "error",
       {

@@ -29,7 +29,8 @@ export default handler
   .use(validator)
   .put(async (req: any, res: NextApiResponse) => {
     const user = await ironSessionMiddleware(req);
-    if (!user || !user.role || user.role !== "ADMIN") return res.status(401);
+    if (!user || !user.role || user.role !== "ADMIN")
+      return res.status(401).json({ code: E1 });
 
     const { id, name } = req.body;
     if (!id || !name) return res.status(400).json({ code: E3 });

@@ -10,11 +10,10 @@ const handler = nextConnect();
 const validator = initValidation([
   check("password")
     .isStrongPassword({
-      minLength: 8,
+      minLength: 12,
       minLowercase: 1,
       minUppercase: 1,
       minNumbers: 1,
-      minSymbols: 1,
       returnScore: false,
     })
     .withMessage(E3),
@@ -39,7 +38,7 @@ export default handler
 
       console.log(user);
       if (!user) return res.status(400).json({ code: E3 });
-      res.status(201);
+      res.status(201).json({});
     } catch (err) {
       res.status(500).json({ code: E1 });
     }

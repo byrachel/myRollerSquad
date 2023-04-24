@@ -1,14 +1,17 @@
 import { Dispatch, SyntheticEvent } from "react";
-import { E1 } from "src/constants/ErrorMessages";
 import axios from "axios";
+
+import { E1 } from "src/constants/ErrorMessages";
+import { IErrorCode } from "src/interfaces/globalInterfaces";
 
 export const onRegister = (
   event: SyntheticEvent,
-  setError: (args: { status: boolean; message: string }) => void,
-  setIsRegistered: (status: boolean) => void
+  registerDispatch: Dispatch<any>
 ) => {
   event.preventDefault();
-  setError({ status: false, message: "" });
+  registerDispatch({
+    type: "LOADING",
+  });
 
   const target = event.target as typeof event.target & {
     pseudo: { value: string };
@@ -17,9 +20,9 @@ export const onRegister = (
   };
 
   if (target.pseudo.value.length < 3 || target.pseudo.value.length > 20) {
-    return setError({
-      status: true,
-      message: "Le pseudo doit faire entre 3 et 20 caractères",
+    return registerDispatch({
+      type: "ERROR",
+      payload: "Le pseudo doit faire entre 3 et 20 caractères",
     });
   }
 
@@ -34,8 +37,17 @@ export const onRegister = (
     url: `/api/auth/register`,
     data,
   })
-    .then(() => setIsRegistered(true))
-    .catch(e => setError({ status: true, message: e.response.data.code }));
+    .then(() => {
+      registerDispatch({
+        type: "IS_REGISTERED",
+      });
+    })
+    .catch((e: IErrorCode) => {
+      registerDispatch({
+        type: "ERROR",
+        payload: e.response.data.code,
+      });
+    });
 };
 
 export const sendActivationMail = (
@@ -80,7 +92,7 @@ export const onLogin = (
     url: `/api/auth/login`,
     data,
   })
-    .then(res => {
+    .then((res: any) => {
       localStorage.setItem("userId", JSON.stringify(res.data.user.id));
       userDispatch({
         type: "LOGIN",
@@ -88,5 +100,7 @@ export const onLogin = (
       });
       router.push("/myrollerblog");
     })
-    .catch(() => setError({ status: true, message: E1 }));
+    .catch((error: IErrorCode) =>
+      setError({ status: true, message: error.response.data.code })
+    );
 };

@@ -26,13 +26,13 @@ export default withSessionRoute(async (req: any, res: NextApiResponse) => {
 
     sendEmail(
       user.email,
-      "Welcome to MyRollerSquad !",
-      `<p>Click <a href=` +
+      "[ myRollerSquad ]",
+      `<p>Active ton compte <a href=` +
         `https://myrollersquad.vercel.app/login/${user.id}/${token}` +
-        `>here</a> to login and activate your account.</p>`
+        `>en cliquant sur ce lien !</a></p><h3>myRollerSquad</h3>`
     );
 
-    res.status(201);
+    res.status(201).json({});
   } catch (err) {
     console.log(err);
     res.status(400).json({ code: E1 });

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
-import { verify } from "jsonwebtoken";
+import jwt from "jsonwebtoken";
 import axios from "axios";
 
 import LoginForm from "src/components/auth/LoginForm";
@@ -18,32 +18,31 @@ const Login = () => {
   const userId = id && typeof id === "string" ? parseInt(id) : null;
 
   useEffect(() => {
-    async function activateUserAccount(
-      token: string,
-      id: number,
-      secret: string
-    ) {
-      try {
-        const tokenIsValid = verify(token, secret);
-
-        if (!tokenIsValid) return setUserAccountIsActive(false);
-
-        await axios
-          .put("/api/auth/activate", { data: { id } })
-          .then(() => setUserAccountIsActive(true))
-          .catch(() => setUserAccountIsActive(false));
-      } catch (error) {
-        // console.error(error);
-        setUserAccountIsActive(false);
-      }
-    }
     if (
       token &&
       typeof token === "string" &&
       userId &&
       process.env.NEXT_PUBLIC_JWT
     ) {
-      activateUserAccount(token, userId, process.env.NEXT_PUBLIC_JWT);
+      try {
+        const decodedToken = jwt.decode(token, { complete: true }) as any;
+
+        const dateNow = new Date();
+
+        const tokenIsValid =
+          decodedToken && decodedToken.payload.exp < dateNow.getTime()
+            ? true
+            : false;
+
+        if (!tokenIsValid) return setUserAccountIsActive(false);
+
+        axios
+          .put("/api/auth/activate", { id: userId })
+          .then(() => setUserAccountIsActive(true))
+          .catch(() => setUserAccountIsActive(false));
+      } catch (e) {
+        setUserAccountIsActive(false);
+      }
     }
   }, [token, userId]);
 
@@ -53,7 +52,11 @@ const Login = () => {
       content={
         <>
           {userAccountIsActivate ? (
-            <LoginForm />
+            <>
+              <h3 className="mt5">Se connecter :</h3>
+              <div className="lightSeparator mt5" />
+              <LoginForm />
+            </>
           ) : userAccountIsActivate === false ? (
             <ActivationAccount id={userId} />
           ) : (
