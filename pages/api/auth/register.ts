@@ -3,10 +3,11 @@ import jwt from "jsonwebtoken";
 
 import prisma from "../../../server/prisma/db/client";
 import { initValidation, check } from "../../../server/middleware/validators";
-import { E1, E3 } from "src/constants/ErrorMessages";
+import { E1, E3, E4 } from "src/constants/ErrorMessages";
 import { hashPassword } from "@/server/middleware/auth/password";
-import sendEmail from "../../../server/middleware/sendEmail";
+import sendEmail, { transporter } from "../../../server/middleware/sendEmail";
 import { NextApiResponse } from "next";
+import { Prisma } from "@prisma/client";
 
 const handler = nextConnect();
 
@@ -19,12 +20,6 @@ const validator = initValidation([
       minNumbers: 1,
       minSymbols: 1,
       returnScore: false,
-      pointsPerUnique: 1,
-      pointsPerRepeat: 0.5,
-      pointsForContainingLower: 10,
-      pointsForContainingUpper: 10,
-      pointsForContainingNumber: 10,
-      pointsForContainingSymbol: 10,
     })
     .withMessage("password is empty or incorrect."),
   check("email").isEmail().normalizeEmail().withMessage("Check your email."),
@@ -57,23 +52,45 @@ export default handler
         },
       });
 
+      if (!user) return res.status(400).json({ code: E4 });
+
       const token = jwt.sign({}, process.env.JWT_ACCESS_SECRET as string, {
         expiresIn: "1h",
       });
 
       if (!user.id || !token) return res.status(400).json({ code: E1 });
 
-      sendEmail(
-        email,
-        `<h2>Welcome ${name}to MyRollerSquad !</h2>`,
-        `<p>Click <a href=` +
-          `https://myrollersquad.vercel.app/login/${user.id}/${token}` +
-          `>here</a> to login and activate your account.</p>`
-      );
+      const html =
+        `<h2>Hey !  Bienvenue dans la squad !</h2><p><a href=` +
+        `https://myrollersquad.vercel.app/login/${user.id}/${token}` +
+        `>Voici le lien pour activer ton compte</a>.</p><p>Attention : Il n'est actif qu'une heure.</p><h3>My Roller Squad</h3>`;
 
-      res.status(201);
-    } catch (err) {
-      // console.log(err);
-      res.status(400).json({ code: E1 });
+      transporter.sendMail(
+        {
+          from: "myRollerSquad <myrollersquad@gmail.com>",
+          to: email,
+          subject: "[ myRollerSquad ] Bienvenue !",
+          html,
+        },
+        (err, info) => {
+          if (info) {
+            res.status(201).json({ code: "OK" });
+            return true;
+          } else {
+            return res.status(400).json({ code: E1 });
+          }
+        }
+      );
+    } catch (e) {
+      console.log(e);
+      if (e instanceof Prisma.PrismaClientKnownRequestError) {
+        if (e.code === "P2002") {
+          res.status(400).json({ code: E4 });
+        } else {
+          res.status(400).json({ code: E1 });
+        }
+      } else {
+        res.status(400).json({ code: E1 });
+      }
     }
   });

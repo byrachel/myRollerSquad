@@ -35,7 +35,7 @@ export const onRegister = (
     data,
   })
     .then(() => setIsRegistered(true))
-    .catch(() => setError({ status: true, message: E1 }));
+    .catch(e => setError({ status: true, message: e.response.data.code }));
 };
 
 export const sendActivationMail = (
