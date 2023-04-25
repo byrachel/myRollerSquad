@@ -12,12 +12,7 @@ import {
 const handler = nextConnect();
 
 const validator = initValidation([
-  check("name")
-    .not()
-    .isEmpty()
-    .trim()
-    .escape()
-    .withMessage("Oups ! Il manque quelque chose..."),
+  check("name").not().isEmpty().trim().escape().withMessage(E3),
 ]);
 
 export default handler
@@ -25,10 +20,10 @@ export default handler
   .post(async (req: any, res: NextApiResponse) => {
     const user = await ironSessionMiddleware(req);
     if (!user || !user.role || user.role !== "ADMIN")
-      return res.status(401).json({ code: E1 });
+      return res.status(401).json({ message: E1 });
 
     const { name } = req.body;
-    if (!name) return res.status(400).json({ code: E3 });
+    if (!name) return res.status(400).json({ message: E3 });
     try {
       const style = await prisma.style.create({
         data: {
@@ -37,6 +32,6 @@ export default handler
       });
       res.status(200).json({ style });
     } catch (error) {
-      res.status(400).json({ code: E1 });
+      res.status(400).json({ message: E1 });
     }
   });

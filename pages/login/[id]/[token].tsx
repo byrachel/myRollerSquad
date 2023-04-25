@@ -53,8 +53,12 @@ const Login = () => {
         <>
           {userAccountIsActivate ? (
             <>
-              <h3 className="mt5">Se connecter :</h3>
+              <h3 className="mt5">Yeah ! Ton compte est activé !</h3>
               <div className="lightSeparator mt5" />
+              <p className="mt5">
+                <b>Tu n'as plus qu'à te connecter :</b>
+              </p>
+
               <LoginForm />
             </>
           ) : userAccountIsActivate === false ? (

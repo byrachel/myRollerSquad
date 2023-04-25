@@ -14,31 +14,28 @@ const handler = nextConnect();
 const validator = initValidation([
   check("password")
     .isStrongPassword({
-      minLength: 8,
+      minLength: 12,
       minLowercase: 1,
       minUppercase: 1,
       minNumbers: 1,
-      minSymbols: 1,
+      minSymbols: 0,
       returnScore: false,
     })
-    .withMessage("password is empty or incorrect."),
-  check("email").isEmail().normalizeEmail().withMessage("Check your email."),
-  check("name")
-    .not()
-    .isEmpty()
-    .trim()
-    .escape()
-    .withMessage("Name can't be empty"),
+    .withMessage(E3),
+  check("email").isEmail().normalizeEmail().withMessage(E3),
+  check("name").not().isEmpty().trim().escape().withMessage(E3),
 ]);
 
 export default handler
   .use(validator)
   .post(async (req: any, res: NextApiResponse) => {
     const { email, password, name } = req.body;
-    if (!email || !password || !name) return res.status(400).json({ code: E3 });
+
+    if (!email || !password || !name)
+      return res.status(400).json({ message: E3 });
 
     const hashedPassword = await hashPassword(password);
-    if (!hashedPassword) return res.status(400).json({ code: E1 });
+    if (!hashedPassword) return res.status(500).json({ message: E1 });
 
     try {
       const user = await prisma.user.create({
@@ -52,13 +49,13 @@ export default handler
         },
       });
 
-      if (!user) return res.status(400).json({ code: E4 });
+      if (!user) return res.status(400).json({ message: E4 });
 
       const token = jwt.sign({}, process.env.JWT_ACCESS_SECRET as string, {
         expiresIn: "1h",
       });
 
-      if (!user.id || !token) return res.status(400).json({ code: E1 });
+      if (!user.id || !token) return res.status(400).json({ message: E1 });
 
       const html =
         `<h2>Bienvenue dans la squad !</h2><p><a href=` +
@@ -74,23 +71,24 @@ export default handler
         },
         (err, info) => {
           if (info) {
-            res.status(201).json({ code: "OK" });
+            res
+              .status(201)
+              .json({ message: "Le compte a été créé avec succès." });
             return true;
           } else {
-            return res.status(400).json({ code: E1 });
+            return res.status(400).json({ message: E1 });
           }
         }
       );
     } catch (e) {
-      console.log(e);
       if (e instanceof Prisma.PrismaClientKnownRequestError) {
         if (e.code === "P2002") {
-          res.status(400).json({ code: E4 });
+          res.status(401).json({ message: E4 });
         } else {
-          res.status(400).json({ code: E1 });
+          res.status(400).json({ message: E1 });
         }
       } else {
-        res.status(400).json({ code: E1 });
+        res.status(500).json({ message: E1 });
       }
     }
   });

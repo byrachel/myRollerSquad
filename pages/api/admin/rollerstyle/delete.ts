@@ -12,11 +12,7 @@ import {
 const handler = nextConnect();
 
 const validator = initValidation([
-  check("id")
-    .not()
-    .isEmpty()
-    .isNumeric()
-    .withMessage("Oups ! Il manque quelque chose..."),
+  check("id").not().isEmpty().isNumeric().withMessage(E3),
 ]);
 
 export default handler
@@ -24,20 +20,20 @@ export default handler
   .delete(async (req: any, res: NextApiResponse) => {
     const user = await ironSessionMiddleware(req);
     if (!user || !user.role || user.role !== "ADMIN")
-      return res.status(401).json({ code: E1 });
+      return res.status(401).json({ message: E1 });
 
     const { id } = req.body;
-    if (!id) return res.status(400).json({ code: E3 });
+    if (!id) return res.status(400).json({ message: E3 });
 
     try {
       const deletedStyle = await prisma.style.delete({
         where: { id },
       });
       if (!deletedStyle) {
-        return res.status(400).json({ code: E3 });
+        return res.status(400).json({ message: E3 });
       }
       res.status(200).json({});
     } catch (error) {
-      res.status(400).json({ code: E1 });
+      res.status(400).json({ message: E1 });
     }
   });

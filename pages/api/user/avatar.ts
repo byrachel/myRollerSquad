@@ -16,14 +16,14 @@ const avatarUpload = upload.single("avatar");
 export default withIronSessionApiRoute(avatarRoute, ironConfig);
 
 async function avatarRoute(req: any, res: any) {
-  if (req.method !== "PUT") return res.status(401).json({ code: E1 });
+  if (req.method !== "PUT") return res.status(401).json({ message: E1 });
 
   const user = req.session.user;
-  if (!user) return res.status(401).json({ code: E2 });
+  if (!user) return res.status(401).json({ message: E2 });
 
   try {
-    avatarUpload(req, res, async err => {
-      if (err) return res.status(401).json({ code: E2 });
+    avatarUpload(req, res, async (err) => {
+      if (err) return res.status(401).json({ message: E2 });
 
       const { buffer } = req.file;
 
@@ -32,13 +32,13 @@ async function avatarRoute(req: any, res: any) {
         .toBuffer();
 
       if (!resizedBuffer || !process.env.S3_AVATAR_BUCKET_NAME)
-        return res.status(401).json({ code: E2 });
+        return res.status(401).json({ message: E2 });
       const avatar = await uploadImage(
         process.env.S3_AVATAR_BUCKET_NAME,
         resizedBuffer
       );
 
-      if (!avatar || !avatar.Key) return res.status(401).json({ code: E1 });
+      if (!avatar || !avatar.Key) return res.status(401).json({ message: E1 });
 
       const user = await prisma.user.update({
         where: {
@@ -53,7 +53,7 @@ async function avatarRoute(req: any, res: any) {
     });
   } catch (e) {
     console.log("avatar", e);
-    return res.status(401).json({ code: E1 });
+    return res.status(401).json({ message: E1 });
   }
 }
 

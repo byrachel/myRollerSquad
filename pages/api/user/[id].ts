@@ -6,10 +6,11 @@ import { E1 } from "src/constants/ErrorMessages";
 export default withIronSessionApiRoute(userRoute, ironConfig);
 
 async function userRoute(req: any, res: NextApiResponse<any>) {
-  if (req.method !== "GET") return res.status(401).json({ code: E1 });
+  if (req.method !== "GET") return res.status(401).json({ message: E1 });
 
   const { id } = req.query;
-  if (!id || typeof id !== "string") return res.status(400).json({ code: E1 });
+  if (!id || typeof id !== "string")
+    return res.status(400).json({ message: E1 });
 
   try {
     const user = await prisma.user.findUnique({
@@ -50,6 +51,6 @@ async function userRoute(req: any, res: NextApiResponse<any>) {
     res.status(200).json({ user });
   } catch (error) {
     // console.log(error);
-    res.status(400).json({ code: E1 });
+    res.status(400).json({ message: E1 });
   }
 }

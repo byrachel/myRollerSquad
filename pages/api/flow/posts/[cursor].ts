@@ -8,12 +8,12 @@ import { E1 } from "src/constants/ErrorMessages";
 export default withIronSessionApiRoute(userRoute, ironConfig);
 
 async function userRoute(req: any, res: NextApiResponse<any>) {
-  if (req.method !== "GET") return res.status(401).json({ code: E1 });
+  if (req.method !== "GET") return res.status(401).json({ message: E1 });
 
   const user = req.session.user;
   const { cursor, category, style } = req.query;
 
-  if (!user) return res.status(401).json({ code: E1 });
+  if (!user) return res.status(401).json({ message: E1 });
 
   const postsCursor = cursor ? parseInt(cursor) : 0;
 
@@ -63,7 +63,6 @@ async function userRoute(req: any, res: NextApiResponse<any>) {
     });
     res.status(200).json({ posts, nextId: postsCursor + 4 });
   } catch (e) {
-    console.log(e);
-    res.status(400).json({ code: E1 });
+    res.status(400).json({ message: E1 });
   }
 }

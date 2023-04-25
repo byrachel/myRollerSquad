@@ -5,26 +5,29 @@ import { NextApiResponse } from "next";
 import prisma from "../../../server/prisma/db/client";
 import { initValidation, check } from "../../../server/middleware/validators";
 import { E3, E5, E6 } from "src/constants/ErrorMessages";
+import { ironConfig } from "@/server/middleware/auth/ironConfig";
+import { withIronSessionApiRoute } from "iron-session/next";
 
 const handler = nextConnect();
 
 const validator = initValidation([
-  check("email").isEmail().normalizeEmail().withMessage(E3),
+  check("email").isEmail().normalizeEmail().withMessage(E6),
   check("password")
     .isStrongPassword({
       minLength: 12,
       minLowercase: 1,
       minUppercase: 1,
       minNumbers: 1,
+      minSymbols: 0,
+      returnScore: false,
     })
-    .withMessage(E3),
+    .withMessage(E6),
 ]);
 
-export default handler
-  .use(validator)
-  .post(async (req: any, res: NextApiResponse) => {
+export default withIronSessionApiRoute(
+  handler.use(validator).post(async (req: any, res: NextApiResponse) => {
     const { email, password } = req.body;
-    if (!email || !password) return res.status(400).json({ code: E3 });
+    if (!email || !password) return res.status(400).json({ message: E3 });
 
     try {
       const existingUser = await prisma.user.findUnique({
@@ -33,10 +36,8 @@ export default handler
         },
       });
 
-      console.log(existingUser);
-
       if (!existingUser || !existingUser.active)
-        return res.status(400).json({ code: E5 });
+        return res.status(400).json({ message: E5 });
 
       if (existingUser.password) {
         const validPassword = await bcrypt.compare(
@@ -44,13 +45,7 @@ export default handler
           existingUser.password
         );
 
-        if (!validPassword) return res.status(400).json({ code: E3 });
-
-        // const user = (req.session.user = {
-        //   id: existingUser.id,
-        //   role: existingUser.role,
-        //   isLoggedIn: true,
-        // });
+        if (!validPassword) return res.status(400).json({ message: E6 });
 
         req.session.user = {
           id: existingUser.id,
@@ -67,9 +62,11 @@ export default handler
           },
         });
       } else {
-        res.status(400).json({ code: E3 });
+        res.status(400).json({ message: E3 });
       }
     } catch (e) {
-      res.status(400).json({ code: E6 });
+      res.status(500).json({ message: E6 });
     }
-  });
+  }),
+  ironConfig
+);

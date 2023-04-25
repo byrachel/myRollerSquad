@@ -40,7 +40,7 @@ export default function LoginForm() {
       />
       <br />
       <p className="meta">
-        <Link href="/password">Mot de passe oublié ?</Link>
+        <Link href="/auth/password/init">Mot de passe oublié ?</Link>
       </p>
       <RegularButton type="submit" style="full" text="SE CONNECTER" />
     </form>

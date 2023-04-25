@@ -6,10 +6,11 @@ import { withSessionRoute } from "@/server/middleware/auth/withSession";
 import sendEmail from "../../../server/middleware/sendEmail";
 
 export default withSessionRoute(async (req: any, res: NextApiResponse) => {
-  if (req.method !== "POST") return res.status(401).json({ code: E1 });
+  if (req.method !== "POST") return res.status(401).json({ message: E1 });
 
   const { id } = req.body;
-  if (!id || typeof id !== "number") return res.status(400).json({ code: E3 });
+  if (!id || typeof id !== "number")
+    return res.status(400).json({ message: E3 });
 
   try {
     const user = await prisma.user.findUnique({
@@ -20,7 +21,7 @@ export default withSessionRoute(async (req: any, res: NextApiResponse) => {
       expiresIn: "1h",
     });
 
-    if (!user || !token) return res.status(400).json({ code: E1 });
+    if (!user || !token) return res.status(400).json({ message: E1 });
 
     console.log("USER", user);
 
@@ -34,7 +35,6 @@ export default withSessionRoute(async (req: any, res: NextApiResponse) => {
 
     res.status(201).json({});
   } catch (err) {
-    console.log(err);
-    res.status(400).json({ code: E1 });
+    res.status(400).json({ message: E1 });
   }
 });

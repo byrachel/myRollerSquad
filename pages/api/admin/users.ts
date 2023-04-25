@@ -8,11 +8,11 @@ import { ironConfig } from "@/server/middleware/auth/ironConfig";
 export default withIronSessionApiRoute(userRoute, ironConfig);
 
 async function userRoute(req: any, res: NextApiResponse<any>) {
-  if (req.method !== "GET") return res.status(401).json({ code: E1 });
+  if (req.method !== "GET") return res.status(401).json({ message: E1 });
 
   const user = req.session.user;
   if (!user || !user.role || user.role !== "ADMIN")
-    return res.status(401).json({ code: E1 });
+    return res.status(401).json({ message: E1 });
 
   try {
     const users = await prisma.user.findMany({
@@ -27,6 +27,6 @@ async function userRoute(req: any, res: NextApiResponse<any>) {
     });
     res.status(200).json({ users });
   } catch (err) {
-    res.status(400).json({ code: E1 });
+    res.status(400).json({ message: E1 });
   }
 }

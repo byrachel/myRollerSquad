@@ -1,11 +1,17 @@
 export const authInitialState = {
   loading: false,
   error: { status: false, message: "" },
-  isregistred: false,
+  isRegistered: false,
 };
 
+interface IAuthState {
+  loading: boolean;
+  error: { status: boolean; message: string };
+  isRegistered: boolean;
+}
+
 export const RegisterReducer = (
-  state: any,
+  state: IAuthState,
   action: { type: string; payload: any }
 ) => {
   switch (action.type) {
@@ -13,25 +19,25 @@ export const RegisterReducer = (
       return {
         loading: true,
         error: { status: false, message: "" },
-        isregistred: false,
+        isRegistered: false,
       };
     case "ERROR":
       return {
         loading: false,
         error: { status: true, message: action.payload },
-        isregistred: false,
+        isRegistered: false,
       };
     case "IS_REGISTERED":
       return {
         loading: false,
         error: { status: false, message: "" },
-        isregistred: true,
+        isRegistered: true,
       };
     case "HIDE_ERROR":
       return {
         loading: false,
         error: { status: false, message: "" },
-        isregistred: false,
+        isRegistered: false,
       };
     default:
       return {

@@ -1,5 +1,5 @@
 import React, { SyntheticEvent } from "react";
-import { verify } from "jsonwebtoken";
+import jwt from "jsonwebtoken";
 import { useRouter } from "next/router";
 import axios from "axios";
 
@@ -14,24 +14,29 @@ const NewPassword = () => {
   const token =
     params.token && typeof params.token === "string" ? params.token : null;
 
-  interface IToken {
-    id: string;
-  }
-
   const onSubmit = (event: SyntheticEvent) => {
     event.preventDefault();
     if (!token || !process.env.NEXT_PUBLIC_JWT) return;
-    const { id } = verify(token, process.env.NEXT_PUBLIC_JWT) as IToken;
+
+    const decodedToken = jwt.decode(token, { complete: true }) as any;
+
+    const dateNow = new Date();
+
+    const tokenIsValid =
+      decodedToken && decodedToken.payload.exp < dateNow.getTime()
+        ? true
+        : false;
+
+    const id = tokenIsValid ? decodedToken.payload.user : null;
+
     if (!id) return;
     const target = event.target as typeof event.target & {
       password: { value: string };
     };
 
-    console.log(typeof id);
-
     const data = {
       password: target.password.value,
-      id: parseInt(id),
+      id: id,
     };
 
     axios({

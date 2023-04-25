@@ -36,6 +36,7 @@ export const onRegister = (
     method: "post",
     url: `/api/auth/register`,
     data,
+    withCredentials: true,
   })
     .then(() => {
       registerDispatch({
@@ -45,7 +46,7 @@ export const onRegister = (
     .catch((e: IErrorCode) => {
       registerDispatch({
         type: "ERROR",
-        payload: e.response.data.code,
+        payload: e.response.data.message,
       });
     });
 };
@@ -100,7 +101,7 @@ export const onLogin = (
       });
       router.push("/myrollerblog");
     })
-    .catch((error: IErrorCode) =>
-      setError({ status: true, message: error.response.data.code })
-    );
+    .catch((error: IErrorCode) => {
+      setError({ status: true, message: error.response.data.message });
+    });
 };

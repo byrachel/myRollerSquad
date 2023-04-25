@@ -38,14 +38,17 @@ const Password = () => {
               <p className="mt5">X</p>
             </Link>
           </div>
+          <div className="lightSeparator mt5" />
           {mailIsSent ? (
-            <p>
-              Si l'adresse email est valide et qu'un compte existe avec cette
-              adresse,
-              <b>consultez votre boite mail.</b>.<br /> Vous y trouverez un lien
-              pour réinitialiser votre mot de passe. Pense aussi à vérifier dans
-              tes spams.
-            </p>
+            <>
+              <p className="mt-large">
+                Si l'adresse email est valide et qu'un compte existe avec cette
+                adresse,
+                <b> consultez votre boite mail. </b>Vous y trouverez un lien
+                pour réinitialiser votre mot de passe..
+              </p>
+              <p className="mt5">Pense aussi à vérifier dans tes spams ;-)</p>
+            </>
           ) : (
             <>
               <InputText

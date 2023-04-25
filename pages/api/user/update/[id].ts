@@ -42,10 +42,10 @@ export default handler
     const userId = Array.isArray(id) ? id[0] : id;
 
     const user = await ironSessionMiddleware(req);
-    if (!user) return res.status(401).json({ code: E2 });
+    if (!user) return res.status(401).json({ message: E2 });
 
     if (!userId || !user.id || user.id !== parseInt(userId))
-      return res.status(401).json({ code: E2 });
+      return res.status(401).json({ message: E2 });
 
     try {
       const userToUpdate = req.body;
@@ -94,7 +94,6 @@ export default handler
       // };
       res.status(200).json({ user });
     } catch (error) {
-      console.log(error);
-      res.status(400).json({ name: E1 });
+      res.status(400).json({ message: E1 });
     }
   });

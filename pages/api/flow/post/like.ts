@@ -8,12 +8,12 @@ import { ironConfig } from "@/server/middleware/auth/ironConfig";
 export default withIronSessionApiRoute(likeRoute, ironConfig);
 
 async function likeRoute(req: any, res: NextApiResponse<any>) {
-  if (req.method !== "POST") return res.status(401).json({ code: E1 });
+  if (req.method !== "POST") return res.status(401).json({ message: E1 });
 
   const user = req.session.user;
   const { user_id, post_id } = req.body;
   if (!user || !user.id || !user_id || user.id !== user_id || !post_id)
-    return res.status(401).json({ code: E2 });
+    return res.status(401).json({ message: E2 });
 
   try {
     const post = await prisma.post.findUnique({
@@ -26,9 +26,9 @@ async function likeRoute(req: any, res: NextApiResponse<any>) {
         },
       },
     });
-    if (!post) return res.status(400).json({ code: E1 });
+    if (!post) return res.status(400).json({ message: E1 });
 
-    const postLikes = post.user_likes.map(like => like.user_id);
+    const postLikes = post.user_likes.map((like) => like.user_id);
     const postIsAlreadyLiked = postLikes.includes(user_id);
 
     if (postIsAlreadyLiked) {
@@ -44,7 +44,7 @@ async function likeRoute(req: any, res: NextApiResponse<any>) {
         },
       });
 
-      if (!postLiked) return res.status(400).json({ code: E1 });
+      if (!postLiked) return res.status(400).json({ message: E1 });
 
       await prisma.postLiked.delete({
         where: {
@@ -62,6 +62,6 @@ async function likeRoute(req: any, res: NextApiResponse<any>) {
       res.status(200).json({ liked: true });
     }
   } catch (error) {
-    res.status(400).json({ code: E1 });
+    res.status(400).json({ message: E1 });
   }
 }

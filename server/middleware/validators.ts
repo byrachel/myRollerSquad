@@ -9,7 +9,7 @@ const initValidation = (validations: any) => {
     const errors = validationResult(req);
     if (errors.isEmpty()) return next();
     const error: any[] = [];
-    errors.array().map(err => error.push(err.msg));
+    errors.array().map((err) => error.push(err.msg));
     res.status(400).json({ message: error[0] });
   };
 };

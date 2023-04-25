@@ -41,7 +41,7 @@ handler
   .use(upload.array("pictures", 5))
   .post(async (req: any, res: any) => {
     const user = await ironSessionMiddleware(req);
-    if (!user) return res.status(401).json({ code: E2 });
+    if (!user) return res.status(401).json({ message: E2 });
 
     const {
       title,
@@ -57,7 +57,7 @@ handler
       price,
     } = req.body;
 
-    if (!title || !category_id) return res.status(400).json({ code: E3 });
+    if (!title || !category_id) return res.status(400).json({ message: E3 });
 
     try {
       const files = req.files;
@@ -97,7 +97,7 @@ handler
 
       res.status(200).json({ post: { id: newPost.id } });
     } catch (e) {
-      return res.status(401).json({ code: E1 });
+      return res.status(401).json({ message: E1 });
     }
   });
 export default handler;

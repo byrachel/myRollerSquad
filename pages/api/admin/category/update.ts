@@ -12,17 +12,8 @@ import {
 const handler = nextConnect();
 
 const validator = initValidation([
-  check("name")
-    .not()
-    .isEmpty()
-    .trim()
-    .escape()
-    .withMessage("Oups ! Il manque quelque chose..."),
-  check("id")
-    .not()
-    .isEmpty()
-    .isNumeric()
-    .withMessage("Oups ! Il manque quelque chose..."),
+  check("name").not().isEmpty().trim().escape().withMessage(E3),
+  check("id").not().isEmpty().isNumeric().withMessage(E3),
 ]);
 
 export default handler
@@ -30,10 +21,10 @@ export default handler
   .put(async (req: any, res: NextApiResponse) => {
     const user = await ironSessionMiddleware(req);
     if (!user || !user.role || user.role !== "ADMIN")
-      return res.status(401).json({ code: E1 });
+      return res.status(401).json({ message: E1 });
 
     const { id, name } = req.body;
-    if (!id || !name) return res.status(400).json({ code: E3 });
+    if (!id || !name) return res.status(400).json({ message: E3 });
 
     try {
       const updatedCategory = await prisma.category.update({
@@ -46,6 +37,6 @@ export default handler
       });
       res.status(200).json({ category: updatedCategory });
     } catch (error) {
-      res.status(400).json({ code: E1 });
+      res.status(400).json({ message: E1 });
     }
   });

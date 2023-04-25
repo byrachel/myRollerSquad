@@ -1,3 +1,3 @@
 export interface IErrorCode {
-  response: { data: { code: string } };
+  response: { data: { code: string; message: string } };
 }

@@ -6,11 +6,11 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  if (req.method !== "GET") return res.status(401).json({ code: E1 });
+  if (req.method !== "GET") return res.status(401).json({ message: E1 });
 
   const { postid } = req.query;
   const id = Array.isArray(postid) ? postid[0] : postid;
-  if (!id) return res.status(400).json({ code: E1 });
+  if (!id) return res.status(400).json({ message: E1 });
 
   try {
     const post = await prisma.post.findUnique({
@@ -43,6 +43,6 @@ export default async function handler(
     });
     res.status(200).json({ post });
   } catch (err) {
-    res.status(400).json({ code: E1 });
+    res.status(400).json({ message: E1 });
   }
 }
