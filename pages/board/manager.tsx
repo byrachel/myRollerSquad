@@ -72,13 +72,3 @@ export default function Manager() {
     </>
   );
 }
-
-// export async function getStaticProps() {
-//   const result = await axios.get("http://localhost:3000/api/admin/categories");
-//   const data = result.data.categories;
-//   return {
-//     props: {
-//       data,
-//     },
-//   };
-// }

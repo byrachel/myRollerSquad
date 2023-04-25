@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
-import jwt from "jsonwebtoken";
 import axios from "axios";
 
 import LoginForm from "src/components/auth/LoginForm";
 import SidebarLayout from "src/components/layouts/SidebarLayout";
 import UnloggedUserSidebar from "src/components/layouts/UnloggedUserSidebar";
 import ActivationAccount from "src/components/auth/ActivationAccount";
+import { checkTokenValidity } from "src/utils/checkTokenValidity";
 
 const Login = () => {
   const router = useRouter();
@@ -25,15 +25,7 @@ const Login = () => {
       process.env.NEXT_PUBLIC_JWT
     ) {
       try {
-        const decodedToken = jwt.decode(token, { complete: true }) as any;
-
-        const dateNow = new Date();
-
-        const tokenIsValid =
-          decodedToken && decodedToken.payload.exp < dateNow.getTime()
-            ? true
-            : false;
-
+        const tokenIsValid = checkTokenValidity(token);
         if (!tokenIsValid) return setUserAccountIsActive(false);
 
         axios

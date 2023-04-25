@@ -35,11 +35,12 @@ export default handler
           expiresIn: "1h",
         }
       );
+
       const html =
         `<h2>Welcome back !</h2>
         <h3>As-tu demandé un nouveau mot de passe ?</h3>
         <p>Si c'est le cas, le lien ci-dessous te permettra de créer ton nouveau mot de passe.</p> <a href=` +
-        `http://localhost:3000/auth/password/new/${user.id}/${token}` +
+        `https://myrollersquad.vercel.app/auth/password/new/${user.id}/${token}` +
         `>Créer un nouveau mot de passe</a></p>` +
         `<p>Attention, pour des raisons de sécurité il n'est actif qu'une heure.</p><h2>My Roller Squad</h2>`;
 
