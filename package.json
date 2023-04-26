@@ -6,7 +6,7 @@
     "dev": "next dev",
     "build:server": "tsc --project tsconfig.server.json",
     "build:next": "npm run build:next && npm run build:server",
-    "build": "prisma generate --schema ./server/prisma/schema.prisma && npx prisma migrate diff --from-empty --to-schema-datamodel server/prisma/schema.prisma --script > prisma/migrations/0_init/migration.sql && prisma migrate resolve --applied 0_init --schema ./server/prisma/schema.prisma && next build",
+    "build": "prisma generate --schema ./server/prisma/schema.prisma && prisma db push && next build",
     "start": "next start",
     "lint": "next lint",
     "test": "jest",
