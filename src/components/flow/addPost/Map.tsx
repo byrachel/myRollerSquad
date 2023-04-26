@@ -9,9 +9,10 @@ import "leaflet-defaulticon-compatibility";
 interface Props {
   position: LatLngExpression | undefined;
   dispatch: React.Dispatch<any>;
+  setPosition: (arg: [number, number]) => void;
 }
 
-export default function Map({ position, dispatch }: Props) {
+export default function Map({ position, setPosition }: Props) {
   const markerRef = useRef<any>(null);
 
   const icon = new L.Icon({
@@ -31,10 +32,11 @@ export default function Map({ position, dispatch }: Props) {
         const marker = markerRef.current;
         if (marker != null) {
           const newPosition = marker.getLatLng();
-          dispatch({
-            type: "SAVE_POSITION",
-            payload: [newPosition.lat, newPosition.lng],
-          });
+          setPosition([newPosition.lat, newPosition.lng]);
+          // dispatch({
+          //   type: "SAVE_POSITION",
+          //   payload: [newPosition.lat, newPosition.lng],
+          // });
         }
       },
     }),

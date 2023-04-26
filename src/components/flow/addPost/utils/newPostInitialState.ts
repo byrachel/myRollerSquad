@@ -11,7 +11,6 @@ export const newPostInitialState = {
   pictures: [],
   squad: [],
   displayLocation: false,
-  position: undefined,
   content: "",
   map: null,
 } as NewPostInterface;

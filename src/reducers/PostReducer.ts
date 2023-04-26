@@ -1,7 +1,5 @@
-import { NewPostInterface } from "src/interfaces/flowInterfaces";
-
 export const PostReducer = (
-  state: NewPostInterface,
+  state: any,
   action: { type: string; payload: any }
 ) => {
   switch (action.type) {
@@ -9,7 +7,7 @@ export const PostReducer = (
       return {
         ...state,
         style: state.style.includes(action.payload)
-          ? state.style.filter((elt) => elt !== action.payload)
+          ? state.style.filter((elt: number) => elt !== action.payload)
           : [...state.style, action.payload],
       };
     case "SAVE_CATEGORY":
@@ -49,11 +47,11 @@ export const PostReducer = (
         ...state,
         displayLocation: action.payload,
       };
-    case "SAVE_POSITION":
-      return {
-        ...state,
-        position: action.payload,
-      };
+    // case "SAVE_POSITION":
+    //   return {
+    //     ...state,
+    //     position: action.payload,
+    //   };
     case "SAVE_LOCATION":
       return {
         ...state,

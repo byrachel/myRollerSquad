@@ -4,7 +4,7 @@ import html2canvas from "html2canvas";
 import RegularButton from "src/components/buttons/RegularButton";
 
 interface Props {
-  position: [number, number] | undefined;
+  // position: [number, number] | undefined;
   dispatch: React.Dispatch<any>;
   setShowMap: (arg: boolean) => void;
 }
@@ -19,19 +19,21 @@ interface BlobImageInterface {
 }
 
 export default function DisplayLocation({
-  position,
+  // position,
   dispatch,
   setShowMap,
 }: Props) {
   const Map = dynamic(() => import("./Map"), { ssr: false });
   const [location, setLocation] = useState<string | null>(null);
+  const [position, setPosition] = useState<[number, number] | null>(null);
 
   useEffect(() => {
-    navigator.geolocation.getCurrentPosition(position => {
-      dispatch({
-        type: "SAVE_POSITION",
-        payload: [position.coords.latitude, position.coords.longitude],
-      });
+    navigator.geolocation.getCurrentPosition((position) => {
+      setPosition([position.coords.latitude, position.coords.longitude]);
+      // dispatch({
+      //   type: "SAVE_POSITION",
+      //   payload: [position.coords.latitude, position.coords.longitude],
+      // });
     });
     // eslint-disable-next-line
   }, []);
@@ -41,8 +43,9 @@ export default function DisplayLocation({
       fetch(
         `https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${position[0]}&lon=${position[1]}`
       )
-        .then(res => res.json())
-        .then(data => {
+        .then((res) => res.json())
+        .then((data) => {
+          console.log(data);
           const currentLocation = {
             country: data.address.country,
             city: data.address.county,
@@ -85,7 +88,11 @@ export default function DisplayLocation({
   return position ? (
     <>
       <div className="mapContainer">
-        <Map position={position} dispatch={dispatch} />
+        <Map
+          position={position}
+          setPosition={setPosition}
+          dispatch={dispatch}
+        />
       </div>
       <div className="spaceBetween">
         {location ? <p className="meta">{location}</p> : null}
