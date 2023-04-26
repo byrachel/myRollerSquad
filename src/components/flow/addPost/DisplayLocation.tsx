@@ -4,7 +4,6 @@ import html2canvas from "html2canvas";
 import RegularButton from "src/components/buttons/RegularButton";
 
 interface Props {
-  // position: [number, number] | undefined;
   dispatch: React.Dispatch<any>;
   setShowMap: (arg: boolean) => void;
 }
@@ -18,11 +17,7 @@ interface BlobImageInterface {
   name?: string;
 }
 
-export default function DisplayLocation({
-  // position,
-  dispatch,
-  setShowMap,
-}: Props) {
+export default function DisplayLocation({ dispatch, setShowMap }: Props) {
   const Map = dynamic(() => import("./Map"), { ssr: false });
   const [location, setLocation] = useState<string | null>(null);
   const [position, setPosition] = useState<[number, number] | null>(null);
@@ -30,10 +25,6 @@ export default function DisplayLocation({
   useEffect(() => {
     navigator.geolocation.getCurrentPosition((position) => {
       setPosition([position.coords.latitude, position.coords.longitude]);
-      // dispatch({
-      //   type: "SAVE_POSITION",
-      //   payload: [position.coords.latitude, position.coords.longitude],
-      // });
     });
     // eslint-disable-next-line
   }, []);
@@ -45,15 +36,15 @@ export default function DisplayLocation({
       )
         .then((res) => res.json())
         .then((data) => {
-          console.log(data);
           const currentLocation = {
             country: data.address.country,
-            city: data.address.county,
+            county: data.address.county,
+            city: data.address.town,
           };
           dispatch({ type: "SAVE_LOCATION", payload: currentLocation });
           const address = `${
-            data.address.city ? data.address.city : data.address.municipality
-          }, ${data.address.country}`;
+            data.address.town ? data.address.town : data.address.municipality
+          }, ${data.address.county}`;
           setLocation(address);
         });
     }

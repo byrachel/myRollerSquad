@@ -33,10 +33,6 @@ export default function Map({ position, setPosition }: Props) {
         if (marker != null) {
           const newPosition = marker.getLatLng();
           setPosition([newPosition.lat, newPosition.lng]);
-          // dispatch({
-          //   type: "SAVE_POSITION",
-          //   payload: [newPosition.lat, newPosition.lng],
-          // });
         }
       },
     }),

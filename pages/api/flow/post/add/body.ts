@@ -22,6 +22,7 @@ const validator = initValidation([
   check("link").optional().trim().escape(),
   check("price").optional().isNumeric().withMessage(E1),
   check("country").optional().trim().escape(),
+  check("county").optional().trim().escape(),
   check("city").optional().trim().escape(),
   check("duration").optional().trim().escape(),
   // check("distance").optional().isDecimal(),
@@ -42,8 +43,9 @@ export default withIronSessionApiRoute(
       link,
       duration,
       distance,
-      squad_ids,
+      // squad_ids,
       country,
+      county,
       city,
       price,
     } = req.body;
@@ -55,12 +57,11 @@ export default withIronSessionApiRoute(
         data: {
           title,
           content: content ? content : "",
-          hashtags: [],
           user_id: user.id,
           category_id,
           country: country ? country : "France",
-          pictures: [],
-          squad_ids: squad_ids ? squad_ids : [],
+          county: county ? county : null,
+          city: city ? city : null,
           style: {
             create: style_ids.map((id: number) => ({
               style: { connect: { id } },
@@ -70,7 +71,8 @@ export default withIronSessionApiRoute(
           duration: duration ? duration : null,
           distance: distance ? distance : null,
           price: price ? parseFloat(price) : null,
-          city: city ? city : null,
+          pictures: [],
+          // squad_ids: squad_ids ? squad_ids : [],
         },
       });
 

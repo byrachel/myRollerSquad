@@ -40,7 +40,6 @@ async function userRoute(req: any, res: NextApiResponse<any>) {
             style_id: true,
           },
         },
-        hashtags: true,
         created_at: true,
         pictures: true,
         link: true,
@@ -52,8 +51,8 @@ async function userRoute(req: any, res: NextApiResponse<any>) {
             name: true,
           },
         },
-        squad_ids: true,
         city: true,
+        county: true,
         country: true,
         user_likes: {
           select: {

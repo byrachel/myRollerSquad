@@ -9,6 +9,7 @@ class StoryPost {
   distance;
   link;
   country;
+  county;
   city;
   category_id;
   style_ids;
@@ -20,6 +21,7 @@ class StoryPost {
     this.distance = newPost.distance;
     this.link = newPost.link;
     this.country = newPost.country;
+    this.county = newPost.county;
     this.category_id = newPost.category_id;
     this.style_ids = newPost.style_ids;
     this.city = newPost.city;
@@ -32,6 +34,7 @@ class ResalePost {
   user_id;
   price;
   country;
+  county;
   category_id;
   style_ids;
   city;
@@ -44,6 +47,7 @@ class ResalePost {
     this.category_id = newPost.category_id;
     this.style_ids = newPost.style_ids;
     this.city = newPost.city;
+    this.county = newPost.county;
   }
 }
 
@@ -55,6 +59,7 @@ class OtherPost {
   category_id;
   style_ids;
   country;
+  county;
   city;
   constructor(newPost: NewPostFactoryInterface) {
     this.title = newPost.title;
@@ -65,6 +70,7 @@ class OtherPost {
     this.style_ids = newPost.style_ids;
     this.country = newPost.country;
     this.city = newPost.city;
+    this.county = newPost.county;
   }
 }
 

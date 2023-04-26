@@ -46,6 +46,7 @@ export const onSubmitNewPost = async (
           ? parseFloat(target.distance.value)
           : null,
       country: post.country ? post.country : null,
+      county: post.county ? post.county : null,
       city: post.city ? post.city : null,
       squad_ids: [],
     };

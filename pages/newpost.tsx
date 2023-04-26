@@ -36,7 +36,6 @@ const NewPost = ({ user }: Props) => {
               />
               <Modal show={showMap} setShow={setShowMap} title="Localisation">
                 <DisplayLocation
-                  // position={post.position}
                   dispatch={postDispatch}
                   setShowMap={setShowMap}
                 />

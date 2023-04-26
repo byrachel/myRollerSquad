@@ -7,6 +7,7 @@ export const newPostInitialState = {
   category: category.STORY,
   style: [],
   city: null,
+  county: null,
   country: "France",
   pictures: [],
   squad: [],

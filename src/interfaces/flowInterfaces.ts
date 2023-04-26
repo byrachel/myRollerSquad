@@ -10,6 +10,7 @@ export interface PostInterface {
   style: { style_id: number }[];
   squad_ids: number[];
   city?: string;
+  county?: string;
   country: string;
   user: {
     id: number;
@@ -39,11 +40,11 @@ export interface NewPostInterface {
   category: number;
   style: number[];
   city: null | string;
+  county: null | string;
   country: string;
   pictures: any[];
   squad: number[];
   displayLocation: boolean;
-  // position: [number, number] | undefined;
   content: string;
   map: Blob | null;
 }
@@ -51,16 +52,15 @@ export interface NewPostInterface {
 export interface NewPostFactoryInterface {
   title: string;
   content: string;
-  // hashtags: string[];
   category_id: number;
-  // pictures: string[];
   link: string | null;
   style_ids: number[];
   squad_ids: number[];
   user_id: number;
   distance: number | null;
   duration?: number | null;
-  country: string | null;
   price: number | null;
   city: string | null;
+  county: string | null;
+  country: string | null;
 }
