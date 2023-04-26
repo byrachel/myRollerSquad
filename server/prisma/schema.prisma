@@ -20,7 +20,7 @@ model User {
   avatar        String?
   password      String
   country       String         @default("France")
-  county String?
+  county        String?
   city          String?
   social_medias Json?
   website       String?
@@ -132,12 +132,17 @@ model StylesOnPosts {
 
 model Place {
   id            Int       @id @default(autoincrement())
-  logo          String?
-  created_at    DateTime    @default(now())
-  updated_at    DateTime?
-  type          PlaceType  @default(PROFESIONAL)
   owner         User       @relation("place_owner", fields: [user_id], references: [id])
   user_id       Int
+  logo          String?
+  type          PlaceType  @default(PROFESIONAL)
+  active        Boolean    @default(false)
+  name          String
+  description   String?
+  website       String?
+  siren         String
+  created_at    DateTime    @default(now())
+  updated_at    DateTime?
 }
 
 enum Role {

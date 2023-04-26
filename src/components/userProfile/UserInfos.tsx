@@ -1,10 +1,11 @@
 import React from "react";
-import ReactHtmlParser from "react-html-parser";
 
 import Avatar from "./Avatar/Avatar";
 import LogoutButton from "../buttons/LogoutButton";
 import UpdateProfileButton from "../buttons/UpdateProfileButton";
 import styles from "../../styles/Profile.module.scss";
+import BusinessProfileCTA from "./BusinessProfile/BusinessProfileCTA";
+import { parseContent } from "src/utils/parseContent";
 import { UserInterface } from "src/interfaces/userInterfaces";
 
 import Pin from "src/svg/pin.svg";
@@ -26,6 +27,8 @@ export default function UserInfos({
   const updateUserProfile = () => {
     userProfileDispatch({ type: "UPDATE_USER_PROFILE", payload: true });
   };
+
+  console.log(user);
 
   return (
     <div className={styles.rollerSkaterInfoBar}>
@@ -94,7 +97,7 @@ export default function UserInfos({
         </div>
         <div className={styles.rollerSkaterDescription}>
           {user.resume ? (
-            ReactHtmlParser(user.resume)
+            parseContent(user.resume)
           ) : (
             <div>
               <p className="meta">Aucune information pour le moment...</p>
@@ -110,6 +113,9 @@ export default function UserInfos({
               ) : null}
             </div>
           )}
+          {userConnectedId ? (
+            <BusinessProfileCTA userConnectedId={userConnectedId} />
+          ) : null}
         </div>
       </div>
     </div>

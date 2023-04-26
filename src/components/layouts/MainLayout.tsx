@@ -1,5 +1,4 @@
 import Header from "../header/Header";
-import Footer from "./Footer";
 import RollerStylesBar from "./RollerStylesBar";
 
 interface Props {
@@ -12,7 +11,6 @@ export default function MainLayout({ children }: Props) {
       <Header />
       <RollerStylesBar />
       {children}
-      <Footer />
     </>
   );
 }

@@ -28,12 +28,22 @@ export default function UpdateRollerSkateLevel({
     });
   };
 
+  const resetLevel = () => {
+    const objectLevel = {} as any;
+    objectLevel[type] = 0;
+    userProfileDispatch({
+      type: "UPDATE_USER_ROLLER_SKATE_LEVEL",
+      payload: objectLevel,
+    });
+    setHover(0);
+  };
+
   return (
     <>
       <div className="spaceBetween mt5">
         <p className={styles.rollerLevelTitle}>{label}</p>
         <div className="flexStart">
-          {levels.map(star => (
+          {levels.map((star) => (
             <Star
               key={star}
               role="button"
@@ -49,6 +59,15 @@ export default function UpdateRollerSkateLevel({
               onMouseLeave={() => setHover(rating)}
             />
           ))}
+          <div
+            style={{ cursor: "pointer" }}
+            role="button"
+            tabIndex={0}
+            onClick={resetLevel}
+            onKeyDown={resetLevel}
+          >
+            -
+          </div>
         </div>
       </div>
     </>

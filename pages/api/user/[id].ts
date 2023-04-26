@@ -43,9 +43,7 @@ async function userRoute(req: any, res: NextApiResponse<any>) {
         county: true,
         city: true,
         postLiked: true,
-        my_events: true,
-        my_followers: true,
-        my_squad: true,
+        place: true,
       },
     });
     res.status(200).json({ user });

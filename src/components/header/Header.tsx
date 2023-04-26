@@ -11,6 +11,7 @@ import MySquad from "src/svg/flash.svg";
 import Menu from "src/svg/menu.svg";
 import Cancel from "src/svg/cancel.svg";
 import Admin from "src/svg/admin.svg";
+import Search from "src/svg/search.svg";
 
 export default function Header() {
   const router = useRouter();
@@ -22,8 +23,6 @@ export default function Header() {
     setDisplayResponsiveMenu(false);
     router.push(link);
   };
-
-  console.log(userState);
 
   return (
     <>
@@ -42,9 +41,11 @@ export default function Header() {
           <div className={styles.navigation}>
             <div
               className={styles.responsiveNavigationIcon}
-              onClick={() => setDisplayResponsiveMenu(prevState => !prevState)}
+              onClick={() =>
+                setDisplayResponsiveMenu((prevState) => !prevState)
+              }
               onKeyDown={() =>
-                setDisplayResponsiveMenu(prevState => !prevState)
+                setDisplayResponsiveMenu((prevState) => !prevState)
               }
               role="button"
               tabIndex={0}
@@ -55,15 +56,14 @@ export default function Header() {
                 <Menu className={styles.icon} width={42} height={42} />
               )}
             </div>
-            <div className={styles.navigationText}>
-              <Link href="/calendar">
-                <p className={styles.iconText}>Agenda</p>
-              </Link>
-              <Link href="/places">
-                <p className={styles.iconText}>Annuaire</p>
-              </Link>
-            </div>
             <div className={styles.navigationIcon}>
+              <Search
+                className={styles.icon}
+                width={42}
+                height={42}
+                onClick={() => goTo("/places")}
+                role="button"
+              />
               <MySquad
                 className={styles.icon}
                 width={42}
@@ -93,15 +93,6 @@ export default function Header() {
       </header>
       {displayResponsiveMenu ? (
         <div className={styles.responsiveNavigationText}>
-          <div
-            role="button"
-            tabIndex={0}
-            onKeyDown={() => goTo("/calendar")}
-            className={styles.iconText}
-            onClick={() => goTo("/calendar")}
-          >
-            Agenda
-          </div>
           <div
             role="button"
             tabIndex={0}

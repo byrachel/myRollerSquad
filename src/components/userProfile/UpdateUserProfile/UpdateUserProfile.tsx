@@ -60,13 +60,13 @@ const UpdateUserProfile = ({ userProfile, userProfileDispatch }: Props) => {
         data,
         withCredentials: true,
       })
-        .then(res => {
+        .then((res) => {
           userProfileDispatch({
             type: "USER_PROFILE_UPDATED",
             payload: res.data.user,
           });
         })
-        .catch(err => {
+        .catch((err) => {
           //handle error
           console.log("err", err);
         });

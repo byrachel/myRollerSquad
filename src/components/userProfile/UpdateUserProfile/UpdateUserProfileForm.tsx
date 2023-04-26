@@ -28,7 +28,11 @@ const UpdateUserProfileForm = ({ userProfile, userProfileDispatch }: Props) => {
       />
       <UpdateUserCountry country={user.country} city={user.city} />
       <label htmlFor="resume">Bio :</label>
-      <Editor content={user.resume} dispatchContent={userProfileDispatch} />
+      <Editor
+        content={user.resume}
+        dispatchContent={userProfileDispatch}
+        placeholder="Ta pratique, tes passions, tes engagements... Bref, qui es-tu ?"
+      />
       <br />
       <UpdateRollerSkateLevel
         label="Roller Dance"

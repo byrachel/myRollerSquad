@@ -114,7 +114,11 @@ export default function NewPostForm({
         <label>
           {post.category === category.SALE ? "Description" : "Message"}
         </label>
-        <Editor content={post.content} dispatchContent={postDispatch} />
+        <Editor
+          content={post.content}
+          dispatchContent={postDispatch}
+          placeholder="Quoi de beau à partager aujourd'hui ?"
+        />
 
         {post.category === category.STORY ? (
           <div className="spaceBetween">
