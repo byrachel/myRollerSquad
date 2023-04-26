@@ -81,6 +81,7 @@ export default handler
         }
       );
     } catch (e) {
+      console.log(e);
       if (e instanceof Prisma.PrismaClientKnownRequestError) {
         if (e.code === "P2002") {
           res.status(401).json({ message: E4 });

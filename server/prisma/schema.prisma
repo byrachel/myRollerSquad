@@ -132,11 +132,11 @@ model Style {
 }
 
 model StylesOnPosts {
-  post       Post     @relation(fields: [post_id], references: [id])
-  post_id     Int // relation scalar field (used in the `@relation` attribute above)
-  style   Style @relation(fields: [style_id], references: [id])
-  style_id Int // relation scalar field (used in the `@relation` attribute above)
-  assignedAt DateTime @default(now())
+  post        Post      @relation(fields: [post_id], references: [id])
+  post_id     Int       // relation scalar field (used in the `@relation` attribute above)
+  style       Style     @relation(fields: [style_id], references: [id])
+  style_id    Int       // relation scalar field (used in the `@relation` attribute above)
+  assignedAt  DateTime  @default(now())
 
   @@id([post_id, style_id])
 }
@@ -144,10 +144,10 @@ model StylesOnPosts {
 model Place {
   id            Int       @id @default(autoincrement())
   logo          String?
-  created_at    DateTime  @default(now())
+  created_at    DateTime    @default(now())
   updated_at    DateTime?
-  type        Type      @default(PROFESIONAL)
-  owner       User       @relation("place_owner", fields: [user_id], references: [id])
+  type          PlaceType  @default(PROFESIONAL)
+  owner         User       @relation("place_owner", fields: [user_id], references: [id])
   user_id       Int
 }
 
@@ -157,7 +157,7 @@ enum Role {
   ADMIN
 }
 
-enum Type {
+enum PlaceType {
   ASSOCIATION
   PROFESIONAL
   BUSINESS
