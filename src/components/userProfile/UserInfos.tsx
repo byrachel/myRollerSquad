@@ -1,7 +1,6 @@
 import React from "react";
 import ReactHtmlParser from "react-html-parser";
 
-import RegularButton from "src/components/buttons/RegularButton";
 import Avatar from "./Avatar/Avatar";
 import LogoutButton from "../buttons/LogoutButton";
 import UpdateProfileButton from "../buttons/UpdateProfileButton";
