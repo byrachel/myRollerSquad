@@ -3,7 +3,6 @@ import nextConnect from "next-connect";
 
 import prisma from "../../../../server/prisma/db/client";
 import { E1, E3 } from "src/constants/ErrorMessages";
-import { ironSessionMiddleware } from "@/server/middleware/auth/ironSessionMiddleware";
 import {
   initValidation,
   check,
