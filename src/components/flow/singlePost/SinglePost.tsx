@@ -12,6 +12,7 @@ import LikeIcon from "../getPosts/LikeIcon";
 import Pin from "src/svg/pin.svg";
 import Roller from "src/svg/rollerquad.svg";
 import Edit from "src/svg/edit.svg";
+import { getStyleName } from "src/constants/RollerSkateStyles";
 
 interface Props {
   post: PostInterface;
@@ -33,9 +34,9 @@ export default function SinglePost({ post, userConnectedId }: Props) {
       </div>
       {post.style.length > 0 ? (
         <div className="flexStart">
-          {post.style.map(style => (
-            <div className={`staticOutlineBadge ${color}`} key={style.id}>
-              {style.name}
+          {post.style.map((elt) => (
+            <div className={`staticOutlineBadge ${color}`} key={elt.style_id}>
+              {getStyleName(elt.style_id)}
             </div>
           ))}
         </div>
@@ -82,7 +83,7 @@ export default function SinglePost({ post, userConnectedId }: Props) {
             color={color}
             counter={post.user_likes.length}
             postId={post.id}
-            likedBy={post.user_likes.map(like => like.user_id)}
+            likedBy={post.user_likes.map((like) => like.user_id)}
             userConnectedId={userConnectedId}
           />
         </div>

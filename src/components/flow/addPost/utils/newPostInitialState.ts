@@ -5,7 +5,7 @@ export const newPostInitialState = {
   loading: false,
   error: { status: false, message: null, input: null },
   category: category.STORY,
-  style: null,
+  style: [],
   city: null,
   country: "France",
   pictures: [],

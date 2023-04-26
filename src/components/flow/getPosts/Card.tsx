@@ -16,6 +16,7 @@ import Roller from "src/svg/rollerquad.svg";
 import { SALE, getCategoryName } from "src/constants/PostCategories";
 import CardFeaturedPict from "./CardFeaturedPict";
 import Link from "next/link";
+import { getStyleName } from "src/constants/RollerSkateStyles";
 
 interface Props {
   post: PostInterface;
@@ -82,16 +83,16 @@ export default function Card({
         </p>
         {post.style.length > 0 ? (
           <div className="flexStart">
-            {post.style.map(style => (
+            {post.style.map((elt) => (
               <div
                 className={`outlineBadge ${color}`}
-                onClick={() => styleFilter(style.id)}
-                onKeyDown={() => styleFilter(style.id)}
+                onClick={() => styleFilter(elt.style_id)}
+                onKeyDown={() => styleFilter(elt.style_id)}
                 role="button"
                 tabIndex={0}
-                key={style.id}
+                key={elt.style_id}
               >
-                {style.name}
+                {getStyleName(elt.style_id)}
               </div>
             ))}
           </div>
@@ -129,7 +130,7 @@ export default function Card({
           color={color}
           counter={post.user_likes.length}
           postId={post.id}
-          likedBy={post.user_likes.map(like => like.user_id)}
+          likedBy={post.user_likes.map((like) => like.user_id)}
           userConnectedId={userConnectedId}
         />
         <CommentIcon counter={post.comments.length} color={color} />

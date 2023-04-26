@@ -28,15 +28,16 @@ export default function NewPostForm({
   setShowMap,
 }: Props) {
   const router = useRouter();
+
   return (
     <>
       <form
-        onSubmit={e =>
+        onSubmit={(e) =>
           onSubmitNewPost(e, userConnectedId, post, postDispatch, router)
         }
       >
         <div className="flexStart">
-          {category.flowCategories.map(category => (
+          {category.flowCategories.map((category) => (
             <div
               role="button"
               key={category.id}
@@ -85,7 +86,7 @@ export default function NewPostForm({
                 type="file"
                 accept="image/*"
                 multiple
-                onChange={e => uploadPictsWithPreview(e, postDispatch)}
+                onChange={(e) => uploadPictsWithPreview(e, postDispatch)}
               />
             </label>
 
@@ -144,35 +145,38 @@ export default function NewPostForm({
             <label htmlFor="price">Prix (€)</label>
             <input className="input" name="price" id="price" type="number" />
           </>
-        ) : (
-          <>
-            <label htmlFor="rollerStyle">Choisis ton style</label>
-            <div className="flexStart">
-              {rollerSkateStyles.map(style => (
-                <div
-                  key={style.id}
-                  role="button"
-                  className={
-                    style.id === post.style ? "badge blue" : "outlineBadge grey"
-                  }
-                  onClick={() =>
-                    postDispatch({
-                      type: "SAVE_STYLE",
-                      payload: style.id,
-                    })
-                  }
-                  onKeyDown={() =>
-                    postDispatch({
-                      type: "SAVE_STYLE",
-                      payload: style.id,
-                    })
-                  }
-                  tabIndex={0}
-                >
-                  {style.name}
-                </div>
-              ))}
+        ) : null}
+        <label htmlFor="rollerStyle">Choisis ton style</label>
+        <div className="flexStart">
+          {rollerSkateStyles.map((style) => (
+            <div
+              key={style.id}
+              role="button"
+              className={
+                post.style.includes(style.id)
+                  ? `badge ${cardColor(post.category)}`
+                  : "outlineBadge grey"
+              }
+              onClick={() =>
+                postDispatch({
+                  type: "SAVE_STYLE",
+                  payload: style.id,
+                })
+              }
+              onKeyDown={() =>
+                postDispatch({
+                  type: "SAVE_STYLE",
+                  payload: style.id,
+                })
+              }
+              tabIndex={0}
+            >
+              {style.name}
             </div>
+          ))}
+        </div>
+        {post.category === category.SALE ? null : (
+          <>
             <label htmlFor="link">Lien</label>
             <input className="input" name="link" id="link" type="url" />
           </>

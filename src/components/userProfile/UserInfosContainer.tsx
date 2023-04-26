@@ -38,7 +38,7 @@ const UserInfosContainer = ({ userConnectedId, userToDisplay }: Props) => {
       method: "GET",
       withCredentials: true,
     })
-      .then(res =>
+      .then((res) =>
         userProfileDispatch({
           type: "SET_USER",
           payload: res.data.user,

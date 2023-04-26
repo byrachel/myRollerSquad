@@ -91,7 +91,7 @@ export default function UserInfos({
       </div>
       <div className={styles.rollerSkaterResume}>
         <div className={styles.profileButton}>
-          <RegularButton type="button" text="+ MA SQUAD" style="full" />
+          {/* <RegularButton type="button" text="+ MA SQUAD" style="full" /> */}
         </div>
         <div className={styles.rollerSkaterDescription}>
           {user.resume ? (

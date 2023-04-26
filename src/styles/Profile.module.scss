@@ -165,9 +165,9 @@
   display: flex;
   justify-content: space-evenly;
   align-items: center;
-  gap: 2em;
-  padding: 2em 0;
-  margin-top: 1em;
+  gap: 3em;
+  padding: 3em 0.5em;
+  margin-top: 1.5em;
 
   .rollerLevelTitle {
     color: white;
@@ -175,24 +175,24 @@
     font-size: $fontSize-md;
     letter-spacing: 0.3px;
     margin-right: 2.5em;
-    padding-top: 0.3em;
+    padding-top: 0.4em;
   }
 
   .rollerStarIcon {
     fill: $yellowColor;
-    margin-right: 0.2em;
+    margin-right: 0.25em;
   }
   .rollerNoStarIcon {
     stroke: lighten($color: $yellowColor, $amount: 10);
     fill: none;
-    margin-right: 0.2em;
+    margin-right: 0.25em;
   }
 }
 
 .updateRollerStarIcon {
   stroke: $secondaryColor;
   fill: $secondaryColor;
-  margin-right: 0.2em;
+  margin-right: 0.25em;
   cursor: pointer;
 }
 .updateRollerStarIcon:hover {
@@ -202,7 +202,7 @@
 .updateRollerNoStarIcon {
   stroke: lighten($color: $secondaryColor, $amount: 25);
   fill: none;
-  margin-right: 0.2em;
+  margin-right: 0.25em;
   cursor: pointer;
 }
 .updateRollerNoStarIcon:hover {

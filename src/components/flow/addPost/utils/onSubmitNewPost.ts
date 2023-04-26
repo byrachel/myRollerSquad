@@ -12,6 +12,11 @@ export const onSubmitNewPost = async (
 ) => {
   event.preventDefault();
 
+  postDispatch({
+    type: "LOADING",
+    payload: true,
+  });
+
   const target = event.target as typeof event.target & {
     title: { value: string };
     link: { value: string };
@@ -32,7 +37,7 @@ export const onSubmitNewPost = async (
       content: post.content,
       price: target.price && target.price.value ? target.price.value : null,
       category_id: post.category,
-      style_id: post.style ? post.style : null,
+      style_ids: post.style ? post.style : [],
       link: target.link && target.link.value ? target.link.value : null,
       duration:
         target.duration && target.duration.value ? target.duration.value : null,
@@ -40,7 +45,6 @@ export const onSubmitNewPost = async (
         target.distance && target.distance.value
           ? parseFloat(target.distance.value)
           : null,
-      //   position: post.position ? post.position : null,
       country: post.country ? post.country : null,
       city: post.city ? post.city : null,
       squad_ids: [],
@@ -49,32 +53,52 @@ export const onSubmitNewPost = async (
     const newPostFactory = new NewPostFactory();
     const newPostToSave = newPostFactory.create(newPost);
 
-    const data = new FormData();
-
-    for (const [key, value] of Object.entries(newPostToSave)) {
-      data.append(key, value);
-    }
-    if (post.map) {
-      data.append("pictures", post.map, "map.png");
-    }
-    for (const image of post.pictures) {
-      if (image.name !== "map.png") {
-        data.append("pictures", image);
-      }
-    }
-
-    // console.log("NEW POST", Object.fromEntries(data));
-
     axios({
       method: "post",
-      url: `/api/flow/post/add`,
-      data: data,
-      headers: {
-        "Content-Type": "multipart/form-data",
-      },
+      url: `/api/flow/post/add/body`,
+      data: newPostToSave,
       withCredentials: true,
     })
-      .then(res => router.push(`/post/${res.data.post.id}`))
-      .catch(err => console.log(err));
+      .then((res) => {
+        const postid = res.data.post.id;
+
+        if (post.pictures.length > 0) {
+          const data = new FormData();
+
+          if (post.map) {
+            data.append("pictures", post.map, "map.png");
+          }
+          for (const image of post.pictures) {
+            if (image.name !== "map.png") {
+              data.append("pictures", image);
+            }
+          }
+
+          axios({
+            method: "put",
+            url: `/api/flow/post/add/${postid}`,
+            data,
+            headers: {
+              "Content-Type": "multipart/form-data",
+            },
+            withCredentials: true,
+          })
+            .then(() => router.push(`/post/${postid}`))
+            .catch((err) => {
+              postDispatch({
+                type: "ERROR",
+                payload: err.response.data.message,
+              });
+            });
+        } else {
+          router.push(`/post/${postid}`);
+        }
+      })
+      .catch((err) => {
+        postDispatch({
+          type: "ERROR",
+          payload: err.response.data.message,
+        });
+      });
   }
 };

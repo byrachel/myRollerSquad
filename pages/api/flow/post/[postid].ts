@@ -18,7 +18,11 @@ export default async function handler(
         id: parseInt(id),
       },
       include: {
-        style: true,
+        style: {
+          select: {
+            style_id: true,
+          },
+        },
         comments: true,
         user_likes: {
           select: {

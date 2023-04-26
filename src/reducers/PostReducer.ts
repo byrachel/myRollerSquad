@@ -8,7 +8,9 @@ export const PostReducer = (
     case "SAVE_STYLE":
       return {
         ...state,
-        style: action.payload,
+        style: state.style.includes(action.payload)
+          ? state.style.filter((elt) => elt !== action.payload)
+          : [...state.style, action.payload],
       };
     case "SAVE_CATEGORY":
       return {
@@ -63,6 +65,33 @@ export const PostReducer = (
         ...state,
         content: action.payload,
       };
+
+    case "LOADING":
+      return {
+        ...state,
+        loading: action.payload,
+      };
+
+    case "ERROR":
+      return {
+        ...state,
+        loading: false,
+        error: {
+          status: true,
+          message: action.payload,
+        },
+      };
+
+    case "HIDE_ERROR":
+      return {
+        ...state,
+        loading: false,
+        error: {
+          status: false,
+          message: null,
+        },
+      };
+
     default:
       return {
         ...state,

@@ -5,6 +5,7 @@ export const DERBY = 4;
 export const STREET = 5;
 export const DANCE = 6;
 export const RINK = 7;
+export const OTHER = 8;
 
 export const getStyleName = (style: number) => {
   switch (style) {
@@ -15,7 +16,7 @@ export const getStyleName = (style: number) => {
     case ARTISTIC:
       return "Artistique";
     case DERBY:
-      return "Roller Derby";
+      return "Derby";
     case STREET:
       return "Randonnée";
     case DANCE:
@@ -55,5 +56,9 @@ export const rollerSkateStyles = [
   {
     id: RINK,
     name: "Rink",
+  },
+  {
+    id: OTHER,
+    name: "Autre",
   },
 ];

@@ -28,14 +28,18 @@ async function userRoute(req: any, res: NextApiResponse<any>) {
       },
       where: {
         ...(category ? { category_id: parseInt(category) } : {}),
-        ...(style ? { style_id: parseInt(style) } : {}),
+        ...(style ? { style: { some: { style_id: parseInt(style) } } } : {}),
       },
       select: {
         id: true,
         title: true,
         content: true,
         category_id: true,
-        style: true,
+        style: {
+          select: {
+            style_id: true,
+          },
+        },
         hashtags: true,
         created_at: true,
         pictures: true,

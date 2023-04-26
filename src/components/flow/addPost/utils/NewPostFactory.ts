@@ -10,9 +10,8 @@ class StoryPost {
   link;
   country;
   city;
-  // position;
   category_id;
-  style_id;
+  style_ids;
   constructor(newPost: NewPostFactoryInterface) {
     this.title = newPost.title;
     this.content = newPost.content;
@@ -22,8 +21,7 @@ class StoryPost {
     this.link = newPost.link;
     this.country = newPost.country;
     this.category_id = newPost.category_id;
-    this.style_id = newPost.style_id;
-    // this.position = newPost.position;
+    this.style_ids = newPost.style_ids;
     this.city = newPost.city;
   }
 }
@@ -35,7 +33,7 @@ class ResalePost {
   price;
   country;
   category_id;
-  style_id;
+  style_ids;
   city;
   constructor(newPost: NewPostFactoryInterface) {
     this.title = newPost.title;
@@ -44,7 +42,7 @@ class ResalePost {
     this.price = newPost.price;
     this.country = newPost.country;
     this.category_id = newPost.category_id;
-    this.style_id = newPost.style_id;
+    this.style_ids = newPost.style_ids;
     this.city = newPost.city;
   }
 }
@@ -55,7 +53,7 @@ class OtherPost {
   user_id;
   link;
   category_id;
-  style_id;
+  style_ids;
   country;
   city;
   constructor(newPost: NewPostFactoryInterface) {
@@ -64,7 +62,7 @@ class OtherPost {
     this.user_id = newPost.user_id;
     this.link = newPost.link;
     this.category_id = newPost.category_id;
-    this.style_id = newPost.style_id;
+    this.style_ids = newPost.style_ids;
     this.country = newPost.country;
     this.city = newPost.city;
   }

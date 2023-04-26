@@ -41,7 +41,7 @@ const Flow = ({ userConnectedId }: Props) => {
       url: `/api/flow/posts/${nextId}?${category}&${style}`,
       withCredentials: true,
     })
-      .then(res => {
+      .then((res) => {
         flowDispatch({
           type: "SET_POSTS",
           payload: {

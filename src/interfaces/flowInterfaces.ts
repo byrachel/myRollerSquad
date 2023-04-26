@@ -7,7 +7,7 @@ export interface PostInterface {
   category_id: number;
   pictures: string[];
   link: string | null;
-  style: { id: number; name: string }[];
+  style: { style_id: number }[];
   squad_ids: number[];
   city?: string;
   country: string;
@@ -37,13 +37,13 @@ export interface NewPostInterface {
   loading: boolean;
   error: { status: boolean; message: null | string; input: string | null };
   category: number;
-  style: null | number;
+  style: number[];
   city: null | string;
   country: string;
   pictures: any[];
   squad: number[];
   displayLocation: boolean;
-  position: [number, number] | undefined;
+  // position: [number, number] | undefined;
   content: string;
   map: Blob | null;
 }
@@ -55,13 +55,12 @@ export interface NewPostFactoryInterface {
   category_id: number;
   // pictures: string[];
   link: string | null;
-  style_id: number | null;
+  style_ids: number[];
   squad_ids: number[];
   user_id: number;
   distance: number | null;
   duration?: number | null;
   country: string | null;
-  // position: [number, number] | undefined;
   price: number | null;
   city: string | null;
 }

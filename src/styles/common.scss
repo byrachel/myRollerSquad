@@ -54,6 +54,23 @@ div.inline {
   align-items: center;
 }
 
+.gradientBackground {
+  background-image: linear-gradient(
+    135deg,
+    $yellowColor 0%,
+    $secondaryColor 100%
+  );
+  margin: 0;
+  padding: 3em;
+  width: 100%;
+  h3 {
+    color: white;
+  }
+  p {
+    color: white;
+  }
+}
+
 .outlineIcon {
   cursor: pointer;
   fill: none;
