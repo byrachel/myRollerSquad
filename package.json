@@ -6,7 +6,7 @@
     "dev": "next dev",
     "build:server": "tsc --project tsconfig.server.json",
     "build:next": "npm run build:next && npm run build:server",
-    "build": "prisma generate --schema ./server/prisma/schema.prisma && prisma migrate resolved --applied 'style' --schema ./server/prisma/schema.prisma && next build",
+    "build": "prisma generate --schema ./server/prisma/schema.prisma && prisma migrate deploy --schema ./server/prisma/schema.prisma && next build",
     "start": "next start",
     "lint": "next lint",
     "test": "jest",
