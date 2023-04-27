@@ -44,6 +44,8 @@ model User {
 
   active        Boolean        @default(false)
   place         Place[]         @relation("place_owner")
+
+  favorite_places Place[] @relation("FavoritePlaces")
 }
 
 model Event {
@@ -143,6 +145,12 @@ model Place {
   siren         String
   created_at    DateTime    @default(now())
   updated_at    DateTime?
+
+  favorites     User[]     @relation("FavoritePlaces")
+
+  country       String    @default("France")
+  county        String?
+  city          String?
 }
 
 enum Role {

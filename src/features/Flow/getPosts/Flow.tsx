@@ -1,10 +1,10 @@
 import React, { useEffect, useReducer } from "react";
 import Masonry from "react-masonry-css";
 import axios from "axios";
-import CardContainer from "src/components/flow/getPosts/CardContainer";
+import CardContainer from "src/features/Flow/getPosts/CardContainer";
 import { useRouter } from "next/router";
 import FlowReducer from "src/reducers/FlowReducer";
-import FlowFilters from "src/components/flow/getPosts/FlowFilters";
+import FlowFilters from "src/features/Flow/getPosts/FlowFilters";
 import { PostInterface } from "src/interfaces/flowInterfaces";
 
 const breakpointColumnsObj = {

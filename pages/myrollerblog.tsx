@@ -1,6 +1,6 @@
 import { withSessionSsr } from "@/server/middleware/auth/withSession";
 import NewPostBar from "src/components/layouts/NewPostBar";
-import Flow from "src/components/flow/getPosts/Flow";
+import Flow from "src/features/Flow/getPosts/Flow";
 import Login from "@/components/auth/Login";
 import { UserStateInterface } from "src/reducers/UserReducer";
 

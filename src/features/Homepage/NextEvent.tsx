@@ -1,8 +1,8 @@
 import Image from "next/image";
 
 import styles from "../../styles/Home.module.scss";
-import AddEventToFav from "../buttons/AddEventToFav";
-import GoTo from "../buttons/GoTo";
+import AddEventToFav from "../../components/buttons/AddEventToFav";
+import GoTo from "../../components/buttons/GoTo";
 
 export default function NextEvent() {
   return (

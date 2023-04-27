@@ -1,10 +1,10 @@
 import React from "react";
 
 import Avatar from "./Avatar/Avatar";
-import LogoutButton from "../buttons/LogoutButton";
-import UpdateProfileButton from "../buttons/UpdateProfileButton";
+import LogoutButton from "../../components/buttons/LogoutButton";
+import UpdateProfileButton from "../../components/buttons/UpdateProfileButton";
 import styles from "../../styles/Profile.module.scss";
-import BusinessProfileCTA from "./BusinessProfile/BusinessProfileCTA";
+import BusinessProfileCTA from "../BusinessProfile/BusinessProfileCTA";
 import { parseContent } from "src/utils/parseContent";
 import { UserInterface } from "src/interfaces/userInterfaces";
 

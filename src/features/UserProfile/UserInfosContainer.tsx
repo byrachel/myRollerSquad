@@ -2,10 +2,10 @@ import React, { useEffect, useReducer } from "react";
 import { useRouter } from "next/router";
 import axios from "axios";
 
-import UserInfos from "src/components/userProfile/UserInfos";
-import LastPostsShared from "src/components/userProfile/LastPostsShared";
-import RollerSkateLevel from "src/components/userProfile/RollerSkateLevel";
-import UpdateUserProfile from "src/components/userProfile/UpdateUserProfile/UpdateUserProfile";
+import UserInfos from "src/features/UserProfile/UserInfos";
+import LastPostsShared from "src/features/UserProfile/LastPostsShared";
+import RollerSkateLevel from "src/features/UserProfile/RollerSkateLevel";
+import UpdateUserProfile from "src/features/UserProfile/UpdateUserProfile/UpdateUserProfile";
 import UserProfileReducer from "src/reducers/UserProfileReducer";
 
 const initialState = {

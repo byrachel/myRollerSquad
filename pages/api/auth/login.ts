@@ -58,6 +58,7 @@ export default withIronSessionApiRoute(
           user: {
             id: existingUser.id,
             role: existingUser.role,
+            county: existingUser.county,
             isLoggedIn: true,
           },
         });

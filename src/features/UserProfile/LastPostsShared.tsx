@@ -1,8 +1,8 @@
 import { PostInterface } from "src/interfaces/flowInterfaces";
 import React from "react";
-import Card from "../flow/getPosts/Card";
+import Card from "../Flow/getPosts/Card";
 import Masonry from "react-masonry-css";
-import RegularButton from "../buttons/RegularButton";
+import RegularButton from "../../components/buttons/RegularButton";
 import { useRouter } from "next/router";
 
 interface Props {
@@ -28,7 +28,7 @@ export default function LastPostsShared({ posts, userConnectedId }: Props) {
             className="my-masonry-grid"
             columnClassName="my-masonry-grid_column"
           >
-            {posts.map(post => (
+            {posts.map((post) => (
               <div key={post.id}>
                 <Card post={post} userConnectedId={userConnectedId} isAuthor />
               </div>

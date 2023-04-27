@@ -1,12 +1,12 @@
 import React, { useReducer, useState } from "react";
 
-import DisplayLocation from "src/components/flow/addPost/DisplayLocation";
+import DisplayLocation from "src/features/Flow/addPost/DisplayLocation";
 import Modal from "src/components/layouts/Modal";
 import { PostReducer } from "src/reducers/PostReducer";
-import { newPostInitialState } from "src/components/flow/addPost/utils/newPostInitialState";
-import NewPostForm from "src/components/flow/addPost/NewPostForm";
+import { newPostInitialState } from "src/features/Flow/addPost/utils/newPostInitialState";
+import NewPostForm from "src/features/Flow/addPost/NewPostForm";
 import SidebarLayout from "src/components/layouts/SidebarLayout";
-import NewPostSidebar from "src/components/flow/addPost/NewPostSidebar";
+import NewPostSidebar from "src/features/Flow/addPost/NewPostSidebar";
 import { withSessionSsr } from "@/server/middleware/auth/withSession";
 import { UserStateInterface } from "src/reducers/UserReducer";
 import Login from "@/components/auth/Login";

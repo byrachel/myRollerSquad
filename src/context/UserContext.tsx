@@ -4,6 +4,7 @@ import UserReducer, { UserStateInterface } from "../reducers/UserReducer";
 export const initialState: UserStateInterface = {
   id: null,
   role: "USER",
+  county: null,
   isLoggedIn: false,
 };
 

@@ -3,8 +3,8 @@ import { useRouter } from "next/router";
 import { UserContext } from "src/context/UserContext";
 import NewPostBar from "src/components/layouts/NewPostBar";
 import SidebarLayout from "src/components/layouts/SidebarLayout";
-import SinglePostSidebar from "src/components/flow/singlePost/SinglePostSidebar";
-import SinglePost from "src/components/flow/singlePost/SinglePost";
+import SinglePostSidebar from "src/features/Flow/singlePost/SinglePostSidebar";
+import SinglePost from "src/features/Flow/singlePost/SinglePost";
 import axios from "axios";
 
 export default function Post() {
@@ -17,7 +17,7 @@ export default function Post() {
 
   useEffect(() => {
     if (id) {
-      axios.get(`/api/flow/post/${id}`).then(res => {
+      axios.get(`/api/flow/post/${id}`).then((res) => {
         setPost(res.data.post);
       });
     }

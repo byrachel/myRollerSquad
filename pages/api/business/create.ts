@@ -12,6 +12,7 @@ const validator = initValidation([
   check("url").isURL().withMessage(E3),
   check("siren").not().isEmpty().trim().escape().withMessage(E3),
   check("type").not().isEmpty().trim().escape().withMessage(E3),
+  check("county").not().isEmpty().trim().escape().withMessage(E3),
 ]);
 
 const handler = nextConnect();
@@ -21,7 +22,7 @@ export default withIronSessionApiRoute(
     const { user } = req.session;
     if (!user) return res.status(401).json({ message: E2 });
 
-    const { name, siren, url, description, type } = req.body;
+    const { name, siren, url, description, type, county } = req.body;
     if (!name || !siren || !type) return res.status(401).json({ message: E3 });
 
     try {
@@ -33,6 +34,7 @@ export default withIronSessionApiRoute(
           website: url,
           description,
           type,
+          county,
         },
       });
 

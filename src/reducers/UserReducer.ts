@@ -1,6 +1,7 @@
 export interface UserStateInterface {
   id: number | null;
   role: "USER" | "PRO" | "ADMIN";
+  county: string | null;
   isLoggedIn: boolean;
 }
 
@@ -16,6 +17,7 @@ const UserReducer = (
         id: null,
         role: "USER",
         isLoggedIn: false,
+        county: null,
       };
     default:
       return state;

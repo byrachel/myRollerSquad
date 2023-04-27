@@ -21,7 +21,7 @@ export default function BusinessProfileCTA({ userConnectedId }: Props) {
         type="button"
         text="Go !"
         style="outline"
-        onClick={() => router.push(`/business/signup/${userConnectedId}`)}
+        onClick={() => router.push(`/business/create/${userConnectedId}`)}
       />
     </div>
   );
