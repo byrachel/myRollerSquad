@@ -32,12 +32,14 @@ const UpdateUserProfile = ({ userProfile, userProfileDispatch }: Props) => {
       tiktok: { value: string };
       youtube: { value: string };
       country: { value: string };
+      department: { value: string };
       city: { value: string };
     };
 
     const data = {
       name: target.name.value,
       country: target.country.value,
+      county: target.department.value,
       city: target.city.value,
       resume: userProfile.user.resume,
       social_medias: {
@@ -52,6 +54,8 @@ const UpdateUserProfile = ({ userProfile, userProfileDispatch }: Props) => {
       derby_level: userProfile.user.derby_level,
       artistic_level: userProfile.user.artistic_level,
     };
+
+    console.log(data);
 
     if (userConnectedId) {
       axios({

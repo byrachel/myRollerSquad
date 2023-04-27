@@ -6,12 +6,13 @@ import UpdateProfileButton from "../../components/buttons/UpdateProfileButton";
 import styles from "../../styles/Profile.module.scss";
 import BusinessProfileCTA from "../BusinessProfile/BusinessProfileCTA";
 import { parseContent } from "src/utils/parseContent";
-import { UserInterface } from "src/interfaces/userInterfaces";
+import { PlaceInterface, UserInterface } from "src/interfaces/userInterfaces";
 
 import Pin from "src/svg/pin.svg";
 import Instagram from "src/svg/instagram.svg";
 import Tiktok from "src/svg/tiktok.svg";
 import Youtube from "src/svg/youtube.svg";
+import BusinessCard from "../BusinessProfile/BusinessCard";
 
 interface Props {
   user: UserInterface;
@@ -116,6 +117,16 @@ export default function UserInfos({
           {userConnectedId ? (
             <BusinessProfileCTA userConnectedId={userConnectedId} />
           ) : null}
+
+          {user.place.length > 0
+            ? user.place.map((elt: PlaceInterface) => (
+                <BusinessCard
+                  key={elt.id}
+                  place={elt}
+                  isOwner={userConnectedId === user.id}
+                />
+              ))
+            : null}
         </div>
       </div>
     </div>

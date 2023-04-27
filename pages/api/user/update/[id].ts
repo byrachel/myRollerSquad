@@ -11,8 +11,9 @@ import { ironConfig } from "@/server/middleware/auth/ironConfig";
 
 const validator = initValidation([
   check("name").not().isEmpty().trim().escape().withMessage(E3),
-  check("resume").trim().escape(),
+  check("resume").trim(),
   check("country").not().isEmpty().trim().withMessage(E3),
+  check("county").trim().escape(),
   check("city").trim().escape(),
   check("roller_dance_level").isNumeric(),
   check("skatepark_level").isNumeric(),
@@ -55,6 +56,7 @@ export default withIronSessionApiRoute(
           urban_level: true,
           derby_level: true,
           country: true,
+          county: true,
           city: true,
         },
       });

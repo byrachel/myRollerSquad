@@ -1,21 +1,24 @@
-import { withSessionSsr } from "@/server/middleware/auth/withSession";
+// import { withSessionSsr } from "@/server/middleware/auth/withSession";
+import { useContext } from "react";
 import { useRouter } from "next/router";
 import UserInfosContainer from "src/features/UserProfile/UserInfosContainer";
 import Login from "@/components/auth/Login";
-import { UserStateInterface } from "src/reducers/UserReducer";
+import { UserContext } from "src/context/UserContext";
+// import { UserStateInterface } from "src/reducers/UserReducer";
 
-interface Props {
-  user: UserStateInterface;
-}
+// interface Props {
+//   user: UserStateInterface;
+// }
 
-const UserProfile = ({ user }: Props) => {
+const UserProfile = () => {
   const router = useRouter();
   const { uid } = router.query;
-  const userToDisplay = uid !== "null" ? parseInt(uid as string) : user.id;
+  const { userState } = useContext(UserContext);
+  const userToDisplay = uid !== "null" ? parseInt(uid as string) : userState.id;
 
-  return user && user.id && userToDisplay ? (
+  return userState && userState.id && userToDisplay ? (
     <UserInfosContainer
-      userConnectedId={user.id}
+      userConnectedId={userState.id}
       userToDisplay={userToDisplay}
     />
   ) : (
@@ -24,10 +27,10 @@ const UserProfile = ({ user }: Props) => {
 };
 export default UserProfile;
 
-export const getServerSideProps = withSessionSsr(async ({ req }) => {
-  const user = req.session as any;
+// export const getServerSideProps = withSessionSsr(async ({ req }) => {
+//   const user = req.session as any;
 
-  return {
-    props: user,
-  };
-});
+//   return {
+//     props: user,
+//   };
+// });

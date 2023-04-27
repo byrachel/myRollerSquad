@@ -15,6 +15,21 @@ p.meta {
   letter-spacing: 0.5px;
 }
 
+.metaBox {
+  color: $greyColor;
+  display: flex;
+  align-items: center;
+  font-family: $textFont;
+  font-size: $fontSize-sm;
+  font-weight: 300;
+  letter-spacing: 0;
+  .metaIcon {
+    fill: none;
+    stroke: $greyColor;
+    margin-right: 7px;
+  }
+}
+
 p.blackMeta {
   color: $primaryColor;
   font-family: $textFont;

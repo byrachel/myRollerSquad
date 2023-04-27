@@ -4,7 +4,7 @@ import { UserProfileInterface } from "src/reducers/UserProfileReducer";
 import InputText from "src/components/form/InputText";
 import Editor from "@/components/form/Editor/Editor";
 import UpdateRollerSkateLevel from "./UpdateRollerSkateLevel";
-import UpdateUserCountry from "./UpdateUserCountry";
+import SelectLocation from "@/components/form/Location/SelectLocation";
 
 interface Props {
   userProfile: UserProfileInterface;
@@ -26,7 +26,12 @@ const UpdateUserProfileForm = ({ userProfile, userProfileDispatch }: Props) => {
         minLength={3}
         maxLength={20}
       />
-      <UpdateUserCountry country={user.country} city={user.city} />
+
+      <SelectLocation
+        country={user.country}
+        department={user.county}
+        city={user.city}
+      />
       <label htmlFor="resume">Bio :</label>
       <Editor
         content={user.resume}

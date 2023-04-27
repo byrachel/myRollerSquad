@@ -7,6 +7,7 @@ import InputUrl from "@/components/form/InputUrl";
 import RegularButton from "@/components/buttons/RegularButton";
 import ErrorLayout from "@/components/layouts/ErrorLayout";
 import SelectLocation from "@/components/form/Location/SelectLocation";
+import { E1 } from "src/constants/ErrorMessages";
 
 interface Props {
   ownerId: number;
@@ -38,15 +39,19 @@ const BusinessProfileForm = ({ ownerId }: Props) => {
       url: target.url.value,
       type: target.type.value,
       country: target.country.value,
-      department: target.department.value,
+      county: target.department.value,
       city: target.city.value,
     };
 
-    axios
-      .post("/api/business/create", data)
+    axios({
+      method: "POST",
+      url: `/api/business/create`,
+      data,
+      withCredentials: true,
+    })
       .then(() => router.push(`/profile/${ownerId}`))
       .catch((err) => {
-        setError({ status: true, message: err.response.data.message });
+        setError({ status: true, message: err.response.data.message ?? E1 });
       });
   };
 

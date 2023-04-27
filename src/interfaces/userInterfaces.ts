@@ -7,6 +7,7 @@ export interface UserInterface {
   email: string;
   avatar: string | null;
   posts?: PostInterface[];
+  place: any;
   resume: string | null;
   my_followers: number[];
   my_squad_ids?: number[];
@@ -20,5 +21,18 @@ export interface UserInterface {
   freestyle_level: number;
   derby_level: number;
   country: string;
+  county: string | null;
   city: string | null;
+}
+
+export interface PlaceInterface {
+  id: number;
+  name: string;
+  descritpion: string;
+  city: string;
+  country: string;
+  type: string;
+  active: boolean;
+  website: string;
+  county: string;
 }
