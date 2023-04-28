@@ -20,7 +20,7 @@ export default function LoginForm({ redirectAfterLogin }: Props) {
   return (
     <form
       onSubmit={(e: SyntheticEvent) =>
-        onLogin(e, userDispatch, router, redirectAfterLogin, setError)
+        onLogin(e, userDispatch, router, setError, redirectAfterLogin)
       }
     >
       <ErrorLayout

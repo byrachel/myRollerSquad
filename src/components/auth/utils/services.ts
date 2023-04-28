@@ -74,8 +74,8 @@ export const onLogin = (
   event: SyntheticEvent,
   userDispatch: Dispatch<any>,
   router: any,
-  redirectAfterLogin,
-  setError: (args: { status: boolean; message: string }) => void
+  setError: (args: { status: boolean; message: string }) => void,
+  redirectAfterLogin?: string
 ) => {
   event.preventDefault();
 
