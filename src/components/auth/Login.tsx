@@ -7,11 +7,7 @@ import UnloggedUserSidebar from "../layouts/UnloggedUserSidebar";
 
 import Roller from "src/svg/rollerquad.svg";
 
-interface Props {
-  redirectAfterLogin?: string;
-}
-
-export default function Login({ redirectAfterLogin }: Props) {
+export default function Login() {
   const [showLoginForm, setShowLoginForm] = useState(true);
 
   return (
@@ -34,7 +30,7 @@ export default function Login({ redirectAfterLogin }: Props) {
               </div>
               <div className="lightSeparator mt5" />
 
-              <LoginForm redirectAfterLogin={redirectAfterLogin} />
+              <LoginForm />
 
               <div
                 className="signinContainer"
