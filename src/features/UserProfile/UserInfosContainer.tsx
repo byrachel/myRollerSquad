@@ -44,7 +44,10 @@ const UserInfosContainer = ({ userConnectedId, userToDisplay }: Props) => {
           payload: res.data.user,
         })
       )
-      .catch(() => router.push("/signin"));
+      .catch((err) => {
+        console.log(err);
+        router.push("/signin");
+      });
     // eslint-disable-next-line
   }, [userToDisplay]);
 

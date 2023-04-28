@@ -75,7 +75,7 @@ export default function Header() {
                 className={styles.icon}
                 width={38}
                 height={38}
-                onClick={() => goTo(`/profile/${userState.id}`)}
+                onClick={() => goTo(`/profile/me`)}
                 role="button"
               />
               {isAdmin ? (
@@ -115,8 +115,8 @@ export default function Header() {
             role="button"
             tabIndex={0}
             className={styles.iconText}
-            onClick={() => goTo(`/profile/${userState.id}`)}
-            onKeyDown={() => goTo(`/profile/${userState.id}`)}
+            onClick={() => goTo(`/profile/me`)}
+            onKeyDown={() => goTo(`/profile/me`)}
           >
             Mon compte
           </div>

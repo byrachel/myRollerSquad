@@ -14,9 +14,11 @@ const UserProfile = () => {
   const router = useRouter();
   const { uid } = router.query;
   const { userState } = useContext(UserContext);
-  const userToDisplay = uid !== "null" ? parseInt(uid as string) : userState.id;
+  const userToDisplay = uid === "me" ? userState.id : parseInt(uid as string);
 
-  return userState && userState.id && userToDisplay ? (
+  console.log(userToDisplay);
+
+  return userState.isLoggedIn && userState.id && userToDisplay ? (
     <UserInfosContainer
       userConnectedId={userState.id}
       userToDisplay={userToDisplay}
