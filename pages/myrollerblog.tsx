@@ -1,29 +1,19 @@
-import { withSessionSsr } from "@/server/middleware/auth/withSession";
 import NewPostBar from "src/components/layouts/NewPostBar";
 import Flow from "src/features/Flow/getPosts/Flow";
 import Login from "@/components/auth/Login";
-import { UserStateInterface } from "src/reducers/UserReducer";
+import { useContext } from "react";
+import { UserContext } from "src/context/UserContext";
 
-interface Props {
-  user: UserStateInterface;
-}
-
-const MyRollerBlog = ({ user }: Props) => {
-  return user.isLoggedIn && user.id ? (
+const MyRollerBlog = () => {
+  const { userState } = useContext(UserContext);
+  const userId = userState.isLoggedIn ? userState.id : null;
+  return userId ? (
     <>
       <NewPostBar />
-      <Flow userConnectedId={user.id} />
+      <Flow userConnectedId={userId} />
     </>
   ) : (
     <Login />
   );
 };
 export default MyRollerBlog;
-
-export const getServerSideProps = withSessionSsr(async ({ req }) => {
-  const user = req.session as any;
-
-  return {
-    props: user,
-  };
-});

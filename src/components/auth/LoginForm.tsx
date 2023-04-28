@@ -8,11 +8,7 @@ import InputText from "../form/InputText";
 import InputPassword from "../form/InputPassword";
 import Link from "next/link";
 
-interface Props {
-  redirectAfterLogin?: string;
-}
-
-export default function LoginForm({ redirectAfterLogin }: Props) {
+export default function LoginForm() {
   const router = useRouter();
   const [error, setError] = useState({ status: false, message: "" });
   const { userDispatch } = useContext(UserContext);
@@ -20,7 +16,7 @@ export default function LoginForm({ redirectAfterLogin }: Props) {
   return (
     <form
       onSubmit={(e: SyntheticEvent) =>
-        onLogin(e, userDispatch, router, setError, redirectAfterLogin)
+        onLogin(e, userDispatch, router, setError)
       }
     >
       <ErrorLayout

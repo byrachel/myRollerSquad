@@ -31,10 +31,12 @@ const UserInfosContainer = ({ userConnectedId, userToDisplay }: Props) => {
   );
 
   useEffect(() => {
+    console.log("useeffect");
     if (userToDisplay) {
       userProfileDispatch({
         type: "LOADING",
       });
+      console.log("userToDisplay", userToDisplay);
       axios(`/api/user/${userToDisplay}`, {
         method: "GET",
         withCredentials: true,
@@ -46,7 +48,7 @@ const UserInfosContainer = ({ userConnectedId, userToDisplay }: Props) => {
           })
         )
         .catch((err) => {
-          console.log(err);
+          console.log("user infos cont", err);
           router.push("/signin");
         });
     }
