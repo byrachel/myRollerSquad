@@ -19,6 +19,11 @@ const UserReducer = (
         isLoggedIn: false,
         county: null,
       };
+    case "SELECT_DEPT":
+      return {
+        ...state,
+        county: action.payload,
+      };
     default:
       return state;
   }

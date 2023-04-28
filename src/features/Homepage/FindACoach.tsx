@@ -1,8 +1,21 @@
 import Image from "next/image";
 import styles from "../../styles/Home.module.scss";
-import departments from "../../utils/frenchDepartments.json";
+import SelectDepartment from "@/components/form/Location/SelectDepartment";
+import { useContext } from "react";
+import { UserContext } from "src/context/UserContext";
+import { useRouter } from "next/router";
 
 export default function FindACoach() {
+  const { userState, userDispatch } = useContext(UserContext);
+  const userDept = userState.isLoggedIn ? userState.county : null;
+  const router = useRouter();
+
+  const onSelectDepartment = (event: any) => {
+    const department = event.target.value;
+    userDispatch({ type: "SELECT_DEPT", payload: department });
+    router.push(`/places`);
+  };
+
   return (
     <div className={styles.blueBox}>
       <h2 className={styles.blueBoxTitle}>
@@ -13,16 +26,12 @@ export default function FindACoach() {
         Découvre les cours & formateurs de ta région et passe au niveau
         supérieur !
       </p>
-      <form>
-        <select name="city">
-          {departments.map(elt => (
-            <option key={elt.dep_name} value={elt.dep_name}>
-              {elt.dep_name}
-            </option>
-          ))}
-        </select>
-        <button type="submit" />
-      </form>
+
+      <SelectDepartment
+        userDept={userDept}
+        onSelectDepartment={onSelectDepartment}
+      />
+
       <div className={styles.imagesBox}>
         <div className={styles.fourRoundImages}>
           <div className={styles.roundImage}>

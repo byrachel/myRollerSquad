@@ -67,7 +67,7 @@
   .underliner {
     border-bottom: solid 3px white;
     margin: 2em auto;
-    width: 40%;
+    width: 25%;
   }
 
   p.blueBoxText {
@@ -75,74 +75,75 @@
     font-family: $textFont;
     font-size: $fontSize-md;
     font-weight: 300;
-    letter-spacing: 0.3px;
-    margin-bottom: 1.3em;
+    letter-spacing: 0.5px;
+    margin-bottom: 4em;
     text-align: center;
   }
 
-  form {
-    background: white;
-    border: none;
-    border-radius: 8px;
-    color: $primaryColor;
-    display: flex;
-    margin: 3em auto;
-    width: 100%;
-    max-width: 768px;
-    padding: 0.5em;
-    position: relative;
-    font-size: $fontSize-lg;
-    font-family: $textFont;
-    cursor: pointer;
+  // form {
+  //   background: white;
+  //   border: none;
+  //   border-radius: 8px;
+  //   color: $primaryColor;
+  //   display: flex;
+  //   margin: 3em auto;
+  //   width: 100%;
+  //   max-width: 768px;
+  //   padding: 0.5em;
+  //   position: relative;
+  //   font-size: $fontSize-lg;
+  //   font-family: $textFont;
+  //   cursor: pointer;
 
-    input[type="search"] {
-      background: transparent;
-      border: none;
-      border: 1px solid transparent;
-      border-radius: inherit;
-      color: inherit;
-      margin: 0;
-    }
+  //   input[type="search"] {
+  //     background: transparent;
+  //     border: none;
+  //     border: 1px solid transparent;
+  //     border-radius: inherit;
+  //     color: inherit;
+  //     margin: 0;
+  //   }
 
-    button[type="submit"] {
-      background: transparent
-        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' class='bi bi-search' viewBox='0 0 16 16'%3E%3Cpath d='M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z'%3E%3C/path%3E%3C/svg%3E")
-        no-repeat center;
-      border: 1px solid transparent;
-      border-radius: inherit;
-      cursor: pointer;
-      height: 20px;
-      margin: 0;
-      opacity: 0.7;
-      overflow: hidden;
-      padding: 0;
-      position: absolute;
-      right: 1em;
-      text-indent: -999px;
-      top: 1em;
-      width: 20px;
-    }
+  //   button[type="submit"] {
+  //     background: transparent
+  //       url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' class='bi bi-search' viewBox='0 0 16 16'%3E%3Cpath d='M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z'%3E%3C/path%3E%3C/svg%3E")
+  //       no-repeat center;
+  //     border: 1px solid transparent;
+  //     border-radius: inherit;
+  //     cursor: pointer;
+  //     height: 20px;
+  //     margin: 0;
+  //     opacity: 0.7;
+  //     overflow: hidden;
+  //     padding: 0;
+  //     position: absolute;
+  //     right: 1em;
+  //     text-indent: -999px;
+  //     top: 1em;
+  //     width: 20px;
+  //   }
 
-    button[type="submit"]:hover {
-      opacity: 1;
-    }
+  //   button[type="submit"]:hover {
+  //     opacity: 1;
+  //   }
 
-    button[type="submit"]:focus,
-    input[type="search"]:focus {
-      border-color: #1183d6;
-      box-shadow: 0 0 3px 0 #1183d6;
-      outline: none;
-    }
-  }
+  //   button[type="submit"]:focus,
+  //   input[type="search"]:focus {
+  //     border-color: #1183d6;
+  //     box-shadow: 0 0 3px 0 #1183d6;
+  //     outline: none;
+  //   }
+  // }
   .imagesBox {
     display: flex;
     justify-content: center;
+    margin-top: 4em;
     .fourRoundImages {
       display: flex;
       flex-direction: row;
       justify-content: space-evenly;
       width: 100%;
-      max-width: 820px;
+      max-width: 768px;
 
       .roundImage {
         height: 160px;

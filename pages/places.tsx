@@ -1,15 +1,19 @@
-import SidebarLayout from "@/components/layouts/SidebarLayout";
-import UnloggedUserSidebar from "@/components/layouts/UnloggedUserSidebar";
-import React from "react";
+import React, { useContext } from "react";
+import { UserContext } from "src/context/UserContext";
 
 export default function Places() {
+  const { userState } = useContext(UserContext);
+  const dept = userState.county;
+  console.log(dept);
   return (
     <>
       <div className="coloredSeparator" />
-      <SidebarLayout
-        sidebar={<UnloggedUserSidebar />}
-        content={<h1>Places</h1>}
-      />
+
+      <div className="centeredContainer">
+        <div className="container">
+          <h1>Places</h1>
+        </div>
+      </div>
     </>
   );
 }

@@ -85,6 +85,45 @@ div.ctaBox {
   }
 }
 
+div.centeredContainer {
+  background-color: $lightColor;
+  display: flex;
+  justify-content: center;
+  height: fit-content;
+  min-height: 100vh;
+
+  div.container {
+    background-color: white;
+    width: 100%;
+    max-width: 960px;
+    padding: 2em;
+  }
+}
+
+.deptDataList {
+  margin: 2em;
+  display: flex;
+  justify-content: center;
+
+  .datalistInput {
+    background-color: white;
+    border: 1px solid $secondaryColor;
+    border-radius: 4px;
+    font-size: $fontSize-md;
+    font-family: $textFont;
+    padding: 1em;
+    transition: 180ms box-shadow ease-in-out;
+    box-shadow: 3px 3px $secondaryColor;
+    width: 100%;
+    max-width: 768px;
+    &:focus {
+      outline: none;
+      border: 1px solid $blueColor;
+      box-shadow: 3px 3px $blueColor;
+    }
+  }
+}
+
 .outlineIcon {
   cursor: pointer;
   fill: none;
