@@ -2,12 +2,14 @@ import { withIronSessionApiRoute } from "iron-session/next";
 import { ironConfig } from "@/server/middleware/auth/ironConfig";
 import { E1 } from "src/constants/ErrorMessages";
 import nextConnect from "next-connect";
+import prisma from "@/server/prisma/db/client";
 
 const handler = nextConnect();
 
 export default withIronSessionApiRoute(
   handler.get(async (req: any, res: any) => {
     const { id } = req.query;
+
     const userId = Array.isArray(id) ? id[0] : id;
     if (!userId) return res.status(400).json({ message: E1 });
 
@@ -47,7 +49,6 @@ export default withIronSessionApiRoute(
       });
       res.status(200).json({ user });
     } catch (error) {
-      // console.log(error);
       res.status(400).json({ message: E1 });
     }
   }),
