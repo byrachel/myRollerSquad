@@ -74,6 +74,7 @@ export const onLogin = (
   event: SyntheticEvent,
   userDispatch: Dispatch<any>,
   router: any,
+  redirectAfterLogin,
   setError: (args: { status: boolean; message: string }) => void
 ) => {
   event.preventDefault();
@@ -99,7 +100,9 @@ export const onLogin = (
         type: "LOGIN",
         payload: res.data.user,
       });
-      router.push("/myrollerblog");
+      redirectAfterLogin && redirectAfterLogin === "profile"
+        ? router.push("/profile/me")
+        : router.push("/myrollerblog");
     })
     .catch((error: IErrorCode) => {
       setError({ status: true, message: error.response.data.message });

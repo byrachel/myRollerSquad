@@ -24,7 +24,7 @@ const UserProfile = () => {
       userToDisplay={userToDisplay}
     />
   ) : (
-    <Login />
+    <Login redirectAfterLogin={"profile"} />
   );
 };
 export default UserProfile;

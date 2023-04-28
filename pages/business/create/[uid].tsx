@@ -16,7 +16,7 @@ const BusinessSignup = () => {
       content={<BusinessProfileForm ownerId={ownerId} />}
     />
   ) : (
-    <Login />
+    <Login redirectAfterLogin={"profile"} />
   );
 };
 export default BusinessSignup;

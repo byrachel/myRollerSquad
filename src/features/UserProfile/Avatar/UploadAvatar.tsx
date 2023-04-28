@@ -6,6 +6,7 @@ import axios from "axios";
 import RegularButton from "src/components/buttons/RegularButton";
 import ErrorLayout from "src/components/layouts/ErrorLayout";
 import styles from "src/styles/Profile.module.scss";
+import Loader from "@/components/layouts/Loader";
 
 interface Props {
   avatar: {
@@ -51,7 +52,7 @@ export default function UploadAvatar({
         },
         withCredentials: true,
       })
-        .then(res => {
+        .then((res) => {
           userProfileDispatch({
             type: "USER_PROFILE_UPDATED",
             payload: res.data.user,
@@ -101,7 +102,7 @@ export default function UploadAvatar({
           </div>
         </>
       ) : (
-        <div className="loader" />
+        <Loader text={"Hey ! Jolie photo en chargement !"} />
       )}
     </div>
   );

@@ -8,6 +8,7 @@ import style from "src/styles/Profile.module.scss";
 import RegularButton from "src/components/buttons/RegularButton";
 import axios from "axios";
 import { useRouter } from "next/router";
+import Loader from "@/components/layouts/Loader";
 
 interface Props {
   userProfile: UserProfileInterface;
@@ -117,7 +118,9 @@ const UpdateUserProfile = ({ userProfile, userProfileDispatch }: Props) => {
           </form>
         </div>
       ) : userProfile.loading ? (
-        <div className="loader" />
+        <Loader
+          text={"Hop! On enregistre tout ça... Encore un petit instant..."}
+        />
       ) : userProfile.error ? (
         <p>{userProfile.errorMessage}</p>
       ) : null}

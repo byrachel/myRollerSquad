@@ -5,9 +5,9 @@ import ErrorLayout from "../layouts/ErrorLayout";
 import InputText from "../form/InputText";
 import InputMail from "../form/InputMail";
 import InputPassword from "../form/InputPassword";
-import LoadingPage from "pages/loading";
 import { onRegister } from "./utils/services";
 import { RegisterReducer, authInitialState } from "src/reducers/AuthReducer";
+import Loader from "../layouts/Loader";
 
 export default function RegisterForm() {
   const [registerStore, registerDispatch] = useReducer(
@@ -22,11 +22,7 @@ export default function RegisterForm() {
         message={registerStore.error.message}
         dispatchError={registerDispatch}
       />
-      {registerStore.loading ? (
-        <div className="mt-large">
-          <LoadingPage />
-        </div>
-      ) : null}
+      {registerStore.loading ? <Loader text={"Un peu de patience..."} /> : null}
       {registerStore.isRegistered ? (
         <div className="mt-large">
           <h2>Bienvenue dans la Roller Squad !</h2>

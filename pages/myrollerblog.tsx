@@ -9,7 +9,7 @@ interface Props {
 }
 
 const MyRollerBlog = ({ user }: Props) => {
-  return user && user.id ? (
+  return user.isLoggedIn && user.id ? (
     <>
       <NewPostBar />
       <Flow userConnectedId={user.id} />

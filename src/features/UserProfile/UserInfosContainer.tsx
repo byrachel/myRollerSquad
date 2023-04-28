@@ -7,6 +7,7 @@ import LastPostsShared from "src/features/UserProfile/LastPostsShared";
 import RollerSkateLevel from "src/features/UserProfile/RollerSkateLevel";
 import UpdateUserProfile from "src/features/UserProfile/UpdateUserProfile/UpdateUserProfile";
 import UserProfileReducer from "src/reducers/UserProfileReducer";
+import Loader from "@/components/layouts/Loader";
 
 const initialState = {
   loading: false,
@@ -30,24 +31,25 @@ const UserInfosContainer = ({ userConnectedId, userToDisplay }: Props) => {
   );
 
   useEffect(() => {
-    if (!userToDisplay) return;
-    userProfileDispatch({
-      type: "LOADING",
-    });
-    axios(`/api/user/${userToDisplay}`, {
-      method: "GET",
-      withCredentials: true,
-    })
-      .then((res) =>
-        userProfileDispatch({
-          type: "SET_USER",
-          payload: res.data.user,
-        })
-      )
-      .catch((err) => {
-        console.log(err);
-        router.push("/signin");
+    if (userToDisplay) {
+      userProfileDispatch({
+        type: "LOADING",
       });
+      axios(`/api/user/${userToDisplay}`, {
+        method: "GET",
+        withCredentials: true,
+      })
+        .then((res) =>
+          userProfileDispatch({
+            type: "SET_USER",
+            payload: res.data.user,
+          })
+        )
+        .catch((err) => {
+          console.log(err);
+          router.push("/signin");
+        });
+    }
     // eslint-disable-next-line
   }, [userToDisplay]);
 
@@ -84,7 +86,7 @@ const UserInfosContainer = ({ userConnectedId, userToDisplay }: Props) => {
           </>
         )
       ) : userProfile.loading ? (
-        <div className="loader" />
+        <Loader text="Profil en cours de chargement..." />
       ) : userProfile.error ? (
         <p>{userProfile.errorMessage}</p>
       ) : null}

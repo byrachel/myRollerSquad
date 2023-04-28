@@ -7,6 +7,7 @@ import SidebarLayout from "src/components/layouts/SidebarLayout";
 import UnloggedUserSidebar from "src/components/layouts/UnloggedUserSidebar";
 import ActivationAccount from "src/components/auth/ActivationAccount";
 import { checkTokenValidity } from "src/utils/checkTokenValidity";
+import Loader from "@/components/layouts/Loader";
 
 const Login = () => {
   const router = useRouter();
@@ -56,9 +57,7 @@ const Login = () => {
           ) : userAccountIsActivate === false ? (
             <ActivationAccount id={userId} />
           ) : (
-            <div className="center">
-              <div className="loader" />
-            </div>
+            <Loader text={"Dernières vérifications..."} />
           )}
         </>
       }
