@@ -10,37 +10,40 @@ export default function Hero() {
   return (
     <div className={styles.homeHero}>
       <div className={styles.heroCta}>
-        <h1 className={styles.ctaTitle}>
-          Fan de
-          <br /> Roller Quad
-        </h1>
-        {displayRegisterForm ? (
-          <RegisterForm />
-        ) : (
-          <>
-            <p className={styles.ctaText}>
-              Tu cherches des <b>roller skaters près de chez toi</b> ?
-            </p>
-            <p className={styles.ctaText}>
-              Tu veux participer à une{" "}
-              <b>rando roller sur ton lieu de vacances</b> ou en organiser une ?
-            </p>
-            <p className={styles.ctaText}>
-              Tu revends ton matériel ou cherches de la "seconde main" ?
-            </p>
-            <h2 className={styles.cta}>
-              Quelque soit ton style ou ton niveau, rejoins-nous !
-            </h2>
-            <div className={styles.ctaButton}>
-              <BigButton
-                text="Créer un compte"
-                type="button"
-                style="outline"
-                onClick={() => setDisplayRegisterForm(true)}
-              />
-            </div>
-          </>
-        )}
+        <div>
+          <h1 className={styles.ctaTitle}>
+            Fan de
+            <br /> Roller Quad
+          </h1>
+          {displayRegisterForm ? (
+            <RegisterForm />
+          ) : (
+            <>
+              <p className={styles.ctaText}>
+                Tu cherches des <b>roller skaters près de chez toi</b> ?
+              </p>
+              <p className={styles.ctaText}>
+                Tu veux participer à une{" "}
+                <b>rando roller sur ton lieu de vacances</b> ou en organiser une
+                ?
+              </p>
+              <p className={styles.ctaText}>
+                Tu revends ton matériel ou cherches de la "seconde main" ?
+              </p>
+              <h2 className={styles.cta}>
+                Quelque soit ton style ou ton niveau, rejoins-nous !
+              </h2>
+              <div className={styles.ctaButton}>
+                <BigButton
+                  text="Créer un compte"
+                  type="button"
+                  style="outline"
+                  onClick={() => setDisplayRegisterForm(true)}
+                />
+              </div>
+            </>
+          )}
+        </div>
       </div>
       <div className={styles.heroImage}>
         <Image

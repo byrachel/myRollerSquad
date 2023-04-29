@@ -1,5 +1,6 @@
 import React, { useContext } from "react";
 import { UserContext } from "src/context/UserContext";
+import Business from "src/features/BusinessProfile/Business";
 
 export default function Places() {
   const { userState } = useContext(UserContext);
@@ -12,6 +13,7 @@ export default function Places() {
       <div className="centeredContainer">
         <div className="container">
           <h1>Places</h1>
+          <Business />
         </div>
       </div>
     </>

@@ -1,7 +1,7 @@
 import React from "react";
 
 import BusinessProfileCTA from "../BusinessProfile/BusinessProfileCTA";
-import BusinessCard from "../BusinessProfile/BusinessCard";
+import BusinessCard from "../BusinessProfile/BusinessProfileCard";
 import { parseContent } from "src/utils/parseContent";
 import { PlaceInterface, UserInterface } from "src/interfaces/userInterfaces";
 

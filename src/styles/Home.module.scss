@@ -6,32 +6,34 @@
   gap: 0;
   justify-content: flex-start;
   margin: 0;
+  max-height: 600px;
 
   .heroCta {
     background: linear-gradient(135deg, $yellowColor 0%, $secondaryColor 100%);
     min-width: 300px;
     padding: 2.5em;
     width: 100%;
+    display: flex;
+    align-items: center;
 
     h1.ctaTitle {
       font-family: $titleFont;
       font-size: $fontSize-xxl;
       line-height: 1em;
-      margin: 0.8em 0;
+      margin-bottom: 1.5em;
     }
     h2.cta {
       font-family: $titleFont;
       font-size: $fontSize-lg;
-      margin: 1em 0;
+      margin: 2em 0;
     }
     p.ctaText {
       font-family: $textFont;
       font-size: $fontSize-md;
       font-weight: 300;
-      line-height: 1.7em;
+      margin-top: 1em;
     }
     .ctaButton {
-      margin: 2em 0;
       padding: 0;
     }
   }

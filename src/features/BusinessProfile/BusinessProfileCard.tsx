@@ -29,6 +29,7 @@ export default function BusinessCard({
       .then(() => setIsDeleted(true))
       .catch(() => setIsDeleted(false));
   };
+
   return (
     <>
       {place.active ? (
