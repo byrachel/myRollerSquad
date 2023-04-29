@@ -4,7 +4,6 @@ export interface UserProfileInterface {
   user: UserInterface;
   loading: boolean;
   error: boolean;
-  errorMessage: string;
   updateProfile: boolean;
 }
 
@@ -30,13 +29,11 @@ const UserProfileReducer = (
         ...state,
         loading: false,
         error: true,
-        errorMessage: action.payload,
       };
     case "HIDE_ERROR":
       return {
         ...state,
         error: false,
-        errorMessage: "",
       };
     case "UPDATE_USER_PROFILE":
       return {

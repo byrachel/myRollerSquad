@@ -8,11 +8,11 @@ import RollerSkateLevel from "src/features/UserProfile/RollerSkateLevel";
 import UpdateUserProfile from "src/features/UserProfile/UpdateUserProfile/UpdateUserProfile";
 import UserProfileReducer from "src/reducers/UserProfileReducer";
 import Loader from "@/components/layouts/Loader";
+import UserResume from "./UserResume";
 
 const initialState = {
   loading: false,
   error: false,
-  errorMessage: "",
   user: null,
   updateProfile: false,
   profileUpdated: false,
@@ -70,6 +70,11 @@ const UserInfosContainer = ({ userConnectedId, userToDisplay }: Props) => {
               userProfileDispatch={userProfileDispatch}
               userConnectedId={userConnectedId}
             />
+            <UserResume
+              user={userProfile.user}
+              userProfileDispatch={userProfileDispatch}
+              userConnectedId={userConnectedId}
+            />
             <RollerSkateLevel
               rollerDanceLevel={userProfile.user.roller_dance_level}
               skateParkLevel={userProfile.user.skatepark_level}
@@ -86,8 +91,6 @@ const UserInfosContainer = ({ userConnectedId, userToDisplay }: Props) => {
         )
       ) : userProfile.loading ? (
         <Loader text="Profil en cours de chargement..." />
-      ) : userProfile.error ? (
-        <p>{userProfile.errorMessage}</p>
       ) : null}
     </>
   );

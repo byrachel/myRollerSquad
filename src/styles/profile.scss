@@ -26,7 +26,10 @@
 
 .rollerSkaterAvatarContainer {
   position: relative;
-
+  width: 200px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   .rollerSkaterAvatar {
     width: 175px;
     height: 175px;
@@ -36,10 +39,11 @@
   }
   .updateAvatarIcon {
     position: absolute;
-    top: 130px;
-    right: 5px;
+    top: 140px;
+    right: 30px;
     stroke: $secondaryColor;
     background: white;
+    border-radius: 5px;
   }
 }
 
@@ -51,31 +55,34 @@
 
 .rollerSkaterInfoBar {
   width: 100%;
+  background: $gradient;
+  gap: 2em;
+  margin: 0.3em 0 0 0;
+  padding: 1em;
+  display: flex;
+  justify-content: flex-start;
 
-  .rollerSkaterInfoContainer {
-    background: linear-gradient(0deg, white 50%, $primaryColor 50%);
+  .rollerSkaterInfo {
     display: flex;
-    margin: 0.3em 0 0 0;
-    padding: 1.25em 1.25em 0 1.25em;
+    justify-content: flex-start;
+    flex-direction: column;
+    margin-top: 2em;
+    width: 100%;
 
-    .rollerSkaterInfo {
-      margin: 0 0 0 2.5em;
-      width: 100%;
-      position: relative;
-
-      .rollerSkaterName {
-        display: flex;
-        justify-content: space-between;
-        h1 {
-          color: white;
-          font-size: $fontSize-xl;
-          font-family: $titleFont;
-          letter-spacing: 0.5px;
-          margin: 0;
-        }
+    .rollerSkaterName {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      h1 {
+        color: white;
+        font-size: $fontSize-xl;
+        font-family: $titleFont;
+        letter-spacing: 0.7px;
+        margin: 0;
+      }
+      .rollerSkaterButtons {
         .editIcon {
           cursor: pointer;
-          margin-top: 0.3em;
           stroke: white;
           margin-right: 0.75em;
         }
@@ -84,72 +91,67 @@
         }
         .logoutIcon {
           cursor: pointer;
-          margin-top: 0.3em;
           stroke: white;
         }
         .logoutIcon:hover {
           stroke: $secondaryColor;
         }
       }
-
-      .rollerSkaterLocation {
-        margin-top: 0.25em;
-        p {
-          display: flex;
-          align-items: center;
-          color: white;
-          font-family: $textFont;
-          font-size: $fontSize-md;
-          letter-spacing: 0.2px;
-        }
-        .locationIcon {
-          stroke: white;
-          fill: $primaryColor;
-          margin-right: 0.5em;
-        }
+    }
+    .rollerSkaterLocation {
+      margin-top: 0.5em;
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      p {
+        color: white;
+        font-family: $textFont;
+        font-size: $fontSize-md;
+        letter-spacing: 0.2px;
       }
-
-      .rollerSkaterLinks {
-        position: absolute;
-        top: 58%;
-        right: 0;
-
-        .noLinkIcon {
-          margin-left: 0.3em;
-          stroke: lighten($color: $secondaryColor, $amount: 35);
-          fill: none;
-        }
-        .linkIcon {
-          margin-left: 0.3em;
-          stroke: $primaryColor;
-          fill: none;
-          cursor: pointer;
-        }
-        .linkIcon:hover {
-          stroke: $secondaryColor;
-        }
+      .locationIcon {
+        stroke: white;
+        fill: none;
+        margin-right: 0.5em;
       }
+    }
+  }
+}
+
+.rollerSkaterResumeBox {
+  display: flex;
+  justify-content: flex-start;
+  padding: 1em;
+  gap: 2em;
+
+  .rollerSkaterLinks {
+    display: flex;
+    justify-content: center;
+    margin-top: 1.5em;
+    width: 200px;
+    .noLinkIcon {
+      margin-left: 0.3em;
+      stroke: lighten($color: $secondaryColor, $amount: 35);
+      fill: none;
     }
   }
   .rollerSkaterResume {
-    align-items: flex-start;
-    display: flex;
-    justify-content: flex-start;
-    gap: 1em;
-
-    .profileButton {
-      display: flex;
-      justify-content: center;
-      width: 20%;
-    }
-    .rollerSkaterDescription {
-      font-family: $textFont;
-      font-size: $fontSize-md;
-      color: $primaryColor;
-      width: 80%;
-      padding: 0 0 1.5em 0;
-    }
+    padding: 1em;
+    width: 100%;
+    font-family: $textFont;
+    font-size: $fontSize-md;
+    color: $primaryColor;
   }
+}
+
+.linkIcon {
+  margin-left: 0.3em;
+  stroke: $primaryColor;
+  fill: none;
+  cursor: pointer;
+}
+.linkIcon:hover {
+  stroke: $secondaryColor;
 }
 
 .uploadRollerSkaterAvatar {
@@ -210,6 +212,41 @@
   fill: $secondaryColor;
 }
 
+div.ctaBox {
+  margin: 2em 1em 0 0;
+  border-radius: 8px;
+  background: $lightColor;
+  padding: 1.5em;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+
+  h3 {
+    color: $secondaryColor;
+  }
+
+  p.ctaLink {
+    color: $secondaryColor;
+    margin: 0.25em 0;
+  }
+}
+
+div.addBusinessLink {
+  display: flex;
+  justify-content: flex-end;
+  margin: 0.4em 1.25em 0 0;
+
+  p {
+    color: $primaryColor;
+    font-size: $fontSize-sm;
+    font-family: $textFont;
+  }
+  p:hover {
+    color: $secondaryColor;
+  }
+}
+
 @media (max-width: 700px) {
   .rollerStylesSeparator {
     width: 100%;
@@ -225,5 +262,30 @@
     gap: 0;
     display: flex;
     flex-wrap: wrap;
+  }
+
+  .rollerSkaterAvatarContainer {
+    width: 140px;
+    .rollerSkaterAvatar {
+      width: 130px;
+      height: 130px;
+      border: solid 2px white;
+    }
+    .updateAvatarIcon {
+      top: 100px;
+      right: 20px;
+    }
+  }
+
+  .rollerSkaterResumeBox {
+    .rollerSkaterLinks {
+      width: 140px;
+      .noLinkIcon {
+        margin-left: 0.1em;
+      }
+      .linkIcon {
+        margin-left: 0.1em;
+      }
+    }
   }
 }

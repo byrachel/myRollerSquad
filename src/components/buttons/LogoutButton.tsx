@@ -3,8 +3,6 @@ import { useRouter } from "next/router";
 import axios from "axios";
 
 import { UserContext } from "src/context/UserContext";
-import styles from "../../styles/Profile.module.scss";
-
 import Logout from "src/svg/logout.svg";
 
 export default function LogoutButton() {
@@ -24,11 +22,6 @@ export default function LogoutButton() {
   };
 
   return (
-    <Logout
-      className={styles.logoutIcon}
-      width={30}
-      height={30}
-      onClick={logout}
-    />
+    <Logout className="logoutIcon" width={30} height={30} onClick={logout} />
   );
 }

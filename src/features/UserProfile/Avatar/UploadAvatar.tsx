@@ -5,7 +5,6 @@ import axios from "axios";
 
 import RegularButton from "src/components/buttons/RegularButton";
 import ErrorLayout from "src/components/layouts/ErrorLayout";
-import styles from "src/styles/Profile.module.scss";
 import Loader from "@/components/layouts/Loader";
 
 interface Props {
@@ -78,7 +77,7 @@ export default function UploadAvatar({
             <Image
               src={avatar.file.preview}
               alt="Roller Quad"
-              className={styles.uploadRollerSkaterAvatar}
+              className="uploadRollerSkaterAvatar"
               width={avatar.width}
               height={avatar.height}
             />

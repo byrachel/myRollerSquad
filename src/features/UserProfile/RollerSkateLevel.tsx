@@ -1,6 +1,5 @@
 import React from "react";
 import Star from "src/svg/star.svg";
-import styles from "../../styles/Profile.module.scss";
 
 interface Props {
   rollerDanceLevel: number;
@@ -32,49 +31,30 @@ export default function RollerSkateLevel({
     return stars.map((star, index) => (
       <Star
         key={index}
-        className={star === 1 ? styles.rollerStarIcon : styles.rollerNoStarIcon}
+        className={star === 1 ? "rollerStarIcon" : "rollerNoStarIcon"}
         width={20}
         height={20}
       />
     ));
   };
+
+  const displayStarsLevel = (rollerLevel: number, rollerStyle: string) => (
+    <div className="spaceBetween">
+      <p className="rollerLevelTitle">{rollerStyle}</p>
+      <div className="flexStart">{handleRollerSkateLevel(rollerLevel)}</div>
+    </div>
+  );
   return (
-    <div className={styles.rollerLevelContainer}>
+    <div className={"rollerLevelContainer"}>
       <div>
-        <div className="spaceBetween">
-          <p className={styles.rollerLevelTitle}>Roller Dance</p>
-          <div className="flexStart">
-            {handleRollerSkateLevel(rollerDanceLevel)}
-          </div>
-        </div>
-        <div className="spaceBetween">
-          <p className={styles.rollerLevelTitle}>Skate Park</p>
-          <div className="flexStart">
-            {handleRollerSkateLevel(skateParkLevel)}
-          </div>
-        </div>
-        <div className="spaceBetween">
-          <p className={styles.rollerLevelTitle}>Artistique</p>
-          <div className="flexStart">
-            {handleRollerSkateLevel(artisticLevel)}
-          </div>
-        </div>
+        {displayStarsLevel(rollerDanceLevel, "Roller Dance")}
+        {displayStarsLevel(skateParkLevel, "Skate Park")}
+        {displayStarsLevel(artisticLevel, "Artistique")}
       </div>
       <div>
-        <div className="spaceBetween">
-          <p className={styles.rollerLevelTitle}>Freestyle</p>
-          <div className="flexStart">
-            {handleRollerSkateLevel(freestyleLevel)}
-          </div>
-        </div>
-        <div className="spaceBetween">
-          <p className={styles.rollerLevelTitle}>Roller Urbain</p>
-          <div className="flexStart">{handleRollerSkateLevel(urbanLevel)}</div>
-        </div>
-        <div className="spaceBetween">
-          <p className={styles.rollerLevelTitle}>Roller Urbain</p>
-          <div className="flexStart">{handleRollerSkateLevel(derbyLevel)}</div>
-        </div>
+        {displayStarsLevel(freestyleLevel, "Freestyle")}
+        {displayStarsLevel(urbanLevel, "Roller Urbain")}
+        {displayStarsLevel(derbyLevel, "Roller Derby")}
       </div>
     </div>
   );

@@ -1,7 +1,4 @@
 import React from "react";
-
-import styles from "../../styles/Profile.module.scss";
-
 import Edit from "src/svg/edit.svg";
 
 interface Props {
@@ -15,7 +12,7 @@ export default function UpdateProfileButton({ userProfileDispatch }: Props) {
 
   return (
     <Edit
-      className={styles.editIcon}
+      className="editIcon"
       width={30}
       height={30}
       onClick={updateUserProfile}

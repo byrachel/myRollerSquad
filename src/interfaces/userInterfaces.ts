@@ -28,7 +28,7 @@ export interface UserInterface {
 export interface PlaceInterface {
   id: number;
   name: string;
-  descritpion: string;
+  description: string;
   city: string;
   country: string;
   type: string;

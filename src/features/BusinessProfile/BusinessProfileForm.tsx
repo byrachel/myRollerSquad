@@ -7,7 +7,7 @@ import InputUrl from "@/components/form/InputUrl";
 import RegularButton from "@/components/buttons/RegularButton";
 import ErrorLayout from "@/components/layouts/ErrorLayout";
 import SelectLocation from "@/components/form/Location/SelectLocation";
-import { E1 } from "src/constants/ErrorMessages";
+import { E1, E3 } from "src/constants/ErrorMessages";
 
 interface Props {
   ownerId: number;
@@ -31,6 +31,14 @@ const BusinessProfileForm = ({ ownerId }: Props) => {
       department: { value?: string };
       city: { value?: string };
     };
+
+    if (
+      !target.siren.value ||
+      !target.name.value ||
+      !target.type.value ||
+      !target.url.value
+    )
+      return setError({ status: true, message: E3 });
 
     const data = {
       siren: target.siren.value,
@@ -115,7 +123,7 @@ const BusinessProfileForm = ({ ownerId }: Props) => {
 
         <SelectLocation country={"France"} department={null} city={null} />
 
-        <InputUrl required={false} />
+        <InputUrl required={true} />
         <div className="mt5" />
         <RegularButton type="submit" text="valider" style="full" />
       </form>

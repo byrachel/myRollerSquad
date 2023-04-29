@@ -4,7 +4,6 @@ import { UserContext } from "src/context/UserContext";
 import { UserProfileInterface } from "src/reducers/UserProfileReducer";
 import Avatar from "../Avatar/Avatar";
 import UpdateUserProfileForm from "./UpdateUserProfileForm";
-import style from "src/styles/Profile.module.scss";
 import RegularButton from "src/components/buttons/RegularButton";
 import axios from "axios";
 import { useRouter } from "next/router";
@@ -85,7 +84,7 @@ const UpdateUserProfile = ({ userProfile, userProfileDispatch }: Props) => {
       {userProfile.user ? (
         <div className="sidebarLayout">
           <div className="sidebarContent">
-            <div className={style.updateUserSidebarAvatar}>
+            <div className="updateUserSidebarAvatar">
               <Avatar
                 avatar={userProfile.user.avatar}
                 userId={userProfile.user.id}
@@ -122,7 +121,7 @@ const UpdateUserProfile = ({ userProfile, userProfileDispatch }: Props) => {
           text={"Hop! On enregistre tout ça... Encore un petit instant..."}
         />
       ) : userProfile.error ? (
-        <p>{userProfile.errorMessage}</p>
+        <p>Oups !</p>
       ) : null}
     </>
   );

@@ -1,26 +1,23 @@
 import { useRouter } from "next/router";
+import { useContext } from "react";
+import { UserContext } from "src/context/UserContext";
 import UserInfosContainer from "src/features/UserProfile/UserInfosContainer";
 import Login from "@/components/auth/Login";
-import { withSessionSsr } from "@/server/middleware/auth/withSession";
-import { UserStateInterface } from "src/reducers/UserReducer";
 
-interface Props {
-  user: UserStateInterface;
-}
-
-const UserProfile = ({ user }: Props) => {
+const UserProfile = () => {
   const router = useRouter();
   const { uid } = router.query;
-  const userToDisplay =
-    user && user.isLoggedIn
-      ? uid === "me"
-        ? user.id
-        : parseInt(uid as string)
-      : null;
+  const { userState } = useContext(UserContext);
 
-  return userToDisplay && user.id ? (
+  const userToDisplay = userState.isLoggedIn
+    ? uid === "me"
+      ? userState.id
+      : parseInt(uid as string)
+    : null;
+
+  return userState.isLoggedIn && userToDisplay && userState.id ? (
     <UserInfosContainer
-      userConnectedId={user.id}
+      userConnectedId={userState.id}
       userToDisplay={userToDisplay}
     />
   ) : (
@@ -28,11 +25,3 @@ const UserProfile = ({ user }: Props) => {
   );
 };
 export default UserProfile;
-
-export const getServerSideProps = withSessionSsr(async ({ req }) => {
-  const user = req.session as any;
-
-  return {
-    props: user,
-  };
-});

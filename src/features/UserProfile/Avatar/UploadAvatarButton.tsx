@@ -1,8 +1,6 @@
 import React, { useState } from "react";
-
 import UploadAvatar from "./UploadAvatar";
 import Modal from "src/components/layouts/Modal";
-import styles from "src/styles/Profile.module.scss";
 
 import Avatar from "src/svg/add-media-image.svg";
 
@@ -34,7 +32,7 @@ export default function UploadAvatarButton({
     const image: HTMLImageElement = new window.Image();
 
     const imageDimensions: { width: number; height: number } =
-      await new Promise(resolve => {
+      await new Promise((resolve) => {
         image.onload = () => {
           const dimensions = {
             height: image.height,
@@ -52,7 +50,7 @@ export default function UploadAvatarButton({
   return (
     <>
       <label htmlFor="fileInput" className="flowFileInput">
-        <Avatar className={styles.updateAvatarIcon} width={28} height={28} />
+        <Avatar className="updateAvatarIcon" width={28} height={28} />
         <input
           id="fileInput"
           className="input"

@@ -1,8 +1,6 @@
 import React, { useState } from "react";
 import Image from "next/image";
-
 import UploadAvatarButton from "./UploadAvatarButton";
-import styles from "src/styles/Profile.module.scss";
 
 interface Props {
   avatar: string | null;
@@ -20,12 +18,12 @@ export default function Avatar({
   const [displayNewAvatar, setDisplayNewAvatar] = useState(false);
 
   return (
-    <div className={styles.rollerSkaterAvatarContainer}>
+    <div className="rollerSkaterAvatarContainer">
       {avatar ? (
         <Image
           src={`https://mys3rollerpicts.s3.eu-west-3.amazonaws.com/${avatar}`}
           alt="Roller Skater Avatar"
-          className={styles.rollerSkaterAvatar}
+          className="rollerSkaterAvatar"
           width={200}
           height={200}
         />
@@ -33,7 +31,7 @@ export default function Avatar({
         <Image
           src="/img/myrollersquad_avatar.jpeg"
           alt="My Roller Squad"
-          className={styles.rollerSkaterAvatar}
+          className="rollerSkaterAvatar"
           width={200}
           height={200}
         />

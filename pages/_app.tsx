@@ -18,6 +18,7 @@ const oxygen = Oxygen({
 import "../src/styles/globals.scss";
 import "../src/styles/common.scss";
 import "../src/styles/flow.scss";
+import "../src/styles/profile.scss";
 
 function App({ Component, pageProps }: AppProps) {
   return (

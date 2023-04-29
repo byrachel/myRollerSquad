@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import Star from "src/svg/star.svg";
-import styles from "src/styles/Profile.module.scss";
 
 interface Props {
   label: string;
@@ -41,7 +40,7 @@ export default function UpdateRollerSkateLevel({
   return (
     <>
       <div className="spaceBetween mt5">
-        <p className={styles.rollerLevelTitle}>{label}</p>
+        <p className="rollerLevelTitle">{label}</p>
         <div className="flexStart">
           {levels.map((star) => (
             <Star
@@ -49,8 +48,8 @@ export default function UpdateRollerSkateLevel({
               role="button"
               className={
                 star < (hover || rating)
-                  ? styles.updateRollerStarIcon
-                  : styles.updateRollerNoStarIcon
+                  ? "updateRollerStarIcon"
+                  : "updateRollerNoStarIcon"
               }
               width={20}
               height={20}
