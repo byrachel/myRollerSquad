@@ -25,7 +25,12 @@ export const UserContextProvider = ({ children }: { children: any }) => {
       if (id) {
         userDispatch({
           type: "LOGIN",
-          payload: { id, role: "USER", isLoggedIn: true },
+          payload: {
+            id,
+            role: "USER",
+            isLoggedIn: true,
+            county: null,
+          },
         });
       }
     }

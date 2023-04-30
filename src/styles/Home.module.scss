@@ -6,7 +6,6 @@
   gap: 0;
   justify-content: flex-start;
   margin: 0;
-  max-height: 600px;
 
   .heroCta {
     background: linear-gradient(135deg, $yellowColor 0%, $secondaryColor 100%);
@@ -15,12 +14,12 @@
     width: 100%;
     display: flex;
     align-items: center;
+    max-height: 600px;
 
     h1.ctaTitle {
       font-family: $titleFont;
       font-size: $fontSize-xxl;
       line-height: 1em;
-      margin-bottom: 1.5em;
     }
     h2.cta {
       font-family: $titleFont;
@@ -40,6 +39,7 @@
   .heroImage {
     height: auto;
     width: 100%;
+    max-height: 600px;
   }
   .heroImage > div {
     position: unset !important;
@@ -56,6 +56,8 @@
   background: $primaryColor;
   margin: 0;
   padding: 5em 2em;
+  width: 100%;
+  height: 100%;
 
   h2.blueBoxTitle {
     color: white;
@@ -139,25 +141,46 @@
   .imagesBox {
     display: flex;
     justify-content: center;
-    margin-top: 4em;
+    align-items: center;
+    margin-top: 3em;
     .fourRoundImages {
       display: flex;
-      flex-direction: row;
-      justify-content: space-evenly;
-      width: 100%;
-      max-width: 768px;
 
       .roundImage {
-        height: 160px;
+        height: 140px;
         position: relative;
-        width: 160px;
+        width: 140px;
       }
       .image {
-        border: solid 3px white;
         border-radius: 50%;
         height: 160px !important;
         object-fit: cover;
         width: 160px !important;
+        border: solid 2px $secondaryColor;
+      }
+
+      .greenImage {
+        border-radius: 50%;
+        height: 160px !important;
+        object-fit: cover;
+        width: 160px !important;
+        border: solid 2px $greenColor;
+      }
+
+      .blueImage {
+        border-radius: 50%;
+        height: 160px !important;
+        object-fit: cover;
+        width: 160px !important;
+        border: solid 2px $blueColor;
+      }
+
+      .yellowImage {
+        border-radius: 50%;
+        height: 160px !important;
+        object-fit: cover;
+        width: 160px !important;
+        border: solid 2px $yellowColor;
       }
     }
   }
@@ -174,7 +197,8 @@
   width: 100%;
 
   .nextEventLogo {
-    width: 300px;
+    width: 100%;
+    max-width: 250px;
   }
 
   .nextEventCard {
@@ -220,22 +244,12 @@
       height: auto;
     }
   }
-  .blueBox {
-    .imagesBox {
-      .fourRoundImages {
-        .roundImage {
-          height: 125px;
-          position: relative;
-          width: 125px;
-        }
-        .image {
-          border: solid 2px white;
-          border-radius: 50%;
-          height: 125px !important;
-          object-fit: cover;
-          width: 125px !important;
-        }
-      }
+
+  .homeNextEvent {
+    padding: 1.5em;
+
+    .nextEventLogo {
+      max-width: 180px;
     }
   }
 }

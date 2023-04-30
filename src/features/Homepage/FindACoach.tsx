@@ -7,7 +7,7 @@ import { useRouter } from "next/router";
 
 export default function FindACoach() {
   const { userState, userDispatch } = useContext(UserContext);
-  const userDept = userState.isLoggedIn ? userState.county : null;
+  const userDept = userState.county ? userState.county : null;
   const router = useRouter();
 
   const onSelectDepartment = (event: any) => {
@@ -38,7 +38,7 @@ export default function FindACoach() {
             <Image
               src="/img/pexels-rodnae-productions-7335311.jpg"
               alt="Formateur Roller Quad"
-              className={styles.image}
+              className={styles.greenImage}
               width={512}
               height={768}
             />
@@ -56,7 +56,7 @@ export default function FindACoach() {
             <Image
               src="/img/pexels-airam-datoon-11990083.jpg"
               alt="Formateur Roller Quad"
-              className={styles.image}
+              className={styles.yellowImage}
               width={512}
               height={768}
             />
@@ -65,7 +65,7 @@ export default function FindACoach() {
             <Image
               src="/img/pexels-katya-wolf-8734228.jpg"
               alt="Formateur Roller Quad"
-              className={styles.image}
+              className={styles.blueImage}
               width={512}
               height={768}
             />

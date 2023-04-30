@@ -21,8 +21,8 @@ export default function CategoriesBoard() {
         url: `/api/admin/categories`,
         withCredentials: true,
       })
-        .then(res => setCategories(res.data.categories))
-        .catch(err => console.log(err));
+        .then((res) => setCategories(res.data.categories))
+        .catch((err) => console.log(err));
     }
   }, [isAdmin]);
 

@@ -27,7 +27,7 @@ export default function InputText({
     <div className="inputContainer">
       <div className="spaceBetween">
         {label ? <label>{label}</label> : ""}
-        {required ? <p className="required">*</p> : null}
+        {label && required ? <p className="required">*</p> : null}
       </div>
       <input
         type="text"

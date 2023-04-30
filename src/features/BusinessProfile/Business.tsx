@@ -1,6 +1,7 @@
 import React, { useEffect, useReducer } from "react";
 import Masonry from "react-masonry-css";
 import axios from "axios";
+import BusinessCard from "./BusinessCard";
 
 const breakpointColumnsObj = {
   default: 3,
@@ -19,54 +20,53 @@ const BusinessReducer = (
   action: { type: string; payload: any }
 ) => {
   switch (action.type) {
-    case "SET_DEPT":
-      return {
-        ...state,
-        department: action.payload,
-        cursor: 0,
-        places: [],
-      };
     case "SET_PLACES":
       return {
         ...state,
-        places: action.payload.places,
-        cursor: action.payload.cursor,
+        places: action.payload,
       };
-    case "SET_CURSOR":
+    case "ADD_TO_MY_FAV":
       return {
         ...state,
-        cursor: action.payload,
+        places: state.places.map((place: any) => {
+          if (place.id === action.payload.id) {
+            return {
+              ...place,
+              favorites: action.payload.favorites,
+            };
+          }
+          return place;
+        }),
       };
     default:
       return state;
   }
 };
 
-const Business = () => {
+interface Props {
+  dept: string | null;
+}
+
+const Business = ({ dept }: Props) => {
   const [businessStore, businessDispatch] = useReducer(
     BusinessReducer,
     initialState
   );
   const places = businessStore.places;
 
-  const nextId = businessStore.cursor ? businessStore.cursor : 0;
-  const department = businessStore.department
-    ? `dept=${businessStore.department}`
-    : `dept=`;
+  console.log(places);
+
+  const department = dept ? dept : "all";
 
   const fetchPlaces = () => {
     axios({
       method: "get",
-      url: `/api/business/dept?cursor=${nextId}&${department}`,
-      withCredentials: true,
+      url: `/api/business/${department}`,
     })
       .then((res) => {
         businessDispatch({
           type: "SET_PLACES",
-          payload: {
-            places: [...businessStore.places, ...res.data.places],
-            cursor: res.data.nextId ? res.data.nextId : null,
-          },
+          payload: res.data.places,
         });
       })
       .catch((err) => console.log(err));
@@ -75,29 +75,26 @@ const Business = () => {
   useEffect(() => {
     fetchPlaces();
     // eslint-disable-next-line
-  }, [department]);
-
-  //   const newLimit = () => {
-  //     fetchPlaces();
-  //   };
+  }, [dept]);
 
   return (
-    <>
-      <div className="responsiveFlowContainer">
-        <div className="flowContainer">
-          {/* <FlowFilters flowStore={flowStore} flowDispatch={flowDispatch} /> */}
-          <Masonry
-            breakpointCols={breakpointColumnsObj}
-            className="my-masonry-grid"
-            columnClassName="my-masonry-grid_column"
-          >
-            {places && places.length > 0
-              ? places.map((place: any) => <p key={place.id}>{place.name}</p>)
-              : null}
-          </Masonry>
-        </div>
-      </div>
-    </>
+    <div className="placeContainer">
+      <Masonry
+        breakpointCols={breakpointColumnsObj}
+        className="my-masonry-grid"
+        columnClassName="my-masonry-grid_column"
+      >
+        {places && places.length > 0
+          ? places.map((place: any) => (
+              <BusinessCard
+                place={place}
+                key={place.id}
+                businessDispatch={businessDispatch}
+              />
+            ))
+          : null}
+      </Masonry>
+    </div>
   );
 };
 export default Business;

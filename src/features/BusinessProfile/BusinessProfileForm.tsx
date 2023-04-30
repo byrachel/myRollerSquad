@@ -102,23 +102,23 @@ const BusinessProfileForm = ({ ownerId }: Props) => {
         </div>
         <InputText
           label="Numéro de SIREN (ou RNA pou les associations)"
-          placeholder=""
+          placeholder="SIREN (ou RNA)"
           name="siren"
           required
           minLength={9}
           maxLength={10}
         />
         <InputText
-          label="Nom de l'asso ou entreprise"
-          placeholder="Nom"
+          placeholder="Nom de ton business on wheels !"
           name="name"
           required
         />
-        <InputText
-          label="Description"
-          placeholder="Description"
+        <textarea
+          placeholder="Decris ton activité, tes valeurs..."
+          className="input"
           name="description"
           required={false}
+          rows={4}
         />
 
         <SelectLocation country={"France"} department={null} city={null} />

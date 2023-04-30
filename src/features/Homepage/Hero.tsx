@@ -19,6 +19,7 @@ export default function Hero() {
             <RegisterForm />
           ) : (
             <>
+              <br />
               <p className={styles.ctaText}>
                 Tu cherches des <b>roller skaters près de chez toi</b> ?
               </p>

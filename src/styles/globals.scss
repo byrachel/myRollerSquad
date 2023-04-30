@@ -29,6 +29,7 @@ h1 {
 h2 {
   font-family: $titleFont;
   font-size: $fontSize-lg;
+  line-height: 1.1em;
 }
 
 h3 {
@@ -91,7 +92,7 @@ ul {
 }
 
 .mt5 {
-  margin-top: 1em;
+  margin-top: 1.5em;
 }
 
 .mt-large {
@@ -131,11 +132,11 @@ blockquote {
   padding: 1em;
   background-color: $lightColor;
   cursor: pointer;
-  .rollerColoredIcon {
-    fill: white;
-    stroke: $secondaryColor;
-    margin-right: 0.5em;
-  }
+}
+.rollerColoredIcon {
+  fill: white;
+  stroke: $secondaryColor;
+  margin-right: 0.5em;
 }
 
 .inputContainer {

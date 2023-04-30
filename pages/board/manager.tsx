@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import styles from "src/styles/AdminLayout.module.scss";
 import CategoriesBoard from "src/components/admin/CategoriesBoard";
+import PlacesBoard from "@/components/admin/PlacesBoard";
 
 const CATEGORIES = 1;
 const STYLES = 2;
 const USERS = 3;
-const EVENTS = 4;
+const PLACES = 4;
 
 export default function Manager() {
   const [componentToDisplay, setComponentToDisplay] = useState(CATEGORIES);
@@ -54,19 +55,19 @@ export default function Manager() {
             <li>
               <div
                 tabIndex={0}
-                className={componentToDisplay === EVENTS ? styles.active : ""}
+                className={componentToDisplay === PLACES ? styles.active : ""}
                 role="button"
-                onClick={() => setComponentToDisplay(EVENTS)}
-                onKeyDown={() => setComponentToDisplay(EVENTS)}
+                onClick={() => setComponentToDisplay(PLACES)}
+                onKeyDown={() => setComponentToDisplay(PLACES)}
               >
-                Evénements
+                Business
               </div>
             </li>
           </ul>
         </div>
         <div className={styles.adminContent}>
-          <h2>{componentToDisplay}</h2>
           {componentToDisplay === CATEGORIES && <CategoriesBoard />}
+          {componentToDisplay === PLACES && <PlacesBoard />}
         </div>
       </div>
     </>

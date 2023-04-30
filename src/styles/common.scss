@@ -69,25 +69,11 @@ div.inline {
   align-items: center;
 }
 
-div.centeredContainer {
-  background-color: $lightColor;
-  display: flex;
-  justify-content: center;
-  height: fit-content;
-  min-height: 100vh;
-
-  div.container {
-    background-color: white;
-    width: 100%;
-    max-width: 960px;
-    padding: 2em;
-  }
-}
-
 .deptDataList {
-  margin: 2em;
+  margin: 2em 0;
   display: flex;
   justify-content: center;
+  flex-wrap: wrap;
 
   .datalistInput {
     background-color: white;
@@ -100,6 +86,7 @@ div.centeredContainer {
     box-shadow: 3px 3px $secondaryColor;
     width: 100%;
     max-width: 768px;
+    margin-top: 0.5em;
     &:focus {
       outline: none;
       border: 1px solid $blueColor;
