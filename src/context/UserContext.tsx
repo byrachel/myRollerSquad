@@ -6,6 +6,7 @@ export const initialState: UserStateInterface = {
   role: "USER",
   county: null,
   isLoggedIn: false,
+  businessCategory: null,
 };
 
 export const UserContext = createContext<{
@@ -30,6 +31,7 @@ export const UserContextProvider = ({ children }: { children: any }) => {
             role: "USER",
             isLoggedIn: true,
             county: null,
+            businessCategory: null,
           },
         });
       }

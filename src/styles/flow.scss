@@ -1,14 +1,15 @@
 @import "./variables.scss";
 
 .placeContainer {
+  width: 100%;
+  padding: 2em;
   .placeCard {
     border: solid 1px $greyColor;
     border-radius: 6px;
-    box-shadow: 3px 3px $greyColor;
+    box-shadow: 3px 3px $primaryColor;
     padding: 2em 1.25em;
     margin-top: 4em;
     position: relative;
-
     .rollerPlaceLogo {
       position: absolute;
       top: 0;
@@ -16,6 +17,8 @@
       right: 50%;
       transform: translate(-50%, -50%);
       border-radius: 5px;
+      background: white;
+      padding: 0.5em;
     }
     .placeCardName {
       text-align: center;

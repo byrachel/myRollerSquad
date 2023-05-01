@@ -1,9 +1,8 @@
 import React, { useEffect, useReducer } from "react";
 import Image from "next/image";
 import axios from "axios";
-
-import BusinessCard from "../BusinessProfile/BusinessProfileCard";
-import { PlaceInterface } from "src/interfaces/userInterfaces";
+import BusinessCard from "../../BusinessProfile/BusinessProfileCard";
+import UserBusinessLogo from "./UserBusinessLogo";
 
 const initialState = null;
 
@@ -53,12 +52,10 @@ export default function UserBusinessCard({
         <div className="rollerSkaterBusinessBox">
           <div className="rollerBusinessLogo">
             {userConnectedId === userToDisplayId ? (
-              <Image
-                src="/img/myrollersquad_avatar.jpeg"
-                alt="Club de Roller Quad"
-                className="businessLogoToUpdate"
-                width={140}
-                height={140}
+              <UserBusinessLogo
+                placeDispatch={placeDispatch}
+                placeId={placeId}
+                placeLogo={place.logo ? place.logo : null}
               />
             ) : (
               <Image

@@ -17,8 +17,12 @@ const BusinessCard = ({ place, businessDispatch }: Props) => {
   return (
     <div className="placeCard">
       <Image
-        src="/img/myrollersquad_avatar.jpeg"
-        alt="Club de Roller Quad"
+        src={
+          place.logo
+            ? `https://myrollerbusinesslogo.s3.eu-west-3.amazonaws.com/${place.logo}`
+            : "/img/myrollersquad_avatar.jpeg"
+        }
+        alt="Club de Roller Quad Logo"
         className="rollerPlaceLogo"
         width={140}
         height={140}

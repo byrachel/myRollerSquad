@@ -12,6 +12,7 @@ const breakpointColumnsObj = {
 const initialState = {
   cursor: 0,
   department: null,
+  category: null,
   places: [],
 };
 
@@ -45,37 +46,34 @@ const BusinessReducer = (
 
 interface Props {
   dept: string | null;
+  businessCategory: string | null;
 }
 
-const Business = ({ dept }: Props) => {
+const Business = ({ dept, businessCategory }: Props) => {
   const [businessStore, businessDispatch] = useReducer(
     BusinessReducer,
     initialState
   );
   const places = businessStore.places;
 
-  console.log(places);
-
-  const department = dept ? dept : "all";
-
   const fetchPlaces = () => {
+    const department = dept ? dept : "ALL";
+    const category = businessCategory ? businessCategory : "ALL";
     axios({
       method: "get",
-      url: `/api/business/${department}`,
-    })
-      .then((res) => {
-        businessDispatch({
-          type: "SET_PLACES",
-          payload: res.data.places,
-        });
-      })
-      .catch((err) => console.log(err));
+      url: `/api/business/${department}?category=${category}`,
+    }).then((res) => {
+      businessDispatch({
+        type: "SET_PLACES",
+        payload: res.data.places,
+      });
+    });
   };
 
   useEffect(() => {
     fetchPlaces();
     // eslint-disable-next-line
-  }, [dept]);
+  }, [dept, businessCategory]);
 
   return (
     <div className="placeContainer">

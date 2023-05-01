@@ -37,4 +37,7 @@ export interface PlaceInterface {
   county: string;
   favorites: { id: number }[];
   user_id: number;
+  siren: string;
+  logo: string | null;
+  category: string;
 }

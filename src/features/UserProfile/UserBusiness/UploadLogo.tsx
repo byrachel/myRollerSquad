@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { useRouter } from "next/router";
 import Image from "next/image";
 import axios from "axios";
 
@@ -8,42 +7,41 @@ import ErrorLayout from "src/components/layouts/ErrorLayout";
 import Loader from "@/components/layouts/Loader";
 
 interface Props {
-  avatar: {
+  logo: {
     file: any;
     width: number;
     height: number;
   } | null;
-  setDisplayNewAvatar: (arg: boolean) => void;
-  userProfileDispatch: React.Dispatch<any>;
-  userId: number;
+  setDisplayNewLogo: (arg: boolean) => void;
+  placeDispatch: React.Dispatch<any>;
+  placeId: number;
 }
 
-export default function UploadAvatar({
-  avatar,
-  setDisplayNewAvatar,
-  userProfileDispatch,
-  userId,
+export default function UploadLogo({
+  logo,
+  setDisplayNewLogo,
+  placeDispatch,
+  placeId,
 }: Props) {
   const [uploadError, setUploadError] = useState({
     status: false,
     message: "",
   });
-  const router = useRouter();
 
-  const saveThisAvatar = () => {
+  const saveThisLogo = () => {
     setUploadError({ status: false, message: "" });
-    if (!avatar || !avatar.file)
+    if (!logo || !logo.file)
       return setUploadError({
         status: true,
         message: "Veuillez sélectionner une image",
       });
 
-    if (userId) {
+    if (placeId) {
       const data = new FormData();
-      data.append("avatar", avatar.file);
+      data.append("logo", logo.file);
       axios({
         method: "put",
-        url: `/api/user/avatar`,
+        url: `/api/business/logo/${placeId}`,
         data,
         headers: {
           "Content-Type": "multipart/form-data",
@@ -51,11 +49,11 @@ export default function UploadAvatar({
         withCredentials: true,
       })
         .then((res) => {
-          userProfileDispatch({
-            type: "USER_PROFILE_UPDATED",
-            payload: res.data.user,
+          placeDispatch({
+            type: "SET_PLACE",
+            payload: res.data.place,
           });
-          setDisplayNewAvatar(false);
+          setDisplayNewLogo(false);
         })
         .catch(() => {
           setUploadError({
@@ -63,22 +61,20 @@ export default function UploadAvatar({
             message: `Une erreur s'est produite. L'image n'a pu être sauvegardée.`,
           });
         });
-    } else {
-      router.push("/signin");
     }
   };
 
   return (
     <div className="mt5">
-      {avatar ? (
+      {logo ? (
         <>
           <div className="center">
             <Image
-              src={avatar.file.preview}
-              alt="Roller Quad"
-              className="uploadRollerSkaterAvatar"
-              width={avatar.width}
-              height={avatar.height}
+              src={logo.file.preview}
+              alt="Roller Quad Business logo"
+              className="uploadRollerBusinessLogo"
+              width={logo.width}
+              height={logo.height}
             />
           </div>
           {uploadError ? (
@@ -94,13 +90,13 @@ export default function UploadAvatar({
             <RegularButton
               text="Enregistrer"
               type="button"
-              onClick={saveThisAvatar}
-              style="full"
+              onClick={saveThisLogo}
+              style="outline"
             />
           </div>
         </>
       ) : (
-        <Loader text={"Hey ! Jolie photo en chargement !"} />
+        <Loader text={"Logo en cours de chargement !"} />
       )}
     </div>
   );

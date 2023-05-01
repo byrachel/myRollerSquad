@@ -53,7 +53,6 @@ export default function SelectLocation({ country, department, city }: Props) {
                 defaultValue={selectedDepartment || ""}
                 onChange={handleDepartment}
               >
-                <option value={""}>-- Choisis un département</option>
                 {departments.map((elt) => (
                   <option key={elt.dep_name} value={elt.num_dep}>
                     {elt.dep_name}

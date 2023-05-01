@@ -9,7 +9,7 @@ import UpdateUserProfile from "src/features/UserProfile/UpdateUserProfile/Update
 import UserProfileReducer from "src/reducers/UserProfileReducer";
 import Loader from "@/components/layouts/Loader";
 import UserResume from "./UserResume";
-import UserBusinessCard from "./UserBusinessCard";
+import UserBusinessCard from "./UserBusiness/UserBusinessCard";
 import BusinessProfileCTA from "../BusinessProfile/BusinessProfileCTA";
 
 const initialState = {
@@ -87,7 +87,9 @@ const UserInfosContainer = ({ userConnectedId, userToDisplay }: Props) => {
                 />
               ))
             ) : (
-              <BusinessProfileCTA userConnectedId={userConnectedId} />
+              <div style={{ margin: "2em" }}>
+                <BusinessProfileCTA userConnectedId={userConnectedId} />
+              </div>
             )}
             <RollerSkateLevel
               rollerDanceLevel={userProfile.user.roller_dance_level}

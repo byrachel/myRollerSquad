@@ -7,6 +7,7 @@ import Cancel from "src/svg/cancel.svg";
 import BusinessAddToFav from "./BusinessAddToFav";
 import { PlaceInterface } from "src/interfaces/userInterfaces";
 import Pin from "src/svg/pin.svg";
+import { useRouter } from "next/router";
 
 interface Props {
   place: PlaceInterface;
@@ -22,6 +23,7 @@ export default function BusinessCard({
   placeDispatch,
 }: Props) {
   const [isDeleted, setIsDeleted] = useState<boolean>(false);
+  const router = useRouter();
 
   const deleteBusiness = (id: number) => {
     axios({
@@ -50,6 +52,9 @@ export default function BusinessCard({
                       width={22}
                       height={22}
                       style={{ marginRight: 8 }}
+                      onClick={() =>
+                        router.push(`/business/update/${place.id}`)
+                      }
                     />
                     <Cancel
                       onClick={() => deleteBusiness(place.id)}
@@ -93,18 +98,13 @@ export default function BusinessCard({
             <h3>{place.name}</h3>
             <p>{place.website}</p>
           </div>
-          <p className="metaBox">
+          <p className="metaBox mt5">
             <Pending className="metaIcon" width={16} height={16} /> Validation
-            en cours
+            en cours. En attendant, ajoute ton logo en cliquant sur l'image à
+            gauche ;-)
           </p>
         </div>
       ) : null}
-
-      {/* <div className="addBusinessLink">
-        <Link href={`/business/create/${userConnectedId}`}>
-          <p>+ ajouter</p>
-        </Link>
-      </div> */}
     </>
   );
 }

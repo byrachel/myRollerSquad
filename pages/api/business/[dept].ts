@@ -6,7 +6,7 @@ import { E1 } from "src/constants/ErrorMessages";
 const handler = nextConnect();
 
 export default handler.get(async (req: any, res: any) => {
-  const { dept } = req.query;
+  const { dept, category } = req.query;
 
   try {
     const places = await prisma.place.findMany({
@@ -16,7 +16,8 @@ export default handler.get(async (req: any, res: any) => {
       },
       where: {
         active: true,
-        ...(dept === "all" ? {} : { county: dept }),
+        ...(dept === "ALL" ? {} : { county: dept }),
+        ...(category === "ALL" ? {} : { category: category }),
       },
       include: {
         favorites: {

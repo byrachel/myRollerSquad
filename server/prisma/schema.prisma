@@ -137,7 +137,8 @@ model Place {
   owner         User       @relation("place_owner", fields: [user_id], references: [id])
   user_id       Int
   logo          String?
-  type          PlaceType  @default(PROFESIONAL)
+  type          PlaceType
+  category      PlaceCategory @default(OTHER)
   active        Boolean    @default(false)
   name          String
   description   String?
@@ -161,6 +162,12 @@ enum Role {
 
 enum PlaceType {
   ASSOCIATION
-  PROFESIONAL
-  BUSINESS
+  PROFESSIONAL
+}
+
+enum PlaceCategory {
+  LEARN
+  BUY
+  PLAY
+  OTHER
 }

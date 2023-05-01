@@ -48,20 +48,11 @@ export default withIronSessionApiRoute(
           place: {
             select: {
               id: true,
-              // name: true,
-              // description: true,
-              // city: true,
-              // active: true,
-              // website: true,
-              // favorites: {
-              //   select: {
-              //     id: true,
-              //   },
-              // },
             },
           },
         },
       });
+      if (!user) return res.status(400).json({ message: E1 });
       res.status(200).json({ user });
     } catch (error) {
       res.status(400).json({ message: E1 });

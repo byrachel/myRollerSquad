@@ -5,7 +5,7 @@ import multer from "multer";
 import sharp from "sharp";
 
 import prisma from "@/server/prisma/db/client";
-import { uploadImage } from "../../../server/utils/uploadImage";
+import { uploadImage } from "@/server/utils/uploadImage";
 import { E1, E2 } from "src/constants/ErrorMessages";
 import { ironConfig } from "@/server/middleware/auth/ironConfig";
 import { exclude } from "@/server/utils/prismaExclude";

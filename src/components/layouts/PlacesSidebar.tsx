@@ -3,6 +3,7 @@ import Link from "next/link";
 
 import SelectDepartment from "../form/Location/SelectDepartment";
 import { UserStateInterface } from "src/reducers/UserReducer";
+import RegularButton from "../buttons/RegularButton";
 
 interface Props {
   userState: UserStateInterface;
@@ -26,13 +27,12 @@ export default function PlacesSidebar({ userState, userDispatch }: Props) {
       />
 
       <div className="mt-large">
-        <p className="meta">Tu veux te référencer dans l'annuaire ?</p>
+        <h3>Toi aussi, tu veux être référencé dans l'annuaire ?</h3>
+        <p className="meta mt5">Crée ton compte, c'est gratuit !</p>
 
         {userState.isLoggedIn ? (
           <Link href={`/business/create/${userState.id}`}>
-            <p className="textLink">
-              Crée ton compte business, c'est gratuit !
-            </p>
+            <RegularButton type="button" style="outline" text="Me référencer" />
           </Link>
         ) : (
           <Link href="/signin">
