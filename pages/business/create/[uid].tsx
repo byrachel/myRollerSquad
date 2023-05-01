@@ -3,7 +3,7 @@ import { useRouter } from "next/router";
 import Login from "@/components/auth/Login";
 import SidebarLayout from "@/components/layouts/SidebarLayout";
 import UnloggedUserSidebar from "@/components/layouts/UnloggedUserSidebar";
-import BusinessProfileForm from "src/features/BusinessProfile/BusinessProfileForm";
+import AddBusinessProfile from "src/features/BusinessProfile/AddBusinessProfile";
 
 const BusinessSignup = () => {
   const router = useRouter();
@@ -13,7 +13,7 @@ const BusinessSignup = () => {
   return ownerId ? (
     <SidebarLayout
       sidebar={<UnloggedUserSidebar />}
-      content={<BusinessProfileForm ownerId={ownerId} />}
+      content={<AddBusinessProfile ownerId={ownerId} />}
     />
   ) : (
     <Login />
