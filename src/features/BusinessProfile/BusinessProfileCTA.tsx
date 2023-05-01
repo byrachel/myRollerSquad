@@ -9,6 +9,15 @@ interface Props {
 
 export default function BusinessProfileCTA({ userConnectedId }: Props) {
   const router = useRouter();
+
+  const createBusiness = () => {
+    if (userConnectedId) {
+      router.push(`/business/create/${userConnectedId}`);
+    } else {
+      router.push("/signin");
+    }
+  };
+
   return (
     <div className="ctaBox">
       <div>
@@ -21,7 +30,7 @@ export default function BusinessProfileCTA({ userConnectedId }: Props) {
         type="button"
         text="Go !"
         style="outline"
-        onClick={() => router.push(`/business/create/${userConnectedId}`)}
+        onClick={createBusiness}
       />
     </div>
   );

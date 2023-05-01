@@ -22,7 +22,13 @@ const UserProfileReducer = (
         ...state,
         loading: false,
         error: false,
-        user: action.payload,
+        user: {
+          ...action.payload,
+          place:
+            action.payload.place.length > 0
+              ? action.payload.place.map((elt: { id: number }) => elt.id)
+              : [],
+        },
       };
     case "ERROR":
       return {
@@ -57,6 +63,25 @@ const UserProfileReducer = (
         user: { ...state.user, ...action.payload },
         updateProfile: false,
       };
+
+    // case "ADD_TO_MY_FAV":
+    //   return {
+    //     ...state,
+
+    //     places: {
+    //       ...state.places,
+    //       places: state.places.map((place: any) => {
+    //         if (place.id === action.payload.id) {
+    //           return {
+    //             ...place,
+    //             favorites: action.payload.favorites,
+    //           };
+    //         }
+    //         return place;
+    //       }),
+    //     },
+    //   };
+
     default:
       return state;
   }

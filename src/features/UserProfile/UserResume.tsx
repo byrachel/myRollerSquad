@@ -1,9 +1,7 @@
 import React from "react";
 
-import BusinessProfileCTA from "../BusinessProfile/BusinessProfileCTA";
-import BusinessCard from "../BusinessProfile/BusinessProfileCard";
 import { parseContent } from "src/utils/parseContent";
-import { PlaceInterface, UserInterface } from "src/interfaces/userInterfaces";
+import { UserInterface } from "src/interfaces/userInterfaces";
 
 import Instagram from "src/svg/instagram.svg";
 import Tiktok from "src/svg/tiktok.svg";
@@ -73,21 +71,6 @@ export default function UserResume({
             ) : null}
           </div>
         )}
-
-        {user.place.length > 0 ? (
-          <>
-            {user.place.map((elt: PlaceInterface) => (
-              <BusinessCard
-                key={elt.id}
-                place={elt}
-                isOwner={userConnectedId === user.id}
-                userConnectedId={userConnectedId}
-              />
-            ))}
-          </>
-        ) : userConnectedId === user.id ? (
-          <BusinessProfileCTA userConnectedId={userConnectedId} />
-        ) : null}
       </div>
     </div>
   );

@@ -35,4 +35,6 @@ export interface PlaceInterface {
   active: boolean;
   website: string;
   county: string;
+  favorites: { id: number }[];
+  user_id: number;
 }

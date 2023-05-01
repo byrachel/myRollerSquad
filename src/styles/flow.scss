@@ -21,51 +21,50 @@
       text-align: center;
       margin: 3em 0 0.5em 0;
     }
-    .placeLocation {
-      stroke: $greyColor;
-      fill: none;
-      margin-right: 0.5em;
-    }
-    .placeUrl {
-      color: $secondaryColor;
-      font-family: $textFont;
-      font-size: 0.87em;
-      letter-spacing: 0.5px;
-      margin-top: 2em;
-    }
-    .placeUrl:hover {
-      color: $primaryColor;
-    }
-
     .placeFavoriteCounter {
       display: flex;
       justify-content: center;
       align-items: center;
       margin-top: 1.5em;
-
-      .favIcon {
-        margin-right: 0.4em;
-        stroke: $primaryColor;
-        fill: none;
-        cursor: pointer;
-      }
-
-      .favIcon:hover {
-        stroke: $secondaryColor;
-      }
-
-      .favIconChecked {
-        margin-right: 0.4em;
-        stroke: $secondaryColor;
-        fill: none;
-        cursor: pointer;
-      }
-
-      .favIconChecked:hover {
-        stroke: $primaryColor;
-      }
     }
   }
+}
+.placeLocation {
+  stroke: $greyColor;
+  fill: none;
+  margin-right: 0.5em;
+}
+.favIcon {
+  margin-right: 0.4em;
+  stroke: $primaryColor;
+  fill: none;
+  cursor: pointer;
+}
+
+.favIcon:hover {
+  stroke: $secondaryColor;
+}
+
+.favIconChecked {
+  margin-right: 0.4em;
+  stroke: $secondaryColor;
+  fill: none;
+  cursor: pointer;
+}
+
+.favIconChecked:hover {
+  stroke: $primaryColor;
+}
+
+.placeUrl {
+  color: $secondaryColor;
+  font-family: $textFont;
+  font-size: 0.87em;
+  letter-spacing: 0.5px;
+  margin-top: 2em;
+}
+.placeUrl:hover {
+  color: $primaryColor;
 }
 
 .flowFilters {

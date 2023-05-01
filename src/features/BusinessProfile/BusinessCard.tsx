@@ -1,11 +1,10 @@
 import React, { useContext } from "react";
-import axios from "axios";
 import Image from "next/image";
 import { parseContent } from "src/utils/parseContent";
 
 import Pin from "src/svg/pin.svg";
-import Favorite from "src/svg/bookmark-empty.svg";
 import { UserContext } from "src/context/UserContext";
+import BusinessAddToFav from "./BusinessAddToFav";
 
 interface Props {
   place: any;
@@ -14,22 +13,6 @@ interface Props {
 
 const BusinessCard = ({ place, businessDispatch }: Props) => {
   const { userState } = useContext(UserContext);
-  const favs = place.favorites.map((elt: any) => elt.id);
-
-  const addToMyFav = (id: string) => {
-    if (!id) return;
-    axios({
-      method: "put",
-      url: `/api/business/fav/${id}`,
-    })
-      .then((res) => {
-        businessDispatch({
-          type: "ADD_TO_MY_FAV",
-          payload: { id, favorites: res.data.favorites },
-        });
-      })
-      .catch((err) => console.log(err));
-  };
 
   return (
     <div className="placeCard">
@@ -53,17 +36,12 @@ const BusinessCard = ({ place, businessDispatch }: Props) => {
         <a href={place.website} className="placeUrl">
           {place.website}
         </a>
-        <div className="meta placeFavoriteCounter">
-          <Favorite
-            className={
-              favs.includes(userState.id) ? "favIconChecked" : "favIcon"
-            }
-            width={24}
-            height={24}
-            onClick={() => addToMyFav(place.id)}
-          />
-          <p>{place.favorites.length}</p>
-        </div>
+        <BusinessAddToFav
+          dispatch={businessDispatch}
+          userConnectedId={userState.id}
+          placeId={place.id}
+          favorites={place.favorites}
+        />
       </div>
     </div>
   );

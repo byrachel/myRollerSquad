@@ -44,7 +44,22 @@ export default withIronSessionApiRoute(
           county: true,
           city: true,
           postLiked: true,
-          place: true,
+          favorite_places: true,
+          place: {
+            select: {
+              id: true,
+              // name: true,
+              // description: true,
+              // city: true,
+              // active: true,
+              // website: true,
+              // favorites: {
+              //   select: {
+              //     id: true,
+              //   },
+              // },
+            },
+          },
         },
       });
       res.status(200).json({ user });

@@ -9,6 +9,8 @@ import UpdateUserProfile from "src/features/UserProfile/UpdateUserProfile/Update
 import UserProfileReducer from "src/reducers/UserProfileReducer";
 import Loader from "@/components/layouts/Loader";
 import UserResume from "./UserResume";
+import UserBusinessCard from "./UserBusinessCard";
+import BusinessProfileCTA from "../BusinessProfile/BusinessProfileCTA";
 
 const initialState = {
   loading: false,
@@ -75,6 +77,18 @@ const UserInfosContainer = ({ userConnectedId, userToDisplay }: Props) => {
               userProfileDispatch={userProfileDispatch}
               userConnectedId={userConnectedId}
             />
+            {userProfile.user.place.length > 0 ? (
+              userProfile.user.place.map((elt: number) => (
+                <UserBusinessCard
+                  key={elt}
+                  placeId={elt}
+                  userToDisplayId={userProfile.user.id}
+                  userConnectedId={userConnectedId}
+                />
+              ))
+            ) : (
+              <BusinessProfileCTA userConnectedId={userConnectedId} />
+            )}
             <RollerSkateLevel
               rollerDanceLevel={userProfile.user.roller_dance_level}
               skateParkLevel={userProfile.user.skatepark_level}

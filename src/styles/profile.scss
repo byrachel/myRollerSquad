@@ -26,7 +26,8 @@
 
 .rollerSkaterAvatarContainer {
   position: relative;
-  width: 200px;
+  width: 100%;
+  max-width: 200px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -118,6 +119,40 @@
   }
 }
 
+.rollerSkaterBusinessBox {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 1em;
+  gap: 2em;
+  margin: 2.5em 0;
+
+  .rollerBusinessLogo {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    max-width: 200px;
+
+    .businessLogo {
+      border-radius: 8px;
+    }
+
+    .businessLogoToUpdate {
+      border-radius: 8px;
+      cursor: pointer;
+      border: solid 2px white;
+      transition: fill 0.2s ease-in-out;
+    }
+    .businessLogoToUpdate:hover {
+      border: solid 2px $secondaryColor;
+    }
+  }
+
+  .rollerBusinessResume {
+    width: 100%;
+  }
+}
+
 .rollerSkaterResumeBox {
   display: flex;
   justify-content: flex-start;
@@ -127,8 +162,9 @@
   .rollerSkaterLinks {
     display: flex;
     justify-content: center;
-    margin-top: 1.5em;
-    width: 200px;
+    margin-top: 1em;
+    width: 100%;
+    max-width: 200px;
     .noLinkIcon {
       margin-left: 0.3em;
       stroke: lighten($color: $secondaryColor, $amount: 35);
@@ -213,22 +249,20 @@
 }
 
 div.ctaBox {
-  margin: 2em 1em 0 0;
+  // margin: 2em 1em 0 0;
   border-radius: 8px;
   background: $lightColor;
   padding: 1.5em;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: wrap;
-
-  h3 {
-    color: $secondaryColor;
-  }
 
   p.ctaLink {
     color: $secondaryColor;
     margin: 0.25em 0;
+  }
+
+  .placeFavoriteCounter {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
   }
 }
 

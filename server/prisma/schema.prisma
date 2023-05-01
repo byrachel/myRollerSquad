@@ -43,7 +43,7 @@ model User {
   updatedAt     DateTime       @updatedAt
 
   active        Boolean        @default(false)
-  place         Place[]         @relation("place_owner")
+  place         Place[]        @relation("place_owner")
 
   favorite_places Place[] @relation("FavoritePlaces")
 }
