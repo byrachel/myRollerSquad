@@ -8,7 +8,9 @@ export const cardColor = (categoryId: number) => {
       return "blue";
     case 4:
       return "purple";
-    default:
+    case 5:
       return "dark";
+    default:
+      return "grey";
   }
 };

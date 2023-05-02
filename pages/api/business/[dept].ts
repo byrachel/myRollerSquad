@@ -16,8 +16,8 @@ export default handler.get(async (req: any, res: any) => {
       },
       where: {
         active: true,
-        ...(dept === "ALL" ? {} : { county: dept }),
-        ...(category === "ALL" ? {} : { category: category }),
+        ...(dept === "all" ? {} : { county: dept }),
+        ...(category === "all" ? {} : { category: category }),
       },
       include: {
         favorites: {

@@ -1,19 +1,18 @@
-import Image from "next/image";
-import styles from "../../styles/Home.module.scss";
-import SelectDepartment from "@/components/form/Location/SelectDepartment";
 import { useContext } from "react";
-import { UserContext } from "src/context/UserContext";
 import { useRouter } from "next/router";
+import Image from "next/image";
+import { UserContext } from "src/context/UserContext";
+import SelectDepartment from "@/components/form/Location/SelectDepartment";
+import styles from "../../styles/Home.module.scss";
 
 export default function FindACoach() {
-  const { userState, userDispatch } = useContext(UserContext);
-  const userDept = userState.county ? userState.county : null;
+  const { userState } = useContext(UserContext);
+  const dept = userState.county ? userState.county : null;
   const router = useRouter();
 
   const onSelectDepartment = (event: any) => {
     const department = event.target.value;
-    userDispatch({ type: "SELECT_DEPT", payload: department });
-    router.push(`/places`);
+    router.push(`/business/search/${department}/all`);
   };
 
   return (
@@ -28,7 +27,7 @@ export default function FindACoach() {
       </p>
 
       <SelectDepartment
-        userDept={userDept}
+        userDept={dept}
         onSelectDepartment={onSelectDepartment}
       />
 

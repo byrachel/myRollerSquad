@@ -392,6 +392,10 @@ label {
     background-color: $primaryColor;
     border: solid 2px $primaryColor;
   }
+  &.grey {
+    background-color: $greyColor;
+    border: solid 2px $greyColor;
+  }
   &.purple {
     background-color: $purpleColor;
     border: solid 2px $purpleColor;
@@ -420,6 +424,10 @@ label {
   &.dark {
     color: $primaryColor;
     border: solid 2px $primaryColor;
+  }
+  &.grey {
+    color: $greyColor;
+    border: solid 2px $greyColor;
   }
   &.purple {
     color: $purpleColor;

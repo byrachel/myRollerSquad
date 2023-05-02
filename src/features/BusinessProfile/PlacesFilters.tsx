@@ -1,53 +1,58 @@
-import SelectDepartment from "@/components/form/Location/SelectDepartment";
 import React from "react";
+import { useRouter } from "next/router";
+
 import { businessCategories } from "src/constants/BusinessCategories";
 import { cardColor } from "src/utils/colorManager";
+import SelectDepartment from "@/components/form/Location/SelectDepartment";
 
 interface Props {
-  userDept: string | null;
-  businessCategory: string | null;
-  userDispatch: React.Dispatch<any>;
+  dept: string | null;
+  categorySelected: string | null;
 }
 
-export default function PlacesFilters({
-  userDept,
-  businessCategory,
-  userDispatch,
-}: Props) {
+export default function PlacesFilters({ dept, categorySelected }: Props) {
+  const router = useRouter();
   const onSelectDepartment = (event: any) => {
     const department = event.target.value;
-    userDispatch({ type: "SELECT_DEPT", payload: department });
+    const category = categorySelected ? categorySelected : "all";
+    router.push(`/business/search/${department}/${category}`);
   };
 
-  const onSelectCategory = (category: string) => {
-    userDispatch({ type: "SELECT_BUSINESS_CATEGORY", payload: category });
+  const onSelectCategory = (categorySelected: string) => {
+    const departmentSelected = dept ? dept : "all";
+    router.push(`/business/search/${departmentSelected}/${categorySelected}`);
   };
+
+  const categoryTag = (id: number, value: string, name: string) => (
+    <div
+      role="button"
+      id="category"
+      key={id}
+      tabIndex={0}
+      className={
+        value === categorySelected
+          ? `badge ${cardColor(id)}`
+          : `outlineBadge ${cardColor(id)}`
+      }
+      onClick={() => onSelectCategory(value)}
+      onKeyDown={() => onSelectCategory(value)}
+    >
+      {name}
+    </div>
+  );
 
   return (
     <>
       <SelectDepartment
-        userDept={userDept}
+        userDept={dept}
         onSelectDepartment={onSelectDepartment}
       />
       <div className="center">
         <div className="flexStart">
-          {businessCategories.map((category) => (
-            <div
-              role="button"
-              id="category"
-              key={category.id}
-              tabIndex={0}
-              className={
-                category.value === businessCategory
-                  ? `badge ${cardColor(category.id)}`
-                  : `outlineBadge ${cardColor(category.id)}`
-              }
-              onClick={() => onSelectCategory(category.value)}
-              onKeyDown={() => onSelectCategory(category.value)}
-            >
-              {category.name}
-            </div>
-          ))}
+          {businessCategories.map((category) =>
+            categoryTag(category.id, category.value, category.name)
+          )}
+          {categoryTag(0, "all", "X")}
         </div>
       </div>
     </>
