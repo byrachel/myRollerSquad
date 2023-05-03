@@ -42,7 +42,7 @@ export default function PlacesFilters({ dept, categorySelected }: Props) {
   );
 
   return (
-    <>
+    <div className="pv5">
       <SelectDepartment
         userDept={dept}
         onSelectDepartment={onSelectDepartment}
@@ -55,6 +55,6 @@ export default function PlacesFilters({ dept, categorySelected }: Props) {
           {categoryTag(0, "all", "X")}
         </div>
       </div>
-    </>
+    </div>
   );
 }

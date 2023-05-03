@@ -10,12 +10,13 @@
   margin: 1.2em 0.5em 1em 0;
   padding: 0.5em 1em;
   transition: fill 0.2s ease-in-out;
-  box-shadow: 3px 3px $primaryColor;
+  // box-shadow: 3px 3px $secondaryColor;
 
   .fullButtonText {
     color: white;
     font-family: $titleFont;
     font-size: $fontSize-md;
+    font-weight: 600;
     letter-spacing: 0.5px;
   }
 }

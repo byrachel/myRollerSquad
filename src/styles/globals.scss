@@ -103,6 +103,10 @@ ul {
   margin-right: 0.5em;
 }
 
+.pv5 {
+  padding: 0 1em;
+}
+
 blockquote {
   font-family: $textFont;
   font-size: $fontSize-md;
@@ -164,8 +168,7 @@ blockquote {
   width: 100%;
 
   &.error {
-    border: 1px solid $primaryColor;
-    box-shadow: 2px 2px $primaryColor;
+    border: 1px solid $redColor;
   }
 }
 
@@ -305,7 +308,7 @@ select:focus + .focus {
 // }
 
 label {
-  color: $greyColor;
+  color: darken($color: $greyColor, $amount: 20);
   font-family: $textFont;
   font-size: $fontSize-sm;
   letter-spacing: 0.2px;

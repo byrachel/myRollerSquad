@@ -67,13 +67,14 @@
     display: flex;
     justify-content: flex-start;
     flex-direction: column;
-    margin-top: 2em;
+    margin-top: clamp(0.5em, 3.5vw, 2.5em);
     width: 100%;
 
     .rollerSkaterName {
       display: flex;
       justify-content: space-between;
       align-items: center;
+      flex-wrap: wrap;
       h1 {
         color: white;
         font-size: $fontSize-xl;
@@ -319,6 +320,7 @@ div.addBusinessLink {
   }
 
   .rollerSkaterResumeBox {
+    gap: 1em;
     .rollerSkaterLinks {
       width: 140px;
       .noLinkIcon {
@@ -327,6 +329,14 @@ div.addBusinessLink {
       .linkIcon {
         margin-left: 0.1em;
       }
+    }
+  }
+
+  .rollerSkaterBusinessBox {
+    gap: 1em;
+
+    .rollerBusinessLogo {
+      width: 140px;
     }
   }
 }
