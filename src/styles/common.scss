@@ -6,6 +6,22 @@ div.spaceBetween {
   align-items: center;
 }
 
+div.updateDeleteIcons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  max-width: 85px;
+  flex-wrap: wrap;
+  .icon {
+    stroke: darken($color: $greyColor, $amount: 10);
+    cursor: pointer;
+  }
+  .icon:hover {
+    stroke: $secondaryColor;
+  }
+}
+
 p.meta {
   color: $greyColor;
   font-family: $textFont;

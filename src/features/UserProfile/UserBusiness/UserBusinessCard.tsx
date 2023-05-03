@@ -1,7 +1,7 @@
 import React, { useEffect, useReducer } from "react";
 import Image from "next/image";
 import axios from "axios";
-import BusinessCard from "../../BusinessProfile/BusinessProfileCard";
+import BusinessProfileCard from "./BusinessProfileCard";
 import UserBusinessLogo from "./UserBusinessLogo";
 
 const initialState = null;
@@ -68,7 +68,7 @@ export default function UserBusinessCard({
             )}
           </div>
           <div className="rollerBusinessResume">
-            <BusinessCard
+            <BusinessProfileCard
               place={place}
               isOwner={userConnectedId === userToDisplayId}
               userConnectedId={userConnectedId}

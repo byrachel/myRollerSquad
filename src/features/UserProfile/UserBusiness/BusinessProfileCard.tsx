@@ -1,13 +1,13 @@
 import React, { useState } from "react";
+import { useRouter } from "next/router";
 import axios from "axios";
 
 import Pending from "src/svg/hourglass.svg";
-import Edit from "src/svg/edit.svg";
-import Cancel from "src/svg/cancel.svg";
-import BusinessAddToFav from "./BusinessAddToFav";
-import { PlaceInterface } from "src/interfaces/userInterfaces";
 import Pin from "src/svg/pin.svg";
-import { useRouter } from "next/router";
+
+import BusinessAddToFav from "../../BusinessProfile/BusinessAddToFav";
+import UpdateDeleteIcons from "@/components/buttons/UpdateDeleteIcons";
+import { PlaceInterface } from "src/interfaces/userInterfaces";
 
 interface Props {
   place: PlaceInterface;
@@ -46,23 +46,10 @@ export default function BusinessCard({
               <div className="spaceBetween">
                 <h3>{place.name}</h3>
                 {isOwner ? (
-                  <div className="flexStart">
-                    <Edit
-                      className="linkIcon"
-                      width={22}
-                      height={22}
-                      style={{ marginRight: 8 }}
-                      onClick={() =>
-                        router.push(`/business/update/${place.id}`)
-                      }
-                    />
-                    <Cancel
-                      onClick={() => deleteBusiness(place.id)}
-                      className="linkIcon"
-                      width={22}
-                      height={22}
-                    />
-                  </div>
+                  <UpdateDeleteIcons
+                    onUpdate={() => router.push(`/business/update/${place.id}`)}
+                    onDelete={() => deleteBusiness(place.id)}
+                  />
                 ) : null}
               </div>
               <a href={place.website} className="placeUrl">

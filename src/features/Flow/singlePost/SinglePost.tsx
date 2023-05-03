@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import Image from "next/image";
 
 import { getCategoryName } from "src/constants/PostCategories";
@@ -6,13 +6,16 @@ import { PostInterface } from "src/interfaces/flowInterfaces";
 import { cardColor } from "src/utils/colorManager";
 import { displayLightDateTime } from "src/utils/handleDates";
 import { parseContent } from "src/utils/parseContent";
+import { getStyleName } from "src/constants/RollerSkateStyles";
+import EditPost from "./EditPost";
 import CommentIcon from "../getPosts/CommentIcon";
 import LikeIcon from "../getPosts/LikeIcon";
+import UpdateDeleteIcons from "@/components/buttons/UpdateDeleteIcons";
 
 import Pin from "src/svg/pin.svg";
 import Roller from "src/svg/rollerquad.svg";
-import Edit from "src/svg/edit.svg";
-import { getStyleName } from "src/constants/RollerSkateStyles";
+import axios from "axios";
+import { useRouter } from "next/router";
 
 interface Props {
   post: PostInterface;
@@ -21,15 +24,30 @@ interface Props {
 
 export default function SinglePost({ post, userConnectedId }: Props) {
   const color = useMemo(() => cardColor(post.category_id), [post.category_id]);
+  const [editPost, setEditPost] = useState(false);
+  const router = useRouter();
 
-  return (
+  const deletePost = (id: number) => {
+    axios({
+      method: "delete",
+      url: `/api/flow/post/delete/${id}`,
+      withCredentials: true,
+    }).then(() => router.push(`/profile/posts/${userConnectedId}`));
+  };
+
+  return editPost ? (
+    <EditPost post={post} />
+  ) : (
     <>
       <div className="spaceBetween">
         <div className={`staticBadge ${color}`}>
           {getCategoryName(post.category_id)}
         </div>
         {post.user.id === userConnectedId ? (
-          <Edit width={28} height={28} className="metaIcon" />
+          <UpdateDeleteIcons
+            onUpdate={() => setEditPost(true)}
+            onDelete={() => deletePost(post.id)}
+          />
         ) : null}
       </div>
       {post.style.length > 0 ? (

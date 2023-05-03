@@ -11,6 +11,8 @@ async function userRoute(req: any, res: NextApiResponse<any>) {
   if (req.method !== "GET") return res.status(401).json({ message: E1 });
 
   const user = req.session.user;
+  console.log("user", user);
+
   const { cursor, category, style } = req.query;
 
   if (!user) return res.status(401).json({ message: E1 });

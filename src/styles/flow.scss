@@ -3,13 +3,20 @@
 .placeContainer {
   width: 100%;
   padding: 2em;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 2em;
+
   .placeCard {
     border: solid 1px $greyColor;
     border-radius: 6px;
     box-shadow: 3px 3px $primaryColor;
-    padding: 2em 1.25em;
-    margin-top: 4em;
+    padding: 1.5em;
+    margin-top: 4.2em;
     position: relative;
+    width: clamp(250px, 100%, 650px);
+
     .rollerPlaceLogo {
       position: absolute;
       top: 0;
@@ -544,6 +551,36 @@ div.socialIconContainer {
     .sidebarContent {
       display: none;
     }
+  }
+}
+
+.userPostsContainer {
+  margin: 1em;
+  #userPosts {
+    font-family: $textFont;
+    border-collapse: collapse;
+    width: 100%;
+  }
+
+  #userPosts td,
+  #userPosts th {
+    border: 1px solid white;
+    padding: 8px;
+  }
+
+  #userPosts tr:nth-child(even) {
+    background-color: $lightColor;
+  }
+
+  #userPosts tr:hover {
+    background-color: darken($color: $lightColor, $amount: 10);
+  }
+
+  #userPosts th {
+    padding: 10px;
+    text-align: left;
+    background-color: $secondaryColor;
+    color: white;
   }
 }
 
