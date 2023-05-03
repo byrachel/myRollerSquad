@@ -20,8 +20,13 @@ export default function Places({ places, dept, category }: any) {
 export async function getServerSideProps(context: any) {
   const { dept, category } = context.query;
 
+  const API_URL =
+    process.env.NODE_ENV === "production"
+      ? "https://myrollersquad.vercel.app"
+      : "http://localhost:3000";
+
   const res = await fetch(
-    `http://localhost:3000/api/business/${dept}?category=${category}`
+    `${API_URL}/api/business/${dept}?category=${category}`
   );
   const data = await res.json();
   return { props: { places: data.places, dept, category } };
