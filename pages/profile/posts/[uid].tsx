@@ -5,7 +5,7 @@ import axios from "axios";
 import { UserContext } from "src/context/UserContext";
 import NewPostBar from "@/components/layouts/NewPostBar";
 import Login from "@/components/auth/Login";
-import PostsTable from "./PostsTable";
+import PostsTable from "../../../src/features/UserProfile/PostsTable";
 
 const UserPosts = () => {
   const router = useRouter();
