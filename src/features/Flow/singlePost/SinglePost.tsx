@@ -14,8 +14,8 @@ import UpdateDeleteIcons from "@/components/buttons/UpdateDeleteIcons";
 
 import Pin from "src/svg/pin.svg";
 import Roller from "src/svg/rollerquad.svg";
-import axios from "axios";
 import { useRouter } from "next/router";
+import { deletePost } from "../addPost/utils/deletePost";
 
 interface Props {
   post: PostInterface;
@@ -27,13 +27,8 @@ export default function SinglePost({ post, userConnectedId }: Props) {
   const [editPost, setEditPost] = useState(false);
   const router = useRouter();
 
-  const deletePost = (id: number) => {
-    axios({
-      method: "delete",
-      url: `/api/flow/post/delete/${id}`,
-      withCredentials: true,
-    }).then(() => router.push(`/profile/posts/${userConnectedId}`));
-  };
+  const redirectAfterDelete = () =>
+    router.push(`/profile/posts/${userConnectedId}`);
 
   return editPost ? (
     <EditPost post={post} />
@@ -46,7 +41,7 @@ export default function SinglePost({ post, userConnectedId }: Props) {
         {post.user.id === userConnectedId ? (
           <UpdateDeleteIcons
             onUpdate={() => setEditPost(true)}
-            onDelete={() => deletePost(post.id)}
+            onDelete={() => deletePost(post.id, redirectAfterDelete)}
           />
         ) : null}
       </div>

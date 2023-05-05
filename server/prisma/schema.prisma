@@ -94,7 +94,7 @@ model Post {
   comments      Comment[]
   category      Category    @relation("post_category", fields: [category_id], references: [id])
   category_id   Int         @default(1)
-  style         StylesOnPosts[]
+  style         StylesOnPosts[] @relation("post_style")
   user_likes    PostLiked[] @relation("user_likes")
   price         Int?
 }
@@ -123,10 +123,10 @@ model Style {
 }
 
 model StylesOnPosts {
-  post        Post      @relation(fields: [post_id], references: [id])
-  post_id     Int       // relation scalar field (used in the `@relation` attribute above)
+  post        Post      @relation("post_style", fields: [post_id], references: [id], onDelete: Cascade)
+  post_id     Int
   style       Style     @relation(fields: [style_id], references: [id])
-  style_id    Int       // relation scalar field (used in the `@relation` attribute above)
+  style_id    Int
   assignedAt  DateTime  @default(now())
 
   @@id([post_id, style_id])

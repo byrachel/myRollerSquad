@@ -15,6 +15,7 @@ div.updateDeleteIcons {
   flex-wrap: wrap;
   .icon {
     stroke: darken($color: $greyColor, $amount: 10);
+    fill: none;
     cursor: pointer;
   }
   .icon:hover {

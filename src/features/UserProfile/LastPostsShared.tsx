@@ -1,7 +1,6 @@
 import { PostInterface } from "src/interfaces/flowInterfaces";
 import React from "react";
 import Card from "../Flow/getPosts/Card";
-import Masonry from "react-masonry-css";
 import RegularButton from "../../components/buttons/RegularButton";
 import { useRouter } from "next/router";
 
@@ -9,11 +8,6 @@ interface Props {
   posts: PostInterface[];
   userConnectedId: number;
 }
-
-const breakpointColumnsObj = {
-  default: 3,
-  700: 1,
-};
 
 export default function LastPostsShared({ posts, userConnectedId }: Props) {
   const router = useRouter();
@@ -23,17 +17,11 @@ export default function LastPostsShared({ posts, userConnectedId }: Props) {
       <div className="smallLightSeparator" />
       <div className="flowContainer">
         {posts.length > 0 ? (
-          <Masonry
-            breakpointCols={breakpointColumnsObj}
-            className="my-masonry-grid"
-            columnClassName="my-masonry-grid_column"
-          >
-            {posts.map((post) => (
-              <div key={post.id}>
-                <Card post={post} userConnectedId={userConnectedId} isAuthor />
-              </div>
-            ))}
-          </Masonry>
+          posts.map((post) => (
+            <div className="lastPostsShared" key={post.id}>
+              <Card post={post} userConnectedId={userConnectedId} isAuthor />
+            </div>
+          ))
         ) : (
           <div className="centeredText">
             <p className="meta">Aucun article partagé.</p>

@@ -65,7 +65,7 @@ const Flow = ({ userConnectedId }: Props) => {
   return (
     <>
       <div className="responsiveFlowContainer">
-        <div className="flowContainer">
+        <div style={{ padding: "2em" }}>
           <FlowFilters flowStore={flowStore} flowDispatch={flowDispatch} />
           <Masonry
             breakpointCols={breakpointColumnsObj}

@@ -11,7 +11,7 @@ interface Props {
 export default function UploadedPicturesPreview({ pictures, dispatch }: Props) {
   const removePict = (picture: UploadedPictureInterface) => {
     const newListOfPictures = pictures.filter(
-      pict => pict.name !== picture.name
+      (pict) => pict.name !== picture.name
     );
     dispatch({ type: "SAVE_ONLY_THIS_PICTURES", payload: newListOfPictures });
     if (picture.name === "map.png") {

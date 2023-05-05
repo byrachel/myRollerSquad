@@ -38,16 +38,24 @@ export default withIronSessionApiRoute(
         }
       }
 
-      const newPost = await prisma.post.update({
-        where: {
-          id: parseInt(id),
-        },
-        data: {
-          pictures,
-        },
-      });
-
-      res.status(200).json({ post: newPost });
+      if (pictures.length > 0 && pictures.length === req.files.length) {
+        const newPost = await prisma.post.update({
+          where: {
+            id: parseInt(id),
+          },
+          data: {
+            pictures,
+          },
+        });
+        res.status(200).json({ post: newPost });
+      } else {
+        await prisma.post.delete({
+          where: {
+            id: parseInt(id),
+          },
+        });
+        res.status(400).json({ message: E1 });
+      }
     } catch (e) {
       return res.status(401).json({ message: E1 });
     }

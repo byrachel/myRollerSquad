@@ -105,3 +105,14 @@ export const onLogin = (
       setError({ status: true, message: error.response.data.message });
     });
 };
+
+export const onLogout = (userDispatch: React.Dispatch<any>) => {
+  axios({
+    method: "POST",
+    url: `/api/auth/logout`,
+    withCredentials: true,
+  }).then(() => {
+    localStorage.removeItem("userId");
+    userDispatch({ type: "LOGOUT" });
+  });
+};

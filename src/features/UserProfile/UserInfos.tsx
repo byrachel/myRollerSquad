@@ -1,7 +1,6 @@
 import React from "react";
 
 import Avatar from "./Avatar/Avatar";
-import LogoutButton from "../../components/buttons/LogoutButton";
 import UpdateProfileButton from "../../components/buttons/UpdateProfileButton";
 import { UserInterface } from "src/interfaces/userInterfaces";
 
@@ -31,12 +30,7 @@ export default function UserInfos({
           <h1>{user.name}</h1>
           <div className="rollerSkaterButtons">
             {userConnectedId === user.id ? (
-              <>
-                <UpdateProfileButton
-                  userProfileDispatch={userProfileDispatch}
-                />
-                <LogoutButton />
-              </>
+              <UpdateProfileButton userProfileDispatch={userProfileDispatch} />
             ) : null}
           </div>
         </div>

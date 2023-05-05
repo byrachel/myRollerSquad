@@ -86,10 +86,10 @@
 }
 
 .userFlowContainer {
-  padding: 3em 0;
+  padding: 4em 0;
   h2.title {
     text-align: center;
-    margin-bottom: 1em;
+    margin: 1.5em;
   }
 }
 .responsiveFlowContainer {
@@ -98,100 +98,99 @@
 }
 
 .flowContainer {
-  padding: 1em;
+  padding: 2em;
+  display: flex;
+  justify-content: space-around;
+  gap: 2em;
+}
+div.cardContainer {
+  border-radius: 6px;
+  margin-top: 1em;
+  background-color: white;
+  &.blue {
+    border: solid 1px $blueColor;
+    box-shadow: 4px 4px $blueColor;
+  }
+  &.pink {
+    border: solid 1px $secondaryColor;
+    box-shadow: 4px 4px $secondaryColor;
+  }
+  &.yellow {
+    border: solid 1px $yellowColor;
+    box-shadow: 4px 4px $yellowColor;
+  }
+  &.green {
+    border: solid 1px $greenColor;
+    box-shadow: 4px 4px $greenColor;
+  }
+  &.dark {
+    border: solid 1px $primaryColor;
+    box-shadow: 4px 4px $primaryColor;
+  }
+  &.purple {
+    border: solid 1px $purpleColor;
+    box-shadow: 4px 4px $purpleColor;
+  }
 
-  div.cardContainer {
-    border-radius: 6px;
-    margin-top: 1em;
-    background-color: white;
+  div.cardTitle {
+    margin: 0.7em 0 0 0.5em;
 
-    &.blue {
-      border: solid 1px $blueColor;
-      box-shadow: 4px 4px $blueColor;
+    h2.title {
+      font-family: $titleFont;
+      font-size: $fontSize-lg;
+      color: $primaryColor;
+      margin: 0;
     }
-    &.pink {
-      border: solid 1px $secondaryColor;
-      box-shadow: 4px 4px $secondaryColor;
-    }
-    &.yellow {
-      border: solid 1px $yellowColor;
-      box-shadow: 4px 4px $yellowColor;
-    }
-    &.green {
-      border: solid 1px $greenColor;
-      box-shadow: 4px 4px $greenColor;
-    }
-    &.dark {
-      border: solid 1px $primaryColor;
-      box-shadow: 4px 4px $primaryColor;
-    }
-    &.purple {
-      border: solid 1px $purpleColor;
-      box-shadow: 4px 4px $purpleColor;
-    }
-
-    div.cardTitle {
-      margin: 0.7em 0 0 0.5em;
-
-      h2.title {
-        font-family: $titleFont;
-        font-size: $fontSize-lg;
+    h3.userName {
+      font-family: $textFont;
+      font-size: 0.75em;
+      letter-spacing: 0.5px;
+      margin: 0;
+      &.blue {
+        color: $blueColor;
+      }
+      &.pink {
+        color: $secondaryColor;
+      }
+      &.yellow {
+        color: $yellowColor;
+      }
+      &.green {
+        color: $greenColor;
+      }
+      &.dark {
         color: $primaryColor;
-        margin: 0;
       }
-      h3.userName {
-        font-family: $textFont;
-        font-size: 0.75em;
-        letter-spacing: 0.5px;
-        margin: 0;
-        &.blue {
-          color: $blueColor;
-        }
-        &.pink {
-          color: $secondaryColor;
-        }
-        &.yellow {
-          color: $yellowColor;
-        }
-        &.green {
-          color: $greenColor;
-        }
-        &.dark {
-          color: $primaryColor;
-        }
-        &.purple {
-          color: $purpleColor;
-        }
+      &.purple {
+        color: $purpleColor;
       }
     }
+  }
 
-    .featuredPict {
-      height: auto;
-      position: relative;
-      width: 100%;
+  .featuredPict {
+    height: auto;
+    position: relative;
+    width: 100%;
 
-      .pictSliderArrow {
-        fill: none;
-        stroke: $lightColor;
-        position: absolute;
-        top: 50%;
-        transform: translateY(-50%);
-        cursor: pointer;
-        &.left {
-          left: 0;
-        }
-        &.right {
-          right: 0;
-        }
+    .pictSliderArrow {
+      fill: none;
+      stroke: $lightColor;
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      cursor: pointer;
+      &.left {
+        left: 0;
       }
-
-      .pict {
-        height: 100% !important;
-        max-height: 500px;
-        object-fit: cover;
-        position: relative !important;
-        width: 100% !important;
+      &.right {
+        right: 0;
       }
+    }
+    .pict {
+      height: 100%;
+      object-fit: cover;
+      position: relative !important;
+      width: 100% !important;
     }
   }
 }
@@ -202,7 +201,6 @@
   max-width: 700px;
   .pict {
     height: 100% !important;
-    max-height: 500px;
     object-fit: cover;
     position: relative !important;
     width: 100% !important;

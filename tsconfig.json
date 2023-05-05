@@ -35,6 +35,7 @@
     "**/*.ts",
     "**/*.tsx",
     "src/components/form/Editor/Editor.jsx",
-    "src/context/AuthContext.js"
+    "src/context/AuthContext.js",
+    "pages/profile/posts/PostsTable.jsx"
   ]
 }

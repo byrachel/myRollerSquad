@@ -26,6 +26,20 @@ export default withIronSessionApiRoute(
         },
       });
 
+      if (!place.active) return res.status(400).json({ message: E1 });
+
+      const userRoleUpdated = await prisma.user.update({
+        where: {
+          id: user.id,
+        },
+        data: {
+          role: "PRO",
+        },
+      });
+
+      if (!userRoleUpdated || userRoleUpdated.role !== "PRO")
+        return res.status(400).json({ message: E1 });
+
       res.status(200).json({ place });
     } catch (error) {
       console.log(error);

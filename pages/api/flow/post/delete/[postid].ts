@@ -25,9 +25,7 @@ export default withIronSessionApiRoute(
         },
       });
 
-      if (!post || !post.user_id) return res.status(401).json({ message: E2 });
-
-      if (post.user_id !== user.id)
+      if (!post || !post.user_id || post.user_id !== user.id)
         return res.status(401).json({ message: E2 });
 
       await prisma.post.delete({

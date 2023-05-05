@@ -7,7 +7,6 @@ import UploadedPicturesPreview from "@/components/layouts/UploadedPicturesPrevie
 import Editor from "@/components/form/Editor/Editor";
 import RegularButton from "@/components/buttons/RegularButton";
 import { uploadPictsWithPreview } from "src/utils/uploadPictsWithPreview";
-import { cardColor } from "src/utils/colorManager";
 import { onSubmitNewPost } from "./utils/onSubmitNewPost";
 
 import Camera from "src/svg/add-media-image.svg";
@@ -44,7 +43,7 @@ export default function NewPostForm({
               tabIndex={0}
               className={
                 category.id === post.category
-                  ? `badge ${cardColor(category.id)}`
+                  ? `badge pink`
                   : "outlineBadge grey"
               }
               onClick={() =>
@@ -158,7 +157,7 @@ export default function NewPostForm({
               role="button"
               className={
                 post.style.includes(style.id)
-                  ? `badge ${cardColor(post.category)}`
+                  ? `badge blue`
                   : "outlineBadge grey"
               }
               onClick={() =>

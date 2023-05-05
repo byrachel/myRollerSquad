@@ -2,6 +2,7 @@ import { useContext } from "react";
 import { useRouter } from "next/router";
 import Image from "next/image";
 import Link from "next/link";
+import { Dropdown } from "@nextui-org/react";
 
 import { UserContext } from "../../context/UserContext";
 import styles from "../../styles/Header.module.scss";
@@ -10,10 +11,12 @@ import UserProfile from "src/svg/profile-circle.svg";
 import MySquad from "src/svg/flash.svg";
 import Admin from "src/svg/admin.svg";
 import Search from "src/svg/search.svg";
+import { onLogout } from "../auth/utils/services";
 
 export default function Header() {
   const router = useRouter();
-  const { userState } = useContext(UserContext);
+  const { userState, userDispatch } = useContext(UserContext);
+  const isLogged = userState.isLoggedIn && userState.id;
   const isAdmin = userState.role === "ADMIN";
   const dept = userState.county ? userState.county : "all";
   const path = router.pathname.split("/")[1];
@@ -42,7 +45,7 @@ export default function Header() {
                 height={42}
               />
             </Link>
-            <Link href={"/myrollerblog"}>
+            <Link href={isLogged ? "/myrollerblog" : "/signin"}>
               <MySquad
                 className={
                   path === "myrollerblog" ? styles.icon : styles.iconInactive
@@ -51,17 +54,57 @@ export default function Header() {
                 height={42}
               />
             </Link>
-            <Link href={"/profile/me"}>
-              <UserProfile
-                className={
-                  path === "profile" ? styles.icon : styles.iconInactive
-                }
-                width={38}
-                height={38}
-              />
-            </Link>
+
+            {isLogged ? (
+              <Dropdown>
+                <Dropdown.Button
+                  color={path === "profile" ? "error" : "default"}
+                  light
+                >
+                  <UserProfile
+                    className={
+                      path === "profile" ? styles.icon : styles.iconInactive
+                    }
+                    width={38}
+                    height={38}
+                  />
+                </Dropdown.Button>
+                <Dropdown.Menu aria-label="Static Actions">
+                  <Dropdown.Item>
+                    <Link href={"/profile/me"}>Mon compte</Link>
+                  </Dropdown.Item>
+                  <Dropdown.Item>
+                    <Link href={`/profile/posts/${userState.id}`}>
+                      Tableau de bord
+                    </Link>
+                  </Dropdown.Item>
+                  <Dropdown.Item>Notifications</Dropdown.Item>
+                  <Dropdown.Item withDivider color="error">
+                    <span
+                      role="button"
+                      tabIndex={0}
+                      onKeyDown={() => onLogout(userDispatch)}
+                      onClick={() => onLogout(userDispatch)}
+                    >
+                      Se déconnecter
+                    </span>
+                  </Dropdown.Item>
+                </Dropdown.Menu>
+              </Dropdown>
+            ) : (
+              <Link href={"/signin"}>
+                <UserProfile
+                  className={
+                    path === "profile" ? styles.icon : styles.iconInactive
+                  }
+                  width={38}
+                  height={38}
+                />
+              </Link>
+            )}
+
             {isAdmin ? (
-              <Link href={"/board/manager"}>
+              <Link href={isLogged ? "/board/manager" : "/signin"}>
                 <Admin
                   className={
                     path === "board" ? styles.icon : styles.iconInactive

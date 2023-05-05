@@ -19,13 +19,13 @@ const validator = initValidation([
       "TITLE can't be empty and must have minimum length of 3 and maximum 30"
     ),
   check("content").optional().trim().escape(),
-  check("link").optional().trim().escape(),
+  check("link").isURL().optional({ nullable: true }).withMessage(E1),
   check("price").optional().isNumeric().withMessage(E1),
   check("country").optional().trim().escape(),
   check("county").optional().trim().escape(),
   check("city").optional().trim().escape(),
   check("duration").optional().trim().escape(),
-  // check("distance").optional().isDecimal(),
+  check("distance").optional().trim().escape(),
   check("category_id").not().isEmpty().isNumeric().withMessage(E3),
   check("style_ids").isArray().withMessage(E3),
 ]);
