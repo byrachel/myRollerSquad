@@ -42,6 +42,11 @@ export const PostReducer = (
         ...state,
         pictures: action.payload,
       };
+    case "SAVE_ONLY_THIS_INITIAL_PICTURES":
+      return {
+        ...state,
+        initialPictures: action.payload,
+      };
     case "DISPLAY_LOCATION":
       return {
         ...state,

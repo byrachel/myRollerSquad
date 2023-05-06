@@ -13,6 +13,7 @@ class StoryPost {
   city;
   category_id;
   style_ids;
+  pictures;
   constructor(newPost: NewPostFactoryInterface) {
     this.title = newPost.title;
     this.content = newPost.content;
@@ -25,6 +26,7 @@ class StoryPost {
     this.category_id = newPost.category_id;
     this.style_ids = newPost.style_ids;
     this.city = newPost.city;
+    this.pictures = newPost.pictures;
   }
 }
 
@@ -38,6 +40,7 @@ class ResalePost {
   category_id;
   style_ids;
   city;
+  pictures;
   constructor(newPost: NewPostFactoryInterface) {
     this.title = newPost.title;
     this.content = newPost.content;
@@ -48,6 +51,7 @@ class ResalePost {
     this.style_ids = newPost.style_ids;
     this.city = newPost.city;
     this.county = newPost.county;
+    this.pictures = newPost.pictures;
   }
 }
 
@@ -61,6 +65,7 @@ class OtherPost {
   country;
   county;
   city;
+  pictures;
   constructor(newPost: NewPostFactoryInterface) {
     this.title = newPost.title;
     this.content = newPost.content;
@@ -71,6 +76,7 @@ class OtherPost {
     this.country = newPost.country;
     this.city = newPost.city;
     this.county = newPost.county;
+    this.pictures = newPost.pictures;
   }
 }
 

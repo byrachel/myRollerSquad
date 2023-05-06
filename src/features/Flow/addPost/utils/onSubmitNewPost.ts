@@ -1,6 +1,9 @@
 import axios from "axios";
 import { Dispatch, SyntheticEvent } from "react";
-import { NewPostInterface } from "src/interfaces/flowInterfaces";
+import {
+  EditPostInterface,
+  NewPostInterface,
+} from "src/interfaces/flowInterfaces";
 import { NewPostFactory } from "./NewPostFactory";
 
 export const onSubmitNewPost = async (
@@ -49,6 +52,7 @@ export const onSubmitNewPost = async (
       county: post.county ? post.county : null,
       city: post.city ? post.city : null,
       squad_ids: [],
+      pictures: [],
     };
 
     const newPostFactory = new NewPostFactory();
@@ -94,6 +98,77 @@ export const onSubmitNewPost = async (
         } else {
           router.push(`/post/${postid}`);
         }
+      })
+      .catch((err) => {
+        postDispatch({
+          type: "ERROR",
+          payload: err.response.data.message,
+        });
+      });
+  }
+};
+
+export const onSubmitEditedPost = async (
+  event: SyntheticEvent,
+  userConnectedId: number,
+  post: EditPostInterface,
+  postDispatch: Dispatch<any>,
+  router: any
+) => {
+  event.preventDefault();
+
+  postDispatch({
+    type: "LOADING",
+    payload: true,
+  });
+
+  const target = event.target as typeof event.target & {
+    title: { value: string };
+    link: { value: string };
+    price: { value?: number };
+    duration: { value?: number };
+    distance: { value?: string };
+  };
+
+  if (!target.title.value) {
+    return postDispatch({
+      type: "TITLE_ERROR",
+      payload: true,
+    });
+  } else {
+    const newPost = {
+      user_id: userConnectedId,
+      title: target.title.value,
+      content: post.content,
+      price: target.price && target.price.value ? target.price.value : null,
+      category_id: post.category,
+      style_ids: post.style ? post.style : [],
+      link: target.link && target.link.value ? target.link.value : null,
+      duration:
+        target.duration && target.duration.value ? target.duration.value : null,
+      distance:
+        target.distance && target.distance.value
+          ? parseFloat(target.distance.value)
+          : null,
+      country: post.country ? post.country : null,
+      county: post.county ? post.county : null,
+      city: post.city ? post.city : null,
+      squad_ids: [],
+      pictures: post.initialPictures,
+    };
+
+    const editedPostFactory = new NewPostFactory();
+    const editedPostToSave = editedPostFactory.create(newPost);
+
+    axios({
+      method: "put",
+      url: `/api/flow/post/update/${post.id}`,
+      data: editedPostToSave,
+      withCredentials: true,
+    })
+      .then((res) => {
+        const postid = res.data.post.id;
+        router.push(`/post/${postid}`);
       })
       .catch((err) => {
         postDispatch({

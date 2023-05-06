@@ -7,17 +7,19 @@ import UploadedPicturesPreview from "@/components/layouts/UploadedPicturesPrevie
 import Editor from "@/components/form/Editor/Editor";
 import RegularButton from "@/components/buttons/RegularButton";
 import { uploadPictsWithPreview } from "src/utils/uploadPictsWithPreview";
-import { onSubmitNewPost } from "./utils/onSubmitNewPost";
+import { onSubmitNewPost, onSubmitEditedPost } from "./utils/onSubmitNewPost";
 
 import Camera from "src/svg/add-media-image.svg";
 import Map from "src/svg/pin-alt.svg";
 import Pin from "src/svg/pin.svg";
+import EditUploadedPicturesPreview from "@/components/layouts/EditUploadedPicturesPreview";
 
 interface Props {
   userConnectedId: number;
   post: any;
   postDispatch: React.Dispatch<any>;
   setShowMap: React.Dispatch<React.SetStateAction<boolean>>;
+  editMode?: boolean;
 }
 
 export default function NewPostForm({
@@ -25,6 +27,7 @@ export default function NewPostForm({
   post,
   postDispatch,
   setShowMap,
+  editMode,
 }: Props) {
   const router = useRouter();
 
@@ -32,7 +35,9 @@ export default function NewPostForm({
     <>
       <form
         onSubmit={(e) =>
-          onSubmitNewPost(e, userConnectedId, post, postDispatch, router)
+          editMode
+            ? onSubmitEditedPost(e, userConnectedId, post, postDispatch, router)
+            : onSubmitNewPost(e, userConnectedId, post, postDispatch, router)
         }
       >
         <div className="flexStart">
@@ -74,6 +79,7 @@ export default function NewPostForm({
               type="text"
               maxLength={30}
               required
+              defaultValue={post.title}
             />
           </div>
           <div className="flexStartNoWrap mt5">
@@ -103,6 +109,13 @@ export default function NewPostForm({
           dispatch={postDispatch}
         />
 
+        {editMode ? (
+          <EditUploadedPicturesPreview
+            pictures={post.initialPictures}
+            dispatch={postDispatch}
+          />
+        ) : null}
+
         {post.country ? (
           <p className="meta mt5">
             <Pin width={12} height={12} className="metaIcon" />
@@ -129,6 +142,7 @@ export default function NewPostForm({
                 id="distance"
                 type="number"
                 step=".01"
+                value={post.distance}
               />
             </div>
             <div style={{ width: "100%", marginLeft: 5 }}>
@@ -138,6 +152,7 @@ export default function NewPostForm({
                 name="duration_hour"
                 id="duration"
                 type="time"
+                value={post.duration}
               />
             </div>
           </div>
@@ -146,7 +161,13 @@ export default function NewPostForm({
         {post.category === category.SALE ? (
           <>
             <label htmlFor="price">Prix (€)</label>
-            <input className="input" name="price" id="price" type="number" />
+            <input
+              className="input"
+              name="price"
+              id="price"
+              type="number"
+              value={post.price}
+            />
           </>
         ) : null}
         <label htmlFor="rollerStyle">Choisis ton style</label>
@@ -181,7 +202,13 @@ export default function NewPostForm({
         {post.category === category.SALE ? null : (
           <>
             <label htmlFor="link">Lien</label>
-            <input className="input" name="link" id="link" type="url" />
+            <input
+              className="input"
+              name="link"
+              id="link"
+              type="url"
+              defaultValue={post.link}
+            />
           </>
         )}
         <RegularButton type="submit" style="full" text="Publier" />

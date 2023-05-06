@@ -1,6 +1,7 @@
 import React from "react";
 import BusinessPlaces from "src/features/BusinessProfile/BusinessPlaces";
 import PlacesFilters from "src/features/BusinessProfile/PlacesFilters";
+import { PlaceInterface } from "src/interfaces/userInterfaces";
 
 export default function Places({ places, dept, category }: any) {
   return (
@@ -17,8 +18,24 @@ export default function Places({ places, dept, category }: any) {
     </>
   );
 }
-export async function getServerSideProps(context: any) {
-  const { dept, category } = context.query;
+
+export async function getStaticPaths() {
+  const API_URL =
+    process.env.NODE_ENV === "production"
+      ? "https://myrollersquad.vercel.app"
+      : "http://localhost:3000";
+  const res = await fetch(`${API_URL}/api/business/all?category=all`);
+  const data = await res.json();
+
+  const places = data.places.length > 0 ? data.places : [];
+  const paths = places.map((place: PlaceInterface) => ({
+    params: { category: place.category, dept: place.county },
+  }));
+  return { paths, fallback: true };
+}
+
+export async function getStaticProps(context: any) {
+  const { dept, category } = context.params;
 
   const API_URL =
     process.env.NODE_ENV === "production"

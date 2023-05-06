@@ -49,6 +49,16 @@ export interface NewPostInterface {
   map: Blob | null;
 }
 
+export interface EditPostInterface extends NewPostInterface {
+  id: number;
+  title: string;
+  link: string | null;
+  price: number | null;
+  distance: number | null;
+  duration: number | null;
+  initialPictures: string[];
+}
+
 export interface NewPostFactoryInterface {
   title: string;
   content: string;
@@ -63,4 +73,5 @@ export interface NewPostFactoryInterface {
   city: string | null;
   county: string | null;
   country: string | null;
+  pictures: string[]; // for edited post only
 }

@@ -29,7 +29,7 @@ export default function LastPostsShared({ posts, userConnectedId }: Props) {
               text="Créer un article"
               type="button"
               style="outline"
-              onClick={() => router.push("/newpost")}
+              onClick={() => router.push("/post/newpost")}
             />
           </div>
         )}

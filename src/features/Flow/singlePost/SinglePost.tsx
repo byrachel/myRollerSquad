@@ -30,78 +30,80 @@ export default function SinglePost({ post, userConnectedId }: Props) {
   const redirectAfterDelete = () =>
     router.push(`/profile/posts/${userConnectedId}`);
 
-  return editPost ? (
-    <EditPost post={post} />
-  ) : (
-    <>
-      <div className="spaceBetween">
-        <div className={`staticBadge ${color}`}>
-          {getCategoryName(post.category_id)}
+  return userConnectedId ? (
+    editPost ? (
+      <EditPost postToEdit={post} userConnectedId={userConnectedId} />
+    ) : (
+      <>
+        <div className="spaceBetween">
+          <div className={`staticBadge ${color}`}>
+            {getCategoryName(post.category_id)}
+          </div>
+          {post.user.id === userConnectedId ? (
+            <UpdateDeleteIcons
+              onUpdate={() => setEditPost(true)}
+              onDelete={() => deletePost(post.id, redirectAfterDelete)}
+            />
+          ) : null}
         </div>
-        {post.user.id === userConnectedId ? (
-          <UpdateDeleteIcons
-            onUpdate={() => setEditPost(true)}
-            onDelete={() => deletePost(post.id, redirectAfterDelete)}
-          />
+        {post.style.length > 0 ? (
+          <div className="flexStart">
+            {post.style.map((elt) => (
+              <div className={`staticOutlineBadge ${color}`} key={elt.style_id}>
+                {getStyleName(elt.style_id)}
+              </div>
+            ))}
+          </div>
         ) : null}
-      </div>
-      {post.style.length > 0 ? (
-        <div className="flexStart">
-          {post.style.map((elt) => (
-            <div className={`staticOutlineBadge ${color}`} key={elt.style_id}>
-              {getStyleName(elt.style_id)}
-            </div>
-          ))}
+
+        <h1>{post.title}</h1>
+
+        <div className="singleCardMeta">
+          <p className="cardMetaText">
+            {displayLightDateTime(post.created_at)}
+            <Pin width={12} height={12} className="metaIcon" />
+            {post.city ? `${post.city}, ` : null}
+            {post.country}
+          </p>
         </div>
-      ) : null}
+        {post.distance || post.duration ? (
+          <div className="sessionTracking">
+            <Roller className="sessionIcon" width={28} height={28} />
+            {post.distance ? <p>{post.distance} km</p> : null}
+            {post.duration ? <p>{post.duration}</p> : null}
+          </div>
+        ) : null}
 
-      <h1>{post.title}</h1>
-
-      <div className="singleCardMeta">
-        <p className="cardMetaText">
-          {displayLightDateTime(post.created_at)}
-          <Pin width={12} height={12} className="metaIcon" />
-          {post.city ? `${post.city}, ` : null}
-          {post.country}
-        </p>
-      </div>
-      {post.distance || post.duration ? (
-        <div className="sessionTracking">
-          <Roller className="sessionIcon" width={28} height={28} />
-          {post.distance ? <p>{post.distance} km</p> : null}
-          {post.duration ? <p>{post.duration}</p> : null}
+        <div className="postContent mt5">
+          {post.content ? parseContent(post.content) : null}
         </div>
-      ) : null}
 
-      <div className="postContent mt5">
-        {post.content ? parseContent(post.content) : null}
-      </div>
-
-      <div className="singlePostPicts">
-        {post.pictures.length > 0
-          ? post.pictures.map((pict, index) => (
-              <Image
-                src={`https://myrollersquadflow.s3.eu-west-3.amazonaws.com/${pict}`}
-                alt="Roller Skateur"
-                className="pict"
-                fill
-                key={index}
-              />
-            ))
-          : null}
-      </div>
-      <div className="lightBox">
-        <div className="flexStart">
-          <LikeIcon
-            color={color}
-            counter={post.user_likes.length}
-            postId={post.id}
-            likedBy={post.user_likes.map((like) => like.user_id)}
-            userConnectedId={userConnectedId}
-          />
+        <div className="singlePostPicts">
+          {post.pictures.length > 0
+            ? post.pictures.map((pict, index) => (
+                <Image
+                  src={`https://myrollersquadflow.s3.eu-west-3.amazonaws.com/${pict}`}
+                  alt="Roller Skateur"
+                  className="pict"
+                  fill
+                  key={index}
+                />
+              ))
+            : null}
         </div>
-        <CommentIcon counter={post.comments.length} color={color} />
-      </div>
-    </>
-  );
+        <div className="lightBox">
+          <div className="flexStart">
+            <LikeIcon
+              color={color}
+              counter={post.user_likes.length}
+              postId={post.id}
+              likedBy={post.user_likes.map((like) => like.user_id)}
+              userConnectedId={userConnectedId}
+            />
+          </div>
+          <CommentIcon counter={post.comments.length} color={color} />
+        </div>
+      </>
+    )
+  ) : null;
 }
