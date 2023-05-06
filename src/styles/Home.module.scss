@@ -146,11 +146,12 @@
     margin-top: 3em;
     .fourRoundImages {
       display: flex;
+      gap: 1em;
 
       .roundImage {
-        height: 140px;
+        height: 160px;
         position: relative;
-        width: 140px;
+        width: 160px;
       }
       .image {
         border-radius: 50%;
