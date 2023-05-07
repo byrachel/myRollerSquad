@@ -191,16 +191,6 @@ input[type="file"] {
   display: none;
 }
 
-.flowFileInput {
-  cursor: pointer;
-  margin: 2em 0.5em 0 0.75em;
-
-  .fileInputIcon {
-    stroke: $secondaryColor;
-    margin-top: 0.5em;
-  }
-}
-
 .registerFileInput {
   cursor: pointer;
   margin: 0 0 0 0.7em;
@@ -208,11 +198,6 @@ input[type="file"] {
   .fileInputIcon {
     stroke: white;
   }
-}
-
-.newPostPinIcon {
-  margin: 1.8em 0 0 0;
-  stroke: $blueColor;
 }
 
 textarea.input {
@@ -358,11 +343,29 @@ label {
   flex-wrap: wrap;
 }
 
-.flexStartNoWrap {
+.imageAndPinIcons {
   display: flex;
-  justify-content: flex-start;
-  gap: 10;
+  justify-content: space-between;
   flex-wrap: nowrap;
+  align-items: center;
+  padding: 2em 0 0 1em;
+  .fileInputIcon {
+    cursor: pointer;
+    stroke: $secondaryColor;
+    margin-top: 0.45em;
+  }
+  .fileInputIcon:hover {
+    stroke: $blueColor;
+  }
+
+  .newPostPinIcon {
+    stroke: $blueColor;
+    cursor: pointer;
+    margin: 1.1em 0 0 0.5em;
+  }
+  .newPostPinIcon:hover {
+    stroke: $secondaryColor;
+  }
 }
 
 .badge {

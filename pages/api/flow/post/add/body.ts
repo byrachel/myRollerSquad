@@ -18,7 +18,7 @@ const validator = initValidation([
     .withMessage(
       "TITLE can't be empty and must have minimum length of 3 and maximum 30"
     ),
-  check("content").optional().trim().escape(),
+  check("content").optional().trim(),
   check("link").isURL().optional({ nullable: true }).withMessage(E1),
   check("price").optional().isNumeric().withMessage(E1),
   check("country").optional().trim().escape(),

@@ -18,7 +18,7 @@ const validator = initValidation([
     .withMessage(
       "TITLE can't be empty and must have minimum length of 3 and maximum 30"
     ),
-  check("content").optional().trim().escape(),
+  check("content").optional().trim(),
   check("link").isURL().optional({ nullable: true }).withMessage(E1),
   check("price").optional().isNumeric().withMessage(E1),
   check("country").optional().trim().escape(),
@@ -34,15 +34,13 @@ const validator = initValidation([
 export default withIronSessionApiRoute(
   handler.use(validator).put(async (req: any, res: any) => {
     const { user } = req.session;
-    console.log("user", user);
     if (!user) return res.status(401).json({ message: E2 });
 
     const { postid } = req.query;
     if (!postid) return res.status(400).json({ message: E1 });
 
-    console.log(postid);
-
     const {
+      user_id,
       title,
       content,
       category_id,
@@ -60,7 +58,8 @@ export default withIronSessionApiRoute(
 
     console.log(req.body);
 
-    if (!title || !category_id) return res.status(400).json({ message: E3 });
+    if (!title || !category_id || user_id !== user.id)
+      return res.status(400).json({ message: E3 });
 
     try {
       const newPost = await prisma.post.update({
@@ -73,14 +72,10 @@ export default withIronSessionApiRoute(
           county: county ? county : null,
           city: city ? city : null,
           style: {
+            deleteMany: {},
             create: style_ids.map((id: number) => ({
               style: { connect: { id } },
             })),
-            deleteMany: {
-              OR: style_ids.map((id: number) => ({
-                style_id: id,
-              })),
-            },
           },
           link: link ? link : null,
           duration: duration ? duration : null,
@@ -95,11 +90,8 @@ export default withIronSessionApiRoute(
         },
       });
 
-      console.log(newPost);
-
       res.status(200).json({ post: newPost });
     } catch (e) {
-      console.log(e);
       return res.status(401).json({ message: E1 });
     }
   }),

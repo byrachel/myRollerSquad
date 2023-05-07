@@ -1,7 +1,5 @@
-import React, { useReducer, useState } from "react";
+import React, { useReducer } from "react";
 
-import DisplayLocation from "src/features/Flow/addPost/DisplayLocation";
-import Modal from "src/components/layouts/Modal";
 import { PostReducer } from "src/reducers/PostReducer";
 import { newPostInitialState } from "src/features/Flow/addPost/utils/newPostInitialState";
 import NewPostForm from "src/features/Flow/addPost/NewPostForm";
@@ -17,7 +15,6 @@ interface Props {
 
 const NewPost = ({ user }: Props) => {
   const [post, postDispatch] = useReducer(PostReducer, newPostInitialState);
-  const [showMap, setShowMap] = useState(false);
 
   return (
     <>
@@ -27,20 +24,11 @@ const NewPost = ({ user }: Props) => {
         <SidebarLayout
           sidebar={<NewPostSidebar />}
           content={
-            <>
-              <NewPostForm
-                userConnectedId={user.id}
-                post={post}
-                postDispatch={postDispatch}
-                setShowMap={setShowMap}
-              />
-              <Modal show={showMap} setShow={setShowMap} title="Localisation">
-                <DisplayLocation
-                  dispatch={postDispatch}
-                  setShowMap={setShowMap}
-                />
-              </Modal>
-            </>
+            <NewPostForm
+              userConnectedId={user.id}
+              post={post}
+              postDispatch={postDispatch}
+            />
           }
         />
       ) : (

@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import dynamic from "next/dynamic";
 import html2canvas from "html2canvas";
 import RegularButton from "src/components/buttons/RegularButton";
+import Loader from "@/components/layouts/Loader";
 
 interface Props {
   dispatch: React.Dispatch<any>;
@@ -17,16 +18,23 @@ interface BlobImageInterface {
   name?: string;
 }
 
-export default function DisplayLocation({ dispatch, setShowMap }: Props) {
+export default function DisplayMap({ dispatch, setShowMap }: Props) {
   const Map = dynamic(() => import("./Map"), { ssr: false });
+  const [status, setStatus] = useState({ loading: false, error: false });
   const [location, setLocation] = useState<string | null>(null);
   const [position, setPosition] = useState<[number, number] | null>(null);
 
   useEffect(() => {
-    navigator.geolocation.getCurrentPosition((position) => {
-      setPosition([position.coords.latitude, position.coords.longitude]);
-    });
-    // eslint-disable-next-line
+    if ("geolocation" in navigator) {
+      setStatus({ loading: true, error: false });
+      navigator.geolocation.getCurrentPosition(
+        ({ coords }) => {
+          setStatus({ loading: false, error: false });
+          setPosition([coords.latitude, coords.longitude]);
+        },
+        () => setStatus({ loading: false, error: true })
+      );
+    }
   }, []);
 
   useEffect(() => {
@@ -76,24 +84,37 @@ export default function DisplayLocation({ dispatch, setShowMap }: Props) {
     });
   };
 
-  return position ? (
+  return (
     <>
-      <div className="mapContainer">
-        <Map
-          position={position}
-          setPosition={setPosition}
-          dispatch={dispatch}
-        />
-      </div>
-      <div className="spaceBetween">
-        {location ? <p className="meta">{location}</p> : null}
-        <RegularButton
-          type="button"
-          style="full"
-          text="Ajouter à la publication"
-          onClick={saveAsImage}
-        />
-      </div>
+      <h3>Localiser un spot</h3>
+      {!position && status.loading ? (
+        <Loader text="Mais... ou es-tu ?" />
+      ) : position ? (
+        <div className="mapContainer">
+          <p className="center">
+            Déplace le pointeur, zoum & dézoume la carte pour positionner ton
+            spot !
+          </p>
+          <Map
+            position={position}
+            setPosition={setPosition}
+            dispatch={dispatch}
+          />
+        </div>
+      ) : null}
+      {!position && status.error ? (
+        <p className="meta">Impossible de récupérer votre position :-(</p>
+      ) : (
+        <div className="spaceBetween">
+          {location ? <p className="meta">{location}</p> : null}
+          <RegularButton
+            type="button"
+            style="full"
+            text="Ajouter à la publication"
+            onClick={saveAsImage}
+          />
+        </div>
+      )}
     </>
-  ) : null;
+  );
 }

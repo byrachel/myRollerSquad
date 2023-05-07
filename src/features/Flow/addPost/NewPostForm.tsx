@@ -5,20 +5,22 @@ import * as category from "src/constants/PostCategories";
 import { rollerSkateStyles } from "src/constants/RollerSkateStyles";
 import UploadedPicturesPreview from "@/components/layouts/UploadedPicturesPreview";
 import Editor from "@/components/form/Editor/Editor";
-import RegularButton from "@/components/buttons/RegularButton";
+import EditUploadedPicturesPreview from "@/components/layouts/EditUploadedPicturesPreview";
+import InputText from "@/components/form/InputText";
+import DisplayMapContainer from "./DisplayMapContainer";
+import SelectCategory from "./SelectCategory";
 import { uploadPictsWithPreview } from "src/utils/uploadPictsWithPreview";
 import { onSubmitNewPost, onSubmitEditedPost } from "./utils/onSubmitNewPost";
 
 import Camera from "src/svg/add-media-image.svg";
-import Map from "src/svg/pin-alt.svg";
-import Pin from "src/svg/pin.svg";
-import EditUploadedPicturesPreview from "@/components/layouts/EditUploadedPicturesPreview";
+import BigButton from "@/components/buttons/BigButton";
+import HandleLocation from "./HandleLocation";
+import { is } from "date-fns/locale";
 
 interface Props {
   userConnectedId: number;
   post: any;
   postDispatch: React.Dispatch<any>;
-  setShowMap: React.Dispatch<React.SetStateAction<boolean>>;
   editMode?: boolean;
 }
 
@@ -26,10 +28,10 @@ export default function NewPostForm({
   userConnectedId,
   post,
   postDispatch,
-  setShowMap,
   editMode,
 }: Props) {
   const router = useRouter();
+  console.log(post);
 
   return (
     <>
@@ -40,72 +42,45 @@ export default function NewPostForm({
             : onSubmitNewPost(e, userConnectedId, post, postDispatch, router)
         }
       >
-        <div className="flexStart">
-          {category.flowCategories.map((category) => (
-            <div
-              role="button"
-              key={category.id}
-              tabIndex={0}
-              className={
-                category.id === post.category
-                  ? `badge pink`
-                  : "outlineBadge grey"
-              }
-              onClick={() =>
-                postDispatch({
-                  type: "SAVE_CATEGORY",
-                  payload: category.id,
-                })
-              }
-              onKeyDown={() =>
-                postDispatch({
-                  type: "SAVE_CATEGORY",
-                  payload: category.id,
-                })
-              }
-            >
-              {category.name}
-            </div>
-          ))}
-        </div>
+        <SelectCategory
+          postCategory={post.category}
+          postDispatch={postDispatch}
+        />
 
         <div className="spaceBetween">
           <div style={{ width: "100%" }}>
-            <label htmlFor="text">Titre</label>
-            <input
-              className={post.error.input === "title" ? "input error" : "input"}
+            <InputText
+              label="Titre"
+              placeholder="Titre"
               name="title"
-              id="text"
-              type="text"
+              minLength={3}
               maxLength={30}
+              value={post.title}
+              error={post.error.input === "title"}
               required
-              defaultValue={post.title}
             />
           </div>
-          <div className="flexStartNoWrap mt5">
-            <label htmlFor="fileInput" className="flowFileInput">
-              <Camera className="fileInputIcon" width={42} height={42} />
-              <input
-                id="fileInput"
-                className="input"
-                type="file"
-                accept="image/*"
-                multiple
-                onChange={(e) => uploadPictsWithPreview(e, postDispatch)}
-              />
-            </label>
-
-            <Map
-              className="newPostPinIcon"
-              width={42}
-              height={42}
-              onClick={() => setShowMap(true)}
-            />
-          </div>
+          {editMode ? null : (
+            <div className="imageAndPinIcons">
+              <label htmlFor="fileInput">
+                <Camera className="fileInputIcon" width={45} height={45} />
+                <input
+                  id="fileInput"
+                  className="input"
+                  type="file"
+                  accept="image/*"
+                  multiple
+                  onChange={(e) => uploadPictsWithPreview(e, postDispatch)}
+                />
+              </label>
+              <DisplayMapContainer postDispatch={postDispatch} />
+            </div>
+          )}
         </div>
 
         <UploadedPicturesPreview
           pictures={post.pictures}
+          error={post.error}
           dispatch={postDispatch}
         />
 
@@ -116,12 +91,11 @@ export default function NewPostForm({
           />
         ) : null}
 
-        {post.country ? (
-          <p className="meta mt5">
-            <Pin width={12} height={12} className="metaIcon" />
-            {post.country}
-          </p>
-        ) : null}
+        <HandleLocation
+          country={post.country}
+          county={post.county}
+          city={post.city}
+        />
 
         <label>
           {post.category === category.SALE ? "Description" : "Message"}
@@ -211,7 +185,7 @@ export default function NewPostForm({
             />
           </>
         )}
-        <RegularButton type="submit" style="full" text="Publier" />
+        <BigButton type="submit" style="full" text="Publier" />
       </form>
     </>
   );

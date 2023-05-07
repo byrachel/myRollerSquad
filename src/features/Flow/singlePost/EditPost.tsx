@@ -32,21 +32,12 @@ export default function EditPost({ postToEdit, userConnectedId }: Props) {
   };
   const [post, postDispatch] = useReducer(PostReducer, initialState);
 
-  const setShowMap = () => {
-    console.log("map");
-  };
   return (
-    <div>
-      <NewPostForm
-        userConnectedId={userConnectedId}
-        post={post}
-        postDispatch={postDispatch}
-        setShowMap={setShowMap}
-        editMode
-      />
-      {/* <Modal show={showMap} setShow={setShowMap} title="Localisation">
-        <DisplayLocation dispatch={postDispatch} setShowMap={setShowMap} />
-      </Modal> */}
-    </div>
+    <NewPostForm
+      userConnectedId={userConnectedId}
+      post={post}
+      postDispatch={postDispatch}
+      editMode
+    />
   );
 }

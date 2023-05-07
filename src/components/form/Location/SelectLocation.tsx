@@ -53,6 +53,7 @@ export default function SelectLocation({ country, department, city }: Props) {
                 defaultValue={selectedDepartment || ""}
                 onChange={handleDepartment}
               >
+                <option value="">-- Choisis ta département</option>
                 {departments.map((elt) => (
                   <option key={elt.dep_name} value={elt.num_dep}>
                     {elt.dep_name}
@@ -63,7 +64,22 @@ export default function SelectLocation({ country, department, city }: Props) {
           </div>
           <div style={{ width: "49%" }}>
             <label htmlFor="city">Ville :</label>
-            <input
+            <div className="select">
+              <select
+                id="standard-select"
+                name="city"
+                defaultValue={city || ""}
+                placeholder="-- Choisis ta ville"
+              >
+                <option value="">-- Choisis ta ville</option>
+                {citiesToSelect.map((elt) => (
+                  <option key={elt.id} value={elt.name}>
+                    {elt.name}
+                  </option>
+                ))}
+              </select>
+
+              {/* <input
               type="text"
               list="options"
               name="city"
@@ -75,7 +91,8 @@ export default function SelectLocation({ country, department, city }: Props) {
               {citiesToSelect.map((city) => (
                 <option key={city.id} value={city.name} />
               ))}
-            </datalist>
+            </datalist> */}
+            </div>
           </div>
         </div>
       ) : null}

@@ -22,7 +22,9 @@ export default function ErrorLayout({
   };
   return error ? (
     <div className="errorBox">
-      <p className="errorMessage">{message}</p>
+      <p className="errorMessage">
+        <b>{message}</b>
+      </p>
       <div
         role="button"
         tabIndex={0}

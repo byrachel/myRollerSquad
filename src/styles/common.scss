@@ -24,12 +24,12 @@ div.updateDeleteIcons {
 }
 
 p.meta {
-  color: $greyColor;
+  color: darken($color: $greyColor, $amount: 10);
   font-family: $textFont;
   font-size: $fontSize-sm;
   font-weight: 300;
   text-transform: uppercase;
-  letter-spacing: 0.5px;
+  letter-spacing: 0.25px;
 }
 
 .metaBox {

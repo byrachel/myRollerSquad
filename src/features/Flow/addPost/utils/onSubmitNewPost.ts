@@ -33,79 +33,85 @@ export const onSubmitNewPost = async (
       type: "TITLE_ERROR",
       payload: true,
     });
-  } else {
-    const newPost = {
-      user_id: userConnectedId,
-      title: target.title.value,
-      content: post.content,
-      price: target.price && target.price.value ? target.price.value : null,
-      category_id: post.category,
-      style_ids: post.style ? post.style : [],
-      link: target.link && target.link.value ? target.link.value : null,
-      duration:
-        target.duration && target.duration.value ? target.duration.value : null,
-      distance:
-        target.distance && target.distance.value
-          ? parseFloat(target.distance.value)
-          : null,
-      country: post.country ? post.country : null,
-      county: post.county ? post.county : null,
-      city: post.city ? post.city : null,
-      squad_ids: [],
-      pictures: [],
-    };
-
-    const newPostFactory = new NewPostFactory();
-    const newPostToSave = newPostFactory.create(newPost);
-
-    axios({
-      method: "post",
-      url: `/api/flow/post/add/body`,
-      data: newPostToSave,
-      withCredentials: true,
-    })
-      .then((res) => {
-        const postid = res.data.post.id;
-
-        if (post.pictures.length > 0) {
-          const data = new FormData();
-
-          if (post.map) {
-            data.append("pictures", post.map, "map.png");
-          }
-          for (const image of post.pictures) {
-            if (image.name !== "map.png") {
-              data.append("pictures", image);
-            }
-          }
-
-          axios({
-            method: "put",
-            url: `/api/flow/post/add/${postid}`,
-            data,
-            headers: {
-              "Content-Type": "multipart/form-data",
-            },
-            withCredentials: true,
-          })
-            .then(() => router.push(`/post/${postid}`))
-            .catch((err) => {
-              postDispatch({
-                type: "ERROR",
-                payload: err.response.data.message,
-              });
-            });
-        } else {
-          router.push(`/post/${postid}`);
-        }
-      })
-      .catch((err) => {
-        postDispatch({
-          type: "ERROR",
-          payload: err.response.data.message,
-        });
-      });
   }
+
+  if (post.pictures.length > 5)
+    return postDispatch({
+      type: "PICTURES_LENGTH_ERROR",
+      payload: true,
+    });
+
+  const newPost = {
+    user_id: userConnectedId,
+    title: target.title.value,
+    content: post.content,
+    price: target.price && target.price.value ? target.price.value : null,
+    category_id: post.category,
+    style_ids: post.style ? post.style : [],
+    link: target.link && target.link.value ? target.link.value : null,
+    duration:
+      target.duration && target.duration.value ? target.duration.value : null,
+    distance:
+      target.distance && target.distance.value
+        ? parseFloat(target.distance.value)
+        : null,
+    country: post.country ? post.country : null,
+    county: post.county ? post.county : null,
+    city: post.city ? post.city : null,
+    squad_ids: [],
+    pictures: [],
+  };
+
+  const newPostFactory = new NewPostFactory();
+  const newPostToSave = newPostFactory.create(newPost);
+
+  axios({
+    method: "post",
+    url: `/api/flow/post/add/body`,
+    data: newPostToSave,
+    withCredentials: true,
+  })
+    .then((res) => {
+      const postid = res.data.post.id;
+
+      if (post.pictures.length > 0) {
+        const data = new FormData();
+
+        if (post.map) {
+          data.append("pictures", post.map, "map.png");
+        }
+        for (const image of post.pictures) {
+          if (image.name !== "map.png") {
+            data.append("pictures", image);
+          }
+        }
+
+        axios({
+          method: "put",
+          url: `/api/flow/post/add/${postid}`,
+          data,
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+          withCredentials: true,
+        })
+          .then(() => router.push(`/post/${postid}`))
+          .catch((err) => {
+            postDispatch({
+              type: "ERROR",
+              payload: err.response.data.message,
+            });
+          });
+      } else {
+        router.push(`/post/${postid}`);
+      }
+    })
+    .catch((err) => {
+      postDispatch({
+        type: "ERROR",
+        payload: err.response.data.message,
+      });
+    });
 };
 
 export const onSubmitEditedPost = async (
@@ -166,9 +172,11 @@ export const onSubmitEditedPost = async (
       data: editedPostToSave,
       withCredentials: true,
     })
-      .then((res) => {
-        const postid = res.data.post.id;
-        router.push(`/post/${postid}`);
+      .then(() => {
+        const isUserBoard = router.pathname === "/profile/posts/[uid]";
+        if (!isUserBoard)
+          return router.push(`/profile/posts/${userConnectedId}`);
+        router.push(`/post/${post.id}`);
       })
       .catch((err) => {
         postDispatch({

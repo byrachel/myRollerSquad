@@ -24,14 +24,17 @@ interface Props {
 
 export default function SinglePost({ post, userConnectedId }: Props) {
   const color = useMemo(() => cardColor(post.category_id), [post.category_id]);
-  const [editPost, setEditPost] = useState(false);
+  const [editPost, setEditPost] = useState<{
+    show: boolean;
+    post: PostInterface | null;
+  }>({ show: false, post: null });
   const router = useRouter();
 
   const redirectAfterDelete = () =>
     router.push(`/profile/posts/${userConnectedId}`);
 
   return userConnectedId ? (
-    editPost ? (
+    editPost.show ? (
       <EditPost postToEdit={post} userConnectedId={userConnectedId} />
     ) : (
       <>
@@ -41,7 +44,7 @@ export default function SinglePost({ post, userConnectedId }: Props) {
           </div>
           {post.user.id === userConnectedId ? (
             <UpdateDeleteIcons
-              onUpdate={() => setEditPost(true)}
+              onUpdate={() => setEditPost({ show: true, post: post })}
               onDelete={() => deletePost(post.id, redirectAfterDelete)}
             />
           ) : null}

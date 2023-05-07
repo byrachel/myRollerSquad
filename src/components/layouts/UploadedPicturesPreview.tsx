@@ -2,13 +2,19 @@ import React from "react";
 import Image from "next/image";
 
 import { UploadedPictureInterface } from "src/interfaces/flowInterfaces";
+import ErrorLayout from "./ErrorLayout";
 
 interface Props {
   pictures: UploadedPictureInterface[];
+  error: { status: boolean; message: string; input: string };
   dispatch: React.Dispatch<any>;
 }
 
-export default function UploadedPicturesPreview({ pictures, dispatch }: Props) {
+export default function UploadedPicturesPreview({
+  pictures,
+  error,
+  dispatch,
+}: Props) {
   const removePict = (picture: UploadedPictureInterface) => {
     const newListOfPictures = pictures.filter(
       (pict) => pict.name !== picture.name
@@ -20,6 +26,11 @@ export default function UploadedPicturesPreview({ pictures, dispatch }: Props) {
   };
   return (
     <>
+      <ErrorLayout
+        error={error.status && error.input === "pictures"}
+        message={error.message}
+        dispatchError={dispatch}
+      />
       {pictures.length > 0 ? (
         <div className="pictsPreviewContainer">
           {pictures.map((picture: UploadedPictureInterface, idx: number) => (

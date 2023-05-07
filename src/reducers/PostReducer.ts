@@ -29,6 +29,16 @@ export const PostReducer = (
           input: "title",
         },
       };
+
+    case "PICTURES_LENGTH_ERROR":
+      return {
+        ...state,
+        error: {
+          status: true,
+          message: "Oups ! Garde seulement les meilleures photos, 5 maximum !",
+          input: "pictures",
+        },
+      };
     case "SAVE_PICTURES":
       return {
         ...state,
@@ -88,6 +98,7 @@ export const PostReducer = (
         error: {
           status: false,
           message: null,
+          input: "",
         },
       };
 

@@ -18,9 +18,9 @@ export default function SinglePostSidebar({ post }: Props) {
         <div className="lastPosts">
           <h3>Derniers articles:</h3>
           <ul>
-            {post.user.posts.map(elt =>
+            {post.user.posts.map((elt) =>
               post.id === elt.id ? null : (
-                <li key={post.id}>
+                <li key={elt.id}>
                   <a href={`/post/${elt.id}`}>{elt.title}</a>
                 </li>
               )

@@ -1,23 +1,22 @@
 import React from "react";
-import { useRouter } from "next/router";
 import { Table, Row, User, Text, Badge } from "@nextui-org/react";
 import { PostInterface } from "src/interfaces/flowInterfaces";
 import { getStyleName } from "src/constants/RollerSkateStyles";
 import { getCategoryName } from "src/constants/PostCategories";
 import { deletePost } from "src/features/Flow/addPost/utils/deletePost";
-import Trash from "src/svg/trash.svg";
 import Heart from "src/svg/heart.svg";
 import Comment from "src/svg/chat-bubble.svg";
-import Arrow from "src/svg/nav-arrow-right.svg";
+import UpdateDeleteIcons from "@/components/buttons/UpdateDeleteIcons";
 
 interface Props {
   posts: PostInterface[];
   setUpdate: React.Dispatch<React.SetStateAction<boolean>>;
+  setEditPost: React.Dispatch<
+    React.SetStateAction<{ show: boolean; post: PostInterface | null }>
+  >;
 }
 
-export default function PostsTable({ posts, setUpdate }: Props) {
-  const router = useRouter();
-
+export default function PostsTable({ posts, setUpdate, setEditPost }: Props) {
   const columns = [
     { name: "TITRE", uid: "title" },
     { name: "STYLE", uid: "category" },
@@ -53,7 +52,7 @@ export default function PostsTable({ posts, setUpdate }: Props) {
         );
       case "success":
         return (
-          <Row justify="center" align="center">
+          <Row justify="flex-start" align="center">
             <Heart width={20} height={20} fill="#e4287d" />
             <Text
               b
@@ -80,26 +79,12 @@ export default function PostsTable({ posts, setUpdate }: Props) {
         );
       case "actions":
         return (
-          <Row justify="center" align="center">
-            <Trash
-              width={20}
-              height={20}
-              fill="none"
-              stroke="grey"
-              role="button"
-              style={{ cursor: "pointer" }}
-              onClick={() =>
+          <Row justify="flex-end">
+            <UpdateDeleteIcons
+              onUpdate={() => setEditPost({ show: true, post })}
+              onDelete={() =>
                 deletePost(post.id, () => setUpdate((prevState) => !prevState))
               }
-            />
-            <Arrow
-              width={30}
-              height={30}
-              fill="none"
-              stroke="grey"
-              role="button"
-              style={{ marginLeft: 10, cursor: "pointer" }}
-              onClick={() => router.push(`/post/${post.id}`)}
             />
           </Row>
         );
