@@ -100,9 +100,14 @@
     margin: 1.5em;
   }
 }
-.responsiveFlowContainer {
+
+.flow {
   background-color: $lightColor;
-  height: 100vh;
+  padding: 2em;
+}
+.responsiveFlowContainer {
+  min-height: 100vh;
+  margin-top: 1em;
 }
 
 .lastPostsShared {

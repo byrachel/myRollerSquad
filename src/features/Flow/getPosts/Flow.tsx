@@ -64,10 +64,9 @@ const Flow = ({ userConnectedId }: Props) => {
 
   return (
     <>
-      <div className="responsiveFlowContainer">
-        <div style={{ padding: "2em" }}>
-          <FlowFilters flowDispatch={flowDispatch} />
-          <div style={{ marginTop: "1.5em" }} />
+      <div className="flow">
+        <FlowFilters flowDispatch={flowDispatch} />
+        <div className="responsiveFlowContainer">
           <Masonry
             breakpointCols={breakpointColumnsObj}
             className="my-masonry-grid"

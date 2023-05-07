@@ -50,8 +50,12 @@ export default function UserBusinessFavs({ favs }: Props) {
               <Card isPressable onPress={() => router.push("/")}>
                 <Card.Body css={{ p: 0 }}>
                   <Card.Image
-                    src={`https://myrollerbusinesslogo.s3.eu-west-3.amazonaws.com/${item.logo}`}
-                    objectFit="contain"
+                    src={
+                      item.logo
+                        ? `https://myrollerbusinesslogo.s3.eu-west-3.amazonaws.com/${item.logo}`
+                        : "/img/myrollersquad_avatar.jpeg"
+                    }
+                    objectFit="cover"
                     width="100%"
                     height={140}
                     alt={item.title}

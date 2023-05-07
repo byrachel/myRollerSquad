@@ -97,6 +97,9 @@ model Post {
   style         StylesOnPosts[] @relation("post_style")
   user_likes    PostLiked[] @relation("user_likes")
   price         Int?
+
+  place         Place?      @relation("place_author", fields: [place_id], references: [id])
+  place_id      Int?
 }
 
 model PostLiked {
@@ -152,6 +155,8 @@ model Place {
   country       String    @default("France")
   county        String?
   city          String?
+
+  posts         Post[]     @relation("place_author")
 }
 
 enum Role {
