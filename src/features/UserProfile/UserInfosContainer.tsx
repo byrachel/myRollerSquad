@@ -11,6 +11,7 @@ import Loader from "@/components/layouts/Loader";
 import UserResume from "./UserResume";
 import UserBusinessCard from "./UserBusiness/UserBusinessCard";
 import BusinessProfileCTA from "../BusinessProfile/BusinessProfileCTA";
+import UserBusinessFavs from "./UserBusinessFavs";
 
 const initialState = {
   loading: false,
@@ -18,19 +19,27 @@ const initialState = {
   user: null,
   updateProfile: false,
   profileUpdated: false,
+  lastPosts: [],
 };
 
 interface Props {
   userConnectedId: number;
   userToDisplay: number;
+  userRole: string;
 }
 
-const UserInfosContainer = ({ userConnectedId, userToDisplay }: Props) => {
+const UserInfosContainer = ({
+  userConnectedId,
+  userToDisplay,
+  userRole,
+}: Props) => {
   const router = useRouter();
   const [userProfile, userProfileDispatch] = useReducer(
     UserProfileReducer,
     initialState
   );
+
+  console.log(userRole);
 
   useEffect(() => {
     if (userToDisplay) {
@@ -88,7 +97,7 @@ const UserInfosContainer = ({ userConnectedId, userToDisplay }: Props) => {
               ))
             ) : (
               <div style={{ margin: "2em" }}>
-                <BusinessProfileCTA userConnectedId={userConnectedId} />
+                <BusinessProfileCTA />
               </div>
             )}
             <RollerSkateLevel
@@ -100,9 +109,12 @@ const UserInfosContainer = ({ userConnectedId, userToDisplay }: Props) => {
               derbyLevel={userProfile.user.derby_level}
             />
             <LastPostsShared
-              posts={userProfile.user.posts}
+              userToDisplay={userToDisplay}
               userConnectedId={userConnectedId}
+              userProfileDispatch={userProfileDispatch}
+              posts={userProfile.lastPosts}
             />
+            <UserBusinessFavs favs={userProfile.user.favorite_places} />
           </>
         )
       ) : userProfile.loading ? (

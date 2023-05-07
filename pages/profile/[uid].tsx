@@ -19,6 +19,7 @@ const UserProfile = () => {
     <UserInfosContainer
       userConnectedId={userState.id}
       userToDisplay={userToDisplay}
+      userRole={userState.role}
     />
   ) : (
     <Login />

@@ -38,7 +38,7 @@ export default function BusinessCard({
   return (
     <>
       {place.active ? (
-        <div className="ctaBox">
+        <div className="rollerBusinessResume">
           {isDeleted ? (
             <p>Supprimé avec succès !</p>
           ) : (
@@ -52,10 +52,12 @@ export default function BusinessCard({
                   />
                 ) : null}
               </div>
-              <a href={place.website} className="placeUrl">
+              {/* <a href={place.website} className="placeUrl">
                 {place.website}
-              </a>
-              <p className="meta mt5">{place.description}</p>
+              </a> */}
+              <p className="businessDescription">
+                {place.description.substring(0, 160) + " ..."}
+              </p>
 
               <div className="mt5 flexStart">
                 <Pin stroke="black" fill="none" width={24} height={24} />

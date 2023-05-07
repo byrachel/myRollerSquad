@@ -20,6 +20,7 @@ export default withIronSessionApiRoute(
         where: {
           user_id: parseInt(uid),
         },
+        take: 3,
         orderBy: {
           created_at: "desc",
         },
@@ -32,9 +33,12 @@ export default withIronSessionApiRoute(
               style_id: true,
             },
           },
+          comments: true,
+          content: true,
           created_at: true,
           pictures: true,
-          comments: true,
+          country: true,
+          city: true,
           user_likes: {
             select: {
               user_id: true,

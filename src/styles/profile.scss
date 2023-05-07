@@ -5,7 +5,6 @@
   background-color: $primaryColor;
   margin: 0;
   padding: 0.5em 0;
-  border-radius: 8px 8px 0 0;
   .rollerStylesContent {
     display: flex;
     justify-content: space-evenly;
@@ -35,7 +34,7 @@
     width: 175px;
     height: 175px;
     border-radius: 50%;
-    border: solid 4px white;
+    border: solid 3px white;
     object-fit: cover;
   }
   .updateAvatarIcon {
@@ -125,14 +124,15 @@
   justify-content: flex-start;
   align-items: center;
   padding: 1em;
-  gap: 2em;
-  margin: 2.5em 0;
+  margin: 2em;
+  background-color: $lightColor;
+  gap: 1em;
 
   .rollerBusinessLogo {
     display: flex;
     justify-content: center;
     width: 100%;
-    max-width: 200px;
+    max-width: 160px;
 
     .businessLogo {
       border-radius: 8px;
@@ -141,8 +141,9 @@
     .businessLogoToUpdate {
       border-radius: 8px;
       cursor: pointer;
-      border: solid 2px white;
+      border: solid 2px $secondaryColor;
       transition: fill 0.2s ease-in-out;
+      padding: 0.2em;
     }
     .businessLogoToUpdate:hover {
       border: solid 2px $secondaryColor;
@@ -151,6 +152,15 @@
 
   .rollerBusinessResume {
     width: 100%;
+
+    .businessDescription {
+      font-family: $textFont;
+      font-size: $fontSize-md;
+      color: $primaryColor;
+      line-height: 1.35em;
+      margin-top: 0.5em;
+      font-weight: 400;
+    }
   }
 }
 
@@ -266,12 +276,12 @@ div.ctaBox {
     color: $secondaryColor;
     margin: 0.25em 0;
   }
+}
 
-  .placeFavoriteCounter {
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-  }
+.placeFavoriteCounter {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
 }
 
 div.addBusinessLink {
@@ -329,14 +339,6 @@ div.addBusinessLink {
       .linkIcon {
         margin-left: 0.1em;
       }
-    }
-  }
-
-  .rollerSkaterBusinessBox {
-    gap: 1em;
-
-    .rollerBusinessLogo {
-      width: 140px;
     }
   }
 }

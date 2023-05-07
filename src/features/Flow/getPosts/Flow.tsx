@@ -66,7 +66,8 @@ const Flow = ({ userConnectedId }: Props) => {
     <>
       <div className="responsiveFlowContainer">
         <div style={{ padding: "2em" }}>
-          <FlowFilters flowStore={flowStore} flowDispatch={flowDispatch} />
+          <FlowFilters flowDispatch={flowDispatch} />
+          <div style={{ marginTop: "1.5em" }} />
           <Masonry
             breakpointCols={breakpointColumnsObj}
             className="my-masonry-grid"
@@ -79,7 +80,6 @@ const Flow = ({ userConnectedId }: Props) => {
                     post={post}
                     isLast={index === posts.length - 1}
                     newLimit={newLimit}
-                    flowDispatch={flowDispatch}
                     userConnectedId={userConnectedId}
                   />
                 ))

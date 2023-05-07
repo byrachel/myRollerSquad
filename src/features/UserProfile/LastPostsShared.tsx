@@ -1,17 +1,41 @@
 import { PostInterface } from "src/interfaces/flowInterfaces";
-import React from "react";
+import React, { useEffect } from "react";
 import Card from "../Flow/getPosts/Card";
 import RegularButton from "../../components/buttons/RegularButton";
 import { useRouter } from "next/router";
+import axios from "axios";
 
 interface Props {
-  posts: PostInterface[];
+  userToDisplay: number;
   userConnectedId: number;
+  userProfileDispatch: React.Dispatch<any>;
+  posts: PostInterface[];
 }
 
-export default function LastPostsShared({ posts, userConnectedId }: Props) {
+export default function LastPostsShared({
+  userToDisplay,
+  userConnectedId,
+  userProfileDispatch,
+  posts,
+}: Props) {
   const router = useRouter();
-  return (
+
+  useEffect(() => {
+    if (userToDisplay) {
+      axios(`/api/flow/posts/user/latest/${userToDisplay}`, {
+        method: "GET",
+        withCredentials: true,
+      }).then((res) => {
+        userProfileDispatch({
+          type: "SET_LAST_POSTS",
+          payload: res.data.posts,
+        });
+      });
+    }
+    // eslint-disable-next-line
+  }, [userToDisplay]);
+
+  return posts.length > 0 ? (
     <div className="userFlowContainer">
       <h2 className="title">Derniers articles partagés</h2>
       <div className="smallLightSeparator" />
@@ -19,7 +43,11 @@ export default function LastPostsShared({ posts, userConnectedId }: Props) {
         {posts.length > 0 ? (
           posts.map((post) => (
             <div className="lastPostsShared" key={post.id}>
-              <Card post={post} userConnectedId={userConnectedId} isAuthor />
+              <Card
+                post={post}
+                userConnectedId={userConnectedId}
+                isAuthor={userConnectedId === userToDisplay}
+              />
             </div>
           ))
         ) : (
@@ -35,5 +63,5 @@ export default function LastPostsShared({ posts, userConnectedId }: Props) {
         )}
       </div>
     </div>
-  );
+  ) : null;
 }

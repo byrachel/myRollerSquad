@@ -14,7 +14,7 @@ body {
   overflow-x: hidden;
   font-family: $textFont, "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   font-size: $fontSize-md;
-  font-weight: 300;
+  font-weight: 400;
 }
 
 a {
@@ -24,17 +24,20 @@ a {
 h1 {
   font-family: $titleFont;
   font-size: $fontSize-xl;
+  font-weight: 800;
 }
 
 h2 {
   font-family: $titleFont;
   font-size: $fontSize-lg;
   line-height: 1.1em;
+  font-weight: 800;
 }
 
 h3 {
   font-family: $titleFont;
   font-size: $fontSize-md;
+  font-weight: 600;
 }
 
 ul {
@@ -89,6 +92,7 @@ ul {
   font-weight: 600;
   line-height: 2em;
   cursor: pointer;
+  font-weight: 400;
 }
 
 .mt5 {
@@ -234,6 +238,39 @@ select {
   }
 
   outline: none;
+}
+
+.selectFilter {
+  display: grid;
+  grid-template-areas: "select";
+  align-items: center;
+  position: relative;
+
+  select,
+  &::after {
+    grid-area: select;
+  }
+
+  width: 100%;
+
+  border: 1px solid $greyColor;
+  border-radius: 0.25em;
+  padding: 0em 0.4em;
+
+  font-size: $fontSize-md;
+  color: $greyColor;
+  cursor: pointer;
+
+  background-color: #fff;
+
+  &:not(.select--multiple)::after {
+    content: "";
+    justify-self: end;
+    width: 0.8em;
+    height: 0.5em;
+    background-color: $secondaryColor;
+    clip-path: polygon(100% 0%, 0 0%, 50% 100%);
+  }
 }
 
 .select {
@@ -395,8 +432,8 @@ label {
     border: solid 2px $greenColor;
   }
   &.dark {
-    background-color: $primaryColor;
-    border: solid 2px $primaryColor;
+    background-color: $darkColor;
+    border: solid 2px $darkColor;
   }
   &.grey {
     background-color: $greyColor;
@@ -428,8 +465,8 @@ label {
     border: solid 2px $greenColor;
   }
   &.dark {
-    color: $primaryColor;
-    border: solid 2px $primaryColor;
+    color: $darkColor;
+    border: solid 2px $darkColor;
   }
   &.grey {
     color: $greyColor;
@@ -468,8 +505,8 @@ label {
     color: $greenColor;
   }
   &.dark {
-    border: solid 2px $primaryColor;
-    color: $primaryColor;
+    border: solid 2px $darkColor;
+    color: $darkColor;
   }
   &.grey {
     border: solid 2px $greyColor;
@@ -501,8 +538,8 @@ label {
     background-color: $greenColor;
   }
   &.dark {
-    border: solid 2px $primaryColor;
-    background-color: $primaryColor;
+    border: solid 2px $darkColor;
+    background-color: $darkColor;
   }
   &.grey {
     border: solid 2px $greyColor;
@@ -540,8 +577,8 @@ label {
     border: solid 2px $greenColor;
   }
   &.dark {
-    background-color: $primaryColor;
-    border: solid 2px $primaryColor;
+    background-color: $darkColor;
+    border: solid 2px $darkColor;
   }
   &.purple {
     background-color: $purpleColor;
@@ -551,11 +588,11 @@ label {
 
 .staticOutlineBadge {
   background-color: white;
-  border-radius: 8px;
+  border-radius: 7px;
   font-family: $titleFont;
   font-size: $fontSize-sm;
-  margin: 0.5em 0.2em 0.5em 0;
-  padding: 2px 8px 1px 8px;
+  margin: 0.2em 0.2em 0.5em 0;
+  padding: 1px 7px;
   width: fit-content;
 
   &.blue {
@@ -575,8 +612,8 @@ label {
     color: $greenColor;
   }
   &.dark {
-    border: solid 2px $primaryColor;
-    color: $primaryColor;
+    border: solid 2px $darkColor;
+    color: $darkColor;
   }
   &.grey {
     border: solid 2px $greyColor;

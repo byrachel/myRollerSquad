@@ -67,14 +67,12 @@ export default function UserBusinessCard({
               />
             )}
           </div>
-          <div className="rollerBusinessResume">
-            <BusinessProfileCard
-              place={place}
-              isOwner={userConnectedId === userToDisplayId}
-              userConnectedId={userConnectedId}
-              placeDispatch={placeDispatch}
-            />
-          </div>
+          <BusinessProfileCard
+            place={place}
+            isOwner={userConnectedId === userToDisplayId}
+            userConnectedId={userConnectedId}
+            placeDispatch={placeDispatch}
+          />
         </div>
       ) : null}
     </>

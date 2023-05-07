@@ -2,7 +2,7 @@
 
 .placeContainer {
   width: 100%;
-  padding: 2em;
+  padding: 2em 0;
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
@@ -15,7 +15,7 @@
     padding: 1.5em;
     margin-top: 4.2em;
     position: relative;
-    width: clamp(250px, 100%, 650px);
+    width: clamp(250px, 100%, 450px);
 
     .rollerPlaceLogo {
       position: absolute;
@@ -79,10 +79,18 @@
 
 .flowFilters {
   display: flex;
-  justify-content: flex-start;
+  justify-content: space-between;
   align-items: center;
-  margin: 1em 0.5em;
   gap: 15px;
+}
+
+.userFavsContainer {
+  padding: 3em 0;
+  background-color: $lightColor;
+  h2.title {
+    text-align: center;
+    margin: 1.5em;
+  }
 }
 
 .userFlowContainer {
@@ -97,11 +105,16 @@
   height: 100vh;
 }
 
+.lastPostsShared {
+  width: 33%;
+}
+
 .flowContainer {
   padding: 2em;
   display: flex;
   justify-content: space-around;
   gap: 2em;
+  width: 100%;
 }
 div.cardContainer {
   border-radius: 6px;
@@ -124,12 +137,16 @@ div.cardContainer {
     box-shadow: 4px 4px $greenColor;
   }
   &.dark {
-    border: solid 1px $primaryColor;
-    box-shadow: 4px 4px $primaryColor;
+    border: solid 1px $darkColor;
+    box-shadow: 4px 4px $darkColor;
   }
   &.purple {
     border: solid 1px $purpleColor;
     box-shadow: 4px 4px $purpleColor;
+  }
+  &.grey {
+    border: solid 1px $greyColor;
+    box-shadow: 4px 4px $greyColor;
   }
 
   div.cardTitle {
@@ -140,30 +157,14 @@ div.cardContainer {
       font-size: $fontSize-lg;
       color: $primaryColor;
       margin: 0;
+      letter-spacing: 0.03px;
     }
     h3.userName {
       font-family: $textFont;
       font-size: 0.75em;
       letter-spacing: 0.5px;
-      margin: 0;
-      &.blue {
-        color: $blueColor;
-      }
-      &.pink {
-        color: $secondaryColor;
-      }
-      &.yellow {
-        color: $yellowColor;
-      }
-      &.green {
-        color: $greenColor;
-      }
-      &.dark {
-        color: $primaryColor;
-      }
-      &.purple {
-        color: $purpleColor;
-      }
+      margin: 0.2em 0 0 0;
+      color: $greyColor;
     }
   }
 
@@ -208,13 +209,14 @@ div.cardContainer {
 }
 
 div.cardMeta {
-  margin: 0 0 1em 0.7em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   p.cardMetaText {
     color: $greyColor;
     font-family: $textFont;
     font-size: $fontSize-sm;
     display: inline;
-    letter-spacing: 0.5px;
     line-height: 1.6em;
   }
   .metaIcon {
@@ -245,8 +247,13 @@ div.sessionTracking {
     stroke: $primaryColor;
   }
 }
+div.cardSeparator {
+  background: darken($color: $lightColor, $amount: 10);
+  height: 2px;
+  margin: 0.3em 1em;
+}
 div.cardContent {
-  margin: 0.7em;
+  margin: 1.2em 0.5em;
 
   ol {
     li {
@@ -259,27 +266,22 @@ div.cardContent {
       margin: 0.5em 0 0 0.25em;
     }
   }
-
-  div.cardSeparator {
-    background: $lightColor;
-    height: 3px;
-    margin-top: 1em;
+}
+div.linkContainer {
+  width: 100%;
+  border-radius: 7px;
+  margin: 0.3em 0;
+  padding: 0.3em 0;
+  background-color: $lightColor;
+  .linkText {
+    font-family: $textFont;
+    font-size: $fontSize-sm;
+    letter-spacing: 0.3px;
+    text-align: center;
+    cursor: pointer;
   }
-
-  div.linkContainer {
-    width: 100%;
-    border-radius: 7px;
-    margin: 1.5em 0 0 0;
-    padding: 0;
-    .linkText {
-      font-family: $titleFont;
-      font-size: $fontSize-md;
-      text-align: center;
-      cursor: pointer;
-    }
-    .linkText:hover {
-      color: $secondaryColor;
-    }
+  .linkText:hover {
+    color: $secondaryColor;
   }
 }
 div.cardIcons {
@@ -319,6 +321,9 @@ div.socialIconContainer {
     stroke: $purpleColor;
   }
   &.dark {
+    stroke: $darkColor;
+  }
+  &.grey {
     stroke: $greyColor;
   }
 }
@@ -342,7 +347,7 @@ div.socialIconContainer {
     fill: $purpleColor;
   }
   &.dark {
-    fill: $greyColor;
+    fill: $darkColor;
   }
 }
 .fullLinksIcon {
@@ -369,7 +374,7 @@ div.socialIconContainer {
     fill: $purpleColor;
   }
   &.dark {
-    fill: $greyColor;
+    fill: $darkColor;
   }
 }
 .fullLinksIcon:hover {
@@ -392,7 +397,7 @@ div.socialIconContainer {
     stroke: $purpleColor;
   }
   &.dark {
-    stroke: $greyColor;
+    stroke: $darkColor;
   }
 }
 
@@ -402,9 +407,32 @@ div.socialIconContainer {
   .avatar {
     border-radius: 50%;
     cursor: pointer;
+    padding: 0.12em;
+
+    &.blue {
+      border: solid 3px $blueColor;
+    }
+    &.pink {
+      border: solid 3px $secondaryColor;
+    }
+    &.green {
+      border: solid 3px $greenColor;
+    }
+    &.yellow {
+      border: solid 3px $yellowColor;
+    }
+    &.purple {
+      border: solid 3px $purpleColor;
+    }
+    &.dark {
+      border: solid 3px $darkColor;
+    }
+    &.grey {
+      border: solid 3px $greyColor;
+    }
   }
   .avatar:hover {
-    border: solid 3px $secondaryColor;
+    border: none;
   }
 }
 
@@ -442,16 +470,20 @@ div.socialIconContainer {
   display: flex;
   gap: 1em;
   justify-content: space-between;
-  padding: 1.5em 1em;
+  padding: 1.2em 1em;
   border-radius: 0 0 8px 8px;
+  margin-top: 0.2em;
 
   .newPostButton {
     background-color: white;
     border: none;
     border-radius: 7px;
     margin: 0;
-    padding: 0.75em;
+    padding: 0.5em 1em;
     width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 
     p {
       font-family: $textFont;
@@ -594,9 +626,5 @@ div.socialIconContainer {
   .responsiveFlowContainer {
     display: flex;
     justify-content: center;
-  }
-  .flowContainer {
-    width: 100%;
-    max-width: 1100px;
   }
 }

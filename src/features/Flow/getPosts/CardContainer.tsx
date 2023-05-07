@@ -7,7 +7,6 @@ interface Props {
   post: PostInterface;
   isLast: boolean;
   newLimit: () => void;
-  flowDispatch: React.Dispatch<any>;
   userConnectedId: number;
 }
 
@@ -15,7 +14,6 @@ export default function CardContainer({
   post,
   isLast,
   newLimit,
-  flowDispatch,
   userConnectedId,
 }: Props) {
   const cardRef = useRef(null);
@@ -35,11 +33,6 @@ export default function CardContainer({
   }, [isLast]);
 
   return (
-    <Card
-      post={post}
-      cardRef={cardRef}
-      flowDispatch={flowDispatch}
-      userConnectedId={userConnectedId}
-    />
+    <Card post={post} cardRef={cardRef} userConnectedId={userConnectedId} />
   );
 }

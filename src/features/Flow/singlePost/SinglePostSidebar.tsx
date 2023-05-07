@@ -9,7 +9,11 @@ export default function SinglePostSidebar({ post }: Props) {
   return (
     <>
       <div className="center mt5">
-        <Avatar userId={post.user.id} userAvatar={post.user.avatar} />
+        <Avatar
+          userId={post.user.id}
+          userAvatar={post.user.avatar}
+          color="pink"
+        />
         <h3>{post.user.name}</h3>
         <p className="meta">{post.user.posts.length} articles publiés</p>
       </div>

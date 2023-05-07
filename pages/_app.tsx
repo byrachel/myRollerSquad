@@ -1,5 +1,5 @@
 import type { AppProps } from "next/app";
-import { Poppins, Oxygen } from "next/font/google";
+import { Poppins, Mulish } from "next/font/google";
 import { createTheme, NextUIProvider } from "@nextui-org/react";
 import MainLayout from "../src/components/layouts/MainLayout";
 import { UserContextProvider } from "src/context/UserContext";
@@ -9,8 +9,8 @@ const poppins = Poppins({
   subsets: ["latin"],
   display: "fallback",
 });
-const oxygen = Oxygen({
-  weight: ["300", "700"],
+const oxygen = Mulish({
+  weight: ["400", "700"],
   subsets: ["latin"],
   display: "fallback",
 });

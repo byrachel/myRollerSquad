@@ -22,7 +22,6 @@ interface Props {
   post: PostInterface;
   cardRef?: React.RefObject<HTMLDivElement>;
   isAuthor?: boolean;
-  flowDispatch?: React.Dispatch<any>;
   userConnectedId: number;
 }
 
@@ -31,40 +30,21 @@ export default function Card({
   cardRef,
   isAuthor,
   userConnectedId,
-  flowDispatch,
 }: Props) {
   const color = useMemo(() => cardColor(post.category_id), [post.category_id]);
-
-  const categoryFilter = (category: number) => {
-    if (flowDispatch === undefined) return;
-    flowDispatch({
-      type: "SET_CATEGORY",
-      payload: category,
-    });
-  };
-
-  const styleFilter = (style: number) => {
-    if (flowDispatch === undefined) return;
-    flowDispatch({
-      type: "SET_STYLE",
-      payload: style,
-    });
-  };
 
   return (
     <div className={`cardContainer ${color}`} key={post.id} ref={cardRef}>
       <div className="flexStart">
         {isAuthor ? null : (
-          <Avatar userId={post.user.id} userAvatar={post.user.avatar} />
+          <Avatar
+            userId={post.user.id}
+            userAvatar={post.user.avatar}
+            color={color}
+          />
         )}
         <div className="cardTitle">
-          <div
-            className={`badge ${color}`}
-            onClick={() => categoryFilter(post.category_id)}
-            onKeyDown={() => categoryFilter(post.category_id)}
-            role="button"
-            tabIndex={0}
-          >
+          <div className={`staticOutlineBadge ${color}`}>
             {getCategoryName(post.category_id)}
           </div>
 
@@ -74,30 +54,12 @@ export default function Card({
           )}
         </div>
       </div>
-      <div className="cardMeta">
-        <p className="cardMetaText">
-          {displayLightDateTime(post.created_at)}
-          <Pin width={12} height={12} className="metaIcon" />
-          {post.city ? `${post.city}, ` : null}
-          {post.country}
-        </p>
-        {post.style.length > 0 ? (
-          <div className="flexStart">
-            {post.style.map((elt) => (
-              <div
-                className={`outlineBadge ${color}`}
-                onClick={() => styleFilter(elt.style_id)}
-                onKeyDown={() => styleFilter(elt.style_id)}
-                role="button"
-                tabIndex={0}
-                key={elt.style_id}
-              >
-                {getStyleName(elt.style_id)}
-              </div>
-            ))}
-          </div>
-        ) : null}
-      </div>
+      {post.pictures.length > 0 ? (
+        <CardFeaturedPict urlPicts={post.pictures} color={color} />
+      ) : (
+        <div className="cardSeparator" />
+      )}
+
       {post.distance || post.duration ? (
         <div className="sessionTracking">
           <Roller className="sessionIcon" width={28} height={28} />
@@ -112,19 +74,39 @@ export default function Card({
         </div>
       ) : null}
 
-      {post.pictures.length > 0 ? (
-        <CardFeaturedPict urlPicts={post.pictures} color={color} />
-      ) : null}
       <div className="cardContent">
         {post.content ? parseContent(post.content) : null}
+      </div>
 
-        {post.link ? (
-          <div className="linkContainer">
-            <p className="linkText">{post.link}</p>
+      {/* <div className="cardContent">
+        {post.style.length > 0 ? (
+          <div className="flexStart">
+            {post.style.map((elt) => (
+              <div className={`outlineBadge ${color}`} key={elt.style_id}>
+                {getStyleName(elt.style_id)}
+              </div>
+            ))}
           </div>
         ) : null}
-        <div className="cardSeparator" />
+      </div> */}
+
+      <div className="cardMeta">
+        <p className="cardMetaText">
+          {displayLightDateTime(post.created_at)}
+          <Pin width={12} height={12} className="metaIcon" />
+          {post.city ? `${post.city}, ` : null}
+          {post.country}
+        </p>
       </div>
+
+      {post.link ? (
+        <div className="linkContainer">
+          <p className="linkText">{post.link}</p>
+        </div>
+      ) : (
+        <div className="cardSeparator" />
+      )}
+
       <div className="cardIcons">
         <LikeIcon
           color={color}

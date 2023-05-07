@@ -31,20 +31,19 @@ export default withIronSessionApiRoute(
           role: true,
           name: true,
           avatar: true,
-          posts: {
-            take: 3,
-            include: {
-              comments: true,
-              user_likes: true,
-              style: true,
-            },
-          },
           email: true,
           country: true,
           county: true,
           city: true,
           postLiked: true,
-          favorite_places: true,
+          favorite_places: {
+            select: {
+              id: true,
+              name: true,
+              category: true,
+              logo: true,
+            },
+          },
           place: {
             select: {
               id: true,

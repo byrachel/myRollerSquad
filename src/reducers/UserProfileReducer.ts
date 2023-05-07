@@ -1,7 +1,9 @@
+import { PostInterface } from "src/interfaces/flowInterfaces";
 import { UserInterface } from "src/interfaces/userInterfaces";
 
 export interface UserProfileInterface {
   user: UserInterface;
+  lastPosts: PostInterface[];
   loading: boolean;
   error: boolean;
   updateProfile: boolean;
@@ -29,6 +31,11 @@ const UserProfileReducer = (
               ? action.payload.place.map((elt: { id: number }) => elt.id)
               : [],
         },
+      };
+    case "SET_LAST_POSTS":
+      return {
+        ...state,
+        lastPosts: action.payload,
       };
     case "ERROR":
       return {

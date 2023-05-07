@@ -1,25 +1,23 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useRouter } from "next/router";
 
 import RegularButton from "@/components/buttons/RegularButton";
+import { UserContext } from "src/context/UserContext";
 
-interface Props {
-  userConnectedId: number;
-}
-
-export default function BusinessProfileCTA({ userConnectedId }: Props) {
+export default function BusinessProfileCTA() {
+  const { userState } = useContext(UserContext);
   const router = useRouter();
 
   const createBusiness = () => {
-    if (userConnectedId) {
-      router.push(`/business/create/${userConnectedId}`);
+    if (userState.id) {
+      router.push(`/business/create/${userState.id}`);
     } else {
       router.push("/signin");
     }
   };
 
   return (
-    <div className="ctaBox">
+    <div className="ctaBox center">
       <div>
         <h3>Tu es un club, une association, un formateur ?</h3>
         <p className="ctaLink">

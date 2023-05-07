@@ -5,9 +5,10 @@ import React from "react";
 interface Props {
   userId: number;
   userAvatar: string | null;
+  color: string;
 }
 
-export default function Avatar({ userId, userAvatar }: Props) {
+export default function Avatar({ userId, userAvatar, color }: Props) {
   return (
     <Link href={`/profile/${userId}`} className="avatarContainer">
       <Image
@@ -17,7 +18,7 @@ export default function Avatar({ userId, userAvatar }: Props) {
             : "/img/myrollersquad_avatar.jpeg"
         }
         alt="Formateur Roller Quad"
-        className="avatar"
+        className={`avatar ${color}`}
         width="90"
         height="90"
       />

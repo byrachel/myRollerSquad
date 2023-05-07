@@ -1,5 +1,6 @@
 import React from "react";
 import BusinessPlaces from "src/features/BusinessProfile/BusinessPlaces";
+import BusinessProfileCTA from "src/features/BusinessProfile/BusinessProfileCTA";
 import PlacesFilters from "src/features/BusinessProfile/PlacesFilters";
 import { PlaceInterface } from "src/interfaces/userInterfaces";
 
@@ -15,6 +16,7 @@ export default function Places({ places, dept, category }: any) {
           Aucune association ou entreprise n'est référencée pour le moment.
         </p>
       )}
+      <BusinessProfileCTA />
     </>
   );
 }

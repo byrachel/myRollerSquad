@@ -1,9 +1,8 @@
 import React from "react";
 import { useRouter } from "next/router";
 
-import { businessCategories } from "src/constants/BusinessCategories";
-import { cardColor } from "src/utils/colorManager";
 import SelectDepartment from "@/components/form/Location/SelectDepartment";
+import CategoryFilters from "@/components/buttons/CategoryFilters";
 
 interface Props {
   dept: string | null;
@@ -23,38 +22,16 @@ export default function PlacesFilters({ dept, categorySelected }: Props) {
     router.push(`/business/search/${departmentSelected}/${categorySelected}`);
   };
 
-  const categoryTag = (id: number, value: string, name: string) => (
-    <div
-      role="button"
-      id="category"
-      key={id}
-      tabIndex={0}
-      className={
-        value === categorySelected
-          ? `badge ${cardColor(id)}`
-          : `outlineBadge ${cardColor(id)}`
-      }
-      onClick={() => onSelectCategory(value)}
-      onKeyDown={() => onSelectCategory(value)}
-    >
-      {name}
-    </div>
-  );
-
   return (
     <div className="pv5">
       <SelectDepartment
         userDept={dept}
         onSelectDepartment={onSelectDepartment}
       />
-      <div className="center">
-        <div className="flexStart">
-          {businessCategories.map((category) =>
-            categoryTag(category.id, category.value, category.name)
-          )}
-          {categoryTag(0, "all", "X")}
-        </div>
-      </div>
+      <CategoryFilters
+        onSelectCategory={onSelectCategory}
+        categorySelected={categorySelected}
+      />
     </div>
   );
 }
