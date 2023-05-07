@@ -16,7 +16,6 @@ import Roller from "src/svg/rollerquad.svg";
 import { SALE, getCategoryName } from "src/constants/PostCategories";
 import CardFeaturedPict from "./CardFeaturedPict";
 import Link from "next/link";
-import { getStyleName } from "src/constants/RollerSkateStyles";
 
 interface Props {
   post: PostInterface;

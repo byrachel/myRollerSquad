@@ -15,7 +15,6 @@ import { onSubmitNewPost, onSubmitEditedPost } from "./utils/onSubmitNewPost";
 import Camera from "src/svg/add-media-image.svg";
 import BigButton from "@/components/buttons/BigButton";
 import HandleLocation from "./HandleLocation";
-import { is } from "date-fns/locale";
 
 interface Props {
   userConnectedId: number;
