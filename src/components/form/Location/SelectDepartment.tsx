@@ -2,7 +2,7 @@ import React from "react";
 import departments from "../../../utils/frenchDepartments.json";
 
 interface Props {
-  userDept: string | null;
+  userDept?: string | null;
   onSelectDepartment: (event: any) => void;
 }
 

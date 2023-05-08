@@ -2,12 +2,9 @@ import { useRouter } from "next/router";
 import Image from "next/image";
 import SelectDepartment from "@/components/form/Location/SelectDepartment";
 import styles from "../../styles/Home.module.scss";
-import { State, useStore } from "src/hooks/useStore";
 
 export default function FindACoach() {
   const router = useRouter();
-  const userCounty = useStore((state: State) => state.county);
-  const dept = userCounty;
 
   const onSelectDepartment = (event: any) => {
     const department = event.target.value;
@@ -25,10 +22,7 @@ export default function FindACoach() {
         supérieur !
       </p>
 
-      <SelectDepartment
-        userDept={dept}
-        onSelectDepartment={onSelectDepartment}
-      />
+      <SelectDepartment onSelectDepartment={onSelectDepartment} />
 
       <div className={styles.imagesBox}>
         <div className={styles.fourRoundImages}>
