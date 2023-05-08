@@ -1,18 +1,20 @@
-import { UserContext } from "src/context/UserContext";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
-import React, { useContext, useEffect, useState } from "react";
+import { withSessionSsr } from "@/server/middleware/auth/withSession";
+import { UserStateInterface } from "src/reducers/UserReducer";
 
 interface CategoryInterface {
   id: number;
   name: string;
 }
 
-export default function CategoriesBoard() {
-  const [categories, setCategories] = useState([]);
-  const { userState } = useContext(UserContext);
-  const isAdmin = userState.isLoggedIn && userState.role === "ADMIN";
+interface Props {
+  user: UserStateInterface;
+}
 
-  console.log("is admin >", isAdmin);
+export default function CategoriesBoard({ user }: Props) {
+  const [categories, setCategories] = useState([]);
+  const isAdmin = user.isLoggedIn && user.role === "ADMIN";
 
   useEffect(() => {
     if (isAdmin) {
@@ -39,3 +41,10 @@ export default function CategoriesBoard() {
     </div>
   );
 }
+
+export const getServerSideProps = withSessionSsr(async ({ req }) => {
+  const user = req.session as any;
+  return {
+    props: user,
+  };
+});

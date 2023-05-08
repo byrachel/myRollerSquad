@@ -20,9 +20,10 @@ import { deletePost } from "../addPost/utils/deletePost";
 interface Props {
   post: PostInterface;
   userConnectedId: number | null;
+  isPro: boolean;
 }
 
-export default function SinglePost({ post, userConnectedId }: Props) {
+export default function SinglePost({ post, userConnectedId, isPro }: Props) {
   const color = useMemo(() => cardColor(post.category_id), [post.category_id]);
   const [editPost, setEditPost] = useState<{
     show: boolean;
@@ -35,7 +36,11 @@ export default function SinglePost({ post, userConnectedId }: Props) {
 
   return userConnectedId ? (
     editPost.show ? (
-      <EditPost postToEdit={post} userConnectedId={userConnectedId} />
+      <EditPost
+        postToEdit={post}
+        userConnectedId={userConnectedId}
+        isPro={isPro}
+      />
     ) : (
       <>
         <div className="spaceBetween">

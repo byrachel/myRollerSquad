@@ -72,7 +72,7 @@ export const sendActivationMail = (
 
 export const onLogin = (
   event: SyntheticEvent,
-  userDispatch: Dispatch<any>,
+  setUser: any,
   router: any,
   setError: (args: { status: boolean; message: string }) => void
 ) => {
@@ -94,11 +94,7 @@ export const onLogin = (
     data,
   })
     .then((res: any) => {
-      localStorage.setItem("userId", JSON.stringify(res.data.user.id));
-      userDispatch({
-        type: "LOGIN",
-        payload: res.data.user,
-      });
+      setUser(res.data.user);
       router.push("/profile/me");
     })
     .catch((error: IErrorCode) => {
@@ -106,13 +102,10 @@ export const onLogin = (
     });
 };
 
-export const onLogout = (userDispatch: React.Dispatch<any>) => {
+export const onLogout = (userLogout: any) => {
   axios({
     method: "POST",
     url: `/api/auth/logout`,
     withCredentials: true,
-  }).then(() => {
-    localStorage.removeItem("userId");
-    userDispatch({ type: "LOGOUT" });
-  });
+  }).then(() => userLogout());
 };

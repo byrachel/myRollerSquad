@@ -8,9 +8,10 @@ import RegularButton from "@/components/buttons/RegularButton";
 
 interface Props {
   userConnectedId: number;
+  isPro: boolean;
 }
 
-const HandlePosts = ({ userConnectedId }: Props) => {
+const HandlePosts = ({ userConnectedId, isPro }: Props) => {
   const [posts, setPosts] = useState([]);
   const [update, setUpdate] = useState(false);
   const [editPost, setEditPost] = useState<{
@@ -47,6 +48,7 @@ const HandlePosts = ({ userConnectedId }: Props) => {
         <EditPost
           postToEdit={editPost.post}
           userConnectedId={userConnectedId}
+          isPro={isPro}
         />
       ) : posts.length > 0 ? (
         <PostsTable

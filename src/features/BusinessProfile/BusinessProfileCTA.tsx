@@ -1,16 +1,16 @@
-import React, { useContext } from "react";
+import React from "react";
 import { useRouter } from "next/router";
+import { State, useStore } from "src/hooks/useStore";
 
 import RegularButton from "@/components/buttons/RegularButton";
-import { UserContext } from "src/context/UserContext";
 
 export default function BusinessProfileCTA() {
-  const { userState } = useContext(UserContext);
   const router = useRouter();
+  const userId = useStore((state: State) => state.userId);
 
   const createBusiness = () => {
-    if (userState.id) {
-      router.push(`/business/create/${userState.id}`);
+    if (userId) {
+      router.push(`/business/create/${userId}`);
     } else {
       router.push("/signin");
     }

@@ -1,14 +1,13 @@
-import { useContext } from "react";
 import { useRouter } from "next/router";
 import Image from "next/image";
-import { UserContext } from "src/context/UserContext";
 import SelectDepartment from "@/components/form/Location/SelectDepartment";
 import styles from "../../styles/Home.module.scss";
+import { State, useStore } from "src/hooks/useStore";
 
 export default function FindACoach() {
-  const { userState } = useContext(UserContext);
-  const dept = userState.county ? userState.county : null;
   const router = useRouter();
+  const userCounty = useStore((state: State) => state.county);
+  const dept = userCounty;
 
   const onSelectDepartment = (event: any) => {
     const department = event.target.value;

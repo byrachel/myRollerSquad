@@ -1,6 +1,4 @@
-import React, { useContext, SyntheticEvent } from "react";
-
-import { UserContext } from "src/context/UserContext";
+import React, { SyntheticEvent } from "react";
 import { UserProfileInterface } from "src/reducers/UserProfileReducer";
 import Avatar from "../Avatar/Avatar";
 import UpdateUserProfileForm from "./UpdateUserProfileForm";
@@ -8,6 +6,7 @@ import RegularButton from "src/components/buttons/RegularButton";
 import axios from "axios";
 import { useRouter } from "next/router";
 import Loader from "@/components/layouts/Loader";
+import { State, useStore } from "src/hooks/useStore";
 
 interface Props {
   userProfile: UserProfileInterface;
@@ -15,8 +14,7 @@ interface Props {
 }
 
 const UpdateUserProfile = ({ userProfile, userProfileDispatch }: Props) => {
-  const { userState } = useContext(UserContext);
-  const userConnectedId = userState.id;
+  const userId = useStore((state: State) => state.userId);
   const router = useRouter();
 
   const cancelUpdate = () => {
@@ -55,12 +53,10 @@ const UpdateUserProfile = ({ userProfile, userProfileDispatch }: Props) => {
       artistic_level: userProfile.user.artistic_level,
     };
 
-    console.log(data);
-
-    if (userConnectedId) {
+    if (userId) {
       axios({
         method: "put",
-        url: `/api/user/update/${userConnectedId}`,
+        url: `/api/user/update/${userId}`,
         data,
         withCredentials: true,
       })
@@ -88,7 +84,7 @@ const UpdateUserProfile = ({ userProfile, userProfileDispatch }: Props) => {
               <Avatar
                 avatar={userProfile.user.avatar}
                 userId={userProfile.user.id}
-                userConnectedId={userConnectedId}
+                userConnectedId={userId}
                 userProfileDispatch={userProfileDispatch}
               />
             </div>

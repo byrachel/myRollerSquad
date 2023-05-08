@@ -12,8 +12,7 @@ export default withIronSessionApiRoute(
     if (!user) return res.status(401).json({ posts: null });
 
     const { uid } = req.query;
-    if (!uid || parseInt(uid) !== user.id)
-      return res.status(401).json({ posts: null });
+    if (!uid) return res.status(401).json({ posts: null });
 
     try {
       const posts = await prisma.post.findMany({

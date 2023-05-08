@@ -1,14 +1,18 @@
-import { UserContext } from "src/context/UserContext";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
-import React, { useContext, useEffect, useState } from "react";
 import { parseContent } from "src/utils/parseContent";
 import RegularButton from "../buttons/RegularButton";
+import { withSessionSsr } from "@/server/middleware/auth/withSession";
+import { UserStateInterface } from "src/reducers/UserReducer";
 
-export default function CategoriesBoard() {
+interface Props {
+  user: UserStateInterface;
+}
+
+export default function PlacesBoard({ user }: Props) {
   const [placesToModerate, setPlacesToModerate] = useState([]);
   const [placeActivated, setPlaceActivated] = useState(false);
-  const { userState } = useContext(UserContext);
-  const isAdmin = userState.isLoggedIn && userState.role === "ADMIN";
+  const isAdmin = user.isLoggedIn && user.role === "ADMIN";
 
   useEffect(() => {
     if (isAdmin) {
@@ -62,3 +66,9 @@ export default function CategoriesBoard() {
     </div>
   );
 }
+export const getServerSideProps = withSessionSsr(async ({ req }) => {
+  const user = req.session as any;
+  return {
+    props: user,
+  };
+});

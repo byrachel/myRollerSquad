@@ -1,28 +1,33 @@
-import { useRouter } from "next/router";
-import { useContext } from "react";
-import { UserContext } from "src/context/UserContext";
 import UserInfosContainer from "src/features/UserProfile/UserInfosContainer";
 import Login from "@/components/auth/Login";
+import { withSessionSsr } from "@/server/middleware/auth/withSession";
 
-const UserProfile = () => {
-  const router = useRouter();
-  const { uid } = router.query;
-  const { userState } = useContext(UserContext);
-
-  const userToDisplay = userState.isLoggedIn
+const UserProfile = ({ user, uid }: any) => {
+  const userToDisplay = user.isLoggedIn
     ? uid === "me"
-      ? userState.id
+      ? user.id
       : parseInt(uid as string)
     : null;
 
-  return userState.isLoggedIn && userToDisplay && userState.id ? (
+  return userToDisplay && user.id ? (
     <UserInfosContainer
-      userConnectedId={userState.id}
+      userConnectedId={user.id}
       userToDisplay={userToDisplay}
-      userRole={userState.role}
+      userRole={user.role}
     />
   ) : (
     <Login />
   );
 };
 export default UserProfile;
+
+export const getServerSideProps = withSessionSsr(async ({ req, query }) => {
+  const session = req.session as any;
+  const uid = query.uid;
+  return {
+    props: {
+      user: session.user,
+      uid,
+    },
+  };
+});

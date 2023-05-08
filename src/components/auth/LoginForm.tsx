@@ -1,7 +1,7 @@
-import { SyntheticEvent, useContext, useState } from "react";
+import { SyntheticEvent, useState } from "react";
 import { useRouter } from "next/router";
-import { UserContext } from "src/context/UserContext";
 import { onLogin } from "./utils/services";
+import { useStore } from "src/hooks/useStore";
 import RegularButton from "../buttons/RegularButton";
 import ErrorLayout from "../layouts/ErrorLayout";
 import InputText from "../form/InputText";
@@ -11,13 +11,11 @@ import Link from "next/link";
 export default function LoginForm() {
   const router = useRouter();
   const [error, setError] = useState({ status: false, message: "" });
-  const { userDispatch } = useContext(UserContext);
+  const setUser = useStore((state: any) => state.login);
 
   return (
     <form
-      onSubmit={(e: SyntheticEvent) =>
-        onLogin(e, userDispatch, router, setError)
-      }
+      onSubmit={(e: SyntheticEvent) => onLogin(e, setUser, router, setError)}
     >
       <ErrorLayout
         error={error.status}

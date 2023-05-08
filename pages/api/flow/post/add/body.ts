@@ -19,8 +19,8 @@ const validator = initValidation([
       "TITLE can't be empty and must have minimum length of 3 and maximum 30"
     ),
   check("content").optional().trim(),
-  check("link").isURL().optional({ nullable: true }).withMessage(E1),
-  check("price").optional().isNumeric().withMessage(E1),
+  check("link").isURL().optional({ nullable: true }).withMessage(E3),
+  check("price").optional().isNumeric().withMessage(E3),
   check("country").optional().trim().escape(),
   check("county").optional().trim().escape(),
   check("city").optional().trim().escape(),
@@ -48,6 +48,7 @@ export default withIronSessionApiRoute(
       county,
       city,
       price,
+      place_id,
     } = req.body;
 
     if (!title || !category_id) return res.status(400).json({ message: E3 });
@@ -58,6 +59,7 @@ export default withIronSessionApiRoute(
           title,
           content: content ? content : "",
           user_id: user.id,
+          place_id: place_id ? place_id : null,
           category_id,
           country: country ? country : "France",
           county: county ? county : null,
@@ -78,6 +80,7 @@ export default withIronSessionApiRoute(
 
       res.status(200).json({ post: newPost });
     } catch (e) {
+      console.log(e);
       return res.status(401).json({ message: E1 });
     }
   }),

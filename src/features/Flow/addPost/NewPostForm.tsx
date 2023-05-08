@@ -21,6 +21,7 @@ interface Props {
   post: any;
   postDispatch: React.Dispatch<any>;
   editMode?: boolean;
+  isPro: boolean;
 }
 
 export default function NewPostForm({
@@ -28,6 +29,7 @@ export default function NewPostForm({
   post,
   postDispatch,
   editMode,
+  isPro,
 }: Props) {
   const router = useRouter();
   console.log(post);
@@ -45,6 +47,8 @@ export default function NewPostForm({
           postCategory={post.category}
           postDispatch={postDispatch}
         />
+
+        {isPro ? <p>isPro</p> : null}
 
         <div className="spaceBetween">
           <div style={{ width: "100%" }}>

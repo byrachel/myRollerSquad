@@ -34,6 +34,9 @@ export default withIronSessionApiRoute(
         where: {
           email,
         },
+        include: {
+          place: true,
+        },
       });
 
       if (!existingUser || !existingUser.active)
@@ -60,6 +63,13 @@ export default withIronSessionApiRoute(
             role: existingUser.role,
             county: existingUser.county,
             isLoggedIn: true,
+            places:
+              existingUser.role === "PRO"
+                ? existingUser.place.map((elt) => ({
+                    id: elt.id,
+                    name: elt.name,
+                  }))
+                : null,
           },
         });
       } else {

@@ -3,7 +3,7 @@ export interface UserStateInterface {
   role: "USER" | "PRO" | "ADMIN";
   county: string | null;
   isLoggedIn: boolean;
-  businessCategory: string | null;
+  place: { id: number; name: string }[] | null;
 }
 
 const UserReducer = (
@@ -18,18 +18,8 @@ const UserReducer = (
         id: null,
         role: "USER",
         isLoggedIn: false,
+        place: null,
         county: null,
-        businessCategory: null,
-      };
-    case "SELECT_DEPT":
-      return {
-        ...state,
-        county: action.payload,
-      };
-    case "SELECT_BUSINESS_CATEGORY":
-      return {
-        ...state,
-        businessCategory: action.payload,
       };
     default:
       return state;

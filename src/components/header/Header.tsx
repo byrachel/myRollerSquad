@@ -1,25 +1,36 @@
-import { useContext } from "react";
 import { useRouter } from "next/router";
 import Image from "next/image";
 import Link from "next/link";
 import { Dropdown } from "@nextui-org/react";
+import { onLogout } from "../auth/utils/services";
+import { State, useStore } from "src/hooks/useStore";
+import { shallow } from "zustand/shallow";
 
-import { UserContext } from "../../context/UserContext";
 import styles from "../../styles/Header.module.scss";
 
 import UserProfile from "src/svg/profile-circle.svg";
 import MySquad from "src/svg/flash.svg";
 import Admin from "src/svg/admin.svg";
 import Search from "src/svg/search.svg";
-import { onLogout } from "../auth/utils/services";
 
 export default function Header() {
   const router = useRouter();
-  const { userState, userDispatch } = useContext(UserContext);
-  const isLogged = userState.isLoggedIn && userState.id;
-  const isAdmin = userState.role === "ADMIN";
-  const dept = userState.county ? userState.county : "all";
   const path = router.pathname.split("/")[1];
+
+  const { userId, userRole, userCounty, isLoggedIn, userLogout } = useStore(
+    (state: State) => ({
+      userId: state.userId,
+      userRole: state.userRole,
+      isLoggedIn: state.isLoggedIn,
+      userCounty: state.county,
+      userLogout: state.logout,
+    }),
+    shallow
+  );
+
+  const isLogged = isLoggedIn && userId;
+  const isAdmin = userRole === "ADMIN";
+  const dept = userCounty ? userCounty : "all";
 
   return (
     <header className={styles.header}>
@@ -74,17 +85,17 @@ export default function Header() {
                     <Link href={"/profile/me"}>Mon compte</Link>
                   </Dropdown.Item>
                   <Dropdown.Item>
-                    <Link href={`/profile/posts/${userState.id}`}>
+                    <Link href={`/profile/posts/${userId}`}>
                       Tableau de bord
                     </Link>
                   </Dropdown.Item>
-                  <Dropdown.Item>Notifications</Dropdown.Item>
+                  {/* <Dropdown.Item>Notifications</Dropdown.Item> */}
                   <Dropdown.Item withDivider color="error">
                     <span
                       role="button"
                       tabIndex={0}
-                      onKeyDown={() => onLogout(userDispatch)}
-                      onClick={() => onLogout(userDispatch)}
+                      onKeyDown={() => onLogout(userLogout)}
+                      onClick={() => onLogout(userLogout)}
                     >
                       Se déconnecter
                     </span>

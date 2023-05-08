@@ -26,6 +26,7 @@ const NewPost = ({ user }: Props) => {
           content={
             <NewPostForm
               userConnectedId={user.id}
+              isPro={user.role === "PRO"}
               post={post}
               postDispatch={postDispatch}
             />

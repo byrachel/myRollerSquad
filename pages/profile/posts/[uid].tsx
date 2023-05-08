@@ -1,24 +1,35 @@
-import { useRouter } from "next/router";
-import { useContext } from "react";
-
-import { UserContext } from "src/context/UserContext";
 import NewPostBar from "@/components/layouts/NewPostBar";
 import Login from "@/components/auth/Login";
 import HandlePosts from "src/features/UserBoard/Posts/HandlePosts";
+import { withSessionSsr } from "@/server/middleware/auth/withSession";
+import { UserStateInterface } from "src/reducers/UserReducer";
 
-const UserPosts = () => {
-  const router = useRouter();
-  const { uid } = router.query;
-  const userId = parseInt(uid as string);
-  const { userState } = useContext(UserContext);
+interface Props {
+  user: UserStateInterface;
+  uid: string;
+}
 
-  return userState.isLoggedIn && userState.id && userState.id === userId ? (
+const UserPosts = ({ user, uid }: Props) => {
+  const userId = parseInt(uid);
+
+  return user.isLoggedIn && user.id && user.id === userId ? (
     <>
       <NewPostBar />
-      <HandlePosts userConnectedId={userState.id} />
+      <HandlePosts userConnectedId={user.id} isPro={user.role === "PRO"} />
     </>
   ) : (
     <Login />
   );
 };
 export default UserPosts;
+
+export const getServerSideProps = withSessionSsr(async ({ req, query }) => {
+  const session = req.session as any;
+  const uid = query.uid;
+  return {
+    props: {
+      user: session.user,
+      uid,
+    },
+  };
+});
