@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { parseContent } from "src/utils/parseContent";
 import RegularButton from "../buttons/RegularButton";
-import { withSessionSsr } from "@/server/middleware/auth/withSession";
 import { UserStateInterface } from "src/reducers/UserReducer";
 
 interface Props {
@@ -66,9 +65,3 @@ export default function PlacesBoard({ user }: Props) {
     </div>
   );
 }
-export const getServerSideProps = withSessionSsr(async ({ req }) => {
-  const user = req.session as any;
-  return {
-    props: user,
-  };
-});

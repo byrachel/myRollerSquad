@@ -2,16 +2,23 @@ import React, { useState } from "react";
 import styles from "src/styles/AdminLayout.module.scss";
 import CategoriesBoard from "src/components/admin/CategoriesBoard";
 import PlacesBoard from "@/components/admin/PlacesBoard";
+import { withSessionSsr } from "@/server/middleware/auth/withSession";
+import { UserStateInterface } from "src/reducers/UserReducer";
 
 const CATEGORIES = 1;
 const STYLES = 2;
 const USERS = 3;
 const PLACES = 4;
 
-export default function Manager() {
-  const [componentToDisplay, setComponentToDisplay] = useState(CATEGORIES);
+interface Props {
+  user: UserStateInterface;
+}
 
-  return (
+export default function Manager({ user }: Props) {
+  const [componentToDisplay, setComponentToDisplay] = useState(CATEGORIES);
+  const isAdmin = user.isLoggedIn && user.role === "ADMIN";
+
+  return isAdmin ? (
     <>
       <div className="coloredSeparator" />
       <div className={styles.adminContainer}>
@@ -66,10 +73,17 @@ export default function Manager() {
           </ul>
         </div>
         <div className={styles.adminContent}>
-          {componentToDisplay === CATEGORIES && <CategoriesBoard />}
-          {componentToDisplay === PLACES && <PlacesBoard />}
+          {componentToDisplay === CATEGORIES && <CategoriesBoard user={user} />}
+          {componentToDisplay === PLACES && <PlacesBoard user={user} />}
         </div>
       </div>
     </>
-  );
+  ) : null;
 }
+
+export const getServerSideProps = withSessionSsr(async ({ req }) => {
+  const user = req.session as any;
+  return {
+    props: user,
+  };
+});
