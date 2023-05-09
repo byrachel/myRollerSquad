@@ -74,4 +74,5 @@ export interface NewPostFactoryInterface {
   county: string | null;
   country: string | null;
   pictures: string[]; // for edited post only
+  place_id: number | null;
 }

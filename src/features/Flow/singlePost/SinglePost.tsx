@@ -30,7 +30,7 @@ export default function SinglePost({ post, userConnectedId, isPro }: Props) {
     post: PostInterface | null;
   }>({ show: false, post: null });
   const router = useRouter();
-
+  console.log(post);
   const redirectAfterDelete = () =>
     router.push(`/profile/posts/${userConnectedId}`);
 

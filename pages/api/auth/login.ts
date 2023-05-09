@@ -60,6 +60,7 @@ export default withIronSessionApiRoute(
         res.status(200).json({
           user: {
             id: existingUser.id,
+            username: existingUser.name,
             role: existingUser.role,
             county: existingUser.county,
             isLoggedIn: true,

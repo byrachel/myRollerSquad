@@ -15,7 +15,7 @@ export default function SelectCategory({ postCategory, postDispatch }: Props) {
           key={category.id}
           tabIndex={0}
           className={
-            category.id === postCategory ? `badge pink` : "outlineBadge grey"
+            category.id === postCategory ? `badge pink` : "outlineBadge blue"
           }
           onClick={() =>
             postDispatch({

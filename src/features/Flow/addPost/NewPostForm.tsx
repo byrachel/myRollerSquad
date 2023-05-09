@@ -15,6 +15,8 @@ import { onSubmitNewPost, onSubmitEditedPost } from "./utils/onSubmitNewPost";
 import Camera from "src/svg/add-media-image.svg";
 import BigButton from "@/components/buttons/BigButton";
 import HandleLocation from "./HandleLocation";
+import { State, useStore } from "src/hooks/useStore";
+import { shallow } from "zustand/shallow";
 
 interface Props {
   userConnectedId: number;
@@ -32,7 +34,15 @@ export default function NewPostForm({
   isPro,
 }: Props) {
   const router = useRouter();
-  console.log(post);
+
+  const { userName, userPlaces } = useStore(
+    (state: State) => ({
+      userName: state.userName,
+      userPlaces: state.userPlaces,
+    }),
+    shallow
+  );
+  console.log(userPlaces);
 
   return (
     <>
@@ -47,9 +57,21 @@ export default function NewPostForm({
           postCategory={post.category}
           postDispatch={postDispatch}
         />
-
-        {isPro ? <p>isPro</p> : null}
-
+        {isPro && userPlaces && userPlaces.length > 0 ? (
+          <>
+            <label htmlFor="author">Publié en tant que :</label>
+            <div className="select">
+              <select id="author" name="author">
+                <option value={userConnectedId}>{userName}</option>
+                {userPlaces.map((elt: { id: number; name: string }) => (
+                  <option key={elt.id} value={elt.id}>
+                    {elt.name}
+                  </option>
+                ))}
+              </select>
+            </div>
+          </>
+        ) : null}
         <div className="spaceBetween">
           <div style={{ width: "100%" }}>
             <InputText

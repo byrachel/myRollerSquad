@@ -6,7 +6,8 @@ type Payload = {
   role: string;
   county: null | string;
   isLoggedIn: boolean;
-  place: null | { id: number; name: string }[];
+  username: string;
+  places: null | { id: number; name: string }[];
 };
 
 export type State = {
@@ -14,6 +15,7 @@ export type State = {
   userRole: string;
   county: null | string;
   isLoggedIn: boolean;
+  userName: string;
   userPlaces: null | { id: number; name: string }[];
   login: (user: Payload) => void;
   logout: () => void;
@@ -27,6 +29,7 @@ type Actions = {
 const initialState = {
   userId: null,
   userRole: "USER",
+  userName: "",
   county: null,
   isLoggedIn: false,
   userPlaces: null,
@@ -41,7 +44,8 @@ export const useStore = create<State & Actions>()(
           ...user,
           userId: user.id,
           userRole: user.role,
-          userPlaces: user.place,
+          userPlaces: user.places,
+          userName: user.username,
         }),
       logout: () => set(initialState),
     }),
