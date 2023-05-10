@@ -40,4 +40,5 @@ export interface PlaceInterface {
   siren: string;
   logo: string | null;
   category: string;
+  posts: PostInterface[];
 }

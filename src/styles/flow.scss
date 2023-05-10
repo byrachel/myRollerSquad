@@ -39,6 +39,14 @@
     }
   }
 }
+
+.metaIconText {
+  color: $greyColor;
+  font-family: $textFont;
+  font-size: $fontSize-sm;
+  display: flex;
+  align-items: center;
+}
 .placeLocation {
   stroke: $greyColor;
   fill: none;

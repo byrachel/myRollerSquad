@@ -25,6 +25,11 @@ export default handler.get(async (req: any, res: any) => {
             id: true,
           },
         },
+        posts: {
+          select: {
+            id: true,
+          },
+        },
       },
     });
     res.status(200).json({ places });

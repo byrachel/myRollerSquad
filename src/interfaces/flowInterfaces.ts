@@ -47,6 +47,7 @@ export interface NewPostInterface {
   displayLocation: boolean;
   content: string;
   map: Blob | null;
+  place_id: number | null;
 }
 
 export interface EditPostInterface extends NewPostInterface {

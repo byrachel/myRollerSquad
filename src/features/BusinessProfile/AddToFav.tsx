@@ -23,7 +23,7 @@ const AddToFav = ({ favorites, placeId }: Props) => {
   };
 
   return (
-    <div className="placeFavoriteCounter">
+    <>
       <Favorite
         className={favs.includes(userId) ? "favIconChecked" : "favIcon"}
         width={24}
@@ -31,7 +31,7 @@ const AddToFav = ({ favorites, placeId }: Props) => {
         onClick={() => addToMyFav(placeId)}
       />
       <p>{favCounter}</p>
-    </div>
+    </>
   );
 };
 export default AddToFav;

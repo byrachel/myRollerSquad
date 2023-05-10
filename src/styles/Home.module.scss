@@ -54,7 +54,7 @@
 }
 
 .blueBox {
-  background: $primaryColor;
+  background: $blueColor;
   margin: 0;
   padding: 5em 2em;
   width: 100%;
@@ -158,31 +158,7 @@
         height: 160px !important;
         object-fit: cover;
         width: 160px !important;
-        border: solid 2px $secondaryColor;
-      }
-
-      .greenImage {
-        border-radius: 50%;
-        height: 160px !important;
-        object-fit: cover;
-        width: 160px !important;
-        border: solid 2px $greenColor;
-      }
-
-      .blueImage {
-        border-radius: 50%;
-        height: 160px !important;
-        object-fit: cover;
-        width: 160px !important;
-        border: solid 2px $blueColor;
-      }
-
-      .yellowImage {
-        border-radius: 50%;
-        height: 160px !important;
-        object-fit: cover;
-        width: 160px !important;
-        border: solid 2px $yellowColor;
+        border: solid 2px white;
       }
     }
   }
