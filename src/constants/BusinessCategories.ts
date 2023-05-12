@@ -1,7 +1,7 @@
 export const LEARN = 1;
 export const BUY = 2;
 export const PLAY = 3;
-export const OTHER = 4;
+// export const OTHER = 4;
 
 export const businessCategories = [
   {
@@ -19,11 +19,11 @@ export const businessCategories = [
     value: "PLAY",
     name: "S'amuser",
   },
-  {
-    id: OTHER,
-    value: "OTHER",
-    name: "Autre",
-  },
+  // {
+  //   id: OTHER,
+  //   value: "OTHER",
+  //   name: "Autre",
+  // },
 ];
 
 export const businessCategory = (value: string) => {
@@ -40,17 +40,17 @@ export const businessCategory = (value: string) => {
         value: "BUY",
         name: "S'équiper",
       };
-    case "PLAY":
+    default:
       return {
         id: PLAY,
         value: "PLAY",
         name: "S'amuser",
       };
-    default:
-      return {
-        id: OTHER,
-        value: "OTHER",
-        name: "Autre",
-      };
+    // default:
+    //   return {
+    //     id: OTHER,
+    //     value: "OTHER",
+    //     name: "Autre",
+    //   };
   }
 };

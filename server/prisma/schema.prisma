@@ -140,7 +140,7 @@ model Place {
   owner         User       @relation("place_owner", fields: [user_id], references: [id])
   user_id       Int
   logo          String?
-  type          PlaceType
+  type          PlaceType   @default(PROFESSIONAL)
   category      PlaceCategory @default(OTHER)
   active        Boolean    @default(false)
   name          String

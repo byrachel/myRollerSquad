@@ -12,7 +12,6 @@ interface Props {
 }
 
 export default function BusinessPlaces({ places }: Props) {
-  console.log("places", places);
   return (
     <div className="placeContainer">
       {places.map((place: PlaceInterface) => (

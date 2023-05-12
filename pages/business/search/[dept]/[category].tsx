@@ -26,14 +26,18 @@ export async function getStaticPaths() {
     process.env.NODE_ENV === "production"
       ? "https://myrollersquad.vercel.app"
       : "http://localhost:3000";
-  const res = await fetch(`${API_URL}/api/business/all?category=all`);
-  const data = await res.json();
+  try {
+    const res = await fetch(`${API_URL}/api/business/all?category=all`);
+    const data = await res.json();
 
-  const places = data.places.length > 0 ? data.places : [];
-  const paths = places.map((place: PlaceInterface) => ({
-    params: { category: place.category, dept: place.county },
-  }));
-  return { paths, fallback: true };
+    const places = data.places.length > 0 ? data.places : [];
+    const paths = places.map((place: PlaceInterface) => ({
+      params: { category: place.category, dept: place.county },
+    }));
+    return { paths, fallback: true };
+  } catch (error) {
+    return { paths: [], fallback: true };
+  }
 }
 
 export async function getStaticProps(context: any) {

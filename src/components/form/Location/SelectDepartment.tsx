@@ -15,11 +15,13 @@ export default function SelectDepartment({
       <select
         name="department"
         className="datalistInput"
-        defaultValue={userDept || ""}
+        defaultValue={userDept || "all"}
         placeholder="Quel est ton département ?"
         onChange={onSelectDepartment}
       >
-        {!userDept && <option>Quel est ton département ?</option>}
+        {!userDept || userDept === "all" ? (
+          <option>Quel est ton département ?</option>
+        ) : null}
         {departments.map((elt) => (
           <option key={elt.num_dep} value={elt.num_dep}>
             {elt.dep_name}
