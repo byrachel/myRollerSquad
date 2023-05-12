@@ -136,6 +136,7 @@ export const onSubmitEditedPost = async (
     price: { value?: number };
     duration: { value?: number };
     distance: { value?: string };
+    author: { value: string };
   };
 
   if (!target.title.value) {
@@ -163,6 +164,7 @@ export const onSubmitEditedPost = async (
       city: post.city ? post.city : null,
       squad_ids: [],
       pictures: post.initialPictures,
+      place_id: target.author ? parseInt(target.author.value) : null,
     };
 
     const editedPostFactory = new NewPostFactory();
