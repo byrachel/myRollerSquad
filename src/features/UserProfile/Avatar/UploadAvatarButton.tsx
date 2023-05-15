@@ -7,14 +7,12 @@ import Avatar from "src/svg/add-media-image.svg";
 interface Props {
   displayNewAvatar: boolean;
   setDisplayNewAvatar: (arg: boolean) => void;
-  userProfileDispatch: React.Dispatch<any>;
   userId: number;
 }
 
 export default function UploadAvatarButton({
   displayNewAvatar,
   setDisplayNewAvatar,
-  userProfileDispatch,
   userId,
 }: Props) {
   const [newAvatarFile, setNewAvatarFile] = useState<any | null>(null);
@@ -70,7 +68,6 @@ export default function UploadAvatarButton({
           userId={userId}
           avatar={newAvatarFile}
           setDisplayNewAvatar={setDisplayNewAvatar}
-          userProfileDispatch={userProfileDispatch}
         />
       </Modal>
     </>

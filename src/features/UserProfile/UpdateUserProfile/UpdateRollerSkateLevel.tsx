@@ -4,14 +4,14 @@ import Star from "src/svg/star.svg";
 interface Props {
   label: string;
   currentLevel: number;
-  userProfileDispatch: React.Dispatch<any>;
+  dispatchUserDataToUpdate: React.Dispatch<any>;
   type: string;
 }
 
 export default function UpdateRollerSkateLevel({
   label,
   currentLevel,
-  userProfileDispatch,
+  dispatchUserDataToUpdate,
   type,
 }: Props) {
   const rating = currentLevel + 1;
@@ -21,7 +21,7 @@ export default function UpdateRollerSkateLevel({
   const handleLevel = (level: number) => {
     const objectLevel = {} as any;
     objectLevel[type] = level;
-    userProfileDispatch({
+    dispatchUserDataToUpdate({
       type: "UPDATE_USER_ROLLER_SKATE_LEVEL",
       payload: objectLevel,
     });
@@ -30,7 +30,7 @@ export default function UpdateRollerSkateLevel({
   const resetLevel = () => {
     const objectLevel = {} as any;
     objectLevel[type] = 0;
-    userProfileDispatch({
+    dispatchUserDataToUpdate({
       type: "UPDATE_USER_ROLLER_SKATE_LEVEL",
       payload: objectLevel,
     });
@@ -38,37 +38,35 @@ export default function UpdateRollerSkateLevel({
   };
 
   return (
-    <>
-      <div className="spaceBetween mt5">
-        <p className="rollerLevelTitle">{label}</p>
-        <div className="flexStart">
-          {levels.map((star) => (
-            <Star
-              key={star}
-              role="button"
-              className={
-                star < (hover || rating)
-                  ? "updateRollerStarIcon"
-                  : "updateRollerNoStarIcon"
-              }
-              width={20}
-              height={20}
-              onClick={() => handleLevel(star)}
-              onMouseEnter={() => setHover(star)}
-              onMouseLeave={() => setHover(rating)}
-            />
-          ))}
-          <div
-            style={{ cursor: "pointer" }}
+    <div className="spaceBetween mt5">
+      <p className="rollerLevelTitle">{label}</p>
+      <div className="flexStart">
+        {levels.map((star) => (
+          <Star
+            key={star}
             role="button"
-            tabIndex={0}
-            onClick={resetLevel}
-            onKeyDown={resetLevel}
-          >
-            -
-          </div>
+            className={
+              star < (hover || rating)
+                ? "updateRollerStarIcon"
+                : "updateRollerNoStarIcon"
+            }
+            width={20}
+            height={20}
+            onClick={() => handleLevel(star)}
+            onMouseEnter={() => setHover(star)}
+            onMouseLeave={() => setHover(rating)}
+          />
+        ))}
+        <div
+          style={{ cursor: "pointer" }}
+          role="button"
+          tabIndex={0}
+          onClick={resetLevel}
+          onKeyDown={resetLevel}
+        >
+          -
         </div>
       </div>
-    </>
+    </div>
   );
 }

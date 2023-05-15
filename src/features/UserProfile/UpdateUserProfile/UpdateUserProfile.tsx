@@ -1,25 +1,69 @@
-import React, { SyntheticEvent } from "react";
-import { UserProfileInterface } from "src/reducers/UserProfileReducer";
+import React, { SyntheticEvent, useReducer } from "react";
+import { useRouter } from "next/router";
+import axios from "axios";
+
 import Avatar from "../Avatar/Avatar";
 import UpdateUserProfileForm from "./UpdateUserProfileForm";
 import RegularButton from "src/components/buttons/RegularButton";
-import axios from "axios";
-import { useRouter } from "next/router";
-import Loader from "@/components/layouts/Loader";
-import { State, useStore } from "src/hooks/useStore";
+import { useProfile } from "src/hooks/useProfile";
+import { UserInterface } from "src/interfaces/userInterfaces";
 
 interface Props {
-  userProfile: UserProfileInterface;
-  userProfileDispatch: React.Dispatch<any>;
+  userProfile: UserInterface;
 }
 
-const UpdateUserProfile = ({ userProfile, userProfileDispatch }: Props) => {
-  const userId = useStore((state: State) => state.userId);
+const UpdateUserProfile = ({ userProfile }: Props) => {
   const router = useRouter();
 
-  const cancelUpdate = () => {
-    userProfileDispatch({ type: "UPDATE_USER_PROFILE", payload: false });
+  const initialState = {
+    name: userProfile.name,
+    country: userProfile.country,
+    county: userProfile.county,
+    city: userProfile.city,
+    resume: userProfile.resume,
+    social_medias: {
+      instagram: userProfile.social_medias?.instagram ?? "",
+      tiktok: userProfile.social_medias?.tiktok ?? "",
+      youtube: userProfile.social_medias?.youtube ?? "",
+    },
+    level: {
+      roller_dance_level: userProfile.roller_dance_level,
+      derby_level: userProfile.derby_level,
+      freestyle_level: userProfile.freestyle_level,
+      artistic_level: userProfile.artistic_level,
+      skatepark_level: userProfile.skatepark_level,
+      urban_level: userProfile.urban_level,
+    },
   };
+
+  const updateUserReducer = (state: any, action: any) => {
+    switch (action.type) {
+      case "SAVE_CONTENT":
+        return {
+          ...state,
+          resume: action.payload,
+        };
+      case "UPDATE_USER_ROLLER_SKATE_LEVEL":
+        return {
+          ...state,
+          level: {
+            ...state.level,
+            ...action.payload,
+          },
+        };
+      default:
+        return state;
+    }
+  };
+
+  const [userDataToUpdate, dispatchUserDataToUpdate] = useReducer(
+    updateUserReducer,
+    initialState
+  );
+
+  const { updateUserProfile } = useProfile((state) => ({
+    updateUserProfile: state.updateUserProfile,
+  }));
 
   const onSubmit = (event: SyntheticEvent) => {
     event.preventDefault();
@@ -39,32 +83,30 @@ const UpdateUserProfile = ({ userProfile, userProfileDispatch }: Props) => {
       country: target.country.value,
       county: target.department.value,
       city: target.city.value,
-      resume: userProfile.user.resume,
+      resume: userDataToUpdate.resume,
       social_medias: {
         instagram: target.instagram.value,
         tiktok: target.tiktok.value,
         youtube: target.youtube.value,
       },
-      roller_dance_level: userProfile.user.roller_dance_level,
-      skatepark_level: userProfile.user.skatepark_level,
-      urban_level: userProfile.user.urban_level,
-      freestyle_level: userProfile.user.freestyle_level,
-      derby_level: userProfile.user.derby_level,
-      artistic_level: userProfile.user.artistic_level,
+      roller_dance_level: userDataToUpdate.level.roller_dance_level,
+      skatepark_level: userDataToUpdate.level.skatepark_level,
+      urban_level: userDataToUpdate.level.urban_level,
+      freestyle_level: userDataToUpdate.level.freestyle_level,
+      derby_level: userDataToUpdate.level.derby_level,
+      artistic_level: userDataToUpdate.level.artistic_level,
     };
 
-    if (userId) {
+    if (userProfile.id) {
       axios({
         method: "put",
-        url: `/api/user/update/${userId}`,
+        url: `/api/user/update/${userProfile.id}`,
         data,
         withCredentials: true,
       })
         .then((res) => {
-          userProfileDispatch({
-            type: "USER_PROFILE_UPDATED",
-            payload: res.data.user,
-          });
+          updateUserProfile(res.data.user);
+          router.push(`/profile/me`);
         })
         .catch((err) => {
           //handle error
@@ -77,15 +119,14 @@ const UpdateUserProfile = ({ userProfile, userProfileDispatch }: Props) => {
 
   return (
     <>
-      {userProfile.user ? (
+      {userProfile ? (
         <div className="sidebarLayout">
           <div className="sidebarContent">
             <div className="updateUserSidebarAvatar">
               <Avatar
-                avatar={userProfile.user.avatar}
-                userId={userProfile.user.id}
-                userConnectedId={userId}
-                userProfileDispatch={userProfileDispatch}
+                avatar={userProfile.avatar}
+                userId={userProfile.id}
+                userConnectedId={userProfile.id}
               />
             </div>
             <div className="sidebarText">
@@ -100,25 +141,19 @@ const UpdateUserProfile = ({ userProfile, userProfileDispatch }: Props) => {
           </div>
           <form onSubmit={onSubmit} className="sidebarContainer">
             <UpdateUserProfileForm
-              userProfile={userProfile}
-              userProfileDispatch={userProfileDispatch}
-            />
-            <RegularButton
-              type="button"
-              style="outline"
-              text="ANNULER"
-              onClick={cancelUpdate}
+              userDataToUpdate={userDataToUpdate}
+              dispatchUserDataToUpdate={dispatchUserDataToUpdate}
             />
             <RegularButton type="submit" style="full" text="ENREGISTRER" />
           </form>
         </div>
-      ) : userProfile.loading ? (
-        <Loader
-          text={"Hop! On enregistre tout ça... Encore un petit instant..."}
-        />
-      ) : userProfile.error ? (
-        <p>Oups !</p>
-      ) : null}
+      ) : // ) : userProfile.loading ? (
+      //   <Loader
+      //     text={"Hop! On enregistre tout ça... Encore un petit instant..."}
+      //   />
+      // ) : userProfile.error ? (
+      //   <p>Oups !</p>
+      null}
     </>
   );
 };

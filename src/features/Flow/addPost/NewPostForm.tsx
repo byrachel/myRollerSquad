@@ -15,7 +15,7 @@ import { onSubmitNewPost, onSubmitEditedPost } from "./utils/onSubmitNewPost";
 import Camera from "src/svg/add-media-image.svg";
 import BigButton from "@/components/buttons/BigButton";
 import HandleLocation from "./HandleLocation";
-import { State, useStore } from "src/hooks/useStore";
+import { State, useUser } from "src/hooks/useUser";
 import { shallow } from "zustand/shallow";
 
 interface Props {
@@ -35,7 +35,7 @@ export default function NewPostForm({
 }: Props) {
   const router = useRouter();
 
-  const { userName, userPlaces } = useStore(
+  const { userName, userPlaces } = useUser(
     (state: State) => ({
       userName: state.userName,
       userPlaces: state.userPlaces,

@@ -1,13 +1,13 @@
 import { SyntheticEvent, useReducer } from "react";
 
-import BigButton from "../buttons/BigButton";
-import ErrorLayout from "../layouts/ErrorLayout";
-import InputText from "../form/InputText";
-import InputMail from "../form/InputMail";
-import InputPassword from "../form/InputPassword";
+import BigButton from "../../components/buttons/BigButton";
+import ErrorLayout from "../../components/layouts/ErrorLayout";
+import InputText from "../../components/form/InputText";
+import InputMail from "../../components/form/InputMail";
+import InputPassword from "../../components/form/InputPassword";
 import { onRegister } from "./utils/services";
 import { RegisterReducer, authInitialState } from "src/reducers/AuthReducer";
-import Loader from "../layouts/Loader";
+import Loader from "../../components/layouts/Loader";
 
 export default function RegisterForm() {
   const [registerStore, registerDispatch] = useReducer(
@@ -57,13 +57,13 @@ export default function RegisterForm() {
             name="password"
             required
           />
-          <p className="blackMeta mt-large">
+          <p className="blackMeta mt5">
             Pour la sécurité de votre compte, le mot de passe doit contenir au
             moins 12 caractères (dont au moins une majuscule, une minuscule et
             un chiffre).
           </p>
           <br />
-          <BigButton type="submit" style="outline" text="créer un compte" />
+          <BigButton type="submit" style="outline" text="Créer un compte" />
         </>
       )}
     </form>

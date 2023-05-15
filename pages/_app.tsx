@@ -2,7 +2,6 @@ import type { AppProps } from "next/app";
 import { Poppins, Mulish } from "next/font/google";
 import { createTheme, NextUIProvider } from "@nextui-org/react";
 import MainLayout from "../src/components/layouts/MainLayout";
-import { UserContextProvider } from "src/context/UserContext";
 
 const poppins = Poppins({
   weight: ["800", "600"],
@@ -34,19 +33,17 @@ const theme = createTheme({
 function App({ Component, pageProps }: AppProps) {
   return (
     <NextUIProvider theme={theme}>
-      <UserContextProvider>
-        <MainLayout>
-          <>
-            <style jsx global>{`
-              :root {
-                --font-title: ${poppins.style.fontFamily};
-                --font-text: ${oxygen.style.fontFamily};
-              }
-            `}</style>
-            <Component {...pageProps} />
-          </>
-        </MainLayout>
-      </UserContextProvider>
+      <MainLayout>
+        <>
+          <style jsx global>{`
+            :root {
+              --font-title: ${poppins.style.fontFamily};
+              --font-text: ${oxygen.style.fontFamily};
+            }
+          `}</style>
+          <Component {...pageProps} />
+        </>
+      </MainLayout>
     </NextUIProvider>
   );
 }

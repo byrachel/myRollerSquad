@@ -33,14 +33,14 @@ export default function LikeIcon({
         data,
         withCredentials: true,
       })
-        .then(res => {
+        .then((res) => {
           if (res.data.liked) {
             setLikes(likes + 1);
           } else {
             setLikes(likes - 1);
           }
         })
-        .catch(err => console.log(err));
+        .catch((err) => console.log(err));
     }
   };
   return userConnectedId ? (
@@ -53,12 +53,12 @@ export default function LikeIcon({
     >
       <Heart
         className={liked ? `fullLinksIcon ${color}` : `linksIcon ${color}`}
-        width={38}
-        height={38}
+        width={30}
+        height={30}
       />
       <p className="cardMetaText">{likes}</p>
     </div>
   ) : (
-    <Heart className={`linksIcon ${color}`} width={38} height={38} />
+    <Heart className={`linksIcon ${color}`} width={30} height={30} />
   );
 }

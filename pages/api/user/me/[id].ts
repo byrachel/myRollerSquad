@@ -9,10 +9,12 @@ const handler = nextConnect();
 export default withIronSessionApiRoute(
   handler.get(async (req: any, res: any) => {
     const { user } = req.session;
-    if (!user) return res.status(400).json({ message: E2 });
+    if (!user) return res.status(401).json({ message: E2 });
+
     const { id } = req.query;
     const userId = Array.isArray(id) ? id[0] : id;
-    if (!userId) return res.status(400).json({ message: E1 });
+    if (!userId || parseInt(userId) !== user.id)
+      return res.status(401).json({ message: E2 });
 
     try {
       const user = await prisma.user.findUnique({
@@ -36,18 +38,19 @@ export default withIronSessionApiRoute(
           country: true,
           county: true,
           city: true,
-          postLiked: true,
-          favorite_places: {
-            select: {
-              id: true,
-              name: true,
-              category: true,
-              logo: true,
-            },
-          },
           place: {
             select: {
               id: true,
+              name: true,
+              active: true,
+              city: true,
+              description: true,
+              logo: true,
+              _count: {
+                select: {
+                  favorites: true,
+                },
+              },
             },
           },
         },

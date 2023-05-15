@@ -13,11 +13,11 @@ export default function FindACoach() {
 
   return (
     <div className={styles.blueBox}>
-      <h2 className={styles.blueBoxTitle}>
+      <h2 className={styles.boxTitle}>
         Envie de te lancer, de dépasser tes limites ?
       </h2>
       <div className={styles.underliner} />
-      <p className={styles.blueBoxText}>
+      <p className={styles.boxText}>
         Découvre les cours & formateurs de ta région et passe au niveau
         supérieur !
       </p>

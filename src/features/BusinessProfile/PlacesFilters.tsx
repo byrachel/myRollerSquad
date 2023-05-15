@@ -11,6 +11,7 @@ interface Props {
 
 export default function PlacesFilters({ dept, categorySelected }: Props) {
   const router = useRouter();
+
   const onSelectDepartment = (event: any) => {
     const department = event.target.value;
     const category = categorySelected ? categorySelected : "all";

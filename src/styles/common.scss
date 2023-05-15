@@ -86,6 +86,12 @@ div.inline {
   align-items: center;
 }
 
+.underliner {
+  border-bottom: solid 2px $primaryColor;
+  width: 50%;
+  margin: 2em auto;
+}
+
 .deptDataList {
   margin: 1.5em 0;
   display: flex;
@@ -94,7 +100,7 @@ div.inline {
   .datalistInput {
     background-color: white;
     border: 1px solid $secondaryColor;
-    border-radius: 4px;
+    border-radius: 3px;
     font-size: $fontSize-md;
     font-family: $textFont;
     padding: 1em;

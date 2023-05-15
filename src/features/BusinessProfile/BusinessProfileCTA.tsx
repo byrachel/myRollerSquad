@@ -1,12 +1,13 @@
 import React from "react";
 import { useRouter } from "next/router";
-import { State, useStore } from "src/hooks/useStore";
+import { State, useUser } from "src/hooks/useUser";
 
+import FavPlace from "src/svg/bookmark-circle.svg";
 import RegularButton from "@/components/buttons/RegularButton";
 
 export default function BusinessProfileCTA() {
   const router = useRouter();
-  const userId = useStore((state: State) => state.userId);
+  const userId = useUser((state: State) => state.userId);
 
   const createBusiness = () => {
     if (userId) {
@@ -17,16 +18,19 @@ export default function BusinessProfileCTA() {
   };
 
   return (
-    <div className="ctaBox center">
+    <div className="ctaBox">
       <div>
-        <h3>Tu es un club, une association, un formateur ?</h3>
-        <p className="ctaLink">
-          Active ton compte <b>business</b> & apparaît dans l'annuaire !
-        </p>
+        <p className="meta">Tu es un club, une association, un formateur ?</p>
+        <div className="socialIconContainer">
+          <FavPlace className="pinkIcon" width={32} height={32} />
+          <p className="ctaLink">
+            Active ton compte "business" et apparaît dans l'annuaire.
+          </p>
+        </div>
       </div>
       <RegularButton
         type="button"
-        text="Go !"
+        text="Créer un compte business"
         style="outline"
         onClick={createBusiness}
       />

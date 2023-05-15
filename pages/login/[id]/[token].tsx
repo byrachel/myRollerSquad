@@ -2,10 +2,10 @@ import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import axios from "axios";
 
-import LoginForm from "src/components/auth/LoginForm";
+import LoginForm from "src/features/auth/LoginForm";
 import SidebarLayout from "src/components/layouts/SidebarLayout";
 import UnloggedUserSidebar from "src/components/layouts/UnloggedUserSidebar";
-import ActivationAccount from "src/components/auth/ActivationAccount";
+import ActivationAccount from "src/features/auth/ActivationAccount";
 import { checkTokenValidity } from "src/utils/checkTokenValidity";
 import Loader from "@/components/layouts/Loader";
 

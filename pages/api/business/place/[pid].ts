@@ -20,8 +20,23 @@ export default handler.get(async (req: any, res: any) => {
             id: true,
           },
         },
+        posts: {
+          select: {
+            id: true,
+            title: true,
+            category: {
+              select: {
+                name: true,
+              },
+            },
+            created_at: true,
+            content: true,
+            pictures: true,
+          },
+        },
       },
     });
+    if (!place || !place.active) return res.status(200).json({ place: {} });
     res.status(200).json({ place });
   } catch (e) {
     res.status(400).json({ message: E1 });

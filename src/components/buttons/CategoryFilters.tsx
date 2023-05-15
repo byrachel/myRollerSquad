@@ -1,7 +1,6 @@
 import React from "react";
 
 import { businessCategories } from "src/constants/BusinessCategories";
-import { cardColor } from "src/utils/colorManager";
 
 interface Props {
   onSelectCategory: (arg: string) => void;
@@ -20,8 +19,10 @@ export default function CategoryFilters({
       tabIndex={0}
       className={
         value === categorySelected
-          ? `badge ${cardColor(id)}`
-          : `outlineBadge ${cardColor(id)}`
+          ? categorySelected === "all"
+            ? "badge grey"
+            : "badge pink"
+          : "outlineBadge grey"
       }
       onClick={() => onSelectCategory(value)}
       onKeyDown={() => onSelectCategory(value)}

@@ -1,6 +1,7 @@
 import UserInfosContainer from "src/features/UserProfile/UserInfosContainer";
-import Login from "@/components/auth/Login";
+import Login from "src/features/auth/Login";
 import { withSessionSsr } from "@/server/middleware/auth/withSession";
+import MyInfosContainer from "src/features/UserProfile/MyInfosContainer";
 
 const UserProfile = ({ user, uid }: any) => {
   const userToDisplay = user.isLoggedIn
@@ -9,11 +10,12 @@ const UserProfile = ({ user, uid }: any) => {
       : parseInt(uid as string)
     : null;
 
-  return userToDisplay && user.id ? (
+  return user.isLoggedIn && uid === "me" ? (
+    <MyInfosContainer userConnectedId={user.id} />
+  ) : user.isLoggedIn && userToDisplay && user.id ? (
     <UserInfosContainer
       userConnectedId={user.id}
       userToDisplay={userToDisplay}
-      userRole={user.role}
     />
   ) : (
     <Login />

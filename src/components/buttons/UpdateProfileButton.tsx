@@ -1,21 +1,11 @@
+import Link from "next/link";
 import React from "react";
 import Edit from "src/svg/edit.svg";
 
-interface Props {
-  userProfileDispatch: React.Dispatch<any>;
-}
-
-export default function UpdateProfileButton({ userProfileDispatch }: Props) {
-  const updateUserProfile = () => {
-    userProfileDispatch({ type: "UPDATE_USER_PROFILE", payload: true });
-  };
-
+export default function UpdateProfileButton() {
   return (
-    <Edit
-      className="editIcon"
-      width={30}
-      height={30}
-      onClick={updateUserProfile}
-    />
+    <Link href="/profile/update">
+      <Edit className="editIcon" width={30} height={30} />
+    </Link>
   );
 }

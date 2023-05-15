@@ -1,17 +1,17 @@
 import { SyntheticEvent, useState } from "react";
 import { useRouter } from "next/router";
 import { onLogin } from "./utils/services";
-import { useStore } from "src/hooks/useStore";
-import RegularButton from "../buttons/RegularButton";
-import ErrorLayout from "../layouts/ErrorLayout";
-import InputText from "../form/InputText";
-import InputPassword from "../form/InputPassword";
+import { useUser } from "src/hooks/useUser";
+import RegularButton from "../../components/buttons/RegularButton";
+import ErrorLayout from "../../components/layouts/ErrorLayout";
+import InputText from "../../components/form/InputText";
+import InputPassword from "../../components/form/InputPassword";
 import Link from "next/link";
 
 export default function LoginForm() {
   const router = useRouter();
   const [error, setError] = useState({ status: false, message: "" });
-  const setUser = useStore((state: any) => state.login);
+  const setUser = useUser((state: any) => state.login);
 
   return (
     <form

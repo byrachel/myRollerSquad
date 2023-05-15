@@ -3,7 +3,7 @@ $secondaryColor: #e4287d;
 $greenColor: #13d1ba;
 $blueColor: #3abff8;
 $yellowColor: #feed63;
-$greyColor: #7b7b7b;
+$greyColor: #a08ba2;
 $lightColor: #f7f7f7;
 $redColor: #ff0000;
 $purpleColor: #b873d9;
@@ -11,9 +11,9 @@ $darkColor: #822a79;
 
 $fontSize-sm: clamp(0.8rem, 4vw, 0.85rem);
 $fontSize-md: clamp(0.95rem, 4vw, 1.05rem);
-$fontSize-lg: clamp(1.1rem, 4vw, 1.35rem);
-$fontSize-xl: clamp(1.5rem, 4vw, 1.8rem);
-$fontSize-xxl: clamp(2.4rem, 4vw, 3rem);
+$fontSize-lg: clamp(1.1rem, 4vw, 1.25rem);
+$fontSize-xl: clamp(1.2rem, 4vw, 1.5rem);
+$fontSize-xxl: clamp(2rem, 4vw, 3rem);
 
 $textFont: var(--font-text);
 $titleFont: var(--font-title);

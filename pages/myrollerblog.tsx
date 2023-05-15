@@ -1,6 +1,6 @@
 import NewPostBar from "src/components/layouts/NewPostBar";
 import Flow from "src/features/Flow/getPosts/Flow";
-import Login from "@/components/auth/Login";
+import Login from "src/features/auth/Login";
 import { withSessionSsr } from "@/server/middleware/auth/withSession";
 
 const MyRollerBlog = ({ user }: any) => {

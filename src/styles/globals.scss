@@ -69,7 +69,6 @@ ul {
   background: linear-gradient(135deg, $yellowColor 0%, $secondaryColor 100%);
   height: 10px;
   width: 100%;
-  border-radius: 0 0 7px 7px;
 }
 
 .lightSeparator {
@@ -89,10 +88,9 @@ ul {
   color: $secondaryColor;
   font-family: $textFont;
   font-size: $fontSize-md;
-  font-weight: 600;
   line-height: 2em;
   cursor: pointer;
-  font-weight: 400;
+  font-weight: 600;
 }
 
 .mt5 {
@@ -148,7 +146,7 @@ blockquote {
 }
 
 .inputContainer {
-  margin: 0.5em 0;
+  margin: 0.25em 0;
   position: relative;
 
   .displayPassword {
@@ -162,13 +160,12 @@ blockquote {
 
 .input {
   background-color: white;
-  border: 1px solid $greyColor;
-  border-radius: 4px;
+  border: 2px solid $greyColor;
+  border-radius: 5px;
   font-size: $fontSize-md;
   font-family: $textFont;
-  padding: 0.5em;
+  padding: 0.4em;
   transition: 180ms box-shadow ease-in-out;
-  box-shadow: 2px 2px $greyColor;
   width: 100%;
 
   &.error {
@@ -177,7 +174,7 @@ blockquote {
 }
 
 .input:focus {
-  border-color: $primaryColor;
+  border-color: $secondaryColor;
   outline: 3px solid transparent;
 }
 
@@ -254,7 +251,7 @@ select {
   width: 100%;
 
   border: 1px solid $greyColor;
-  border-radius: 0.25em;
+  border-radius: 5px;
   padding: 0em 0.4em;
 
   font-size: $fontSize-md;
@@ -287,7 +284,7 @@ select {
   width: 100%;
 
   border: 2px solid $greyColor;
-  border-radius: 0.25em;
+  border-radius: 5px;
   padding: 0.25em 0.5em;
 
   font-size: $fontSize-md;
@@ -334,7 +331,7 @@ label {
   font-family: $textFont;
   font-size: $fontSize-sm;
   letter-spacing: 0.2px;
-  margin: 2em 0 0.5em 0;
+  margin: 1.5em 0 0.3em 0;
   display: block;
 }
 
@@ -361,7 +358,7 @@ label {
 
 .quill {
   border: solid 2px $greyColor;
-  border-radius: 7px;
+  border-radius: 5px;
 }
 
 .ql-toolbar.ql-snow {
@@ -371,6 +368,7 @@ label {
 
 .ql-container {
   border: none !important;
+  padding: 0;
 }
 
 .flexStart {
@@ -406,7 +404,7 @@ label {
 }
 
 .badge {
-  border-radius: 8px;
+  border-radius: 5px;
   color: white;
   font-family: $titleFont;
   font-size: $fontSize-sm;
@@ -469,8 +467,8 @@ label {
     border: solid 2px $darkColor;
   }
   &.grey {
-    color: $greyColor;
-    border: solid 2px $greyColor;
+    border: solid 2px darken($color: $lightColor, $amount: 20);
+    color: darken($color: $lightColor, $amount: 30);
   }
   &.purple {
     color: $purpleColor;
@@ -480,7 +478,7 @@ label {
 
 .outlineBadge {
   background-color: white;
-  border-radius: 8px;
+  border-radius: 5px;
   font-family: $titleFont;
   font-size: $fontSize-sm;
   margin: 0.5em 0.3em 0.5em 0;
@@ -510,7 +508,7 @@ label {
   }
   &.grey {
     border: solid 2px $greyColor;
-    color: $greyColor;
+    color: lighten($color: $greyColor, $amount: 10);
   }
   &.purple {
     color: $purpleColor;
@@ -552,7 +550,7 @@ label {
 }
 
 .staticBadge {
-  border-radius: 8px;
+  border-radius: 5px;
   color: white;
   font-family: $titleFont;
   font-size: $fontSize-sm;
@@ -588,7 +586,7 @@ label {
 
 .staticOutlineBadge {
   background-color: white;
-  border-radius: 7px;
+  border-radius: 5px;
   font-family: $titleFont;
   font-size: $fontSize-sm;
   margin: 0.2em 0.2em 0.5em 0;

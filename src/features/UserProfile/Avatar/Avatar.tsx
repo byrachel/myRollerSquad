@@ -6,15 +6,9 @@ interface Props {
   avatar: string | null;
   userId: number;
   userConnectedId: number | null;
-  userProfileDispatch: React.Dispatch<any>;
 }
 
-export default function Avatar({
-  avatar,
-  userId,
-  userConnectedId,
-  userProfileDispatch,
-}: Props) {
+export default function Avatar({ avatar, userId, userConnectedId }: Props) {
   const [displayNewAvatar, setDisplayNewAvatar] = useState(false);
 
   return (
@@ -41,7 +35,6 @@ export default function Avatar({
           userId={userId}
           displayNewAvatar={displayNewAvatar}
           setDisplayNewAvatar={setDisplayNewAvatar}
-          userProfileDispatch={userProfileDispatch}
         />
       ) : null}
     </div>

@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 
-import LoginForm from "src/components/auth/LoginForm";
-import RegisterForm from "src/components/auth/RegisterForm";
-import SidebarLayout from "../layouts/SidebarLayout";
-import UnloggedUserSidebar from "../layouts/UnloggedUserSidebar";
+import LoginForm from "src/features/auth/LoginForm";
+import RegisterForm from "src/features/auth/RegisterForm";
+import SidebarLayout from "../../components/layouts/SidebarLayout";
+import UnloggedUserSidebar from "../../components/layouts/UnloggedUserSidebar";
 
 import Roller from "src/svg/rollerquad.svg";
 

@@ -102,10 +102,13 @@ export const onLogin = (
     });
 };
 
-export const onLogout = (userLogout: any) => {
+export const onLogout = (userLogout: any, router: any) => {
   axios({
     method: "POST",
     url: `/api/auth/logout`,
     withCredentials: true,
-  }).then(() => userLogout());
+  }).then(() => {
+    userLogout();
+    router.push("/");
+  });
 };

@@ -6,22 +6,15 @@ import { UserInterface } from "src/interfaces/userInterfaces";
 import Instagram from "src/svg/instagram.svg";
 import Tiktok from "src/svg/tiktok.svg";
 import Youtube from "src/svg/youtube.svg";
+import Link from "next/link";
 
 interface Props {
   user: UserInterface;
-  userProfileDispatch: React.Dispatch<any>;
   userConnectedId: number;
 }
 
-export default function UserResume({
-  user,
-  userProfileDispatch,
-  userConnectedId,
-}: Props) {
-  const updateUserProfile = () => {
-    userProfileDispatch({ type: "UPDATE_USER_PROFILE", payload: true });
-  };
-
+export default function UserResume({ user, userConnectedId }: Props) {
+  console.log(user);
   return (
     <div className="rollerSkaterResumeBox">
       <div className="rollerSkaterLinks">
@@ -60,14 +53,9 @@ export default function UserResume({
           <div>
             <p className="meta">Aucune information pour le moment...</p>
             {user.id === userConnectedId ? (
-              <div
-                role="button"
-                tabIndex={0}
-                onKeyDown={updateUserProfile}
-                onClick={updateUserProfile}
-              >
+              <Link href="/profile/update">
                 <p className="textLink">Mettre à jour mon profil</p>
-              </div>
+              </Link>
             ) : null}
           </div>
         )}

@@ -18,7 +18,7 @@ export default function SelectDepartment({
         defaultValue={userDept || "all"}
         onChange={onSelectDepartment}
       >
-        <option>Quel est ton département ?</option>
+        <option value="all">Quel est ton département ?</option>
         {departments.map((elt) => (
           <option key={elt.num_dep} value={elt.num_dep}>
             {elt.dep_name}

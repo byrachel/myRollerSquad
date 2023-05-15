@@ -35,7 +35,7 @@ const initialState = {
   userPlaces: null,
 };
 
-export const useStore = create<State & Actions>()(
+export const useUser = create<State & Actions>()(
   persist(
     (set) => ({
       ...initialState,

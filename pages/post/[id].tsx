@@ -6,10 +6,10 @@ import NewPostBar from "src/components/layouts/NewPostBar";
 import SidebarLayout from "src/components/layouts/SidebarLayout";
 import SinglePostSidebar from "src/features/Flow/singlePost/SinglePostSidebar";
 import SinglePost from "src/features/Flow/singlePost/SinglePost";
-import { State, useStore } from "src/hooks/useStore";
+import { State, useUser } from "src/hooks/useUser";
 
 export default function Post() {
-  const { userId, userRole } = useStore(
+  const { userId, userRole } = useUser(
     (state: State) => ({
       userId: state.userId,
       userRole: state.userRole,

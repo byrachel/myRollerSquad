@@ -53,37 +53,44 @@
   }
 }
 
+.darkBox {
+  background: $primaryColor;
+  margin: 0;
+  padding: 5em 2em;
+  width: 100%;
+  height: 100%;
+}
+
+h2.boxTitle {
+  color: white;
+  font-family: $titleFont;
+  font-size: $fontSize-xl;
+  letter-spacing: 0.2px;
+  margin: 0;
+  text-align: center;
+}
+.underliner {
+  border-bottom: solid 3px white;
+  margin: 2em auto;
+  width: 25%;
+}
+
+p.boxText {
+  color: white;
+  font-family: $textFont;
+  font-size: $fontSize-md;
+  font-weight: 300;
+  letter-spacing: 0.5px;
+  margin: 1em 0;
+  text-align: center;
+}
+
 .blueBox {
   background: $blueColor;
   margin: 0;
   padding: 5em 2em;
   width: 100%;
   height: 100%;
-
-  h2.blueBoxTitle {
-    color: white;
-    font-family: $titleFont;
-    font-size: $fontSize-xl;
-    letter-spacing: 0.2px;
-    margin: 0;
-    text-align: center;
-  }
-
-  .underliner {
-    border-bottom: solid 3px white;
-    margin: 2em auto;
-    width: 25%;
-  }
-
-  p.blueBoxText {
-    color: white;
-    font-family: $textFont;
-    font-size: $fontSize-md;
-    font-weight: 300;
-    letter-spacing: 0.5px;
-    margin-bottom: 4em;
-    text-align: center;
-  }
 
   // form {
   //   background: white;
@@ -193,7 +200,7 @@
 
     .card {
       background: white;
-      border-radius: 8px;
+      border-radius: 5px;
       box-shadow: 6px 6px $primaryColor;
       padding: 1em;
     }

@@ -5,7 +5,7 @@
 .fullButton {
   background-color: $secondaryColor;
   border: solid 3px $secondaryColor;
-  border-radius: 8px;
+  border-radius: 5px;
   cursor: pointer;
   margin: 1.2em 0.5em 1em 0;
   padding: 0.2em 0.5em;
@@ -30,12 +30,13 @@
 
 .outlineButton {
   background-color: white;
-  border: solid 3px $secondaryColor;
-  border-radius: 8px;
+  border: solid 3px $primaryColor;
+  border-radius: 5px;
   cursor: pointer;
   margin: 1.2em 0.5em 1em 0;
-  padding: 0.2em 0.5em;
+  padding: 0.25em 0.5em;
   transition: fill 0.2s ease-in-out;
+  box-shadow: 5px 5px $primaryColor;
 
   .outlineButtonText {
     color: $primaryColor;
@@ -46,8 +47,8 @@
 }
 
 .outlineButton:hover {
-  background-color: white;
-  box-shadow: 4px 4px $primaryColor;
+  border: solid 3px $secondaryColor;
+  box-shadow: 4px 4px $secondaryColor;
 
   .outlineButtonText {
     color: $secondaryColor;
@@ -58,7 +59,7 @@
 
 .fullBigButton {
   border: solid 3px $secondaryColor;
-  border-radius: 8px;
+  border-radius: 5px;
   box-shadow: 6px 6px $primaryColor;
   margin: 1em 0;
   padding: 0.5em 1em;
@@ -84,9 +85,8 @@
 .outlineBigButton {
   background-color: white;
   border: solid 3px $primaryColor;
-  border-radius: 8px;
-  box-shadow: 6px 6px $primaryColor;
-  margin: 1em 0;
+  border-radius: 5px;
+  box-shadow: 5px 5px $primaryColor;
   padding: 1em 1.5em;
   cursor: pointer;
   transition: fill 0.2s ease-in-out;

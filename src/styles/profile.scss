@@ -23,6 +23,13 @@
   }
 }
 
+.myFavsContainer {
+  background-color: $lightColor;
+  margin: 0;
+  padding: 2em;
+  min-height: 90vh;
+}
+
 .rollerSkaterAvatarContainer {
   position: relative;
   width: 100%;
@@ -135,11 +142,11 @@
     max-width: 160px;
 
     .businessLogo {
-      border-radius: 8px;
+      border-radius: 5px;
     }
 
     .businessLogoToUpdate {
-      border-radius: 8px;
+      border-radius: 5px;
       cursor: pointer;
       border: solid 2px $secondaryColor;
       transition: fill 0.2s ease-in-out;
@@ -267,14 +274,19 @@
 }
 
 div.ctaBox {
-  // margin: 2em 1em 0 0;
-  border-radius: 8px;
+  border-radius: 5px;
   background: $lightColor;
-  padding: 1.5em;
+  padding: 2em;
+  margin: 2em;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 
   p.ctaLink {
     color: $secondaryColor;
     margin: 0.25em 0;
+    letter-spacing: 0.05px;
+    font-family: $titleFont;
   }
 }
 
@@ -296,6 +308,35 @@ div.addBusinessLink {
   }
   p:hover {
     color: $secondaryColor;
+  }
+}
+
+.favCardContainer {
+  display: flex;
+  gap: 1.5em;
+  flex-wrap: wrap;
+  margin: 1.5em;
+  justify-content: center;
+
+  .favCard {
+    display: flex;
+    background-color: white;
+    gap: 1em;
+    padding: 0;
+    align-items: center;
+    border-radius: 5px;
+    cursor: pointer;
+    min-width: 325px;
+
+    h2 {
+      margin: 0 0 0.2em 0;
+    }
+  }
+  .favCard:hover {
+    box-shadow: 3px 3px $greyColor;
+  }
+  .favCardLogo {
+    border-radius: 5px 0 0 5px;
   }
 }
 

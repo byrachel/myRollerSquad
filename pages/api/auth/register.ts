@@ -51,9 +51,13 @@ export default handler
 
       if (!user) return res.status(400).json({ message: E4 });
 
-      const token = jwt.sign({}, process.env.JWT_ACCESS_SECRET as string, {
-        expiresIn: "1h",
-      });
+      const token = jwt.sign(
+        { id: user.id },
+        process.env.NEXT_PUBLIC_JWT as string,
+        {
+          expiresIn: "1h",
+        }
+      );
 
       if (!user.id || !token) return res.status(400).json({ message: E1 });
 

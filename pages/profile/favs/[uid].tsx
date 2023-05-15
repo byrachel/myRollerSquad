@@ -1,27 +1,27 @@
-import NewPostBar from "@/components/layouts/NewPostBar";
 import Login from "src/features/auth/Login";
-import HandlePosts from "src/features/UserBoard/Posts/HandlePosts";
 import { withSessionSsr } from "@/server/middleware/auth/withSession";
 import { UserStateInterface } from "src/reducers/UserReducer";
+import MyFavs from "src/features/UserProfile/MyFavs";
 
 interface Props {
   user: UserStateInterface;
   uid: string;
 }
 
-const UserPosts = ({ user, uid }: Props) => {
+const UserFavs = ({ user, uid }: Props) => {
   const userId = parseInt(uid);
 
   return user.isLoggedIn && user.id && user.id === userId ? (
-    <>
-      <NewPostBar />
-      <HandlePosts userConnectedId={user.id} isPro={user.role === "PRO"} />
-    </>
+    <div className="myFavsContainer">
+      <h2 className="center mt5">Mes shops & clubs favoris</h2>
+      <div className="underliner" />
+      <MyFavs userConnectedId={user.id} />
+    </div>
   ) : (
     <Login />
   );
 };
-export default UserPosts;
+export default UserFavs;
 
 export const getServerSideProps = withSessionSsr(async ({ req, query }) => {
   const session = req.session as any;

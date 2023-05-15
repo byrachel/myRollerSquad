@@ -33,6 +33,11 @@ export default function CardContainer({
   }, [isLast]);
 
   return (
-    <Card post={post} cardRef={cardRef} userConnectedId={userConnectedId} />
+    <Card
+      post={post}
+      cardRef={cardRef}
+      userConnectedId={userConnectedId}
+      displayAvatar
+    />
   );
 }

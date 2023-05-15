@@ -2,8 +2,8 @@ import { useRouter } from "next/router";
 import Image from "next/image";
 import Link from "next/link";
 import { Dropdown } from "@nextui-org/react";
-import { onLogout } from "../auth/utils/services";
-import { State, useStore } from "src/hooks/useStore";
+import { onLogout } from "../../features/auth/utils/services";
+import { State, useUser } from "src/hooks/useUser";
 import { shallow } from "zustand/shallow";
 
 import styles from "../../styles/Header.module.scss";
@@ -17,7 +17,7 @@ export default function Header() {
   const router = useRouter();
   const path = router.pathname.split("/")[1];
 
-  const { userId, userRole, userCounty, isLoggedIn, userLogout } = useStore(
+  const { userId, userRole, userCounty, isLoggedIn, userLogout } = useUser(
     (state: State) => ({
       userId: state.userId,
       userRole: state.userRole,
@@ -29,8 +29,8 @@ export default function Header() {
   );
 
   const isLogged = isLoggedIn && userId;
-  const isAdmin = userRole === "ADMIN";
-  const dept = userCounty ? userCounty : "all";
+  const isAdmin = isLoggedIn && userRole === "ADMIN";
+  const dept = isLoggedIn && userCounty ? userCounty : "all";
 
   return (
     <header className={styles.header}>
@@ -86,16 +86,18 @@ export default function Header() {
                   </Dropdown.Item>
                   <Dropdown.Item>
                     <Link href={`/profile/posts/${userId}`}>
-                      Tableau de bord
+                      Mes publications
                     </Link>
                   </Dropdown.Item>
-                  {/* <Dropdown.Item>Notifications</Dropdown.Item> */}
+                  <Dropdown.Item>
+                    <Link href={`/profile/favs/${userId}`}>Mes favoris</Link>
+                  </Dropdown.Item>
                   <Dropdown.Item withDivider color="error">
                     <span
                       role="button"
                       tabIndex={0}
-                      onKeyDown={() => onLogout(userLogout)}
-                      onClick={() => onLogout(userLogout)}
+                      onKeyDown={() => onLogout(userLogout, router)}
+                      onClick={() => onLogout(userLogout, router)}
                     >
                       Se déconnecter
                     </span>

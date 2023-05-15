@@ -38,7 +38,6 @@ export default function LastPostsShared({
   return posts.length > 0 ? (
     <div className="userFlowContainer">
       <h2 className="title">Derniers articles partagés</h2>
-      <div className="smallLightSeparator" />
       <div className="flowContainer">
         {posts.length > 0 ? (
           posts.map((post) => (
@@ -46,7 +45,7 @@ export default function LastPostsShared({
               <Card
                 post={post}
                 userConnectedId={userConnectedId}
-                isAuthor={userConnectedId === userToDisplay}
+                displayAvatar={false}
               />
             </div>
           ))

@@ -9,7 +9,7 @@ interface Props {
 export default function CommentIcon({ counter, color }: Props) {
   return (
     <div className="socialIconContainer">
-      <Comment className={`linksIcon ${color}`} width={38} height={38} />
+      <Comment className={`linksIcon ${color}`} width={30} height={30} />
       <p className="cardMetaText">{counter}</p>
     </div>
   );

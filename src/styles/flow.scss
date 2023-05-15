@@ -1,42 +1,32 @@
 @import "./variables.scss";
 
-.placeContainer {
-  width: 100%;
-  padding: 2em 0;
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 2em;
+.placeCard {
+  border: solid 2px darken($color: $lightColor, $amount: 15);
+  box-shadow: 3px 3px darken($color: $lightColor, $amount: 15);
+  padding: 1.5em;
+  margin-top: 4.2em;
+  position: relative;
+  width: clamp(250px, 100%, 450px);
 
-  .placeCard {
-    border: solid 1px $greyColor;
-    border-radius: 6px;
-    box-shadow: 3px 3px $primaryColor;
-    padding: 1.5em;
-    margin-top: 4.2em;
-    position: relative;
-    width: clamp(250px, 100%, 450px);
-
-    .rollerPlaceLogo {
-      position: absolute;
-      top: 0;
-      left: 50%;
-      right: 50%;
-      transform: translate(-50%, -50%);
-      border-radius: 5px;
-      background: white;
-      padding: 0.5em;
-    }
-    .placeCardName {
-      text-align: center;
-      margin: 3em 0 0.5em 0;
-    }
-    .placeFavoriteCounter {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      margin-top: 1.5em;
-    }
+  .rollerPlaceLogo {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    right: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 5px;
+    background: white;
+    padding: 0.5em;
+  }
+  .placeCardName {
+    text-align: center;
+    margin: 3em 0 0.5em 0;
+  }
+  .placeFavoriteCounter {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 1.5em;
   }
 }
 
@@ -94,15 +84,17 @@
 
 .userFavsContainer {
   padding: 3em 0;
-  background-color: $lightColor;
+  background-color: $primaryColor;
   h2.title {
     text-align: center;
     margin: 1.5em;
+    color: white;
   }
 }
 
 .userFlowContainer {
-  padding: 4em 0;
+  padding: 3em 0;
+  background-color: $lightColor;
   h2.title {
     text-align: center;
     margin: 1.5em;
@@ -129,36 +121,37 @@
   gap: 2em;
   width: 100%;
 }
+
 div.cardContainer {
-  border-radius: 6px;
+  border-radius: 5px;
   margin-top: 1em;
   background-color: white;
   &.blue {
-    border: solid 1px $blueColor;
+    border: solid 2px $blueColor;
     box-shadow: 4px 4px $blueColor;
   }
   &.pink {
-    border: solid 1px $secondaryColor;
+    border: solid 2px $secondaryColor;
     box-shadow: 4px 4px $secondaryColor;
   }
   &.yellow {
-    border: solid 1px $yellowColor;
+    border: solid 2px $yellowColor;
     box-shadow: 4px 4px $yellowColor;
   }
   &.green {
-    border: solid 1px $greenColor;
+    border: solid 2px $greenColor;
     box-shadow: 4px 4px $greenColor;
   }
   &.dark {
-    border: solid 1px $darkColor;
+    border: solid 2px $darkColor;
     box-shadow: 4px 4px $darkColor;
   }
   &.purple {
-    border: solid 1px $purpleColor;
+    border: solid 2px $purpleColor;
     box-shadow: 4px 4px $purpleColor;
   }
   &.grey {
-    border: solid 1px $greyColor;
+    border: solid 2px $greyColor;
     box-shadow: 4px 4px $greyColor;
   }
 
@@ -169,14 +162,13 @@ div.cardContainer {
       font-family: $titleFont;
       font-size: $fontSize-lg;
       color: $primaryColor;
-      margin: 0;
-      letter-spacing: 0.03px;
+      margin: 0.2em 0;
     }
     h3.userName {
       font-family: $textFont;
       font-size: 0.75em;
       letter-spacing: 0.5px;
-      margin: 0.2em 0 0 0;
+      margin: 0;
       color: $greyColor;
     }
   }
@@ -252,8 +244,10 @@ div.sessionTracking {
   padding: 0.5em 1em;
   display: flex;
   justify-content: space-between;
+  align-items: center;
   p {
     font-family: $titleFont;
+    letter-spacing: 0.2px;
   }
   .sessionIcon {
     fill: none;
@@ -282,7 +276,7 @@ div.cardContent {
 }
 div.linkContainer {
   width: 100%;
-  border-radius: 7px;
+  border-radius: 5px;
   margin: 0.3em 0;
   padding: 0.3em 0;
   background-color: $lightColor;
@@ -298,16 +292,22 @@ div.linkContainer {
   }
 }
 div.cardIcons {
-  margin: 0.5em 0 0.7em 0.7em;
+  margin: 0.7em 1em;
   display: flex;
   justify-content: space-between;
+  align-items: center;
 }
 div.socialIconContainer {
   align-items: center;
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  gap: 10px;
+  gap: 5px;
+}
+
+.pinkIcon {
+  fill: none;
+  stroke: $secondaryColor;
 }
 
 .linksIcon {
@@ -389,6 +389,9 @@ div.socialIconContainer {
   &.dark {
     fill: $darkColor;
   }
+  &.grey {
+    fill: $greyColor;
+  }
 }
 .fullLinksIcon:hover {
   &.blue {
@@ -411,6 +414,9 @@ div.socialIconContainer {
   }
   &.dark {
     stroke: $darkColor;
+  }
+  &.grey {
+    stroke: $greyColor;
   }
 }
 
@@ -484,13 +490,13 @@ div.socialIconContainer {
   gap: 1em;
   justify-content: space-between;
   padding: 1.2em 1em;
-  border-radius: 0 0 8px 8px;
+  border-radius: 0 0 6px 6px;
   margin-top: 0.2em;
 
   .newPostButton {
     background-color: white;
     border: none;
-    border-radius: 7px;
+    border-radius: 5px;
     margin: 0;
     padding: 0.5em 1em;
     width: 100%;
@@ -561,7 +567,7 @@ div.socialIconContainer {
 
 .pictsPreviewContainer {
   background-color: $lightColor;
-  border-radius: 8px;
+  border-radius: 5px;
   display: flex;
   flex-wrap: wrap;
   justify-content: flex-start;
@@ -571,7 +577,7 @@ div.socialIconContainer {
   .pictPreview {
     position: relative;
     .pict {
-      border-radius: 8px;
+      border-radius: 5px;
       object-fit: cover;
       width: 140px;
       height: 140px;

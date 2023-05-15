@@ -1,6 +1,6 @@
 import { useRouter } from "next/router";
 
-import Login from "@/components/auth/Login";
+import Login from "src/features/auth/Login";
 import SidebarLayout from "@/components/layouts/SidebarLayout";
 import UnloggedUserSidebar from "@/components/layouts/UnloggedUserSidebar";
 import AddBusinessProfile from "src/features/BusinessProfile/AddBusinessProfile";

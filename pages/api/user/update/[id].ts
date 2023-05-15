@@ -30,21 +30,25 @@ export default withIronSessionApiRoute(
     const { user } = req.session;
     if (!user) return res.status(401).json({ message: E2 });
 
+    console.log(user);
+
     const { id } = req.query;
     const userId = Array.isArray(id) ? id[0] : id;
 
     if (!userId || !user.id || user.id !== parseInt(userId))
       return res.status(401).json({ message: E2 });
 
-    try {
-      const userToUpdate = req.body;
+    const userToUpdate = req.body;
+    console.log(userToUpdate);
 
+    try {
       const updatedUser = await prisma.user.update({
         where: {
           id: parseInt(userId),
         },
         data: userToUpdate,
         select: {
+          id: true,
           name: true,
           avatar: true,
           resume: true,
@@ -63,6 +67,7 @@ export default withIronSessionApiRoute(
 
       res.status(200).json({ user: updatedUser });
     } catch (error) {
+      console.log(error);
       res.status(400).json({ message: E1 });
     }
   }),

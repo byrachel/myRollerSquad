@@ -30,7 +30,7 @@ export default handler
 
       const token = jwt.sign(
         { user: user.id },
-        process.env.JWT_ACCESS_SECRET as string,
+        process.env.NEXT_PUBLIC_JWT as string,
         {
           expiresIn: "1h",
         }

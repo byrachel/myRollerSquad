@@ -17,7 +17,7 @@ export default withSessionRoute(async (req: any, res: NextApiResponse) => {
       where: { id },
     });
 
-    const token = jwt.sign({}, process.env.JWT_ACCESS_SECRET as string, {
+    const token = jwt.sign({}, process.env.NEXT_PUBLIC_JWT as string, {
       expiresIn: "1h",
     });
 

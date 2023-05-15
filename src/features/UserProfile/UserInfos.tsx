@@ -8,30 +8,22 @@ import Pin from "src/svg/pin.svg";
 
 interface Props {
   user: UserInterface;
-  userProfileDispatch: React.Dispatch<any>;
   userConnectedId: number;
 }
 
-export default function UserInfos({
-  user,
-  userProfileDispatch,
-  userConnectedId,
-}: Props) {
+export default function UserInfos({ user, userConnectedId }: Props) {
   return (
     <div className="rollerSkaterInfoBar">
       <Avatar
         avatar={user.avatar}
         userId={user.id}
         userConnectedId={userConnectedId}
-        userProfileDispatch={userProfileDispatch}
       />
       <div className="rollerSkaterInfo">
         <div className="rollerSkaterName">
           <h1>{user.name}</h1>
           <div className="rollerSkaterButtons">
-            {userConnectedId === user.id ? (
-              <UpdateProfileButton userProfileDispatch={userProfileDispatch} />
-            ) : null}
+            <UpdateProfileButton />
           </div>
         </div>
         <div className="rollerSkaterLocation">

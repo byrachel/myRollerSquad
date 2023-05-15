@@ -5,7 +5,6 @@ import axios from "axios";
 import UserInfos from "src/features/UserProfile/UserInfos";
 import LastPostsShared from "src/features/UserProfile/LastPostsShared";
 import RollerSkateLevel from "src/features/UserProfile/RollerSkateLevel";
-import UpdateUserProfile from "src/features/UserProfile/UpdateUserProfile/UpdateUserProfile";
 import UserProfileReducer from "src/reducers/UserProfileReducer";
 import Loader from "@/components/layouts/Loader";
 import UserResume from "./UserResume";
@@ -25,21 +24,14 @@ const initialState = {
 interface Props {
   userConnectedId: number;
   userToDisplay: number;
-  userRole: string;
 }
 
-const UserInfosContainer = ({
-  userConnectedId,
-  userToDisplay,
-  userRole,
-}: Props) => {
+const UserInfosContainer = ({ userConnectedId, userToDisplay }: Props) => {
   const router = useRouter();
   const [userProfile, userProfileDispatch] = useReducer(
     UserProfileReducer,
     initialState
   );
-
-  console.log(userRole);
 
   useEffect(() => {
     if (userToDisplay) {
@@ -66,57 +58,46 @@ const UserInfosContainer = ({
   return (
     <>
       {userProfile.user ? (
-        userProfile.updateProfile ? (
-          <>
-            <div className="coloredSeparator" />
-            <UpdateUserProfile
-              userProfile={userProfile}
-              userProfileDispatch={userProfileDispatch}
-            />
-          </>
-        ) : (
-          <>
-            <UserInfos
-              user={userProfile.user}
-              userProfileDispatch={userProfileDispatch}
-              userConnectedId={userConnectedId}
-            />
-            <UserResume
-              user={userProfile.user}
-              userProfileDispatch={userProfileDispatch}
-              userConnectedId={userConnectedId}
-            />
-            {userProfile.user.place.length > 0 ? (
-              userProfile.user.place.map((elt: number) => (
-                <UserBusinessCard
-                  key={elt}
-                  placeId={elt}
-                  userToDisplayId={userProfile.user.id}
-                  userConnectedId={userConnectedId}
-                />
-              ))
-            ) : (
-              <div style={{ margin: "2em" }}>
-                <BusinessProfileCTA />
-              </div>
-            )}
-            <RollerSkateLevel
-              rollerDanceLevel={userProfile.user.roller_dance_level}
-              skateParkLevel={userProfile.user.skatepark_level}
-              artisticLevel={userProfile.user.artistic_level}
-              freestyleLevel={userProfile.user.freestyle_level}
-              urbanLevel={userProfile.user.urban_level}
-              derbyLevel={userProfile.user.derby_level}
-            />
-            <LastPostsShared
-              userToDisplay={userToDisplay}
-              userConnectedId={userConnectedId}
-              userProfileDispatch={userProfileDispatch}
-              posts={userProfile.lastPosts}
-            />
+        <>
+          <UserInfos
+            user={userProfile.user}
+            userConnectedId={userConnectedId}
+          />
+          <UserResume
+            user={userProfile.user}
+            userConnectedId={userConnectedId}
+          />
+          {userProfile.user.place.length > 0 ? (
+            userProfile.user.place.map((elt: number) => (
+              <UserBusinessCard
+                key={elt}
+                placeId={elt}
+                userToDisplayId={userProfile.user.id}
+                userConnectedId={userConnectedId}
+              />
+            ))
+          ) : (
+            <BusinessProfileCTA />
+          )}
+          <RollerSkateLevel
+            rollerDanceLevel={userProfile.user.roller_dance_level}
+            skateParkLevel={userProfile.user.skatepark_level}
+            artisticLevel={userProfile.user.artistic_level}
+            freestyleLevel={userProfile.user.freestyle_level}
+            urbanLevel={userProfile.user.urban_level}
+            derbyLevel={userProfile.user.derby_level}
+          />
+          <LastPostsShared
+            userToDisplay={userToDisplay}
+            userConnectedId={userConnectedId}
+            userProfileDispatch={userProfileDispatch}
+            posts={userProfile.lastPosts}
+          />
+          <div className="userFavsContainer">
+            <h2 className="title">Shops & clubs favoris</h2>
             <UserBusinessFavs favs={userProfile.user.favorite_places} />
-          </>
-        )
+          </div>
+        </>
       ) : userProfile.loading ? (
         <Loader text="Profil en cours de chargement..." />
       ) : null}

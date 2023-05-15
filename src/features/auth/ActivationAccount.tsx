@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
 import BigButton from "src/components/buttons/BigButton";
-import ErrorLayout from "../layouts/ErrorLayout";
+import ErrorLayout from "../../components/layouts/ErrorLayout";
 import { sendActivationMail } from "./utils/services";
 
 interface Props {

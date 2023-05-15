@@ -6,6 +6,7 @@ import axios from "axios";
 import RegularButton from "src/components/buttons/RegularButton";
 import ErrorLayout from "src/components/layouts/ErrorLayout";
 import Loader from "@/components/layouts/Loader";
+import { useProfile } from "src/hooks/useProfile";
 
 interface Props {
   avatar: {
@@ -14,14 +15,12 @@ interface Props {
     height: number;
   } | null;
   setDisplayNewAvatar: (arg: boolean) => void;
-  userProfileDispatch: React.Dispatch<any>;
   userId: number;
 }
 
 export default function UploadAvatar({
   avatar,
   setDisplayNewAvatar,
-  userProfileDispatch,
   userId,
 }: Props) {
   const [uploadError, setUploadError] = useState({
@@ -29,6 +28,9 @@ export default function UploadAvatar({
     message: "",
   });
   const router = useRouter();
+  const { updateUserProfile } = useProfile((state) => ({
+    updateUserProfile: state.updateUserProfile,
+  }));
 
   const saveThisAvatar = () => {
     setUploadError({ status: false, message: "" });
@@ -51,10 +53,11 @@ export default function UploadAvatar({
         withCredentials: true,
       })
         .then((res) => {
-          userProfileDispatch({
-            type: "USER_PROFILE_UPDATED",
-            payload: res.data.user,
-          });
+          updateUserProfile(res.data.user);
+          // userProfileDispatch({
+          //   type: "USER_PROFILE_UPDATED",
+          //   payload: res.data.user,
+          // });
           setDisplayNewAvatar(false);
         })
         .catch(() => {

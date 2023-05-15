@@ -7,7 +7,7 @@ import SidebarLayout from "src/components/layouts/SidebarLayout";
 import NewPostSidebar from "src/features/Flow/addPost/NewPostSidebar";
 import { withSessionSsr } from "@/server/middleware/auth/withSession";
 import { UserStateInterface } from "src/reducers/UserReducer";
-import Login from "@/components/auth/Login";
+import Login from "src/features/auth/Login";
 
 interface Props {
   user: UserStateInterface;

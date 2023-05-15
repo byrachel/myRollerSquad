@@ -20,14 +20,14 @@ import Link from "next/link";
 interface Props {
   post: PostInterface;
   cardRef?: React.RefObject<HTMLDivElement>;
-  isAuthor?: boolean;
+  displayAvatar: boolean;
   userConnectedId: number;
 }
 
 export default function Card({
   post,
   cardRef,
-  isAuthor,
+  displayAvatar,
   userConnectedId,
 }: Props) {
   const color = useMemo(() => cardColor(post.category_id), [post.category_id]);
@@ -35,35 +35,35 @@ export default function Card({
   return (
     <div className={`cardContainer ${color}`} key={post.id} ref={cardRef}>
       <div className="flexStart">
-        {isAuthor ? null : (
+        {displayAvatar ? (
           <Avatar
             userId={post.user.id}
             userAvatar={post.user.avatar}
             color={color}
           />
-        )}
+        ) : null}
         <div className="cardTitle">
           <div className={`staticOutlineBadge ${color}`}>
             {getCategoryName(post.category_id)}
           </div>
 
-          <h2 className="title">{post.title}</h2>
-          {isAuthor ? null : (
-            <h3 className={`userName ${color}`}>{post.user.name}</h3>
-          )}
+          <h2 className={displayAvatar ? "title mb5" : "title"}>
+            {post.title}
+          </h2>
+          {displayAvatar ? (
+            <h3 className="userName">{post.user.name}</h3>
+          ) : null}
         </div>
       </div>
       {post.pictures.length > 0 ? (
         <CardFeaturedPict urlPicts={post.pictures} color={color} />
-      ) : (
-        <div className="cardSeparator" />
-      )}
+      ) : null}
 
       {post.distance || post.duration ? (
         <div className="sessionTracking">
-          <Roller className="sessionIcon" width={28} height={28} />
-          {post.distance ? <p>{post.distance} km</p> : null}
+          <Roller className="sessionIcon" width={36} height={36} />
           {post.duration ? <p>{post.duration}</p> : null}
+          {post.distance ? <p>{post.distance} km </p> : null}
         </div>
       ) : null}
 
@@ -76,18 +76,6 @@ export default function Card({
       <div className="cardContent">
         {post.content ? parseContent(post.content) : null}
       </div>
-
-      {/* <div className="cardContent">
-        {post.style.length > 0 ? (
-          <div className="flexStart">
-            {post.style.map((elt) => (
-              <div className={`outlineBadge ${color}`} key={elt.style_id}>
-                {getStyleName(elt.style_id)}
-              </div>
-            ))}
-          </div>
-        ) : null}
-      </div> */}
 
       <div className="cardMeta">
         <p className="cardMetaText">
@@ -116,7 +104,7 @@ export default function Card({
         />
         <CommentIcon counter={post.comments.length} color={color} />
         <Link href={`/post/${post.id}`}>
-          <Arrow className={`linksIcon ${color}`} width={38} height={38} />
+          <Arrow className={`linksIcon ${color}`} width={30} height={30} />
         </Link>
       </div>
     </div>

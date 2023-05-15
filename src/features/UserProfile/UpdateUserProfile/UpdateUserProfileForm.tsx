@@ -1,103 +1,103 @@
 import React from "react";
 
-import { UserProfileInterface } from "src/reducers/UserProfileReducer";
 import InputText from "src/components/form/InputText";
 import Editor from "@/components/form/Editor/Editor";
 import UpdateRollerSkateLevel from "./UpdateRollerSkateLevel";
 import SelectLocation from "@/components/form/Location/SelectLocation";
 
 interface Props {
-  userProfile: UserProfileInterface;
-  userProfileDispatch: React.Dispatch<any>;
+  userDataToUpdate: any;
+  dispatchUserDataToUpdate: React.Dispatch<any>;
 }
 
-const UpdateUserProfileForm = ({ userProfile, userProfileDispatch }: Props) => {
-  const user = userProfile.user;
-
+const UpdateUserProfileForm = ({
+  userDataToUpdate,
+  dispatchUserDataToUpdate,
+}: Props) => {
   return (
     <>
       <InputText
         label="Nom (ou pseudo)"
         placeholder="Nom (ou pseudo)"
         name="name"
-        value={user.name}
+        value={userDataToUpdate.name}
         required
-        error={userProfile.error}
+        error={userDataToUpdate.error}
         minLength={3}
         maxLength={20}
       />
 
       <SelectLocation
-        country={user.country}
-        department={user.county}
-        city={user.city}
+        country={userDataToUpdate.country}
+        department={userDataToUpdate.county}
+        city={userDataToUpdate.city}
       />
       <label htmlFor="resume">Bio :</label>
       <Editor
-        content={user.resume}
-        dispatchContent={userProfileDispatch}
+        content={userDataToUpdate.resume}
+        dispatchContent={dispatchUserDataToUpdate}
         placeholder="Ta pratique, tes passions, tes engagements... Bref, qui es-tu ?"
       />
       <br />
       <UpdateRollerSkateLevel
         label="Roller Dance"
         type="roller_dance_level"
-        currentLevel={user.roller_dance_level}
-        userProfileDispatch={userProfileDispatch}
+        currentLevel={userDataToUpdate.level.roller_dance_level}
+        dispatchUserDataToUpdate={dispatchUserDataToUpdate}
       />
       <UpdateRollerSkateLevel
         label="Freestyle"
         type="freestyle_level"
-        currentLevel={user.freestyle_level}
-        userProfileDispatch={userProfileDispatch}
+        currentLevel={userDataToUpdate.level.freestyle_level}
+        dispatchUserDataToUpdate={dispatchUserDataToUpdate}
       />
       <UpdateRollerSkateLevel
         label="SkatePark"
         type="skatepark_level"
-        currentLevel={user.skatepark_level}
-        userProfileDispatch={userProfileDispatch}
+        currentLevel={userDataToUpdate.level.skatepark_level}
+        dispatchUserDataToUpdate={dispatchUserDataToUpdate}
       />
       <UpdateRollerSkateLevel
         label="Roller Derby"
         type="derby_level"
-        currentLevel={user.derby_level}
-        userProfileDispatch={userProfileDispatch}
+        currentLevel={userDataToUpdate.level.derby_level}
+        dispatchUserDataToUpdate={dispatchUserDataToUpdate}
       />
       <UpdateRollerSkateLevel
         label="Randonnée (urbain)"
         type="urban_level"
-        currentLevel={user.urban_level}
-        userProfileDispatch={userProfileDispatch}
+        currentLevel={userDataToUpdate.level.urban_level}
+        dispatchUserDataToUpdate={dispatchUserDataToUpdate}
       />
       <UpdateRollerSkateLevel
         label="Patinage artistique"
         type="artistic_level"
-        currentLevel={user.artistic_level}
-        userProfileDispatch={userProfileDispatch}
+        currentLevel={userDataToUpdate.level.artistic_level}
+        dispatchUserDataToUpdate={dispatchUserDataToUpdate}
       />
       <InputText
         label="Instagram"
         placeholder="Instagram"
         name="instagram"
-        value={user.social_medias?.instagram}
+        value={userDataToUpdate.social_medias?.instagram}
         required={false}
-        error={userProfile.error}
+        error={userDataToUpdate.error}
       />
       <InputText
         label="Tiktok"
         placeholder="Tiktok"
         name="tiktok"
-        value={user.social_medias?.tiktok}
+        value={userDataToUpdate.social_medias?.tiktok}
         required={false}
-        error={userProfile.error}
+        error={userDataToUpdate.error}
       />
       <InputText
         label="Youtube"
         placeholder="Youtube"
         name="youtube"
-        value={user.social_medias?.youtube}
+        value={userDataToUpdate.social_medias?.youtube}
         required={false}
-        error={userProfile.error}
+        error={userDataToUpdate.error}
       />
     </>
   );
