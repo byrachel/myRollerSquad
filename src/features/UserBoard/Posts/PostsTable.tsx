@@ -101,6 +101,7 @@ export default function PostsTable({ posts, setUpdate, setEditPost }: Props) {
         minWidth: "100%",
       }}
       selectionMode="none"
+      shadow={false}
     >
       <Table.Header columns={columns}>
         {(column) => (

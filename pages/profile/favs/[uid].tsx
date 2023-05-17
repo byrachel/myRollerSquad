@@ -1,7 +1,7 @@
 import Login from "src/features/auth/Login";
 import { withSessionSsr } from "@/server/middleware/auth/withSession";
 import { UserStateInterface } from "src/reducers/UserReducer";
-import MyFavs from "src/features/UserProfile/MyFavs";
+import MyFavs from "src/features/UserBoard/Favs/MyFavs";
 
 interface Props {
   user: UserStateInterface;

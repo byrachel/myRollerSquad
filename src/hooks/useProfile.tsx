@@ -6,7 +6,7 @@ export type UserProfile = {
   userProfileLoading: boolean;
   userProfile: UserInterface | null;
   userPlaces: PlaceInterface[] | null;
-  userFavs: any[] | null;
+  userFavs: any[];
 };
 
 type Actions = {
@@ -19,7 +19,7 @@ const initialState = {
   userProfileLoading: false,
   userProfile: null,
   userPlaces: null,
-  userFavs: null,
+  userFavs: [],
 };
 
 export const useProfile = create<UserProfile & Actions>()((set) => ({
