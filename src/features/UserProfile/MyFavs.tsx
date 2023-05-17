@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import UserBusinessFavs from "./UserBusinessFavs";
+import UserBusinessFavs from "../UserBoard/Favs/UserBusinessFavs";
 import { useProfile } from "src/hooks/useProfile";
 import { shallow } from "zustand/shallow";
 import axios from "axios";

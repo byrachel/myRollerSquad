@@ -68,13 +68,6 @@ const AddBusinessProfile = ({ ownerId }: Props) => {
 
   return (
     <>
-      <h2>Créer mon Business on Wheels !</h2>
-      <div className="lightSeparator mt5" />
-      <p className="mt5">
-        Seuls les entreprises, les solo-entrepreneurs et associations peuvent
-        avoir un compte "business". La validation du compte est manuelle et peut
-        prendre jusqu'à 48h.
-      </p>
       <ErrorLayout
         error={error.status}
         message={error.message}
@@ -87,7 +80,7 @@ const AddBusinessProfile = ({ ownerId }: Props) => {
           isUpdate={false}
         />
         <div className="mt5" />
-        <RegularButton type="submit" text="valider" style="full" />
+        <RegularButton type="submit" text="valider" style="outline" />
       </form>
     </>
   );

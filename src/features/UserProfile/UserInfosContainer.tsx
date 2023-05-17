@@ -10,7 +10,7 @@ import Loader from "@/components/layouts/Loader";
 import UserResume from "./UserResume";
 import UserBusinessCard from "./UserBusiness/UserBusinessCard";
 import BusinessProfileCTA from "../BusinessProfile/BusinessProfileCTA";
-import UserBusinessFavs from "./UserBusinessFavs";
+import UserBusinessFavs from "../UserBoard/Favs/UserBusinessFavs";
 
 const initialState = {
   loading: false,

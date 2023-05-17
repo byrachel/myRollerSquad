@@ -1,5 +1,5 @@
 import type { AppProps } from "next/app";
-import { Poppins, Mulish } from "next/font/google";
+import { Poppins, Montserrat } from "next/font/google";
 import { createTheme, NextUIProvider } from "@nextui-org/react";
 import MainLayout from "../src/components/layouts/MainLayout";
 
@@ -8,7 +8,7 @@ const poppins = Poppins({
   subsets: ["latin"],
   display: "fallback",
 });
-const oxygen = Mulish({
+const montserrat = Montserrat({
   weight: ["400", "700"],
   subsets: ["latin"],
   display: "fallback",
@@ -38,7 +38,7 @@ function App({ Component, pageProps }: AppProps) {
           <style jsx global>{`
             :root {
               --font-title: ${poppins.style.fontFamily};
-              --font-text: ${oxygen.style.fontFamily};
+              --font-text: ${montserrat.style.fontFamily};
             }
           `}</style>
           <Component {...pageProps} />

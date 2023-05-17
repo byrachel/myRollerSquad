@@ -1,10 +1,11 @@
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import axios from "axios";
 
 import PostsTable from "./PostsTable";
 import EditPost from "src/features/Flow/singlePost/EditPost";
 import { PostInterface } from "src/interfaces/flowInterfaces";
 import RegularButton from "@/components/buttons/RegularButton";
+import Loader from "@/components/layouts/Loader";
 
 interface Props {
   userConnectedId: number;
@@ -12,7 +13,7 @@ interface Props {
 }
 
 const HandlePosts = ({ userConnectedId, isPro }: Props) => {
-  const [posts, setPosts] = useState([]);
+  const [posts, setPosts] = useState<null | PostInterface[]>([]);
   const [update, setUpdate] = useState(false);
   const [editPost, setEditPost] = useState<{
     show: boolean;
@@ -27,18 +28,18 @@ const HandlePosts = ({ userConnectedId, isPro }: Props) => {
         withCredentials: true,
       })
         .then((res) => setPosts(res.data.posts))
-        .catch(() => setPosts([]));
+        .catch(() => setPosts(null));
     }
   }, [userConnectedId, update]);
 
   return (
     <div className="userPostsContainer">
-      <div className="spaceBetween">
+      <div className="spaceBetween mt5">
         <h2>Mes posts :</h2>
         {editPost.show ? (
           <RegularButton
             type="button"
-            style="outline"
+            style="full"
             text="retour"
             onClick={() => setEditPost({ show: false, post: null })}
           />
@@ -50,13 +51,9 @@ const HandlePosts = ({ userConnectedId, isPro }: Props) => {
           userConnectedId={userConnectedId}
           isPro={isPro}
         />
-      ) : posts.length > 0 ? (
-        <PostsTable
-          posts={posts}
-          setUpdate={setUpdate}
-          setEditPost={setEditPost}
-        />
-      ) : (
+      ) : null}
+
+      {!posts ? (
         <>
           <p className="mt5">
             <b>Tu n'as publié aucun article pour le moment :(</b>
@@ -67,6 +64,14 @@ const HandlePosts = ({ userConnectedId, isPro }: Props) => {
             serait parfait pour commencer :-)
           </p>
         </>
+      ) : (
+        <Suspense fallback={<Loader />}>
+          <PostsTable
+            posts={posts}
+            setUpdate={setUpdate}
+            setEditPost={setEditPost}
+          />
+        </Suspense>
       )}
     </div>
   );

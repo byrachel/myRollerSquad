@@ -1,6 +1,7 @@
 import InputText from "@/components/form/InputText";
 import InputUrl from "@/components/form/InputUrl";
 import SelectLocation from "@/components/form/Location/SelectLocation";
+import { Radio } from "@nextui-org/react";
 import { businessCategories } from "src/constants/BusinessCategories";
 import { PlaceInterface } from "src/interfaces/userInterfaces";
 
@@ -32,27 +33,18 @@ const BusinessProfileForm = ({
       ) : (
         <>
           <div className="flexStart mt5">
-            <div className="flexStart mr5">
-              <input
-                type="radio"
-                id="association"
-                name="type"
-                style={{ marginRight: 10, marginTop: 18 }}
-                value="ASSOCIATION"
-                checked
-              />
-              <label htmlFor="association">Association</label>
-            </div>
-            <div className="flexStart">
-              <input
-                type="radio"
-                id="business"
-                name="type"
-                style={{ marginRight: 10, marginTop: 18 }}
-                value="PROFESSIONAL"
-              />
-              <label htmlFor="business">Entreprise</label>
-            </div>
+            <Radio.Group
+              orientation="horizontal"
+              defaultValue="PROFESSIONAL"
+              aria-label="Indique si tu es une entreprise ou une association"
+            >
+              <Radio value="PROFESSIONAL" color="secondary" size="sm">
+                Entreprise
+              </Radio>
+              <Radio value="ASSOCIATION" color="secondary" size="sm">
+                Association
+              </Radio>
+            </Radio.Group>
           </div>
           <InputText
             label="Numéro de SIREN (ou RNA pou les associations)"
@@ -65,13 +57,13 @@ const BusinessProfileForm = ({
         </>
       )}
       <InputText
-        placeholder="Nom de ton business on wheels !"
+        placeholder="Nom de ton entreprise / association"
         name="name"
         required
         value={placeToUpdate ? placeToUpdate.name : ""}
       />
       <textarea
-        placeholder="Decris ton activité, tes valeurs..."
+        placeholder="Tes services, tes valeurs..."
         className="input"
         name="description"
         required={false}

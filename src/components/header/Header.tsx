@@ -9,20 +9,21 @@ import { shallow } from "zustand/shallow";
 import styles from "../../styles/Header.module.scss";
 
 import UserProfile from "src/svg/profile-circle.svg";
-import MySquad from "src/svg/flash.svg";
 import Admin from "src/svg/admin.svg";
-import Search from "src/svg/search.svg";
+// import MySquad from "src/svg/flash.svg";
+// import Search from "src/svg/search.svg";
 
 export default function Header() {
   const router = useRouter();
   const path = router.pathname.split("/")[1];
+  const myProfilePage =
+    router.pathname === "/profile/[uid]" && router.query.uid === "me";
 
-  const { userId, userRole, userCounty, isLoggedIn, userLogout } = useUser(
+  const { userId, userRole, isLoggedIn, userLogout } = useUser(
     (state: State) => ({
       userId: state.userId,
       userRole: state.userRole,
       isLoggedIn: state.isLoggedIn,
-      userCounty: state.county,
       userLogout: state.logout,
     }),
     shallow
@@ -30,7 +31,6 @@ export default function Header() {
 
   const isLogged = isLoggedIn && userId;
   const isAdmin = isLoggedIn && userRole === "ADMIN";
-  const dept = isLoggedIn && userCounty ? userCounty : "all";
 
   return (
     <header className={styles.header}>
@@ -47,34 +47,23 @@ export default function Header() {
         </Link>
         <div className={styles.navigation}>
           <div className={styles.navigationIcon}>
-            <Link href={`/business/search/${dept}/all`}>
-              <Search
-                className={
-                  path === "business" ? styles.icon : styles.iconInactive
-                }
-                width={42}
-                height={42}
-              />
+            <Link href={"/business/search/all/all"}>
+              <p className={path === "business" ? styles.active : ""}>
+                Annuaire
+              </p>
             </Link>
-            <Link href={isLogged ? "/myrollerblog" : "/signin"}>
-              <MySquad
-                className={
-                  path === "myrollerblog" ? styles.icon : styles.iconInactive
-                }
-                width={42}
-                height={42}
-              />
+            <Link href={"/myrollerblog"}>
+              <p className={path === "myrollerblog" ? styles.active : ""}>
+                Flow
+              </p>
             </Link>
 
             {isLogged ? (
               <Dropdown>
-                <Dropdown.Button
-                  color={path === "profile" ? "error" : "default"}
-                  light
-                >
+                <Dropdown.Button color="secondary" light>
                   <UserProfile
                     className={
-                      path === "profile" ? styles.icon : styles.iconInactive
+                      myProfilePage ? styles.icon : styles.iconInactive
                     }
                     width={38}
                     height={38}
