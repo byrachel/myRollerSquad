@@ -30,7 +30,7 @@ const AddToFav = ({ favorites, placeId }: Props) => {
         height={24}
         onClick={() => addToMyFav(placeId)}
       />
-      <p>{favCounter}</p>
+      <p>{favCounter} </p>
     </>
   );
 };

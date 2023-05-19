@@ -1,12 +1,50 @@
 @import "./variables.scss";
 
+.singlePlaceContainer {
+  padding: 2em 2em 3.5em 2em;
+  background-color: $lightColor;
+
+  .singlePlace {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    .singlePlaceLogo {
+      width: 140px;
+    }
+    .singlePlaceDescription {
+      width: 75%;
+    }
+  }
+}
+
+.darkContainer {
+  background-color: $primaryColor;
+  padding: 2em 2em 3.5em 2em;
+
+  .title {
+    color: white;
+    text-align: center;
+  }
+  .meta {
+    color: white;
+    margin-top: 2.5em;
+  }
+}
+
+.placeGrid {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
 .placeCard {
   border: solid 2px darken($color: $lightColor, $amount: 15);
   box-shadow: 3px 3px darken($color: $lightColor, $amount: 15);
   padding: 1.5em;
-  margin-top: 4.2em;
+  margin: 5em 1em 0 1em;
   position: relative;
-  width: clamp(250px, 100%, 450px);
+  width: clamp(250px, 100%, 500px);
+  border-radius: 5px;
 
   .rollerPlaceLogo {
     position: absolute;
@@ -14,13 +52,25 @@
     left: 50%;
     right: 50%;
     transform: translate(-50%, -50%);
-    border-radius: 5px;
+    border-radius: 15px;
     background: white;
-    padding: 0.5em;
+    border: solid 8px white;
   }
   .placeCardName {
     text-align: center;
     margin: 3em 0 0.5em 0;
+    color: $secondaryColor;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .placeCardName:hover {
+    color: $primaryColor;
+  }
+  .placeCardArrow {
+    stroke: $secondaryColor;
+    fill: none;
+    margin: 0.1em 0 0 0.3em;
   }
   .placeFavoriteCounter {
     display: flex;
@@ -111,7 +161,8 @@
 }
 
 .lastPostsShared {
-  width: 33%;
+  width: 100%;
+  max-width: 400px;
 }
 
 .flowContainer {
@@ -120,6 +171,7 @@
   justify-content: space-around;
   gap: 2em;
   width: 100%;
+  flex-wrap: wrap;
 }
 
 div.cardContainer {

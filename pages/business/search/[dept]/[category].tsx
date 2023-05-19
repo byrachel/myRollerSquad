@@ -2,7 +2,7 @@ import React from "react";
 import BusinessPlaces from "src/features/BusinessProfile/BusinessPlaces";
 import BusinessProfileCTA from "src/features/BusinessProfile/BusinessProfileCTA";
 import PlacesFilters from "src/features/BusinessProfile/PlacesFilters";
-import { PlaceInterface } from "src/interfaces/userInterfaces";
+import prisma from "server/prisma/db/client";
 
 export default function Places({ places, dept, category }: any) {
   return (
@@ -22,16 +22,15 @@ export default function Places({ places, dept, category }: any) {
 }
 
 export async function getStaticPaths() {
-  const API_URL =
-    process.env.NODE_ENV === "production"
-      ? "https://myrollersquad.vercel.app"
-      : "http://localhost:3000";
   try {
-    const res = await fetch(`${API_URL}/api/business/all?category=all`);
-    const data = await res.json();
+    const places = await prisma.place.findMany({
+      where: {
+        active: true,
+      },
+    });
 
-    const places = data.places.length > 0 ? data.places : [];
-    const paths = places.map((place: PlaceInterface) => ({
+    const data = places.length > 0 ? places : [];
+    const paths = data.map((place: any) => ({
       params: { category: place.category, dept: place.county },
     }));
     return { paths, fallback: true };
@@ -43,14 +42,32 @@ export async function getStaticPaths() {
 export async function getStaticProps(context: any) {
   const { dept, category } = context.params;
 
-  const API_URL =
-    process.env.NODE_ENV === "production"
-      ? "https://myrollersquad.vercel.app"
-      : "http://localhost:3000";
+  const places = await prisma.place.findMany({
+    where: {
+      active: true,
+      ...(dept === "all" || !dept ? {} : { county: dept }),
+      ...(category === "all" || !category ? {} : { category }),
+    },
+    select: {
+      id: true,
+      name: true,
+      description: true,
+      logo: true,
+      city: true,
+      category: true,
+      favorites: {
+        select: {
+          id: true,
+        },
+      },
+      _count: {
+        select: {
+          posts: true,
+        },
+      },
+    },
+  });
 
-  const res = await fetch(
-    `${API_URL}/api/business/${dept}?category=${category}`
-  );
-  const data = await res.json();
-  return { props: { places: data.places, dept, category } };
+  if (!places) return { props: { places: [], dept, category } };
+  return { props: { places, dept, category } };
 }

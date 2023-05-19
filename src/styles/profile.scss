@@ -295,6 +295,9 @@ div.ctaBox {
   display: flex;
   justify-content: flex-start;
   align-items: center;
+  gap: 0.5em;
+  font-family: $textFont;
+  font-size: $fontSize-sm;
 }
 
 div.addBusinessLink {

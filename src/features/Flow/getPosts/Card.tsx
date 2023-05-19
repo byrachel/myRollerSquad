@@ -21,7 +21,7 @@ interface Props {
   post: PostInterface;
   cardRef?: React.RefObject<HTMLDivElement>;
   displayAvatar: boolean;
-  userConnectedId: number;
+  userConnectedId: number | null;
 }
 
 export default function Card({

@@ -1,21 +1,67 @@
-import React, { useEffect, useState } from "react";
-import { useRouter } from "next/router";
-import axios from "axios";
+import React from "react";
 import SingleBusinessPlace from "src/features/BusinessProfile/SingleBusinessPlace";
+import { PlaceInterface } from "src/interfaces/userInterfaces";
+import prisma from "server/prisma/db/client";
+import SingleBusinessPosts from "src/features/BusinessProfile/SingleBusinessPosts";
 
-export default function Post() {
-  const [place, setPlace] = useState(null);
-  const router = useRouter();
-  const { pid } = router.query;
+interface Props {
+  place: PlaceInterface;
+}
 
-  useEffect(() => {
-    if (pid) {
-      axios
-        .get(`/api/business/place/${pid}`)
-        .then((res) => setPlace(res.data.place))
-        .catch(() => setPlace(null));
-    }
-  }, [pid]);
+export default function Post({ place }: Props) {
+  return place ? (
+    <>
+      <SingleBusinessPlace place={place} />
+      <SingleBusinessPosts posts={place.posts} />
+    </>
+  ) : (
+    <p className="meta mt5">Oups ! Il n'y a rien par ici :-(</p>
+  );
+}
 
-  return place ? <SingleBusinessPlace place={place} /> : null;
+export async function getServerSideProps(params: any) {
+  const { pid } = params.query;
+
+  const data = await prisma.place.findUnique({
+    where: {
+      id: parseInt(pid),
+    },
+    select: {
+      id: true,
+      name: true,
+      description: true,
+      logo: true,
+      city: true,
+      category: true,
+      website: true,
+      favorites: {
+        select: {
+          id: true,
+        },
+      },
+      posts: {
+        select: {
+          id: true,
+          title: true,
+          category: {
+            select: {
+              name: true,
+            },
+          },
+          content: true,
+          pictures: true,
+          created_at: true,
+          comments: true,
+          user_likes: {
+            select: {
+              user_id: true,
+            },
+          },
+        },
+      },
+    },
+  });
+  if (!data) return { props: { place: null } };
+  const place = JSON.parse(JSON.stringify(data));
+  return { props: { place } };
 }

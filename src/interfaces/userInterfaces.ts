@@ -41,4 +41,5 @@ export interface PlaceInterface {
   logo: string | null;
   category: string;
   posts: PostInterface[];
+  _count: { posts: number };
 }
