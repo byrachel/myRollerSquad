@@ -14,18 +14,18 @@ export default function Header() {
 
   const path = router.pathname.split("/")[1];
 
-  const { userId, userRole, isLoggedIn, userLogout } = useUser(
+  const { userId, userRole, avatar, userLogout } = useUser(
     (state: State) => ({
       userId: state.userId,
       userRole: state.userRole,
-      isLoggedIn: state.isLoggedIn,
+      avatar: state.avatar,
       userLogout: state.logout,
     }),
     shallow
   );
 
-  const isLogged = isLoggedIn && userId;
-  const isAdmin = isLoggedIn && userRole === "ADMIN";
+  const isLogged = userId;
+  const isAdmin = isLogged && userRole === "ADMIN";
 
   const collapseItems = [
     { id: 1, name: "Annuaire", link: "/business/search/all/all" },
@@ -119,7 +119,11 @@ export default function Header() {
                     as="button"
                     color="secondary"
                     size="lg"
-                    src="/img/myrollersquad_avatar.jpeg"
+                    src={
+                      avatar
+                        ? `https://mys3rollerpicts.s3.eu-west-3.amazonaws.com/${avatar}`
+                        : "/img/myrollersquad_avatar.jpeg"
+                    }
                   />
                 </Dropdown.Trigger>
               </Navbar.Item>

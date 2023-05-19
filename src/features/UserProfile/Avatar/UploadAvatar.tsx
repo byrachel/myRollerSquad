@@ -7,6 +7,7 @@ import RegularButton from "src/components/buttons/RegularButton";
 import ErrorLayout from "src/components/layouts/ErrorLayout";
 import Loader from "@/components/layouts/Loader";
 import { useProfile } from "src/hooks/useProfile";
+import { useUser } from "src/hooks/useUser";
 
 interface Props {
   avatar: {
@@ -31,6 +32,9 @@ export default function UploadAvatar({
   const { updateUserProfile } = useProfile((state) => ({
     updateUserProfile: state.updateUserProfile,
   }));
+  const { updateAvatar } = useUser((state) => ({
+    updateAvatar: state.updateAvatar,
+  }));
 
   const saveThisAvatar = () => {
     setUploadError({ status: false, message: "" });
@@ -54,10 +58,7 @@ export default function UploadAvatar({
       })
         .then((res) => {
           updateUserProfile(res.data.user);
-          // userProfileDispatch({
-          //   type: "USER_PROFILE_UPDATED",
-          //   payload: res.data.user,
-          // });
+          updateAvatar(res.data.user.avatar);
           setDisplayNewAvatar(false);
         })
         .catch(() => {

@@ -62,8 +62,7 @@ export default withIronSessionApiRoute(
             id: existingUser.id,
             username: existingUser.name,
             role: existingUser.role,
-            county: existingUser.county,
-            isLoggedIn: true,
+            avatar: existingUser.avatar,
             places:
               existingUser.role === "PRO"
                 ? existingUser.place.map((elt) => ({
