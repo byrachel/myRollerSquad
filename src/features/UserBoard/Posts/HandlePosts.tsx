@@ -35,7 +35,7 @@ const HandlePosts = ({ userConnectedId, isPro }: Props) => {
   return (
     <div className="userPostsContainer">
       <div className="spaceBetween mt5">
-        <h2>Mes posts :</h2>
+        <h2>Mes publications</h2>
         {editPost.show ? (
           <RegularButton
             type="button"
@@ -53,7 +53,7 @@ const HandlePosts = ({ userConnectedId, isPro }: Props) => {
         />
       ) : null}
 
-      {!posts ? (
+      {!posts || posts.length === 0 ? (
         <>
           <p className="mt5">
             <b>Tu n'as publié aucun article pour le moment :(</b>
