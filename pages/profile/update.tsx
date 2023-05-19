@@ -9,7 +9,7 @@ interface Props {
 }
 
 export default function UpdateMyAccount({ user }: Props) {
-  return user.isLoggedIn && user.id ? (
+  return user.id ? (
     <UpdateUserProfileContainer userConnectedId={user.id} />
   ) : (
     <Login />

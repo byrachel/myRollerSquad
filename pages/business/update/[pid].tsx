@@ -12,16 +12,15 @@ const UpdateBusiness = () => {
   const { pid } = router.query;
   const placeId = typeof pid === "string" ? parseInt(pid) : null;
 
-  const { userId, userRole, isLoggedIn } = useUser(
+  const { userId, userRole } = useUser(
     (state: State) => ({
       userId: state.userId,
       userRole: state.userRole,
-      isLoggedIn: state.isLoggedIn,
     }),
     shallow
   );
 
-  return isLoggedIn && userRole === "PRO" && userId && placeId ? (
+  return userRole === "PRO" && userId && placeId ? (
     <SidebarLayout
       sidebar={<UnloggedUserSidebar />}
       content={

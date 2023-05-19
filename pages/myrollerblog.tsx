@@ -8,7 +8,7 @@ import Loader from "@/components/layouts/Loader";
 const MyRollerBlog = ({ user }: any) => {
   return (
     <Suspense fallback={<Loader />}>
-      {user && user.isLoggedIn && user.id ? (
+      {user && user.id ? (
         <>
           <NewPostBar />
           <Flow userConnectedId={user.id} />

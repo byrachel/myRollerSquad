@@ -12,7 +12,7 @@ interface Props {
 const UserPosts = ({ user, uid }: Props) => {
   const userId = parseInt(uid);
 
-  return user.isLoggedIn && user.id && user.id === userId ? (
+  return user.id && user.id === userId ? (
     <>
       <NewPostBar />
       <HandlePosts userConnectedId={user.id} isPro={user.role === "PRO"} />

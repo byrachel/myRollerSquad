@@ -13,7 +13,7 @@ interface Props {
 
 export default function CategoriesBoard({ user }: Props) {
   const [categories, setCategories] = useState([]);
-  const isAdmin = user.isLoggedIn && user.role === "ADMIN";
+  const isAdmin = user.id && user.role === "ADMIN";
 
   useEffect(() => {
     if (isAdmin) {

@@ -11,7 +11,7 @@ interface Props {
 export default function PlacesBoard({ user }: Props) {
   const [placesToModerate, setPlacesToModerate] = useState([]);
   const [placeActivated, setPlaceActivated] = useState(false);
-  const isAdmin = user.isLoggedIn && user.role === "ADMIN";
+  const isAdmin = user.id && user.role === "ADMIN";
 
   useEffect(() => {
     if (isAdmin) {

@@ -11,7 +11,7 @@ interface Props {
 const UserFavs = ({ user, uid }: Props) => {
   const userId = parseInt(uid);
 
-  return user.isLoggedIn && user.id && user.id === userId ? (
+  return user.id && user.id === userId ? (
     <div className="myFavsContainer">
       <h2 className="center mt5">Mes shops & clubs favoris</h2>
       <div className="underliner" />

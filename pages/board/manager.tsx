@@ -16,7 +16,7 @@ interface Props {
 
 export default function Manager({ user }: Props) {
   const [componentToDisplay, setComponentToDisplay] = useState(CATEGORIES);
-  const isAdmin = user.isLoggedIn && user.role === "ADMIN";
+  const isAdmin = user.id && user.role === "ADMIN";
 
   return isAdmin ? (
     <>
