@@ -1,35 +1,21 @@
 import NewPostBar from "@/components/layouts/NewPostBar";
 import Login from "src/features/auth/Login";
 import HandlePosts from "src/features/UserBoard/Posts/HandlePosts";
-import { withSessionSsr } from "@/server/middleware/auth/withSession";
-import { UserStateInterface } from "src/reducers/UserReducer";
+import useLoggedUser from "src/hooks/useLoggedUser";
+import Loader from "@/components/layouts/Loader";
 
-interface Props {
-  user: UserStateInterface;
-  uid: string;
-}
+const UserPosts = () => {
+  const { userId, isLoading } = useLoggedUser();
 
-const UserPosts = ({ user, uid }: Props) => {
-  const userId = parseInt(uid);
-
-  return user.id && user.id === userId ? (
+  return isLoading ? (
+    <Loader text="Génération de toutes tes publications en cours..." />
+  ) : userId ? (
     <>
       <NewPostBar />
-      <HandlePosts userConnectedId={user.id} isPro={user.role === "PRO"} />
+      <HandlePosts userConnectedId={userId} />
     </>
   ) : (
     <Login />
   );
 };
 export default UserPosts;
-
-export const getServerSideProps = withSessionSsr(async ({ req, query }) => {
-  const session = req.session as any;
-  const uid = query.uid;
-  return {
-    props: {
-      user: session.user,
-      uid,
-    },
-  };
-});

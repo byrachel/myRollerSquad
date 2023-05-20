@@ -1,15 +1,12 @@
-import { useRouter } from "next/router";
-
 import Login from "src/features/auth/Login";
 import SidebarLayout from "@/components/layouts/SidebarLayout";
 import AddBusinessProfile from "src/features/BusinessProfile/AddBusinessProfile";
+import useLoggedUser from "src/hooks/useLoggedUser";
 
 const BusinessSignup = () => {
-  const router = useRouter();
-  const { uid } = router.query;
-  const ownerId = typeof uid === "string" ? parseInt(uid) : null;
+  const { userId } = useLoggedUser();
 
-  return ownerId ? (
+  return userId ? (
     <SidebarLayout
       sidebar={
         <>
@@ -26,7 +23,7 @@ const BusinessSignup = () => {
           </p>
         </>
       }
-      content={<AddBusinessProfile ownerId={ownerId} />}
+      content={<AddBusinessProfile ownerId={userId} />}
     />
   ) : (
     <Login />

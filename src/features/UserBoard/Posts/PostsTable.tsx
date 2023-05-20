@@ -40,7 +40,7 @@ export default function PostsTable({ posts, setUpdate, setEditPost }: Props) {
         );
       case "category":
         return (
-          <Row>
+          <Row justify="flex-start" align="center" wrap="wrap">
             {post.style.length > 0
               ? post.style.map((style: any, index: number) => (
                   <Badge key={index} variant="flat">
@@ -79,7 +79,7 @@ export default function PostsTable({ posts, setUpdate, setEditPost }: Props) {
         );
       case "actions":
         return (
-          <Row justify="flex-end">
+          <Row align="center">
             <UpdateDeleteIcons
               onUpdate={() => setEditPost({ show: true, post })}
               onDelete={() =>
@@ -95,7 +95,7 @@ export default function PostsTable({ posts, setUpdate, setEditPost }: Props) {
 
   return (
     <Table
-      aria-label="Example table with custom cells"
+      aria-label="Tableau listant toutes tes publications"
       css={{
         height: "auto",
         minWidth: "100%",

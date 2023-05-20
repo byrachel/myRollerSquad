@@ -1,35 +1,21 @@
 import Login from "src/features/auth/Login";
-import { withSessionSsr } from "@/server/middleware/auth/withSession";
-import { UserStateInterface } from "src/reducers/UserReducer";
 import MyFavs from "src/features/UserBoard/Favs/MyFavs";
+import Loader from "@/components/layouts/Loader";
+import useLoggedUser from "src/hooks/useLoggedUser";
 
-interface Props {
-  user: UserStateInterface;
-  uid: string;
-}
+const UserFavs = () => {
+  const { userId, isLoading } = useLoggedUser();
 
-const UserFavs = ({ user, uid }: Props) => {
-  const userId = parseInt(uid);
-
-  return user.id && user.id === userId ? (
+  return isLoading ? (
+    <Loader text="Tes shops et clubs favoris se chargent..." />
+  ) : userId ? (
     <div className="myFavsContainer">
       <h2 className="center mt5">Mes shops & clubs favoris</h2>
       <div className="underliner" />
-      <MyFavs userConnectedId={user.id} />
+      <MyFavs userConnectedId={userId} />
     </div>
   ) : (
     <Login />
   );
 };
 export default UserFavs;
-
-export const getServerSideProps = withSessionSsr(async ({ req, query }) => {
-  const session = req.session as any;
-  const uid = query.uid;
-  return {
-    props: {
-      user: session.user,
-      uid,
-    },
-  };
-});

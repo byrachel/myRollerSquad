@@ -4,22 +4,22 @@ import { State, useUser } from "./useUser";
 import { shallow } from "zustand/shallow";
 
 export default function useLoggedUser() {
-  const { userId, setUser } = useUser(
+  const { userId, setUser, isLoading, setIsLoading } = useUser(
     (state: State) => ({
       setUser: state.setUser,
       userId: state.userId,
+      isLoading: state.isLoading,
+      setIsLoading: state.setIsLoading,
     }),
     shallow
   );
 
-  console.log("hook isLoggedIn", userId);
-
   useEffect(() => {
+    setIsLoading(true);
     axios.get("/api/user/islogged").then((res) => {
-      console.log("hook data", res.data);
       setUser(res.data.isLoggedIn, res.data.user.id, res.data.user.role);
     });
-  }, [setUser]);
+  }, [setUser, setIsLoading]);
 
-  return { userId };
+  return { isLoading, userId };
 }

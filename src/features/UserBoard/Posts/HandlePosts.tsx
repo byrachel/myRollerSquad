@@ -5,13 +5,14 @@ import PostsTable from "./PostsTable";
 import EditPost from "src/features/Flow/singlePost/EditPost";
 import { PostInterface } from "src/interfaces/flowInterfaces";
 import RegularButton from "@/components/buttons/RegularButton";
+import { State, useUser } from "src/hooks/useUser";
 
 interface Props {
   userConnectedId: number;
-  isPro: boolean;
 }
 
-const HandlePosts = ({ userConnectedId, isPro }: Props) => {
+const HandlePosts = ({ userConnectedId }: Props) => {
+  const userRole = useUser((state: State) => state.userRole);
   const [posts, setPosts] = useState<null | PostInterface[]>([]);
   const [update, setUpdate] = useState(false);
   const [editPost, setEditPost] = useState<{
@@ -48,7 +49,7 @@ const HandlePosts = ({ userConnectedId, isPro }: Props) => {
         <EditPost
           postToEdit={editPost.post}
           userConnectedId={userConnectedId}
-          isPro={isPro}
+          isPro={userRole === "PRO"}
         />
       ) : null}
 
@@ -64,11 +65,11 @@ const HandlePosts = ({ userConnectedId, isPro }: Props) => {
           </p>
         </>
       ) : (
-          <PostsTable
-            posts={posts}
-            setUpdate={setUpdate}
-            setEditPost={setEditPost}
-          />
+        <PostsTable
+          posts={posts}
+          setUpdate={setUpdate}
+          setEditPost={setEditPost}
+        />
       )}
     </div>
   );

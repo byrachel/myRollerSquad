@@ -17,6 +17,7 @@ interface User {
   avatar: null | string;
   userName: string;
   userPlaces: null | { id: number; name: string }[];
+  isLoading: boolean;
 }
 
 export interface State extends User {
@@ -24,6 +25,7 @@ export interface State extends User {
   logout: () => void;
   updateAvatar: (avatar: string) => void;
   setUser: (isLoggedIn: boolean, id: number | null, role: string) => void;
+  setIsLoading: (isLoading: boolean) => void;
 }
 
 const initialState = {
@@ -33,6 +35,7 @@ const initialState = {
   userName: "",
   avatar: null,
   userPlaces: null,
+  isLoading: false,
 };
 
 export const useUser = create<State>()(
@@ -48,12 +51,15 @@ export const useUser = create<State>()(
           userPlaces: user.places,
           userName: user.username,
           avatar: user.avatar,
+          isLoading: false,
         }),
+      setIsLoading: (isLoading: boolean) => set({ isLoading }),
       setUser: (isLoggedIn: boolean, id: number | null, role: string) =>
         set({
           isLoggedIn,
           userId: id,
           userRole: role,
+          isLoading: false,
         }),
       logout: () => set(initialState),
       updateAvatar: (avatar: string) => set({ avatar }),
