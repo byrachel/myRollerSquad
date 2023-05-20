@@ -7,7 +7,6 @@ const handler = nextConnect();
 export default withIronSessionApiRoute(
   handler.get(async (req: any, res: any) => {
     const { user } = req.session;
-    console.log(user);
     if (!user || !user.id)
       return res
         .status(200)

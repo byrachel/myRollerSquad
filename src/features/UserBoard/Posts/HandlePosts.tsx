@@ -1,11 +1,10 @@
-import { Suspense, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 
 import PostsTable from "./PostsTable";
 import EditPost from "src/features/Flow/singlePost/EditPost";
 import { PostInterface } from "src/interfaces/flowInterfaces";
 import RegularButton from "@/components/buttons/RegularButton";
-import Loader from "@/components/layouts/Loader";
 
 interface Props {
   userConnectedId: number;
@@ -65,13 +64,11 @@ const HandlePosts = ({ userConnectedId, isPro }: Props) => {
           </p>
         </>
       ) : (
-        <Suspense fallback={<Loader />}>
           <PostsTable
             posts={posts}
             setUpdate={setUpdate}
             setEditPost={setEditPost}
           />
-        </Suspense>
       )}
     </div>
   );
