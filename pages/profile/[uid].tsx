@@ -1,20 +1,26 @@
 import UserInfosContainer from "src/features/UserProfile/UserInfosContainer";
 import Login from "src/features/auth/Login";
-import { withSessionSsr } from "@/server/middleware/auth/withSession";
 import MyInfosContainer from "src/features/UserProfile/MyInfosContainer";
+import useLoggedUser from "src/hooks/useLoggedUser";
 
-const UserProfile = ({ user, uid }: any) => {
-  const userToDisplay = user.id
+interface Props {
+  uid: string;
+}
+
+const UserProfile = ({ uid }: Props) => {
+  const { userId } = useLoggedUser();
+
+  const userToDisplay = userId
     ? uid === "me"
-      ? user.id
+      ? userId
       : parseInt(uid as string)
     : null;
 
-  return user.id && uid === "me" ? (
-    <MyInfosContainer userConnectedId={user.id} />
-  ) : userToDisplay && user.id ? (
+  return userId && uid === "me" ? (
+    <MyInfosContainer userConnectedId={userId} />
+  ) : userToDisplay && userId ? (
     <UserInfosContainer
-      userConnectedId={user.id}
+      userConnectedId={userId}
       userToDisplay={userToDisplay}
     />
   ) : (
@@ -23,13 +29,13 @@ const UserProfile = ({ user, uid }: any) => {
 };
 export default UserProfile;
 
-export const getServerSideProps = withSessionSsr(async ({ req, query }) => {
-  const session = req.session as any;
-  const uid = query.uid;
-  return {
-    props: {
-      user: session.user,
-      uid,
-    },
-  };
-});
+// export const getServerSideProps = withSessionSsr(async ({ req, query }) => {
+//   const session = req.session as any;
+//   const uid = query.uid;
+//   return {
+//     props: {
+//       user: session.user,
+//       uid,
+//     },
+//   };
+// });

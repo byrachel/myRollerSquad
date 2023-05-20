@@ -1,30 +1,24 @@
 import { Suspense } from "react";
-import { withSessionSsr } from "@/server/middleware/auth/withSession";
 import NewPostBar from "src/components/layouts/NewPostBar";
 import Flow from "src/features/Flow/getPosts/Flow";
 import Login from "src/features/auth/Login";
 import Loader from "@/components/layouts/Loader";
+import useLoggedUser from "src/hooks/useLoggedUser";
 
-const MyRollerBlog = ({ user }: any) => {
+const MyRollerBlog = () => {
+  const { userId } = useLoggedUser();
+
   return (
-    <Suspense fallback={<Loader />}>
-      {user && user.id ? (
-        <>
+    <>
+      {userId ? (
+        <Suspense fallback={<Loader />}>
           <NewPostBar />
-          <Flow userConnectedId={user.id} />
-        </>
+          <Flow userConnectedId={userId} />
+        </Suspense>
       ) : (
         <Login />
       )}
-    </Suspense>
+    </>
   );
 };
 export default MyRollerBlog;
-
-export const getServerSideProps = withSessionSsr(async ({ req }) => {
-  const user = req.session as any;
-
-  return {
-    props: user,
-  };
-});
