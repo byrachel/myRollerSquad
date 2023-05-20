@@ -29,9 +29,6 @@ export default withIronSessionApiRoute(
   handler.use(validator).put(async (req: any, res: any) => {
     const { user } = req.session;
     if (!user) return res.status(401).json({ message: E2 });
-
-    console.log(user);
-
     const { id } = req.query;
     const userId = Array.isArray(id) ? id[0] : id;
 
@@ -39,7 +36,6 @@ export default withIronSessionApiRoute(
       return res.status(401).json({ message: E2 });
 
     const userToUpdate = req.body;
-    console.log(userToUpdate);
 
     try {
       const updatedUser = await prisma.user.update({

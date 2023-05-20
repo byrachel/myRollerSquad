@@ -1,5 +1,4 @@
 import { SyntheticEvent, useState } from "react";
-import { useRouter } from "next/router";
 import { onLogin } from "./utils/services";
 import { useUser } from "src/hooks/useUser";
 import RegularButton from "../../components/buttons/RegularButton";
@@ -9,14 +8,11 @@ import InputPassword from "../../components/form/InputPassword";
 import Link from "next/link";
 
 export default function LoginForm() {
-  const router = useRouter();
   const [error, setError] = useState({ status: false, message: "" });
   const setUser = useUser((state: any) => state.login);
 
   return (
-    <form
-      onSubmit={(e: SyntheticEvent) => onLogin(e, setUser, router, setError)}
-    >
+    <form onSubmit={(e: SyntheticEvent) => onLogin(e, setUser, setError)}>
       <ErrorLayout
         error={error.status}
         message={error.message}

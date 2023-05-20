@@ -3,8 +3,15 @@ import BusinessPlaces from "src/features/BusinessProfile/BusinessPlaces";
 import BusinessProfileCTA from "src/features/BusinessProfile/BusinessProfileCTA";
 import PlacesFilters from "src/features/BusinessProfile/PlacesFilters";
 import prisma from "server/prisma/db/client";
+import { PlaceInterface } from "src/interfaces/userInterfaces";
 
-export default function Places({ places, dept, category }: any) {
+interface Props {
+  places: PlaceInterface[];
+  dept: string;
+  category: string;
+}
+
+export default function Places({ places, dept, category }: Props) {
   return (
     <>
       <div className="coloredSeparator" />

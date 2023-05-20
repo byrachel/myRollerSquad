@@ -20,12 +20,8 @@ export default function NextEvent() {
         <div className={styles.card}>
           <p className="meta">14 - 17 septembre 2023</p>
           <h2 className="title">Skate Love Barcelona</h2>
-          <p className="slogan">International Skate Music Festival</p>
           <div className="pinkUnderliner" />
-          <div className="spaceBetween">
-            <AddEventToFav userFav={true} favCounter={2} />
-            <GoTo page={"/calendar"} />
-          </div>
+          <p className="slogan">International Skate Music Festival</p>
         </div>
       </div>
     </div>

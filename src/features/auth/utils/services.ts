@@ -73,7 +73,6 @@ export const sendActivationMail = (
 export const onLogin = (
   event: SyntheticEvent,
   setUser: any,
-  router: any,
   setError: (args: { status: boolean; message: string }) => void
 ) => {
   event.preventDefault();
@@ -93,10 +92,7 @@ export const onLogin = (
     url: `/api/auth/login`,
     data,
   })
-    .then((res: any) => {
-      setUser(res.data.user);
-      router.push("/profile/me");
-    })
+    .then((res: any) => setUser(res.data.user))
     .catch((error: IErrorCode) => {
       setError({ status: true, message: error.response.data.message });
     });

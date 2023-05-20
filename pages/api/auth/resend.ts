@@ -23,8 +23,6 @@ export default withSessionRoute(async (req: any, res: NextApiResponse) => {
 
     if (!user || !token) return res.status(400).json({ message: E1 });
 
-    console.log("USER", user);
-
     sendEmail(
       user.email,
       "[ myRollerSquad ]",

@@ -14,7 +14,7 @@ export default function Header() {
 
   const path = router.pathname.split("/")[1];
 
-  const { userId, userRole, avatar, userLogout } = useUser(
+  const { userRole, avatar, userId, userLogout } = useUser(
     (state: State) => ({
       userId: state.userId,
       userRole: state.userRole,
@@ -70,16 +70,14 @@ export default function Header() {
           onChange={(isSelected) => setIsSideMenuOpen(isSelected)}
         />
         <Navbar.Brand>
-          <Link href="/">
-            <Image
-              src="/logo_myrollersquad_web.png"
-              alt="Logo MyRollerSquad"
-              width="240"
-              height="78"
-              priority
-              style={{ marginTop: "10px" }}
-            />
-          </Link>
+          <Image
+            src="/logo_myrollersquad_web.png"
+            alt="Logo MyRollerSquad"
+            width="240"
+            height="78"
+            priority
+            style={{ marginTop: "10px" }}
+          />
         </Navbar.Brand>
         <Navbar.Content
           enableCursorHighlight
@@ -120,9 +118,11 @@ export default function Header() {
                     color="secondary"
                     size="lg"
                     src={
-                      avatar
-                        ? `https://mys3rollerpicts.s3.eu-west-3.amazonaws.com/${avatar}`
-                        : "/img/myrollersquad_avatar.jpeg"
+                      "/img/myrollersquad_avatar.jpeg"
+                      // src={
+                      //   avatar
+                      //     ? `https://mys3rollerpicts.s3.eu-west-3.amazonaws.com/${avatar}`
+                      //     : "/img/myrollersquad_avatar.jpeg"
                     }
                   />
                 </Dropdown.Trigger>
