@@ -7,6 +7,7 @@ import SidebarLayout from "src/components/layouts/SidebarLayout";
 import SinglePostSidebar from "src/features/Flow/singlePost/SinglePostSidebar";
 import SinglePost from "src/features/Flow/singlePost/SinglePost";
 import { State, useUser } from "src/hooks/useUser";
+import Loader from "@/components/layouts/Loader";
 
 export default function Post() {
   const { userId, userRole } = useUser(
@@ -43,7 +44,9 @@ export default function Post() {
             />
           }
         />
-      ) : null}
+      ) : (
+        <Loader />
+      )}
     </>
   );
 }

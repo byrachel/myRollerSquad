@@ -1,12 +1,12 @@
-import Login from "src/features/auth/Login";
 import SidebarLayout from "@/components/layouts/SidebarLayout";
 import AddBusinessProfile from "src/features/BusinessProfile/AddBusinessProfile";
-import useLoggedUser from "src/hooks/useLoggedUser";
+import { useUser } from "src/hooks/useUser";
+import Loader from "@/components/layouts/Loader";
 
 const BusinessSignup = () => {
-  const { userId } = useLoggedUser();
+  const userId = useUser((state) => state.userId);
 
-  return userId ? (
+  return (
     <SidebarLayout
       sidebar={
         <>
@@ -23,10 +23,8 @@ const BusinessSignup = () => {
           </p>
         </>
       }
-      content={<AddBusinessProfile ownerId={userId} />}
+      content={userId ? <AddBusinessProfile ownerId={userId} /> : <Loader />}
     />
-  ) : (
-    <Login />
   );
 };
 export default BusinessSignup;

@@ -5,11 +5,9 @@ import { ironConfig } from "server/middleware/auth/ironConfig";
 
 export const middleware = async (req: NextRequest) => {
   const res = NextResponse.next();
-
   const session = await getIronSession(req, res, ironConfig);
 
   const { user } = session as any;
-  console.log("middleware user", user);
 
   if (!user || !user.id) {
     return NextResponse.redirect(new URL("/signin", req.url));
