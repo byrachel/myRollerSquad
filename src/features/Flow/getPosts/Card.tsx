@@ -1,23 +1,20 @@
 import React, { useMemo } from "react";
+import Link from "next/link";
 
 import { PostInterface } from "src/interfaces/flowInterfaces";
 import { cardColor } from "src/utils/colorManager";
 import { displayLightDateTime } from "src/utils/handleDates";
 import { parseContent } from "src/utils/parseContent";
-
+import { SALE, getCategoryName } from "src/constants/PostCategories";
 import Avatar from "./Avatar";
 import LikeIcon from "./LikeIcon";
 import CommentIcon from "./CommentIcon";
+import CardFeaturedPict from "./CardFeaturedPict";
+import AlertButton from "@/components/buttons/AlertButton";
 
 import Pin from "src/svg/pin.svg";
 import Arrow from "src/svg/arrow-right.svg";
 import Roller from "src/svg/rollerquad.svg";
-import Danger from "src/svg/warning-triangle.svg";
-
-import { SALE, getCategoryName } from "src/constants/PostCategories";
-import CardFeaturedPict from "./CardFeaturedPict";
-import Link from "next/link";
-import AlertButton from "@/components/buttons/AlertButton";
 
 interface Props {
   post: PostInterface;
