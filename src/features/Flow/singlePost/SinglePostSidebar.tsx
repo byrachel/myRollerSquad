@@ -1,31 +1,53 @@
-import { PostInterface } from "src/interfaces/flowInterfaces";
+import { useEffect, useState } from "react";
 import Avatar from "../getPosts/Avatar";
+import axios from "axios";
+import { getCategoryName } from "src/constants/PostCategories";
 
 interface Props {
-  post: PostInterface;
+  user: { id: number; name: string; avatar: string };
+  place: { id: number; name: string; logo: string } | null;
 }
 
-export default function SinglePostSidebar({ post }: Props) {
+export default function SinglePostSidebar({ user, place }: Props) {
+  const [lastPosts, setLastPosts] = useState([]);
+  useEffect(() => {
+    if (place && place.id) {
+      axios
+        .get(`/api/flow/posts/place/latest/${place.id}`)
+        .then((res) => setLastPosts(res.data.posts))
+        .catch(() => setLastPosts([]));
+    } else {
+      axios
+        .get(`/api/flow/posts/user/latest/${user.id}`)
+        .then((res) => setLastPosts(res.data.posts))
+        .catch(() => setLastPosts([]));
+    }
+  }, [place, user]);
+
   return (
     <>
       <div className="center mt5">
         <Avatar
-          userId={post.user.id}
-          userAvatar={post.user.avatar}
+          userId={user.id}
+          userAvatar={user.avatar}
           color="pink"
+          placeId={place ? place.id : null}
+          logo={place ? place.logo : null}
         />
-        <h3>{post.user.name}</h3>
-        <p className="meta">{post.user.posts.length} articles publiés</p>
+        <h3>{user.name}</h3>
+        <p className="meta">{lastPosts.length} articles publiés</p>
       </div>
-
-      {post.user.posts.length > 1 ? (
+      <div className="underliner" />
+      {lastPosts.length > 0 ? (
         <div className="lastPosts">
-          <h3>Derniers articles:</h3>
+          <p>Derniers articles:</p>
           <ul>
-            {post.user.posts.map((elt) =>
-              post.id === elt.id ? null : (
+            {lastPosts.map(
+              (elt: { id: number; title: string; category_id: number }) => (
                 <li key={elt.id}>
                   <a href={`/post/${elt.id}`}>{elt.title}</a>
+                  <br />
+                  <p className="detail">{getCategoryName(elt.category_id)}</p>
                 </li>
               )
             )}

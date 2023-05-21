@@ -2,7 +2,7 @@ import React, { useEffect, useReducer } from "react";
 import Masonry from "react-masonry-css";
 import axios from "axios";
 import CardContainer from "src/features/Flow/getPosts/CardContainer";
-import { useRouter } from "next/router";
+// import { useRouter } from "next/router";
 import FlowReducer from "src/reducers/FlowReducer";
 import FlowFilters from "src/features/Flow/getPosts/FlowFilters";
 import { PostInterface } from "src/interfaces/flowInterfaces";
@@ -25,7 +25,7 @@ interface Props {
 }
 
 const Flow = ({ userConnectedId }: Props) => {
-  const router = useRouter();
+  // const router = useRouter();
   const [flowStore, flowDispatch] = useReducer(FlowReducer, initialState);
   const posts = flowStore.posts;
 
@@ -40,17 +40,16 @@ const Flow = ({ userConnectedId }: Props) => {
       method: "get",
       url: `/api/flow/posts/${nextId}?${category}&${style}`,
       withCredentials: true,
-    })
-      .then((res) => {
-        flowDispatch({
-          type: "SET_POSTS",
-          payload: {
-            posts: [...flowStore.posts, ...res.data.posts],
-            cursor: res.data.nextId ? res.data.nextId : null,
-          },
-        });
-      })
-      .catch(() => router.push("/signin"));
+    }).then((res) => {
+      flowDispatch({
+        type: "SET_POSTS",
+        payload: {
+          posts: [...flowStore.posts, ...res.data.posts],
+          cursor: res.data.nextId ? res.data.nextId : null,
+        },
+      });
+    });
+    // .catch(() => router.push("/signin"));
   };
 
   useEffect(() => {

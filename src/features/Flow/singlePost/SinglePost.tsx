@@ -16,38 +16,33 @@ import Pin from "src/svg/pin.svg";
 import Roller from "src/svg/rollerquad.svg";
 import { useRouter } from "next/router";
 import { deletePost } from "../addPost/utils/deletePost";
+import { useUser } from "src/hooks/useUser";
 
 interface Props {
   post: PostInterface;
-  userConnectedId: number | null;
-  isPro: boolean;
 }
 
-export default function SinglePost({ post, userConnectedId, isPro }: Props) {
+export default function SinglePost({ post }: Props) {
+  const userId = useUser((state) => state.userId);
+
   const color = useMemo(() => cardColor(post.category_id), [post.category_id]);
   const [editPost, setEditPost] = useState<{
     show: boolean;
     post: PostInterface | null;
   }>({ show: false, post: null });
   const router = useRouter();
-  console.log(post);
-  const redirectAfterDelete = () =>
-    router.push(`/profile/posts/${userConnectedId}`);
+  const redirectAfterDelete = () => router.push(`/profile/posts/${userId}`);
 
-  return userConnectedId ? (
+  return userId ? (
     editPost.show ? (
-      <EditPost
-        postToEdit={post}
-        userConnectedId={userConnectedId}
-        isPro={isPro}
-      />
+      <EditPost postToEdit={post} userConnectedId={userId} isPro={false} />
     ) : (
       <>
         <div className="spaceBetween">
           <div className={`staticBadge ${color}`}>
             {getCategoryName(post.category_id)}
           </div>
-          {post.user.id === userConnectedId ? (
+          {post.user.id === userId ? (
             <UpdateDeleteIcons
               onUpdate={() => setEditPost({ show: true, post: post })}
               onDelete={() => deletePost(post.id, redirectAfterDelete)}
@@ -106,7 +101,7 @@ export default function SinglePost({ post, userConnectedId, isPro }: Props) {
               counter={post.user_likes.length}
               postId={post.id}
               likedBy={post.user_likes.map((like) => like.user_id)}
-              userConnectedId={userConnectedId}
+              userConnectedId={userId}
             />
           </div>
           <CommentIcon counter={post.comments.length} color={color} />

@@ -18,6 +18,11 @@ export interface PostInterface {
     name: string;
     posts: { id: number; title: string }[];
   };
+  place?: {
+    id: number;
+    name: string;
+    logo: string;
+  } | null;
   user_likes: any[];
   comments: any[];
   price: number | null;

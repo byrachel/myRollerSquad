@@ -8,15 +8,14 @@ export default async function handler(
 ) {
   if (req.method !== "GET") return res.status(401).json({ message: E1 });
 
-  const { uid } = req.query;
-  const id = Array.isArray(uid) ? uid[0] : uid;
+  const { pid } = req.query;
+  const id = Array.isArray(pid) ? pid[0] : pid;
   if (!id) return res.status(400).json({ message: E1 });
 
   try {
     const posts = await prisma.post.findMany({
       where: {
-        user_id: parseInt(id),
-        place_id: null,
+        place_id: parseInt(id),
       },
       take: 3,
     });

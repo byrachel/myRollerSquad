@@ -17,7 +17,7 @@ export default function SingleBusinessPlace({ place }: Props) {
   return (
     <div className="singlePlaceContainer">
       <div className="spaceBetween">
-        <div></div>
+        <h1>{place.name}</h1>
 
         <RegularButton
           text="retour"
@@ -40,7 +40,6 @@ export default function SingleBusinessPlace({ place }: Props) {
           className="singlePlaceLogo"
         />
         <div className="singlePlaceDescription">
-          <h1>{place.name}</h1>
           <p className="metaIconText">
             <Pin className="placeLocation" width={16} height={16} />
             {place.county ? `${place.county}, ` : null} {place.city}

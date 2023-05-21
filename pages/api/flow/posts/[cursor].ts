@@ -48,6 +48,13 @@ async function userRoute(req: any, res: NextApiResponse<any>) {
             name: true,
           },
         },
+        place: {
+          select: {
+            id: true,
+            name: true,
+            logo: true,
+          },
+        },
         city: true,
         county: true,
         country: true,

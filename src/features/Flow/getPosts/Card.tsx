@@ -40,6 +40,8 @@ export default function Card({
             userId={post.user.id}
             userAvatar={post.user.avatar}
             color={color}
+            placeId={post.place ? post.place.id : null}
+            logo={post.place ? post.place.logo : null}
           />
         ) : null}
         <div className="cardTitle">
@@ -48,10 +50,12 @@ export default function Card({
           </div>
 
           <h2 className={displayAvatar ? "title mb5" : "title"}>
-            {post.title}
+            <Link href={`/post/${post.id}`}>{post.title}</Link>
           </h2>
           {displayAvatar ? (
-            <h3 className="userName">{post.user.name}</h3>
+            <h3 className="userName">
+              {post.place ? post.place.name : post.user.name}
+            </h3>
           ) : null}
         </div>
       </div>

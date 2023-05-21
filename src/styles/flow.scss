@@ -216,6 +216,9 @@ div.cardContainer {
       color: $primaryColor;
       margin: 0.2em 0;
     }
+    .title:hover {
+      color: $secondaryColor;
+    }
     h3.userName {
       font-family: $textFont;
       font-size: 0.75em;
@@ -605,15 +608,34 @@ div.socialIconContainer {
 }
 
 .lastPosts {
-  margin: 2em 1em;
+  margin: 1em;
   p {
+    font-family: $titleFont;
+    font-size: $fontSize-sm;
     margin: 1em 0;
   }
   ul {
-    margin: 0;
+    margin: 0 0 0 1em;
   }
   li {
-    margin: 0.5em 1em;
+    list-style-type: disc;
+    a {
+      font-family: $textFont;
+      font-size: 0.97em;
+      letter-spacing: 0;
+    }
+    .detail {
+      color: $greyColor;
+      font-size: $fontSize-sm;
+      margin-left: 0.5em;
+      font-family: $textFont;
+      text-transform: uppercase;
+      margin: 0;
+    }
+  }
+  li:hover {
+    text-decoration: underline;
+    color: $secondaryColor;
   }
 }
 
