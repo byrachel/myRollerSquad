@@ -11,6 +11,7 @@ export default function MainLayout({ children }: Props) {
     <>
       <Header />
       <RollerStylesBar />
+
       {children}
     </>
   );

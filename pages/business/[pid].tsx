@@ -1,21 +1,27 @@
-import React from "react";
+import React, { Suspense } from "react";
 import SingleBusinessPlace from "src/features/BusinessProfile/SingleBusinessPlace";
 import { PlaceInterface } from "src/interfaces/userInterfaces";
 import prisma from "server/prisma/db/client";
 import SingleBusinessPosts from "src/features/BusinessProfile/SingleBusinessPosts";
+import Loader from "@/components/layouts/Loader";
 
 interface Props {
   place: PlaceInterface;
 }
 
 export default function Post({ place }: Props) {
-  return place ? (
+  return (
     <>
-      <SingleBusinessPlace place={place} />
-      <SingleBusinessPosts posts={place.posts} />
+      <div className="coloredSeparator" />
+      {place ? (
+        <Suspense fallback={<Loader />}>
+          <SingleBusinessPlace place={place} />
+          <SingleBusinessPosts posts={place.posts} />
+        </Suspense>
+      ) : (
+        <p className="meta mt5">Oups ! Il n'y a rien par ici :-(</p>
+      )}
     </>
-  ) : (
-    <p className="meta mt5">Oups ! Il n'y a rien par ici :-(</p>
   );
 }
 
@@ -40,6 +46,7 @@ export async function getServerSideProps(params: any) {
         },
       },
       posts: {
+        take: 3,
         select: {
           id: true,
           title: true,

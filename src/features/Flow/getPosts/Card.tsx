@@ -12,10 +12,12 @@ import CommentIcon from "./CommentIcon";
 import Pin from "src/svg/pin.svg";
 import Arrow from "src/svg/arrow-right.svg";
 import Roller from "src/svg/rollerquad.svg";
+import Danger from "src/svg/warning-triangle.svg";
 
 import { SALE, getCategoryName } from "src/constants/PostCategories";
 import CardFeaturedPict from "./CardFeaturedPict";
 import Link from "next/link";
+import AlertButton from "@/components/buttons/AlertButton";
 
 interface Props {
   post: PostInterface;
@@ -66,13 +68,14 @@ export default function Card({
       {post.distance || post.duration ? (
         <div className="sessionTracking">
           <Roller className="sessionIcon" width={36} height={36} />
-          {post.duration ? <p>{post.duration}</p> : null}
+          {post.duration ? <p>{post.duration} </p> : null}
           {post.distance ? <p>{post.distance} km </p> : null}
         </div>
       ) : null}
 
       {post.category_id === SALE && post.price ? (
         <div className="sessionTracking">
+          <Roller className="sessionIcon" width={36} height={36} />
           <p>{post.price} €</p>
         </div>
       ) : null}
@@ -99,6 +102,7 @@ export default function Card({
       )}
 
       <div className="cardIcons">
+        <AlertButton postId={post.id} />
         <LikeIcon
           color={color}
           counter={post.user_likes.length}

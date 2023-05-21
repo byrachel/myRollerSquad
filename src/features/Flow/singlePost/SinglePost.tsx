@@ -77,6 +77,13 @@ export default function SinglePost({ post }: Props) {
           </div>
         ) : null}
 
+        {post.price ? (
+          <div className="sessionTracking">
+            <Roller className="sessionIcon" width={36} height={36} />
+            <p>{post.price} €</p>
+          </div>
+        ) : null}
+
         <div className="postContent mt5">
           {post.content ? parseContent(post.content) : null}
         </div>

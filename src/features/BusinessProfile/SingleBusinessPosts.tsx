@@ -12,10 +12,10 @@ export default function SingleBusinessPosts({ posts }: Props) {
 
   return (
     <div className="darkContainer">
-      <h2 className="title mt5">Articles publiés</h2>
+      <h2 className="title mt5">Dernières publications</h2>
       {posts.length > 0 ? (
         posts.map((post) => (
-          <div className="lastPostsShared" key={post.id}>
+          <div className="lastPostsShared mt-large" key={post.id}>
             <Card post={post} userConnectedId={userId} displayAvatar={false} />
           </div>
         ))
