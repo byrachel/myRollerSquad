@@ -1,4 +1,4 @@
-import React, { Suspense } from "react";
+import React from "react";
 import BusinessPlaces from "src/features/BusinessProfile/BusinessPlaces";
 import BusinessProfileCTA from "src/features/BusinessProfile/BusinessProfileCTA";
 import PlacesFilters from "src/features/BusinessProfile/PlacesFilters";
@@ -16,16 +16,18 @@ export default function Places({ places, dept, category }: Props) {
   return (
     <>
       <div className="coloredSeparator" />
-      <Suspense fallback={<Loader />}>
-        <PlacesFilters dept={dept} categorySelected={category} />
-        {places && places.length > 0 ? (
+      <PlacesFilters dept={dept} categorySelected={category} />
+      {places ? (
+        places.length > 0 ? (
           <BusinessPlaces places={places} />
         ) : (
           <p className="meta mt-large center">
             Aucune association ou entreprise n'est référencée pour le moment.
           </p>
-        )}
-      </Suspense>
+        )
+      ) : (
+        <Loader />
+      )}
       <BusinessProfileCTA />
     </>
   );
@@ -77,7 +79,6 @@ export async function getStaticProps(context: any) {
       },
     },
   });
-  console.log(places);
   if (!places) return { props: { places: [], dept, category } };
   return { props: { places, dept, category } };
 }

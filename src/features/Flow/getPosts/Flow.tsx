@@ -2,10 +2,10 @@ import React, { useEffect, useReducer } from "react";
 import Masonry from "react-masonry-css";
 import axios from "axios";
 import CardContainer from "src/features/Flow/getPosts/CardContainer";
-// import { useRouter } from "next/router";
 import FlowReducer from "src/reducers/FlowReducer";
 import FlowFilters from "src/features/Flow/getPosts/FlowFilters";
 import { PostInterface } from "src/interfaces/flowInterfaces";
+import Loader from "@/components/layouts/Loader";
 
 const breakpointColumnsObj = {
   default: 3,
@@ -25,7 +25,6 @@ interface Props {
 }
 
 const Flow = ({ userConnectedId }: Props) => {
-  // const router = useRouter();
   const [flowStore, flowDispatch] = useReducer(FlowReducer, initialState);
   const posts = flowStore.posts;
 
@@ -49,7 +48,6 @@ const Flow = ({ userConnectedId }: Props) => {
         },
       });
     });
-    // .catch(() => router.push("/signin"));
   };
 
   useEffect(() => {
@@ -65,25 +63,29 @@ const Flow = ({ userConnectedId }: Props) => {
     <>
       <div className="flow">
         <FlowFilters flowDispatch={flowDispatch} />
-        <div className="responsiveFlowContainer">
-          <Masonry
-            breakpointCols={breakpointColumnsObj}
-            className="my-masonry-grid"
-            columnClassName="my-masonry-grid_column"
-          >
-            {posts && posts.length > 0
-              ? posts.map((post: PostInterface, index: number) => (
-                  <CardContainer
-                    key={post.id}
-                    post={post}
-                    isLast={index === posts.length - 1}
-                    newLimit={newLimit}
-                    userConnectedId={userConnectedId}
-                  />
-                ))
-              : null}
-          </Masonry>
-        </div>
+        {posts ? (
+          <div className="responsiveFlowContainer">
+            <Masonry
+              breakpointCols={breakpointColumnsObj}
+              className="my-masonry-grid"
+              columnClassName="my-masonry-grid_column"
+            >
+              {posts.length > 0
+                ? posts.map((post: PostInterface, index: number) => (
+                    <CardContainer
+                      key={post.id}
+                      post={post}
+                      isLast={index === posts.length - 1}
+                      newLimit={newLimit}
+                      userConnectedId={userConnectedId}
+                    />
+                  ))
+                : null}
+            </Masonry>
+          </div>
+        ) : (
+          <Loader text="Publications en cours de chargement..." />
+        )}
       </div>
     </>
   );

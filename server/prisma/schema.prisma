@@ -104,9 +104,9 @@ model Post {
 
 model PostLiked {
   id         Int      @id @default(autoincrement())
-  user       User     @relation("post_liked", fields: [user_id], references: [id])
+  user       User     @relation("post_liked", fields: [user_id], references: [id], onDelete: Cascade)
   user_id    Int
-  post       Post     @relation("user_likes", fields: [post_id], references: [id])
+  post       Post     @relation("user_likes", fields: [post_id], references: [id], onDelete: Cascade)
   post_id    Int
   created_at DateTime @default(now())
 
@@ -137,7 +137,7 @@ model StylesOnPosts {
 
 model Place {
   id            Int       @id @default(autoincrement())
-  owner         User       @relation("place_owner", fields: [user_id], references: [id])
+  owner         User       @relation("place_owner", fields: [user_id], references: [id], onDelete: Cascade)
   user_id       Int
   logo          String?
   type          PlaceType   @default(PROFESSIONAL)
