@@ -4,8 +4,8 @@ import axios from "axios";
 import { getCategoryName } from "src/constants/PostCategories";
 
 interface Props {
-  user: { id: number; name: string; avatar: string };
-  place: { id: number; name: string; logo: string } | null;
+  user: { id: number; name: string; avatar: string | null };
+  place?: { id: number; name: string; logo: string | null } | null;
 }
 
 export default function SinglePostSidebar({ user, place }: Props) {
