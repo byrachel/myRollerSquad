@@ -23,13 +23,6 @@
   }
 }
 
-.myFavsContainer {
-  background-color: $lightColor;
-  margin: 0;
-  padding: 2em;
-  min-height: 90vh;
-}
-
 .rollerSkaterAvatarContainer {
   position: relative;
   width: 100%;
@@ -55,6 +48,15 @@
   }
 }
 
+.logoutIcon {
+  cursor: pointer;
+  stroke: $secondaryColor;
+  margin-right: 0.5em;
+}
+.logoutIcon:hover {
+  stroke: $primaryColor;
+}
+
 .updateUserSidebarAvatar {
   display: flex;
   justify-content: center;
@@ -76,48 +78,21 @@
     flex-direction: column;
     margin-top: clamp(0.5em, 3.5vw, 2.5em);
     width: 100%;
-
-    .rollerSkaterName {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      h1 {
-        color: white;
-        font-size: $fontSize-xl;
-        font-family: $titleFont;
-        letter-spacing: 0.7px;
-        margin: 0;
-      }
-      .rollerSkaterButtons {
-        .editIcon {
-          cursor: pointer;
-          stroke: white;
-          margin-right: 0.75em;
-        }
-        .editIcon:hover {
-          stroke: $secondaryColor;
-        }
-        .logoutIcon {
-          cursor: pointer;
-          stroke: white;
-        }
-        .logoutIcon:hover {
-          stroke: $secondaryColor;
-        }
-      }
+    h1 {
+      color: white;
+      font-size: $fontSize-xl;
+      font-family: $titleFont;
+      letter-spacing: 0.7px;
+      margin: 0;
     }
-    .rollerSkaterLocation {
-      margin-top: 0.5em;
-      display: flex;
-      justify-content: flex-start;
+    p {
+      color: white;
+      font-family: $textFont;
+      font-size: $fontSize-md;
+      letter-spacing: 0.2px;
       align-items: center;
-      p {
-        color: white;
-        font-family: $textFont;
-        font-size: $fontSize-md;
-        letter-spacing: 0.2px;
-      }
+      display: flex;
+      line-height: 2em;
       .locationIcon {
         stroke: white;
         fill: none;

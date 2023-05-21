@@ -9,6 +9,7 @@ import UserBusinessCard from "./UserBusiness/UserBusinessCard";
 import BusinessProfileCTA from "../BusinessProfile/BusinessProfileCTA";
 import { useProfile } from "src/hooks/useProfile";
 import { PlaceInterface } from "src/interfaces/userInterfaces";
+import MyInfosMenu from "./MyInfosMenu";
 
 interface Props {
   userConnectedId: number;
@@ -36,7 +37,9 @@ const MyInfosContainer = ({ userConnectedId }: Props) => {
   return (
     <>
       {userProfile ? (
-        <>
+        <div className="mt5">
+          <MyInfosMenu userConnectedId={userConnectedId} isMyProfile />
+
           <UserInfos user={userProfile} userConnectedId={userConnectedId} />
           <UserResume user={userProfile} userConnectedId={userConnectedId} />
           {userPlaces && userPlaces.length > 0 ? (
@@ -59,7 +62,7 @@ const MyInfosContainer = ({ userConnectedId }: Props) => {
             urbanLevel={userProfile.urban_level}
             derbyLevel={userProfile.derby_level}
           />
-        </>
+        </div>
       ) : userProfileLoading ? (
         <Loader text="Profil en cours de chargement..." />
       ) : null}

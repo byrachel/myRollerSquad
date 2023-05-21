@@ -1,25 +1,17 @@
 import Loader from "@/components/layouts/Loader";
 import NewPostBar from "src/components/layouts/NewPostBar";
 import Flow from "src/features/Flow/getPosts/Flow";
-import Login from "src/features/auth/Login";
-import useLoggedUser from "src/hooks/useLoggedUser";
+import { useUser } from "src/hooks/useUser";
 
 const MyRollerBlog = () => {
-  const { userId, isLoading } = useLoggedUser();
-
-  return isLoading ? (
-    <Loader text="Chargement des publications en cours... N'hésite pas à publier toi aussi :)" />
-  ) : (
+  const userId = useUser((state) => state.userId);
+  return userId ? (
     <>
-      {userId ? (
-        <>
-          <NewPostBar />
-          <Flow userConnectedId={userId} />
-        </>
-      ) : (
-        <Login />
-      )}
+      <NewPostBar />
+      <Flow userConnectedId={userId} />
     </>
+  ) : (
+    <Loader text="Publications en cours de chargement..." />
   );
 };
 export default MyRollerBlog;

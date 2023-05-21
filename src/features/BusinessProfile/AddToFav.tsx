@@ -25,7 +25,8 @@ const AddToFav = ({ favorites, placeId }: Props) => {
   return (
     <>
       <Favorite
-        className={favs.includes(userId) ? "favIconChecked" : "favIcon"}
+        className="favIcon"
+        // className={favs.includes(userId) ? "favIconChecked" : "favIcon"}
         width={24}
         height={24}
         onClick={() => addToMyFav(placeId)}

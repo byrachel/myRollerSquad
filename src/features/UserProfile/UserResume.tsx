@@ -14,7 +14,6 @@ interface Props {
 }
 
 export default function UserResume({ user, userConnectedId }: Props) {
-  console.log(user);
   return (
     <div className="rollerSkaterResumeBox">
       <div className="rollerSkaterLinks">

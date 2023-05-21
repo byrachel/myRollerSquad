@@ -1,7 +1,6 @@
 import React from "react";
 
 import Avatar from "./Avatar/Avatar";
-import UpdateProfileButton from "../../components/buttons/UpdateProfileButton";
 import { UserInterface } from "src/interfaces/userInterfaces";
 
 import Pin from "src/svg/pin.svg";
@@ -20,19 +19,12 @@ export default function UserInfos({ user, userConnectedId }: Props) {
         userConnectedId={userConnectedId}
       />
       <div className="rollerSkaterInfo">
-        <div className="rollerSkaterName">
-          <h1>{user.name}</h1>
-          <div className="rollerSkaterButtons">
-            <UpdateProfileButton />
-          </div>
-        </div>
-        <div className="rollerSkaterLocation">
+        <h1>{user.name}</h1>
+        <p>
           <Pin className="locationIcon" width={20} height={20} />
-          <p>
-            {user.city ? `${user.city}, ` : null}
-            {user.country}
-          </p>
-        </div>
+          {user.city ? `${user.city}, ` : null}
+          {user.country}
+        </p>
       </div>
     </div>
   );

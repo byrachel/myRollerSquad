@@ -1,31 +1,26 @@
 import { useRef, useState } from "react";
 import { useRouter } from "next/router";
-import Image from "next/image";
-import Link from "next/link";
-import { Avatar, Button, Dropdown, Navbar, Text } from "@nextui-org/react";
-import { onLogout } from "../../features/auth/utils/services";
-import { State, useUser } from "src/hooks/useUser";
+import { Navbar, Text } from "@nextui-org/react";
 import { shallow } from "zustand/shallow";
+import Image from "next/image";
+
+import { State, useUser } from "src/hooks/useUser";
+import UserIcon from "src/svg/profile-circle.svg";
 
 export default function Header() {
   const router = useRouter();
+  const path = router.pathname.split("/")[1];
   const navbarToggleRef = useRef() as any;
   const [isSideMenuOpen, setIsSideMenuOpen] = useState<any>(false);
 
-  const path = router.pathname.split("/")[1];
-
-  const { userRole, avatar, userId, userLogout } = useUser(
+  const { userRole, userId } = useUser(
     (state: State) => ({
       userId: state.userId,
       userRole: state.userRole,
-      avatar: state.avatar,
-      userLogout: state.logout,
     }),
     shallow
   );
-
-  const isLogged = userId;
-  const isAdmin = isLogged && userRole === "ADMIN";
+  const isAdmin = userId && userRole === "ADMIN";
 
   const collapseItems = [
     { id: 1, name: "Annuaire", link: "/business/search/all/all" },
@@ -42,25 +37,6 @@ export default function Header() {
     isSideMenuOpen && navbarToggleRef.current.click();
   };
 
-  const goTo = (actionKey: string) => {
-    switch (actionKey) {
-      case "myProfile":
-        router.push(`/profile/me`);
-        break;
-      case "myFavs":
-        router.push(`/profile/favs/${userId}`);
-        break;
-      case "myPosts":
-        router.push(`/profile/posts/${userId}`);
-        break;
-      case "logout":
-        onLogout(userLogout, router);
-        break;
-      default:
-        router.push("/");
-    }
-  };
-
   return (
     <header>
       <Navbar isBordered variant="sticky">
@@ -73,82 +49,38 @@ export default function Header() {
           <Image
             src="/logo_myrollersquad_web.png"
             alt="Logo MyRollerSquad"
-            width="240"
-            height="78"
+            width="200"
+            height="65"
             priority
             style={{ marginTop: "10px" }}
+            onClick={() => router.push("/")}
           />
         </Navbar.Brand>
-        <Navbar.Content
-          enableCursorHighlight
-          activeColor="secondary"
-          hideIn="xs"
-        >
+        <Navbar.Content activeColor="secondary" variant="underline" hideIn="xs">
           <Navbar.Link
+            color="inherit"
+            isActive={path === "myrollerblog"}
+            href="/myrollerblog"
+          >
+            Flow
+          </Navbar.Link>
+          <Navbar.Link
+            color="inherit"
             isActive={path === "business"}
             href="/business/search/all/all"
           >
             Annuaire
           </Navbar.Link>
-          <Navbar.Link isActive={path === "myrollerblog"} href="/myrollerblog">
-            Blog
-          </Navbar.Link>
           {isAdmin ? (
-            <Navbar.Link href="/board/manager">
-              <Text weight="bold">Admin</Text>
+            <Navbar.Link color="inherit" href="/board/manager">
+              Admin
             </Navbar.Link>
           ) : null}
         </Navbar.Content>
-
-        <Navbar.Content
-          css={{
-            "@xs": {
-              w: "12%",
-              jc: "flex-end",
-            },
-          }}
-        >
-          {isLogged ? (
-            <Dropdown placement="bottom-right" isBordered>
-              <Navbar.Item>
-                <Dropdown.Trigger>
-                  <Avatar
-                    bordered
-                    as="button"
-                    color="secondary"
-                    size="lg"
-                    src={
-                      "/img/myrollersquad_avatar.jpeg"
-                      // src={
-                      //   avatar
-                      //     ? `https://mys3rollerpicts.s3.eu-west-3.amazonaws.com/${avatar}`
-                      //     : "/img/myrollersquad_avatar.jpeg"
-                    }
-                  />
-                </Dropdown.Trigger>
-              </Navbar.Item>
-              <Dropdown.Menu
-                aria-label="User menu actions"
-                color="warning"
-                onAction={(actionKey: any) => goTo(actionKey)}
-              >
-                <Dropdown.Item key="myProfile">Mon compte</Dropdown.Item>
-                <Dropdown.Item key="myPosts">Mes publications</Dropdown.Item>
-                <Dropdown.Item key="myFavs">Mes favoris</Dropdown.Item>
-                <Dropdown.Item key="logout" withDivider color="error">
-                  Se déconnecter
-                </Dropdown.Item>
-              </Dropdown.Menu>
-            </Dropdown>
-          ) : (
-            <Navbar.Item>
-              <Button auto flat as={Link} color="error" href="/signin">
-                <Text color="inherit" weight="bold">
-                  Se connecter
-                </Text>
-              </Button>
-            </Navbar.Item>
-          )}
+        <Navbar.Content activeColor="secondary">
+          <Navbar.Link color="inherit" href="/profile/me">
+            <UserIcon width={34} height={34} stroke="black" fill="none" />
+          </Navbar.Link>
         </Navbar.Content>
         <Navbar.Collapse>
           {isAdmin

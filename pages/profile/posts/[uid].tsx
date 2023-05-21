@@ -1,21 +1,20 @@
 import NewPostBar from "@/components/layouts/NewPostBar";
-import Login from "src/features/auth/Login";
 import HandlePosts from "src/features/UserBoard/Posts/HandlePosts";
-import useLoggedUser from "src/hooks/useLoggedUser";
 import Loader from "@/components/layouts/Loader";
+import MyInfosMenu from "src/features/UserProfile/MyInfosMenu";
+import { useUser } from "src/hooks/useUser";
 
 const UserPosts = () => {
-  const { userId, isLoading } = useLoggedUser();
+  const userId = useUser((state) => state.userId);
 
-  return isLoading ? (
-    <Loader text="Génération de toutes tes publications en cours..." />
-  ) : userId ? (
-    <>
-      <NewPostBar />
+  return userId ? (
+    <div className="mt5">
+      <MyInfosMenu userConnectedId={userId} isMyProfile={false} />
       <HandlePosts userConnectedId={userId} />
-    </>
+      <NewPostBar />
+    </div>
   ) : (
-    <Login />
+    <Loader text="Génération de toutes tes publications en cours..." />
   );
 };
 export default UserPosts;
