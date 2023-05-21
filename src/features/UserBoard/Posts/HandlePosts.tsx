@@ -1,24 +1,15 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-
-import PostsTable from "./PostsTable";
-import EditPost from "src/features/Flow/singlePost/EditPost";
+import DisplayTableOrUpdate from "./DisplayTableOrUpdate";
 import { PostInterface } from "src/interfaces/flowInterfaces";
-import RegularButton from "@/components/buttons/RegularButton";
-import { State, useUser } from "src/hooks/useUser";
 
 interface Props {
   userConnectedId: number;
 }
 
 const HandlePosts = ({ userConnectedId }: Props) => {
-  const userRole = useUser((state: State) => state.userRole);
-  const [posts, setPosts] = useState<null | PostInterface[]>([]);
+  const [posts, setPosts] = useState<null | PostInterface[]>(null);
   const [update, setUpdate] = useState(false);
-  const [editPost, setEditPost] = useState<{
-    show: boolean;
-    post: null | PostInterface;
-  }>({ show: false, post: null });
 
   useEffect(() => {
     if (userConnectedId) {
@@ -34,27 +25,9 @@ const HandlePosts = ({ userConnectedId }: Props) => {
 
   return (
     <div className="userPostsContainer">
-      <div className="spaceBetween mt5">
-        <h2>Mes publications</h2>
-        {editPost.show ? (
-          <RegularButton
-            type="button"
-            style="full"
-            text="retour"
-            onClick={() => setEditPost({ show: false, post: null })}
-          />
-        ) : null}
-      </div>
-      {editPost.show && editPost.post ? (
-        <EditPost
-          postToEdit={editPost.post}
-          userConnectedId={userConnectedId}
-          isPro={userRole === "PRO"}
-        />
-      ) : null}
-
-      {!posts || posts.length === 0 ? (
+      {!posts ? null : posts.length === 0 ? (
         <>
+          <h2>Mes publications</h2>
           <p className="mt5">
             <b>Tu n'as publié aucun article pour le moment :(</b>
           </p>
@@ -65,10 +38,10 @@ const HandlePosts = ({ userConnectedId }: Props) => {
           </p>
         </>
       ) : (
-        <PostsTable
+        <DisplayTableOrUpdate
           posts={posts}
           setUpdate={setUpdate}
-          setEditPost={setEditPost}
+          userConnectedId={userConnectedId}
         />
       )}
     </div>

@@ -7,14 +7,18 @@ import { useUser } from "src/hooks/useUser";
 const UserPosts = () => {
   const userId = useUser((state) => state.userId);
 
-  return userId ? (
-    <div className="mt5">
-      <MyInfosMenu userConnectedId={userId} isMyProfile={false} />
-      <HandlePosts userConnectedId={userId} />
+  return (
+    <>
       <NewPostBar />
-    </div>
-  ) : (
-    <Loader text="Génération de toutes tes publications en cours..." />
+      {userId ? (
+        <div className="mt5">
+          <MyInfosMenu userConnectedId={userId} isMyProfile={false} />
+          <HandlePosts userConnectedId={userId} />
+        </div>
+      ) : (
+        <Loader text="Génération de toutes tes publications en cours..." />
+      )}
+    </>
   );
 };
 export default UserPosts;

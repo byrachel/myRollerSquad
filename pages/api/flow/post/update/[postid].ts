@@ -48,15 +48,12 @@ export default withIronSessionApiRoute(
       link,
       duration,
       distance,
-      // squad_ids,
       country,
       county,
       city,
       price,
       pictures,
     } = req.body;
-
-    console.log(req.body);
 
     if (!title || !category_id || user_id !== user.id)
       return res.status(400).json({ message: E3 });
@@ -82,7 +79,6 @@ export default withIronSessionApiRoute(
           distance: distance ? distance : null,
           price: price ? parseFloat(price) : null,
           pictures: pictures,
-          // squad_ids: squad_ids ? squad_ids : [],
         },
         include: {
           style: true,

@@ -78,8 +78,6 @@ model Post {
   id            Int         @id @default(autoincrement())
   title         String
   content       String
-  user          User        @relation("post_author", fields: [user_id], references: [id])
-  user_id       Int
   created_at    DateTime    @default(now())
   duration      String?
   distance      Decimal?
@@ -98,6 +96,8 @@ model Post {
   user_likes    PostLiked[] @relation("user_likes")
   price         Int?
 
+  user          User        @relation("post_author", fields: [user_id], references: [id])
+  user_id       Int
   place         Place?      @relation("place_author", fields: [place_id], references: [id])
   place_id      Int?
 }

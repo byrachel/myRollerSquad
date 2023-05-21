@@ -22,7 +22,7 @@ interface Props {
   userConnectedId: number;
   post: any;
   postDispatch: React.Dispatch<any>;
-  editMode?: boolean;
+  editMode: boolean;
   isPro: boolean;
 }
 
@@ -42,7 +42,6 @@ export default function NewPostForm({
     }),
     shallow
   );
-  console.log(userPlaces);
 
   return (
     <>
@@ -57,11 +56,11 @@ export default function NewPostForm({
           postCategory={post.category}
           postDispatch={postDispatch}
         />
-        {isPro && userPlaces && userPlaces.length > 0 ? (
+        {isPro && userPlaces && userPlaces.length > 0 && !editMode ? (
           <>
             <label htmlFor="author">Publié en tant que :</label>
             <div className="select">
-              <select id="author" name="author">
+              <select id="author" name="author" defaultValue={post.place_id}>
                 <option value={userConnectedId}>{userName}</option>
                 {userPlaces.map((elt: { id: number; name: string }) => (
                   <option key={elt.id} value={elt.id}>

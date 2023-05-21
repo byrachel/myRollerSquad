@@ -12,15 +12,15 @@ export default function UpdateDeleteIcons({ onUpdate, onDelete }: Props) {
   return (
     <div className="updateDeleteIcons">
       <Edit
-        width={30}
-        height={30}
+        width={25}
+        height={25}
         className="icon"
         role="button"
         onClick={onUpdate}
       />
       <Trash
-        width={27}
-        height={27}
+        width={22}
+        height={22}
         className="icon"
         role="button"
         onClick={onDelete}

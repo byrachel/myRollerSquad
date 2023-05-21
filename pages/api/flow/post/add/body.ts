@@ -43,7 +43,6 @@ export default withIronSessionApiRoute(
       link,
       duration,
       distance,
-      // squad_ids,
       country,
       county,
       city,
@@ -74,7 +73,6 @@ export default withIronSessionApiRoute(
           distance: distance ? distance : null,
           price: price ? parseFloat(price) : null,
           pictures: [],
-          // squad_ids: squad_ids ? squad_ids : [],
         },
       });
 

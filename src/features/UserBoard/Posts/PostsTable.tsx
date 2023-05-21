@@ -1,5 +1,5 @@
 import React from "react";
-import { Table, Row, User, Text, Badge } from "@nextui-org/react";
+import { Table, Row, User, Text, Badge, Col } from "@nextui-org/react";
 import { PostInterface } from "src/interfaces/flowInterfaces";
 import { getStyleName } from "src/constants/RollerSkateStyles";
 import { getCategoryName } from "src/constants/PostCategories";
@@ -7,6 +7,7 @@ import { deletePost } from "src/features/Flow/addPost/utils/deletePost";
 import Heart from "src/svg/heart.svg";
 import Comment from "src/svg/chat-bubble.svg";
 import UpdateDeleteIcons from "@/components/buttons/UpdateDeleteIcons";
+import { cardColor } from "src/utils/colorManager";
 
 interface Props {
   posts: PostInterface[];
@@ -18,7 +19,7 @@ interface Props {
 
 export default function PostsTable({ posts, setUpdate, setEditPost }: Props) {
   const columns = [
-    { name: "TITRE", uid: "title" },
+    { name: "MES PUBLICATIONS", uid: "title" },
     { name: "STYLE", uid: "category" },
     { name: "SUCCES", uid: "success" },
     { name: "ACTIONS", uid: "actions" },
@@ -35,20 +36,29 @@ export default function PostsTable({ posts, setUpdate, setEditPost }: Props) {
             name={cellValue}
             css={{ p: 0, fontWeight: 500 }}
           >
-            {getCategoryName(post.category_id)}
+            {post.place_id ? `Business Post` : null}
           </User>
         );
       case "category":
         return (
-          <Row justify="flex-start" align="center" wrap="wrap">
-            {post.style.length > 0
-              ? post.style.map((style: any, index: number) => (
-                  <Badge key={index} variant="flat">
-                    {getStyleName(style.style_id)}
-                  </Badge>
-                ))
-              : null}
-          </Row>
+          <Col>
+            <Row>
+              <div
+                className={`staticOutlineBadge ${cardColor(post.category_id)}`}
+              >
+                {getCategoryName(post.category_id)}
+              </div>
+            </Row>
+            <Row justify="flex-start" align="center" wrap="wrap">
+              {post.style.length > 0
+                ? post.style.map((style: any, index: number) => (
+                    <Badge key={index} variant="flat">
+                      {getStyleName(style.style_id)}
+                    </Badge>
+                  ))
+                : null}
+            </Row>
+          </Col>
         );
       case "success":
         return (
@@ -107,7 +117,11 @@ export default function PostsTable({ posts, setUpdate, setEditPost }: Props) {
         {(column) => (
           <Table.Column
             key={column.uid}
-            hideHeader={column.uid === "actions" || column.uid === "success"}
+            hideHeader={
+              column.uid === "actions" ||
+              column.uid === "success" ||
+              column.uid === "category"
+            }
             align={column.uid === "actions" ? "center" : "start"}
           >
             {column.name}

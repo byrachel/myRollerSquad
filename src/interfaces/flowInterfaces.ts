@@ -23,6 +23,7 @@ export interface PostInterface {
   price: number | null;
   distance: string | null;
   duration: string | null;
+  place_id: number | null;
 }
 
 export interface UploadedPictureInterface {

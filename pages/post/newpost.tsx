@@ -29,6 +29,7 @@ const NewPost = () => {
               isPro={userRole === "PRO"}
               post={post}
               postDispatch={postDispatch}
+              editMode={false}
             />
           }
         />

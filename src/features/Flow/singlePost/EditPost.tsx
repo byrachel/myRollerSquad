@@ -34,6 +34,7 @@ export default function EditPost({
     duration: postToEdit.duration,
     distance: postToEdit.distance,
     link: postToEdit.link,
+    place_id: postToEdit.place_id,
   };
   const [post, postDispatch] = useReducer(PostReducer, initialState);
 

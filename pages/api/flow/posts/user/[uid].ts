@@ -25,6 +25,8 @@ export default withIronSessionApiRoute(
         },
         select: {
           id: true,
+          user_id: true,
+          place_id: true,
           title: true,
           category_id: true,
           style: {
