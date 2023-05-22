@@ -78,20 +78,6 @@ export default function SelectLocation({ country, department, city }: Props) {
                   </option>
                 ))}
               </select>
-
-              {/* <input
-              type="text"
-              list="options"
-              name="city"
-              className="input"
-              placeholder="-- Choisis ta ville"
-              defaultValue={city || ""}
-            />
-            <datalist id="options">
-              {citiesToSelect.map((city) => (
-                <option key={city.id} value={city.name} />
-              ))}
-            </datalist> */}
             </div>
           </div>
         </div>
