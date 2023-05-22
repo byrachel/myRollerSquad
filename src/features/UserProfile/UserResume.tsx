@@ -1,7 +1,7 @@
 import React from "react";
 
 import { parseContent } from "src/utils/parseContent";
-import { UserInterface } from "src/interfaces/userInterfaces";
+import { UserInterface } from "src/entities/user.entity";
 
 import Instagram from "src/svg/instagram.svg";
 import Tiktok from "src/svg/tiktok.svg";

@@ -55,6 +55,8 @@ const UserInfosContainer = ({ userConnectedId, userToDisplay }: Props) => {
     // eslint-disable-next-line
   }, [userToDisplay]);
 
+  console.log(userProfile);
+
   return (
     <>
       {userProfile.user ? (
@@ -91,7 +93,7 @@ const UserInfosContainer = ({ userConnectedId, userToDisplay }: Props) => {
             userToDisplay={userToDisplay}
             userConnectedId={userConnectedId}
             userProfileDispatch={userProfileDispatch}
-            posts={userProfile.lastPosts}
+            posts={userProfile.user.posts}
           />
           <div className="userFavsContainer">
             <h2 className="title">Shops & clubs favoris</h2>

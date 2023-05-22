@@ -6,7 +6,7 @@ import Avatar from "../Avatar/Avatar";
 import UpdateUserProfileForm from "./UpdateUserProfileForm";
 import RegularButton from "src/components/buttons/RegularButton";
 import { useProfile } from "src/hooks/useProfile";
-import { UserInterface } from "src/interfaces/userInterfaces";
+import { UserInterface } from "src/entities/user.entity";
 
 interface Props {
   userProfile: UserInterface;

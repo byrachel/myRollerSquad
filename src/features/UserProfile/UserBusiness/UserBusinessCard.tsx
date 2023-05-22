@@ -59,7 +59,11 @@ export default function UserBusinessCard({
               />
             ) : (
               <Image
-                src="/img/myrollersquad_avatar.jpeg"
+                src={
+                  place.logo
+                    ? `https://myrollerbusinesslogo.s3.eu-west-3.amazonaws.com/${place.logo}`
+                    : "/img/myrollersquad_avatar.jpeg"
+                }
                 alt="Club de Roller Quad"
                 className="businessLogo"
                 width={140}

@@ -6,6 +6,7 @@ import Image from "next/image";
 
 import { State, useUser } from "src/hooks/useUser";
 import UserIcon from "src/svg/profile-circle.svg";
+import MyAccountDropdownMenu from "./MyAccountDropdownMenu";
 
 export default function Header() {
   const router = useRouter();
@@ -13,10 +14,11 @@ export default function Header() {
   const navbarToggleRef = useRef() as any;
   const [isSideMenuOpen, setIsSideMenuOpen] = useState<any>(false);
 
-  const { userRole, userId } = useUser(
+  const { userRole, userId, logout } = useUser(
     (state: State) => ({
       userId: state.userId,
       userRole: state.userRole,
+      logout: state.logout,
     }),
     shallow
   );
@@ -78,9 +80,13 @@ export default function Header() {
           ) : null}
         </Navbar.Content>
         <Navbar.Content activeColor="secondary">
-          <Navbar.Link color="inherit" href="/profile/me">
-            <UserIcon width={34} height={34} stroke="black" fill="none" />
-          </Navbar.Link>
+          {userId ? (
+            <MyAccountDropdownMenu logout={logout} userId={userId} />
+          ) : (
+            <Navbar.Link color="inherit" href="/profile/me">
+              <UserIcon width={34} height={34} stroke="black" fill="none" />
+            </Navbar.Link>
+          )}
         </Navbar.Content>
         <Navbar.Collapse>
           {isAdmin

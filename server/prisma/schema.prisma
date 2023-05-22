@@ -12,6 +12,9 @@ datasource db {
 
 model User {
   id            Int            @id @default(autoincrement())
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
+  active        Boolean        @default(false)
   email         String         @unique
   name          String         @unique
   role          Role           @default(USER)
@@ -25,7 +28,8 @@ model User {
   social_medias Json?
   website       String?
   pictures      String[]
-  resume             String?
+  resume        String?
+
   roller_dance_level Int     @default(0)
   skatepark_level    Int     @default(0)
   artistic_level     Int     @default(0)
@@ -34,34 +38,11 @@ model User {
   derby_level        Int     @default(0)
 
   posts         Post[]         @relation("post_author")
-  postLiked     PostLiked[]    @relation("post_liked")
+  posts_liked   PostLiked[]    @relation("post_liked")
+  place         Place[]        @relation("place_owner")
+  favorite_places Place[] @relation("FavoritePlaces")
   my_squad     User[] @relation("MySquad")
   my_followers User[] @relation("MySquad")
-  my_events Event[] @relation("event_author")
-
-  createdAt     DateTime       @default(now())
-  updatedAt     DateTime       @updatedAt
-
-  active        Boolean        @default(false)
-  place         Place[]        @relation("place_owner")
-
-  favorite_places Place[] @relation("FavoritePlaces")
-}
-
-model Event {
-  id         Int      @id @default(autoincrement())
-  name       String
-  resume     String
-  country    String
-  county     String
-  city       String
-  website    String
-  createdAt  DateTime @default(now())
-  updatedAt  DateTime @updatedAt
-  start_date DateTime
-  end_date   DateTime
-  author    User @relation("event_author", fields: [author_id], references: [id])
-  author_id Int
 }
 
 model Comment {
@@ -137,25 +118,22 @@ model StylesOnPosts {
 
 model Place {
   id            Int       @id @default(autoincrement())
+  active        Boolean    @default(false)
   owner         User       @relation("place_owner", fields: [user_id], references: [id], onDelete: Cascade)
   user_id       Int
   logo          String?
   type          PlaceType   @default(PROFESSIONAL)
   category      PlaceCategory @default(OTHER)
-  active        Boolean    @default(false)
   name          String
   description   String?
   website       String?
   siren         String
   created_at    DateTime    @default(now())
   updated_at    DateTime?
-
-  favorites     User[]     @relation("FavoritePlaces")
-
   country       String    @default("France")
   county        String?
   city          String?
-
+  favorites     User[]     @relation("FavoritePlaces")
   posts         Post[]     @relation("place_author")
 }
 

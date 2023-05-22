@@ -1,7 +1,7 @@
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { PlaceInterface } from "src/interfaces/userInterfaces";
+import { PlaceInterface } from "src/entities/business.entity";
 import AddToFav from "./AddToFav";
 
 import MySquad from "src/svg/flash.svg";
@@ -42,7 +42,14 @@ export default function BusinessPlaces({ places }: Props) {
               {place.city}
             </p>
           </div>
-          <p className="mt5">{place.description.substring(0, 150) + " ..."}</p>
+
+          {place.description ? (
+            <p className="mt5">
+              {place.description.substring(0, 150) + " ..."}
+            </p>
+          ) : (
+            <br />
+          )}
 
           <div className="center">
             <div className="placeFavoriteCounter">
@@ -53,7 +60,7 @@ export default function BusinessPlaces({ places }: Props) {
                 height={24}
                 style={{ marginLeft: 20, stroke: "#3abff8" }}
               />
-              <p>{place._count.posts}</p>
+              <p>{place._count ? place._count.posts : 0}</p>
             </div>
           </div>
         </div>

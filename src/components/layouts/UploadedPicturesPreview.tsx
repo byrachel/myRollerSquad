@@ -1,7 +1,7 @@
 import React from "react";
 import Image from "next/image";
 
-import { UploadedPictureInterface } from "src/interfaces/flowInterfaces";
+import { UploadedPictureInterface } from "src/entities/flow.entity";
 import ErrorLayout from "./ErrorLayout";
 
 interface Props {

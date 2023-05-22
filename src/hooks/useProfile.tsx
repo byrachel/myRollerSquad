@@ -1,6 +1,7 @@
-import { PlaceInterface, UserInterface } from "src/interfaces/userInterfaces";
-import { create } from "zustand";
 import axios from "axios";
+import { create } from "zustand";
+import { PlaceInterface } from "src/entities/business.entity";
+import { UserInterface } from "src/entities/user.entity";
 
 export type UserProfile = {
   userProfileLoading: boolean;

@@ -2,17 +2,15 @@ export interface PostInterface {
   id: number;
   title: string;
   content: string;
-  hashtags: string[];
   created_at: Date;
   category_id: number;
   pictures: string[];
   link: string | null;
   style: { style_id: number }[];
-  squad_ids: number[];
-  city?: string;
-  county?: string;
+  city: string | null;
+  county: string | null;
   country: string;
-  user: {
+  user?: {
     id: number;
     avatar: string | null;
     name: string;
@@ -23,10 +21,10 @@ export interface PostInterface {
     name: string;
     logo: string;
   } | null;
-  user_likes: any[];
-  comments: any[];
+  user_likes: { user_id: number }[];
+  comments?: any[];
   price: number | null;
-  distance: string | null;
+  distance: any | null;
   duration: string | null;
   place_id: number | null;
 }

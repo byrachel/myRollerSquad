@@ -1,5 +1,5 @@
 import React from "react";
-import { PostInterface } from "src/interfaces/flowInterfaces";
+import { PostInterface } from "src/entities/flow.entity";
 import Card from "../Flow/getPosts/Card";
 import { State, useUser } from "src/hooks/useUser";
 

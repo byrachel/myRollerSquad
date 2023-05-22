@@ -1,4 +1,4 @@
-import { NewPostInterface } from "src/interfaces/flowInterfaces";
+import { NewPostInterface } from "src/entities/flow.entity";
 import * as category from "src/constants/PostCategories";
 
 export const newPostInitialState = {

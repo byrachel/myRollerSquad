@@ -2,7 +2,7 @@ import { useState } from "react";
 
 import PostsTable from "./PostsTable";
 import EditPost from "src/features/Flow/singlePost/EditPost";
-import { PostInterface } from "src/interfaces/flowInterfaces";
+import { PostInterface } from "src/entities/flow.entity";
 import RegularButton from "@/components/buttons/RegularButton";
 import { State, useUser } from "src/hooks/useUser";
 

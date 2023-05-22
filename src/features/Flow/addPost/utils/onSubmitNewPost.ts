@@ -1,9 +1,6 @@
 import axios from "axios";
 import { Dispatch, SyntheticEvent } from "react";
-import {
-  EditPostInterface,
-  NewPostInterface,
-} from "src/interfaces/flowInterfaces";
+import { EditPostInterface, NewPostInterface } from "src/entities/flow.entity";
 import { NewPostFactory } from "./NewPostFactory";
 
 export const onSubmitNewPost = async (

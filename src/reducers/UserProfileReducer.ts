@@ -1,5 +1,5 @@
-import { PostInterface } from "src/interfaces/flowInterfaces";
-import { UserInterface } from "src/interfaces/userInterfaces";
+import { PostInterface } from "src/entities/flow.entity";
+import { UserInterface } from "src/entities/user.entity";
 
 export interface UserProfileInterface {
   user: UserInterface;

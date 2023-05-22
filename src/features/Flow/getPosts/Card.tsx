@@ -1,7 +1,7 @@
 import React, { useMemo } from "react";
 import Link from "next/link";
 
-import { PostInterface } from "src/interfaces/flowInterfaces";
+import { PostInterface } from "src/entities/flow.entity";
 import { cardColor } from "src/utils/colorManager";
 import { displayLightDateTime } from "src/utils/handleDates";
 import { parseContent } from "src/utils/parseContent";
@@ -34,7 +34,7 @@ export default function Card({
   return (
     <div className={`cardContainer ${color}`} key={post.id} ref={cardRef}>
       <div className="flexStart">
-        {displayAvatar ? (
+        {displayAvatar && post.user ? (
           <Avatar
             userId={post.user.id}
             userAvatar={post.user.avatar}
@@ -53,7 +53,7 @@ export default function Card({
           </h2>
           {displayAvatar ? (
             <h3 className="userName">
-              {post.place ? post.place.name : post.user.name}
+              {post.place ? post.place.name : post.user?.name}
             </h3>
           ) : null}
         </div>
@@ -107,7 +107,7 @@ export default function Card({
           likedBy={post.user_likes.map((like) => like.user_id)}
           userConnectedId={userConnectedId}
         />
-        <CommentIcon counter={post.comments.length} color={color} />
+        <CommentIcon counter={post.comments?.length || 0} color={color} />
         <Link href={`/post/${post.id}`}>
           <Arrow className={`linksIcon ${color}`} width={30} height={30} />
         </Link>

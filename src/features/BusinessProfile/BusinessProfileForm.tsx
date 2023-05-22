@@ -3,7 +3,7 @@ import InputUrl from "@/components/form/InputUrl";
 import SelectLocation from "@/components/form/Location/SelectLocation";
 import { Radio } from "@nextui-org/react";
 import { businessCategories } from "src/constants/BusinessCategories";
-import { PlaceInterface } from "src/interfaces/userInterfaces";
+import { PlaceInterface } from "src/entities/business.entity";
 
 interface Props {
   placeToUpdate?: PlaceInterface;

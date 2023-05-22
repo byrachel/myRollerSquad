@@ -1,16 +1,13 @@
-import { PostInterface } from "./flowInterfaces";
+import { PostInterface } from "./flow.entity";
 
 export interface UserInterface {
   id: number;
+  active: boolean;
   name: string;
   role: string;
   email: string;
   avatar: string | null;
-  posts?: PostInterface[];
-  place: any;
   resume: string | null;
-  my_followers: number[];
-  my_squad_ids?: number[];
   pictures: string[];
   social_medias: any;
   website: string | null;
@@ -23,23 +20,18 @@ export interface UserInterface {
   country: string;
   county: string | null;
   city: string | null;
+  place: { id: number }[];
 }
 
-export interface PlaceInterface {
+export interface UserFavs {
   id: number;
   name: string;
-  description: string;
-  city: string;
-  country: string;
-  type: string;
-  active: boolean;
-  website: string;
-  county: string;
-  favorites: { id: number }[];
-  user_id: number;
-  siren: string;
+  category: "LEARN" | "BUY" | "PLAY" | "OTHER";
   logo: string | null;
-  category: string;
-  posts: PostInterface[];
-  _count: { posts: number };
+}
+
+export interface UserProfileInterface extends UserInterface {
+  posts?: PostInterface[];
+  favorite_places: UserFavs[];
+  // posts_liked: { id: number }[];
 }

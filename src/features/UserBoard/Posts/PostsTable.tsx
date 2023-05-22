@@ -1,6 +1,6 @@
 import React from "react";
 import { Table, Row, User, Text, Badge, Col } from "@nextui-org/react";
-import { PostInterface } from "src/interfaces/flowInterfaces";
+import { PostInterface } from "src/entities/flow.entity";
 import { getStyleName } from "src/constants/RollerSkateStyles";
 import { getCategoryName } from "src/constants/PostCategories";
 import { deletePost } from "src/features/Flow/addPost/utils/deletePost";

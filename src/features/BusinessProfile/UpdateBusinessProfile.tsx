@@ -8,7 +8,7 @@ import {
 import { useRouter } from "next/router";
 import ErrorLayout from "@/components/layouts/ErrorLayout";
 import RegularButton from "@/components/buttons/RegularButton";
-import { PlaceInterface } from "src/interfaces/userInterfaces";
+import { PlaceInterface } from "src/entities/business.entity";
 import { E1, E3 } from "src/constants/ErrorMessages";
 
 interface Props {

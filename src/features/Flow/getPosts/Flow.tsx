@@ -4,7 +4,7 @@ import axios from "axios";
 import CardContainer from "src/features/Flow/getPosts/CardContainer";
 import FlowReducer from "src/reducers/FlowReducer";
 import FlowFilters from "src/features/Flow/getPosts/FlowFilters";
-import { PostInterface } from "src/interfaces/flowInterfaces";
+import { PostInterface } from "src/entities/flow.entity";
 import Loader from "@/components/layouts/Loader";
 
 const breakpointColumnsObj = {

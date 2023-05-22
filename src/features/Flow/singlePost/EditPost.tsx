@@ -1,5 +1,5 @@
 import React, { useReducer } from "react";
-import { PostInterface } from "src/interfaces/flowInterfaces";
+import { PostInterface } from "src/entities/flow.entity";
 import NewPostForm from "../addPost/NewPostForm";
 import { PostReducer } from "src/reducers/PostReducer";
 

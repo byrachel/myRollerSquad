@@ -2,7 +2,7 @@ import React from "react";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import RegularButton from "@/components/buttons/RegularButton";
-import { PlaceInterface } from "src/interfaces/userInterfaces";
+import { PlaceInterface } from "src/entities/business.entity";
 
 import Pin from "src/svg/pin.svg";
 import AddToFav from "./AddToFav";

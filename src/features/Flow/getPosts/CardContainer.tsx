@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from "react";
 
 import Card from "./Card";
-import { PostInterface } from "../../../interfaces/flowInterfaces";
+import { PostInterface } from "../../../entities/flow.entity";
 
 interface Props {
   post: PostInterface;

@@ -1,4 +1,4 @@
-import { PostInterface } from "src/interfaces/flowInterfaces";
+import { PostInterface } from "src/entities/flow.entity";
 
 export interface FlowInterface {
   cursor: number | null;

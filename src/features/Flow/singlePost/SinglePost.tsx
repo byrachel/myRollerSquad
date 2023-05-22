@@ -2,7 +2,7 @@ import { useMemo, useState } from "react";
 import Image from "next/image";
 
 import { getCategoryName } from "src/constants/PostCategories";
-import { PostInterface } from "src/interfaces/flowInterfaces";
+import { PostInterface } from "src/entities/flow.entity";
 import { cardColor } from "src/utils/colorManager";
 import { displayLightDateTime } from "src/utils/handleDates";
 import { parseContent } from "src/utils/parseContent";

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import DisplayTableOrUpdate from "./DisplayTableOrUpdate";
-import { PostInterface } from "src/interfaces/flowInterfaces";
+import { PostInterface } from "src/entities/flow.entity";
 
 interface Props {
   userConnectedId: number;

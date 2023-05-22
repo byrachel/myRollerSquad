@@ -2,7 +2,7 @@ import { Dispatch, SyntheticEvent } from "react";
 import axios from "axios";
 
 import { E1 } from "src/constants/ErrorMessages";
-import { IErrorCode } from "src/interfaces/globalInterfaces";
+import { IErrorCode } from "@/server/interfaces/globalInterfaces";
 
 export const onRegister = (
   event: SyntheticEvent,

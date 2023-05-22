@@ -65,9 +65,8 @@
 
 .rollerSkaterInfoBar {
   width: 100%;
-  background: $gradient;
+  background: $primaryColor;
   gap: 2em;
-  margin: 0.3em 0 0 0;
   padding: 1em;
   display: flex;
   justify-content: flex-start;
@@ -306,13 +305,16 @@ div.addBusinessLink {
     border-radius: 5px;
     cursor: pointer;
     min-width: 325px;
+    border: solid 1px $greyColor;
+    box-shadow: 3px 3px $greyColor;
 
     h2 {
       margin: 0 0 0.2em 0;
     }
   }
   .favCard:hover {
-    box-shadow: 3px 3px $greyColor;
+    border: solid 1px $secondaryColor;
+    box-shadow: 3px 3px $secondaryColor;
   }
   .favCardLogo {
     border-radius: 5px 0 0 5px;

@@ -7,7 +7,7 @@ import Pin from "src/svg/pin.svg";
 
 import BusinessAddToFav from "../../BusinessProfile/BusinessAddToFav";
 import UpdateDeleteIcons from "@/components/buttons/UpdateDeleteIcons";
-import { PlaceInterface } from "src/interfaces/userInterfaces";
+import { PlaceInterface } from "src/entities/business.entity";
 
 interface Props {
   place: PlaceInterface;

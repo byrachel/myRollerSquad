@@ -1,5 +1,5 @@
 import { STORY, SALE } from "src/constants/PostCategories";
-import { NewPostFactoryInterface } from "src/interfaces/flowInterfaces";
+import { NewPostFactoryInterface } from "src/entities/flow.entity";
 
 class StoryPost {
   title;

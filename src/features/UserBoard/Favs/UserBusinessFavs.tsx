@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import CategoryFilters from "@/components/buttons/CategoryFilters";
 import Image from "next/image";
-import { PlaceInterface } from "src/interfaces/userInterfaces";
+import { PlaceInterface } from "src/entities/business.entity";
 
 interface Props {
   favs: any;
@@ -15,7 +15,7 @@ const getBusinessCategoryName = (category: string) => {
     case "BUY":
       return "S'équiper";
     case "PLAY":
-      return "S'amuser'";
+      return "S'amuser";
     default:
       return "Autre";
   }

@@ -1,39 +1,16 @@
-import { PostInterface } from "src/interfaces/flowInterfaces";
-import React, { useEffect } from "react";
+import { PostInterface } from "src/entities/flow.entity";
+import React from "react";
 import Card from "../Flow/getPosts/Card";
 import RegularButton from "../../components/buttons/RegularButton";
 import { useRouter } from "next/router";
-import axios from "axios";
 
 interface Props {
-  userToDisplay: number;
   userConnectedId: number;
-  userProfileDispatch: React.Dispatch<any>;
   posts: PostInterface[];
 }
 
-export default function LastPostsShared({
-  userToDisplay,
-  userConnectedId,
-  userProfileDispatch,
-  posts,
-}: Props) {
+export default function LastPostsShared({ userConnectedId, posts }: Props) {
   const router = useRouter();
-
-  useEffect(() => {
-    if (userToDisplay) {
-      axios(`/api/flow/posts/user/latest/${userToDisplay}`, {
-        method: "GET",
-        withCredentials: true,
-      }).then((res) => {
-        userProfileDispatch({
-          type: "SET_LAST_POSTS",
-          payload: res.data.posts,
-        });
-      });
-    }
-    // eslint-disable-next-line
-  }, [userToDisplay]);
 
   return posts.length > 0 ? (
     <div className="userFlowContainer">

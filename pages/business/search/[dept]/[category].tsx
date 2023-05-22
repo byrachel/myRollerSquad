@@ -3,7 +3,7 @@ import BusinessPlaces from "src/features/BusinessProfile/BusinessPlaces";
 import BusinessProfileCTA from "src/features/BusinessProfile/BusinessProfileCTA";
 import PlacesFilters from "src/features/BusinessProfile/PlacesFilters";
 import prisma from "server/prisma/db/client";
-import { PlaceInterface } from "src/interfaces/userInterfaces";
+import { PlaceInterface } from "src/entities/business.entity";
 import Loader from "@/components/layouts/Loader";
 
 interface Props {
