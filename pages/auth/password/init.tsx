@@ -2,10 +2,10 @@ import React, { SyntheticEvent, useState } from "react";
 import axios from "axios";
 import Link from "next/link";
 
-import SidebarLayout from "src/components/layouts/SidebarLayout";
-import UnloggedUserSidebar from "src/components/layouts/UnloggedUserSidebar";
-import RegularButton from "@/components/buttons/RegularButton";
-import InputText from "@/components/form/InputText";
+import SidebarLayout from "client/components/layouts/SidebarLayout";
+import UnloggedUserSidebar from "client/components/layouts/UnloggedUserSidebar";
+import RegularButton from "client/components/buttons/RegularButton";
+import InputText from "client/components/form/InputText";
 
 const Password = () => {
   const [mailIsSent, setMailIsSent] = useState(false);

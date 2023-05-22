@@ -1,6 +1,6 @@
-import MyFavs from "src/features/UserBoard/Favs/MyFavs";
-import Loader from "@/components/layouts/Loader";
-import { useUser } from "src/hooks/useUser";
+import MyFavs from "client/features/UserBoard/Favs/MyFavs";
+import Loader from "client/components/layouts/Loader";
+import { useUser } from "client/hooks/useUser";
 
 const UserFavs = () => {
   const userId = useUser((state) => state.userId);

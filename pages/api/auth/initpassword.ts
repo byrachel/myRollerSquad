@@ -3,9 +3,9 @@ import nextConnect from "next-connect";
 import jwt from "jsonwebtoken";
 
 import prisma from "../../../server/prisma/db/client";
-import sendEmail from "../../../server/middleware/sendEmail";
+import sendEmail from "../../../server/utils/sendEmail";
 import { initValidation, check } from "../../../server/middleware/validators";
-import { E3 } from "src/constants/ErrorMessages";
+import { E3 } from "client/constants/ErrorMessages";
 
 const handler = nextConnect();
 

@@ -1,7 +1,7 @@
-import NewPostBar from "@/components/layouts/NewPostBar";
-import HandlePosts from "src/features/UserBoard/Posts/HandlePosts";
-import Loader from "@/components/layouts/Loader";
-import { useUser } from "src/hooks/useUser";
+import NewPostBar from "client/components/layouts/NewPostBar";
+import HandlePosts from "client/features/UserBoard/Posts/HandlePosts";
+import Loader from "client/components/layouts/Loader";
+import { useUser } from "client/hooks/useUser";
 
 const UserPosts = () => {
   const userId = useUser((state) => state.userId);

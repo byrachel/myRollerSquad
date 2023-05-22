@@ -3,7 +3,7 @@ import { withIronSessionApiRoute } from "iron-session/next";
 
 import prisma from "@/server/prisma/db/client";
 import { initValidation, check } from "@/server/middleware/validators";
-import { E1, E2, E3 } from "src/constants/ErrorMessages";
+import { E1, E2, E3 } from "client/constants/ErrorMessages";
 import { ironConfig } from "@/server/middleware/auth/ironConfig";
 
 const validator = initValidation([

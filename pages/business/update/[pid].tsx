@@ -1,11 +1,11 @@
 import { useRouter } from "next/router";
 import { shallow } from "zustand/shallow";
 
-import Login from "src/features/auth/Login";
-import SidebarLayout from "@/components/layouts/SidebarLayout";
-import UnloggedUserSidebar from "@/components/layouts/UnloggedUserSidebar";
-import UpdateBusinessProfile from "src/features/BusinessProfile/UpdateBusinessProfile";
-import { State, useUser } from "src/hooks/useUser";
+import Login from "client/features/auth/Login";
+import SidebarLayout from "client/components/layouts/SidebarLayout";
+import UnloggedUserSidebar from "client/components/layouts/UnloggedUserSidebar";
+import UpdateBusinessProfile from "client/features/BusinessProfile/UpdateBusinessProfile";
+import { State, useUser } from "client/hooks/useUser";
 
 const UpdateBusiness = () => {
   const router = useRouter();

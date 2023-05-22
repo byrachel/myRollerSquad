@@ -1,7 +1,7 @@
 import nextConnect from "next-connect";
 
 import prisma from "../../../../server/prisma/db/client";
-import { E1 } from "src/constants/ErrorMessages";
+import { E1 } from "client/constants/ErrorMessages";
 
 const handler = nextConnect();
 

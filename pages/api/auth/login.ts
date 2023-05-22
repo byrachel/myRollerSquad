@@ -4,7 +4,7 @@ import { NextApiResponse } from "next";
 
 import prisma from "../../../server/prisma/db/client";
 import { initValidation, check } from "../../../server/middleware/validators";
-import { E3, E5, E6 } from "src/constants/ErrorMessages";
+import { E3, E5, E6 } from "client/constants/ErrorMessages";
 import { ironConfig } from "@/server/middleware/auth/ironConfig";
 import { withIronSessionApiRoute } from "iron-session/next";
 

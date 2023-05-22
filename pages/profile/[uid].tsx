@@ -1,8 +1,8 @@
 import { useRouter } from "next/router";
-import UserInfosContainer from "src/features/UserProfile/UserInfosContainer";
-import MyInfosContainer from "src/features/UserProfile/MyInfosContainer";
-import Loader from "@/components/layouts/Loader";
-import { useUser } from "src/hooks/useUser";
+import UserInfosContainer from "client/features/UserProfile/UserInfosContainer";
+import MyInfosContainer from "client/features/UserProfile/MyInfosContainer";
+import Loader from "client/components/layouts/Loader";
+import { useUser } from "client/hooks/useUser";
 
 const UserProfile = () => {
   const router = useRouter();

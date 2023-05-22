@@ -1,6 +1,6 @@
 import type { NextApiResponse } from "next";
 import prisma from "../../../server/prisma/db/client";
-import { E1, E3 } from "src/constants/ErrorMessages";
+import { E1, E3 } from "client/constants/ErrorMessages";
 import { withSessionRoute } from "@/server/middleware/auth/withSession";
 
 export default withSessionRoute(async (req: any, res: NextApiResponse) => {
