@@ -1,7 +1,7 @@
-import Loader from "client/components/layouts/Loader";
-import NewPostBar from "client/components/layouts/NewPostBar";
-import Flow from "client/features/Flow/getPosts/Flow";
-import { useUser } from "client/hooks/useUser";
+import Loader from "src/components/layouts/Loader";
+import NewPostBar from "src/components/layouts/NewPostBar";
+import Flow from "src/features/Flow/getPosts/Flow";
+import { useUser } from "src/hooks/useUser";
 
 const MyRollerBlog = () => {
   const userId = useUser((state) => state.userId);

@@ -1,10 +1,10 @@
-import { PostInterface } from "client/entities/flow.entity";
-import { PlaceInterface } from "client/entities/business.entity";
+import { PostInterface } from "src/entities/flow.entity";
+import { PlaceInterface } from "src/entities/business.entity";
 import {
   UserFavs,
   UserInterface,
   UserProfileInterface,
-} from "client/entities/user.entity";
+} from "src/entities/user.entity";
 
 export interface UserProfileUseCase {
   getMyProfile(id: number): Promise<UserInterface | null>;

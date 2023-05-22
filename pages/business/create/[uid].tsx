@@ -1,7 +1,7 @@
-import SidebarLayout from "client/components/layouts/SidebarLayout";
-import AddBusinessProfile from "client/features/BusinessProfile/AddBusinessProfile";
-import { useUser } from "client/hooks/useUser";
-import Loader from "client/components/layouts/Loader";
+import SidebarLayout from "src/components/layouts/SidebarLayout";
+import AddBusinessProfile from "src/features/BusinessProfile/AddBusinessProfile";
+import { useUser } from "src/hooks/useUser";
+import Loader from "src/components/layouts/Loader";
 
 const BusinessSignup = () => {
   const userId = useUser((state) => state.userId);

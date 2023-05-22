@@ -1,12 +1,12 @@
 import prisma from "server/prisma/db/client";
 
-import { PlaceInterface } from "client/entities/business.entity";
-import { PostInterface } from "client/entities/flow.entity";
+import { PlaceInterface } from "src/entities/business.entity";
+import { PostInterface } from "src/entities/flow.entity";
 import {
   UserFavs,
   UserInterface,
   UserProfileInterface,
-} from "client/entities/user.entity";
+} from "src/entities/user.entity";
 import { UserProfileUseCase } from "@/server/usecases/UserProfile.usecase";
 import { exclude } from "@/server/utils/prismaExclude";
 

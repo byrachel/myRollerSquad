@@ -3,7 +3,7 @@ import { withIronSessionApiRoute } from "iron-session/next";
 
 import prisma from "../../../../server/prisma/db/client";
 import { ironConfig } from "@/server/middleware/auth/ironConfig";
-import { E1 } from "client/constants/ErrorMessages";
+import { E1 } from "src/constants/ErrorMessages";
 
 export default withIronSessionApiRoute(userRoute, ironConfig);
 

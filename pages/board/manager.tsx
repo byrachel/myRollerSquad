@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import styles from "src/styles/AdminLayout.module.scss";
-import CategoriesBoard from "client/components/admin/CategoriesBoard";
-import PlacesBoard from "client/components/admin/PlacesBoard";
+import CategoriesBoard from "src/components/admin/CategoriesBoard";
+import PlacesBoard from "src/components/admin/PlacesBoard";
 import { withSessionSsr } from "@/server/middleware/auth/withSession";
-import { UserStateInterface } from "client/reducers/UserReducer";
+import { UserStateInterface } from "src/reducers/UserReducer";
 
 const CATEGORIES = 1;
 const STYLES = 2;

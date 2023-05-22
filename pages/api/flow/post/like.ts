@@ -2,7 +2,7 @@ import type { NextApiResponse } from "next";
 import { withIronSessionApiRoute } from "iron-session/next";
 
 import prisma from "../../../../server/prisma/db/client";
-import { E1, E2 } from "client/constants/ErrorMessages";
+import { E1, E2 } from "src/constants/ErrorMessages";
 import { ironConfig } from "@/server/middleware/auth/ironConfig";
 
 export default withIronSessionApiRoute(likeRoute, ironConfig);

@@ -3,7 +3,7 @@ import { NextApiResponse } from "next";
 
 import prisma from "../../../server/prisma/db/client";
 import { initValidation, check } from "../../../server/middleware/validators";
-import { E1, E3 } from "client/constants/ErrorMessages";
+import { E1, E3 } from "src/constants/ErrorMessages";
 import { hashPassword } from "@/server/middleware/auth/password";
 
 const handler = nextConnect();

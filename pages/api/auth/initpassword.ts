@@ -5,7 +5,7 @@ import jwt from "jsonwebtoken";
 import prisma from "../../../server/prisma/db/client";
 import sendEmail from "../../../server/utils/sendEmail";
 import { initValidation, check } from "../../../server/middleware/validators";
-import { E3 } from "client/constants/ErrorMessages";
+import { E3 } from "src/constants/ErrorMessages";
 
 const handler = nextConnect();
 

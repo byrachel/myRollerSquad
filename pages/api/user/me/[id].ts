@@ -2,7 +2,7 @@ import { withIronSessionApiRoute } from "iron-session/next";
 import nextConnect from "next-connect";
 
 import { ironConfig } from "@/server/middleware/auth/ironConfig";
-import { E1, E2 } from "client/constants/ErrorMessages";
+import { E1, E2 } from "src/constants/ErrorMessages";
 import { UserProfileRepository } from "@/server/repositories/UserProfile.repository";
 
 const handler = nextConnect();

@@ -1,7 +1,7 @@
 import type { AppProps } from "next/app";
 import { Poppins, Montserrat } from "next/font/google";
 import { createTheme, NextUIProvider } from "@nextui-org/react";
-import MainLayout from "../client/components/layouts/MainLayout";
+import MainLayout from "../src/components/layouts/MainLayout";
 
 const poppins = Poppins({
   weight: ["800", "600"],
@@ -14,10 +14,10 @@ const montserrat = Montserrat({
   display: "fallback",
 });
 
-import "../client/styles/globals.scss";
-import "../client/styles/common.scss";
-import "../client/styles/flow.scss";
-import "../client/styles/profile.scss";
+import "../src/styles/globals.scss";
+import "../src/styles/common.scss";
+import "../src/styles/flow.scss";
+import "../src/styles/profile.scss";
 
 const theme = createTheme({
   type: "light",

@@ -4,7 +4,7 @@ import { withIronSessionApiRoute } from "iron-session/next";
 
 import prisma from "@/server/prisma/db/client";
 import { uploadImage } from "@/server/utils/uploadImage";
-import { E1, E2 } from "client/constants/ErrorMessages";
+import { E1, E2 } from "src/constants/ErrorMessages";
 import { ironConfig } from "@/server/middleware/auth/ironConfig";
 
 const upload = multer({

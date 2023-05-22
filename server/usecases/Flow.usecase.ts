@@ -1,4 +1,4 @@
-import { PostInterface } from "client/entities/flow.entity";
+import { PostInterface } from "src/entities/flow.entity";
 
 export interface FlowUseCase {
   getPosts: (

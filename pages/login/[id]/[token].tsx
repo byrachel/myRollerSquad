@@ -2,12 +2,12 @@ import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import axios from "axios";
 
-import LoginForm from "client/features/auth/LoginForm";
-import SidebarLayout from "client/components/layouts/SidebarLayout";
-import UnloggedUserSidebar from "client/components/layouts/UnloggedUserSidebar";
-import ActivationAccount from "client/features/auth/ActivationAccount";
-import { checkTokenValidity } from "client/utils/checkTokenValidity";
-import Loader from "client/components/layouts/Loader";
+import LoginForm from "src/features/auth/LoginForm";
+import SidebarLayout from "src/components/layouts/SidebarLayout";
+import UnloggedUserSidebar from "src/components/layouts/UnloggedUserSidebar";
+import ActivationAccount from "src/features/auth/ActivationAccount";
+import { checkTokenValidity } from "src/utils/checkTokenValidity";
+import Loader from "src/components/layouts/Loader";
 
 const Login = () => {
   const router = useRouter();

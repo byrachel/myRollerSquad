@@ -1,7 +1,7 @@
 import { NextApiResponse } from "next";
 import nextConnect from "next-connect";
 import sendEmail from "@/server/utils/sendEmail";
-import { E3 } from "client/constants/ErrorMessages";
+import { E3 } from "src/constants/ErrorMessages";
 
 const handler = nextConnect();
 

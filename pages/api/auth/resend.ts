@@ -1,6 +1,6 @@
 import type { NextApiResponse } from "next";
 import prisma from "../../../server/prisma/db/client";
-import { E1, E3 } from "client/constants/ErrorMessages";
+import { E1, E3 } from "src/constants/ErrorMessages";
 import jwt from "jsonwebtoken";
 import { withSessionRoute } from "@/server/middleware/auth/withSession";
 import sendEmail from "../../../server/utils/sendEmail";

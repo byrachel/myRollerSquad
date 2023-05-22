@@ -18,7 +18,7 @@
     "sourceMap": true,
     "baseUrl": ".",
     "paths": {
-      "@/components/*": ["client/components/*"],
+      "@/components/*": ["src/components/*"],
       "@/server/*": ["server/*"]
     }
   },
@@ -34,6 +34,6 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
-    "client/components/form/Editor/Editor.jsx"
+    "src/components/form/Editor/Editor.jsx"
   ]
 }

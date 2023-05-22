@@ -1,10 +1,10 @@
 import React from "react";
-import BusinessPlaces from "client/features/BusinessProfile/BusinessPlaces";
-import BusinessProfileCTA from "client/features/BusinessProfile/BusinessProfileCTA";
-import PlacesFilters from "client/features/BusinessProfile/PlacesFilters";
+import BusinessPlaces from "src/features/BusinessProfile/BusinessPlaces";
+import BusinessProfileCTA from "src/features/BusinessProfile/BusinessProfileCTA";
+import PlacesFilters from "src/features/BusinessProfile/PlacesFilters";
 import prisma from "server/prisma/db/client";
-import { PlaceInterface } from "client/entities/business.entity";
-import Loader from "client/components/layouts/Loader";
+import { PlaceInterface } from "src/entities/business.entity";
+import Loader from "src/components/layouts/Loader";
 
 interface Props {
   places: PlaceInterface[];
