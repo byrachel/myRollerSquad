@@ -56,6 +56,7 @@ export class UserProfileRepository implements UserProfileUseCase {
           posts: {
             take: 3,
             include: {
+              comments: true,
               style: true,
               user_likes: {
                 select: {

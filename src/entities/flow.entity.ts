@@ -10,23 +10,30 @@ export interface PostInterface {
   city: string | null;
   county: string | null;
   country: string;
-  user?: {
-    id: number;
-    avatar: string | null;
-    name: string;
-    posts: { id: number; title: string }[];
-  };
-  place?: {
-    id: number;
-    name: string;
-    logo: string;
-  } | null;
   user_likes: { user_id: number }[];
-  comments?: any[];
   price: number | null;
   distance: any | null;
   duration: string | null;
   place_id: number | null;
+  user_id: number;
+  comments: any[];
+}
+
+export interface PostWithAuthorInterface extends PostInterface {
+  user: {
+    id: number;
+    avatar: string | null;
+    name: string;
+  };
+  place: {
+    id: number;
+    name: string;
+    logo: string;
+  } | null;
+}
+
+export interface FullPostInterface extends PostWithAuthorInterface {
+  comments: any[];
 }
 
 export interface UploadedPictureInterface {

@@ -1,7 +1,7 @@
 import React, { useMemo } from "react";
 import Link from "next/link";
 
-import { PostInterface } from "src/entities/flow.entity";
+import { PostWithAuthorInterface } from "src/entities/flow.entity";
 import { cardColor } from "src/utils/colorManager";
 import { displayLightDateTime } from "src/utils/handleDates";
 import { parseContent } from "src/utils/parseContent";
@@ -17,7 +17,7 @@ import Arrow from "src/svg/arrow-right.svg";
 import Roller from "src/svg/rollerquad.svg";
 
 interface Props {
-  post: PostInterface;
+  post: PostWithAuthorInterface;
   cardRef?: React.RefObject<HTMLDivElement>;
   displayAvatar: boolean;
   userConnectedId: number | null;
@@ -34,7 +34,7 @@ export default function Card({
   return (
     <div className={`cardContainer ${color}`} key={post.id} ref={cardRef}>
       <div className="flexStart">
-        {displayAvatar && post.user ? (
+        {displayAvatar ? (
           <Avatar
             userId={post.user.id}
             userAvatar={post.user.avatar}

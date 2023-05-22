@@ -2,7 +2,7 @@ import { useMemo, useState } from "react";
 import Image from "next/image";
 
 import { getCategoryName } from "src/constants/PostCategories";
-import { PostInterface } from "src/entities/flow.entity";
+import { PostWithAuthorInterface } from "src/entities/flow.entity";
 import { cardColor } from "src/utils/colorManager";
 import { displayLightDateTime } from "src/utils/handleDates";
 import { parseContent } from "src/utils/parseContent";
@@ -19,7 +19,7 @@ import { deletePost } from "../addPost/utils/deletePost";
 import { useUser } from "src/hooks/useUser";
 
 interface Props {
-  post: PostInterface;
+  post: PostWithAuthorInterface;
 }
 
 export default function SinglePost({ post }: Props) {
@@ -28,7 +28,7 @@ export default function SinglePost({ post }: Props) {
   const color = useMemo(() => cardColor(post.category_id), [post.category_id]);
   const [editPost, setEditPost] = useState<{
     show: boolean;
-    post: PostInterface | null;
+    post: PostWithAuthorInterface | null;
   }>({ show: false, post: null });
   const router = useRouter();
   const redirectAfterDelete = () => router.push(`/profile/posts/${userId}`);

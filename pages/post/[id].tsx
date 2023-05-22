@@ -4,10 +4,10 @@ import SidebarLayout from "src/components/layouts/SidebarLayout";
 import SinglePostSidebar from "src/features/Flow/singlePost/SinglePostSidebar";
 import SinglePost from "src/features/Flow/singlePost/SinglePost";
 import Loader from "@/components/layouts/Loader";
-import { PostInterface } from "src/entities/flow.entity";
+import { PostWithAuthorInterface } from "src/entities/flow.entity";
 
 interface Props {
-  post: PostInterface | null;
+  post: PostWithAuthorInterface | null;
 }
 
 export default function Post({ post }: Props) {

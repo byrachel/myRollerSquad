@@ -1,4 +1,4 @@
-import { PostInterface } from "src/entities/flow.entity";
+import { PostWithAuthorInterface } from "src/entities/flow.entity";
 import React from "react";
 import Card from "../Flow/getPosts/Card";
 import RegularButton from "../../components/buttons/RegularButton";
@@ -6,7 +6,7 @@ import { useRouter } from "next/router";
 
 interface Props {
   userConnectedId: number;
-  posts: PostInterface[];
+  posts: PostWithAuthorInterface[];
 }
 
 export default function LastPostsShared({ userConnectedId, posts }: Props) {
