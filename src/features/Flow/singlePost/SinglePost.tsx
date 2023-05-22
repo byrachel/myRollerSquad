@@ -2,7 +2,7 @@ import { useMemo, useState } from "react";
 import Image from "next/image";
 
 import { getCategoryName } from "src/constants/PostCategories";
-import { PostWithAuthorInterface } from "src/entities/flow.entity";
+import { PostInterface } from "src/entities/flow.entity";
 import { cardColor } from "src/utils/colorManager";
 import { displayLightDateTime } from "src/utils/handleDates";
 import { parseContent } from "src/utils/parseContent";
@@ -19,7 +19,7 @@ import { deletePost } from "../addPost/utils/deletePost";
 import { useUser } from "src/hooks/useUser";
 
 interface Props {
-  post: PostWithAuthorInterface;
+  post: PostInterface;
 }
 
 export default function SinglePost({ post }: Props) {
@@ -28,7 +28,7 @@ export default function SinglePost({ post }: Props) {
   const color = useMemo(() => cardColor(post.category_id), [post.category_id]);
   const [editPost, setEditPost] = useState<{
     show: boolean;
-    post: PostWithAuthorInterface | null;
+    post: PostInterface | null;
   }>({ show: false, post: null });
   const router = useRouter();
   const redirectAfterDelete = () => router.push(`/profile/posts/${userId}`);
@@ -42,7 +42,7 @@ export default function SinglePost({ post }: Props) {
           <div className={`staticBadge ${color}`}>
             {getCategoryName(post.category_id)}
           </div>
-          {post.user.id === userId ? (
+          {post.user && post.user.id === userId ? (
             <UpdateDeleteIcons
               onUpdate={() => setEditPost({ show: true, post: post })}
               onDelete={() => deletePost(post.id, redirectAfterDelete)}

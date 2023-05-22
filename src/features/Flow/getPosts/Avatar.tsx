@@ -3,7 +3,7 @@ import Link from "next/link";
 import React from "react";
 
 interface Props {
-  userId: number;
+  userId: number | null;
   placeId: number | null;
   userAvatar: string | null;
   color: string;

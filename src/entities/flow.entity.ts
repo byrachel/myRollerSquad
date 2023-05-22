@@ -15,25 +15,17 @@ export interface PostInterface {
   distance: any | null;
   duration: string | null;
   place_id: number | null;
-  user_id: number;
   comments: any[];
-}
-
-export interface PostWithAuthorInterface extends PostInterface {
-  user: {
+  user?: {
     id: number;
     avatar: string | null;
     name: string;
   };
-  place: {
+  place?: {
     id: number;
     name: string;
     logo: string;
   } | null;
-}
-
-export interface FullPostInterface extends PostWithAuthorInterface {
-  comments: any[];
 }
 
 export interface UploadedPictureInterface {

@@ -1,10 +1,10 @@
 import React from "react";
-import { PostWithAuthorInterface } from "src/entities/flow.entity";
+import { PostInterface } from "src/entities/flow.entity";
 import { State, useUser } from "src/hooks/useUser";
 import Card from "../Flow/getPosts/Card";
 
 interface Props {
-  posts: PostWithAuthorInterface[];
+  posts: PostInterface[];
 }
 
 export default function SingleBusinessPosts({ posts }: Props) {

@@ -4,10 +4,11 @@ import SidebarLayout from "src/components/layouts/SidebarLayout";
 import SinglePostSidebar from "src/features/Flow/singlePost/SinglePostSidebar";
 import SinglePost from "src/features/Flow/singlePost/SinglePost";
 import Loader from "@/components/layouts/Loader";
-import { PostWithAuthorInterface } from "src/entities/flow.entity";
+import { PostInterface } from "src/entities/flow.entity";
+import UnloggedUserSidebar from "@/components/layouts/UnloggedUserSidebar";
 
 interface Props {
-  post: PostWithAuthorInterface | null;
+  post: PostInterface | null;
 }
 
 export default function Post({ post }: Props) {
@@ -16,7 +17,13 @@ export default function Post({ post }: Props) {
       <NewPostBar />
       {post ? (
         <SidebarLayout
-          sidebar={<SinglePostSidebar user={post.user} place={post.place} />}
+          sidebar={
+            post.user ? (
+              <SinglePostSidebar user={post.user} place={post.place} />
+            ) : (
+              <UnloggedUserSidebar />
+            )
+          }
           content={<SinglePost post={post} />}
         />
       ) : (
