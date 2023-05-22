@@ -52,13 +52,13 @@ export default function BusinessCard({
                   />
                 ) : null}
               </div>
-              {/* <a href={place.website} className="placeUrl">
-                {place.website}
-              </a> */}
-              <p className="businessDescription">
-                {place.description.substring(0, 160) + " ..."}
-              </p>
-
+              {place.description ? (
+                <p className="businessDescription">
+                  {place.description.substring(0, 160) + " ..."}
+                </p>
+              ) : (
+                <br />
+              )}
               <div className="mt5 flexStart">
                 <Pin stroke="black" fill="none" width={24} height={24} />
                 <p

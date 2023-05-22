@@ -44,7 +44,9 @@ export default function SingleBusinessPlace({ place }: Props) {
             <Pin className="placeLocation" width={16} height={16} />
             {place.county ? `${place.county}, ` : null} {place.city}
           </p>
-          <p className="mt5">{place.description}</p>
+          {place.description ? (
+            <p className="mt5">{place.description}</p>
+          ) : null}
           <br />
           {place.website ? (
             <a href={place.website} className="textLink">

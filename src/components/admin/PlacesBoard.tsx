@@ -50,9 +50,13 @@ export default function PlacesBoard({ user }: Props) {
               <p>{place.siren}</p>
               <p>{place.website}</p>
             </div>
-            <div className="mt5">
-              <p>{parseContent(place.description)}</p>
-            </div>
+            {place.description ? (
+              <div className="mt5">
+                <p>{parseContent(place.description)}</p>
+              </div>
+            ) : (
+              <br />
+            )}
             <RegularButton
               type="button"
               text="Activer"
