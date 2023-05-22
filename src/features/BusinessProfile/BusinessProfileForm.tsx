@@ -68,7 +68,11 @@ const BusinessProfileForm = ({
         name="description"
         required={false}
         rows={4}
-        defaultValue={placeToUpdate ? placeToUpdate.description : ""}
+        defaultValue={
+          placeToUpdate && placeToUpdate.description
+            ? placeToUpdate.description
+            : ""
+        }
       />
 
       <label htmlFor="category">Catégorie :</label>
@@ -99,7 +103,9 @@ const BusinessProfileForm = ({
       />
 
       <InputUrl
-        value={placeToUpdate ? placeToUpdate.website : ""}
+        value={
+          placeToUpdate && placeToUpdate.website ? placeToUpdate.website : ""
+        }
         required={true}
       />
     </>
