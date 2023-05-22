@@ -16,7 +16,7 @@ export default function Post({ place }: Props) {
       {place ? (
         <Suspense fallback={<Loader />}>
           <SingleBusinessPlace place={place} />
-          <SingleBusinessPosts posts={place.posts} />
+          {place.posts ? <SingleBusinessPosts posts={place.posts} /> : null}
         </Suspense>
       ) : (
         <p className="meta mt5">Oups ! Il n'y a rien par ici :-(</p>
