@@ -3,11 +3,11 @@ import { shallow } from "zustand/shallow";
 
 import { PostReducer } from "src/reducers/PostReducer";
 import { newPostInitialState } from "src/features/Flow/addPost/utils/newPostInitialState";
+import { useUser } from "src/hooks/useUser";
 import NewPostForm from "src/features/Flow/addPost/NewPostForm";
 import SidebarLayout from "src/components/layouts/SidebarLayout";
 import NewPostSidebar from "@/components/sidebar/NewPostSidebar";
-import Login from "src/features/auth/Login";
-import { useUser } from "src/hooks/useUser";
+import LoginForm from "src/features/auth/LoginForm";
 
 const NewPost = () => {
   const [post, postDispatch] = useReducer(PostReducer, newPostInitialState);
@@ -34,7 +34,7 @@ const NewPost = () => {
           }
         />
       ) : (
-        <Login />
+        <LoginForm />
       )}
     </>
   );

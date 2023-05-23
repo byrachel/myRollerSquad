@@ -9,11 +9,7 @@ const UserFavs = () => {
     <>
       <div className="coloredSeparator" />
       {userId ? (
-        <div className="mt-large">
-          <h2 className="center mt5">Mes shops & clubs favoris</h2>
-          <div className="underliner" />
-          <MyFavs userConnectedId={userId} />
-        </div>
+        <MyFavs userConnectedId={userId} />
       ) : (
         <Loader text="Tes shops et clubs favoris se chargent..." />
       )}

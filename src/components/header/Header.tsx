@@ -61,17 +61,17 @@ export default function Header() {
         <Navbar.Content activeColor="secondary" variant="underline" hideIn="xs">
           <Navbar.Link
             color="inherit"
-            isActive={path === "myrollerblog"}
-            href="/myrollerblog"
-          >
-            Flow
-          </Navbar.Link>
-          <Navbar.Link
-            color="inherit"
             isActive={path === "business"}
             href="/business/search/all/all"
           >
             Annuaire
+          </Navbar.Link>
+          <Navbar.Link
+            color="inherit"
+            isActive={path === "myrollerblog"}
+            href="/myrollerblog"
+          >
+            Flow
           </Navbar.Link>
           {isAdmin ? (
             <Navbar.Link color="inherit" href="/board/manager">

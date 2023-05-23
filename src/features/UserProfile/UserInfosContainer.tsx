@@ -55,8 +55,6 @@ const UserInfosContainer = ({ userConnectedId, userToDisplay }: Props) => {
     // eslint-disable-next-line
   }, [userToDisplay]);
 
-  console.log(userProfile);
-
   return (
     <>
       {userProfile.user ? (
@@ -93,10 +91,11 @@ const UserInfosContainer = ({ userConnectedId, userToDisplay }: Props) => {
             userConnectedId={userConnectedId}
             posts={userProfile.user.posts}
           />
-          <div className="userFavsContainer">
-            <h2 className="title">Shops & clubs favoris</h2>
-            <UserBusinessFavs favs={userProfile.user.favorite_places} />
-          </div>
+
+          <UserBusinessFavs
+            favs={userProfile.user.favorite_places}
+            fromMyProfile={false}
+          />
         </>
       ) : userProfile.loading ? (
         <Loader text="Profil en cours de chargement..." />

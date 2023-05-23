@@ -7,6 +7,7 @@ import Instagram from "src/svg/instagram.svg";
 import Tiktok from "src/svg/tiktok.svg";
 import Youtube from "src/svg/youtube.svg";
 import Link from "next/link";
+import RegularButton from "@/components/buttons/RegularButton";
 
 interface Props {
   user: UserInterface;
@@ -49,15 +50,18 @@ export default function UserResume({ user, userConnectedId }: Props) {
         {user.resume ? (
           parseContent(user.resume)
         ) : (
-          <div>
-            <p className="meta">Aucune information pour le moment...</p>
-            {user.id === userConnectedId ? (
-              <Link href="/profile/update">
-                <p className="textLink">Mettre à jour mon profil</p>
-              </Link>
-            ) : null}
-          </div>
+          <p className="meta">Aucune information pour le moment...</p>
         )}
+        <br />
+        {user.id === userConnectedId ? (
+          <Link href="/profile/update">
+            <RegularButton
+              type="button"
+              style="full"
+              text="Mettre à jour mon profil"
+            />
+          </Link>
+        ) : null}
       </div>
     </div>
   );

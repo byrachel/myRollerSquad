@@ -1,5 +1,5 @@
 import React from "react";
-import Login from "src/features/auth/Login";
+import LoginForm from "src/features/auth/LoginForm";
 import UpdateUserProfileContainer from "src/features/UserProfile/UpdateUserProfile/UpdateUserProfileContainer";
 import { useUser } from "src/hooks/useUser";
 
@@ -9,6 +9,6 @@ export default function UpdateMyAccount() {
   return userId ? (
     <UpdateUserProfileContainer userConnectedId={userId} />
   ) : (
-    <Login />
+    <LoginForm />
   );
 }

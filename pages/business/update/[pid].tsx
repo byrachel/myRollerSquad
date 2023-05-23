@@ -1,11 +1,11 @@
 import { useRouter } from "next/router";
 import { shallow } from "zustand/shallow";
 
-import Login from "src/features/auth/Login";
 import SidebarLayout from "src/components/layouts/SidebarLayout";
 import UnloggedUserSidebar from "@/components/sidebar/UnloggedUserSidebar";
 import UpdateBusinessProfile from "src/features/BusinessProfile/UpdateBusinessProfile";
 import { State, useUser } from "src/hooks/useUser";
+import LoginForm from "src/features/auth/LoginForm";
 
 const UpdateBusiness = () => {
   const router = useRouter();
@@ -28,7 +28,7 @@ const UpdateBusiness = () => {
       }
     />
   ) : (
-    <Login />
+    <LoginForm />
   );
 };
 export default UpdateBusiness;

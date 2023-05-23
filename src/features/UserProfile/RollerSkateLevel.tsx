@@ -45,17 +45,20 @@ export default function RollerSkateLevel({
     </div>
   );
   return (
-    <div className={"rollerLevelContainer"}>
-      <div>
-        {displayStarsLevel(rollerDanceLevel, "Roller Dance")}
-        {displayStarsLevel(skateParkLevel, "Skate Park")}
-        {displayStarsLevel(artisticLevel, "Artistique")}
+    <>
+      <div className="coloredSeparator" />
+      <div className={"rollerLevelContainer"}>
+        <div>
+          {displayStarsLevel(rollerDanceLevel, "Roller Dance")}
+          {displayStarsLevel(skateParkLevel, "Skate Park")}
+          {displayStarsLevel(artisticLevel, "Artistique")}
+        </div>
+        <div>
+          {displayStarsLevel(freestyleLevel, "Freestyle")}
+          {displayStarsLevel(urbanLevel, "Roller Urbain")}
+          {displayStarsLevel(derbyLevel, "Roller Derby")}
+        </div>
       </div>
-      <div>
-        {displayStarsLevel(freestyleLevel, "Freestyle")}
-        {displayStarsLevel(urbanLevel, "Roller Urbain")}
-        {displayStarsLevel(derbyLevel, "Roller Derby")}
-      </div>
-    </div>
+    </>
   );
 }

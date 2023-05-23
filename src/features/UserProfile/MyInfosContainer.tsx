@@ -39,18 +39,6 @@ const MyInfosContainer = ({ userConnectedId }: Props) => {
         <>
           <UserInfos user={userProfile} userConnectedId={userConnectedId} />
           <UserResume user={userProfile} userConnectedId={userConnectedId} />
-          {userPlaces && userPlaces.length > 0 ? (
-            userPlaces.map((place: PlaceInterface) => (
-              <UserBusinessCard
-                key={place.id}
-                placeId={place.id}
-                userToDisplayId={userConnectedId}
-                userConnectedId={userConnectedId}
-              />
-            ))
-          ) : (
-            <BusinessProfileCTA />
-          )}
           <RollerSkateLevel
             rollerDanceLevel={userProfile.roller_dance_level}
             skateParkLevel={userProfile.skatepark_level}
@@ -59,6 +47,21 @@ const MyInfosContainer = ({ userConnectedId }: Props) => {
             urbanLevel={userProfile.urban_level}
             derbyLevel={userProfile.derby_level}
           />
+          {userPlaces && userPlaces.length > 0 ? (
+            <>
+              <p className="meta center mt-large">Mon espace business</p>
+              {userPlaces.map((place: PlaceInterface) => (
+                <UserBusinessCard
+                  key={place.id}
+                  placeId={place.id}
+                  userToDisplayId={userConnectedId}
+                  userConnectedId={userConnectedId}
+                />
+              ))}
+            </>
+          ) : (
+            <BusinessProfileCTA />
+          )}
         </>
       ) : userProfileLoading ? (
         <Loader text="Profil en cours de chargement..." />

@@ -25,5 +25,5 @@ export default function MyFavs({ userConnectedId }: Props) {
     // eslint-disable-next-line
   }, [userConnectedId]);
 
-  return <UserBusinessFavs favs={userFavs} />;
+  return <UserBusinessFavs favs={userFavs} fromMyProfile={true} />;
 }

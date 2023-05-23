@@ -209,6 +209,7 @@ export default function NewPostForm({
             />
           </>
         )}
+        <div className="mt5" />
         <BigButton type="submit" style="full" text="Publier" />
       </form>
     </>
