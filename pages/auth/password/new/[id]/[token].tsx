@@ -3,7 +3,7 @@ import { useRouter } from "next/router";
 import axios from "axios";
 
 import SidebarLayout from "src/components/layouts/SidebarLayout";
-import UnloggedUserSidebar from "src/components/layouts/UnloggedUserSidebar";
+import UnloggedUserSidebar from "@/components/sidebar/UnloggedUserSidebar";
 import RegularButton from "src/components/buttons/RegularButton";
 import InputPassword from "src/components/form/InputPassword";
 import { checkTokenValidity } from "src/utils/checkTokenValidity";

@@ -598,10 +598,12 @@ div.socialIconContainer {
       h2 {
         font-size: $fontSize-lg;
       }
+      ul {
+        list-style-type: disc;
+      }
       li {
         font-size: 1em;
-        margin: 1.1em 0;
-        letter-spacing: 0.1px;
+        margin: 0.7em 0;
       }
     }
   }

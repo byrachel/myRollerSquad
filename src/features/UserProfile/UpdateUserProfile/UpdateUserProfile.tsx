@@ -2,17 +2,16 @@ import React, { SyntheticEvent, useReducer } from "react";
 import { useRouter } from "next/router";
 import axios from "axios";
 
-import Avatar from "../Avatar/Avatar";
 import UpdateUserProfileForm from "./UpdateUserProfileForm";
 import RegularButton from "src/components/buttons/RegularButton";
-import { useProfile } from "src/hooks/useProfile";
 import { UserInterface } from "src/entities/user.entity";
 
 interface Props {
   userProfile: UserInterface;
+  updateUserProfile: (user: UserInterface) => void;
 }
 
-const UpdateUserProfile = ({ userProfile }: Props) => {
+const UpdateUserProfile = ({ userProfile, updateUserProfile }: Props) => {
   const router = useRouter();
 
   const initialState = {
@@ -60,10 +59,6 @@ const UpdateUserProfile = ({ userProfile }: Props) => {
     updateUserReducer,
     initialState
   );
-
-  const { updateUserProfile } = useProfile((state) => ({
-    updateUserProfile: state.updateUserProfile,
-  }));
 
   const onSubmit = (event: SyntheticEvent) => {
     event.preventDefault();
@@ -118,43 +113,13 @@ const UpdateUserProfile = ({ userProfile }: Props) => {
   };
 
   return (
-    <>
-      {userProfile ? (
-        <div className="sidebarLayout">
-          <div className="sidebarContent">
-            <div className="updateUserSidebarAvatar">
-              <Avatar
-                avatar={userProfile.avatar}
-                userId={userProfile.id}
-                userConnectedId={userProfile.id}
-              />
-            </div>
-            <div className="sidebarText">
-              <p className="meta">
-                myRollerSquad est une communauté active & bienveillante de
-                passionnés de roller quad.
-              </p>
-              <p className="meta">
-                Merci de respecter les règles de bonne conduite.
-              </p>
-            </div>
-          </div>
-          <form onSubmit={onSubmit} className="sidebarContainer">
-            <UpdateUserProfileForm
-              userDataToUpdate={userDataToUpdate}
-              dispatchUserDataToUpdate={dispatchUserDataToUpdate}
-            />
-            <RegularButton type="submit" style="full" text="ENREGISTRER" />
-          </form>
-        </div>
-      ) : // ) : userProfile.loading ? (
-      //   <Loader
-      //     text={"Hop! On enregistre tout ça... Encore un petit instant..."}
-      //   />
-      // ) : userProfile.error ? (
-      //   <p>Oups !</p>
-      null}
-    </>
+    <form onSubmit={onSubmit}>
+      <UpdateUserProfileForm
+        userDataToUpdate={userDataToUpdate}
+        dispatchUserDataToUpdate={dispatchUserDataToUpdate}
+      />
+      <RegularButton type="submit" style="full" text="ENREGISTRER" />
+    </form>
   );
 };
 export default UpdateUserProfile;

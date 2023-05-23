@@ -2,7 +2,7 @@ import React from "react";
 
 export default function NewPostSidebar() {
   return (
-    <>
+    <div className="sidebarText">
       <h2>Quoi de beau à partager aujourd'hui ?</h2>
       <ul>
         <li>Un tuto ou une astuce ?</li>
@@ -15,6 +15,6 @@ export default function NewPostSidebar() {
         myRollerSquad est une communauté active & bienveillante de passionnés de
         roller quad.
       </p>
-    </>
+    </div>
   );
 }

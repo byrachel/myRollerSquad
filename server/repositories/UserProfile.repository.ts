@@ -3,6 +3,7 @@ import prisma from "server/prisma/db/client";
 import { PlaceInterface } from "src/entities/business.entity";
 import { PostInterface } from "src/entities/flow.entity";
 import {
+  UpdateUserProfileInterface,
   UserFavs,
   UserInterface,
   UserProfileInterface,
@@ -76,8 +77,31 @@ export class UserProfileRepository implements UserProfileUseCase {
       return null;
     }
   }
-  async updateProfile(data: UserInterface): Promise<UserInterface> {
-    return data;
+  async updateUserProfile(
+    id: number,
+    data: UpdateUserProfileInterface
+  ): Promise<UserInterface | null> {
+    try {
+      const updatedUser = await prisma.user.update({
+        where: {
+          id,
+        },
+        data,
+        include: {
+          place: {
+            select: {
+              id: true,
+            },
+          },
+        },
+      });
+      if (!updatedUser) return null;
+      const userWithoutPassword = exclude(updatedUser, ["password"]);
+      return userWithoutPassword;
+    } catch (error) {
+      console.log(error);
+      return null;
+    }
   }
   async getUserPlaces(id: number): Promise<PlaceInterface[]> {
     console.log(id);

@@ -5,7 +5,7 @@ import { PostReducer } from "src/reducers/PostReducer";
 import { newPostInitialState } from "src/features/Flow/addPost/utils/newPostInitialState";
 import NewPostForm from "src/features/Flow/addPost/NewPostForm";
 import SidebarLayout from "src/components/layouts/SidebarLayout";
-import NewPostSidebar from "src/features/Flow/addPost/NewPostSidebar";
+import NewPostSidebar from "@/components/sidebar/NewPostSidebar";
 import Login from "src/features/auth/Login";
 import { useUser } from "src/hooks/useUser";
 

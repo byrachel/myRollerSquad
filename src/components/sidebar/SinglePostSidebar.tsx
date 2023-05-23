@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import Avatar from "../getPosts/Avatar";
+import Avatar from "../../features/Flow/getPosts/Avatar";
 import axios from "axios";
 import { getCategoryName } from "src/constants/PostCategories";
 

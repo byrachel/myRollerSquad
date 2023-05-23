@@ -35,3 +35,19 @@ export interface UserProfileInterface extends UserInterface {
   favorite_places: UserFavs[];
   // posts_liked: { id: number }[];
 }
+
+export interface UpdateUserProfileInterface {
+  name: string;
+  resume: string | null;
+  social_medias: any;
+  website: string | null;
+  roller_dance_level: number;
+  skatepark_level: number;
+  artistic_level: number;
+  urban_level: number;
+  freestyle_level: number;
+  derby_level: number;
+  country: string;
+  county: string | null;
+  city: string | null;
+}

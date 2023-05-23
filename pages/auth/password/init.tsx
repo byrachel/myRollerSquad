@@ -3,7 +3,7 @@ import axios from "axios";
 import Link from "next/link";
 
 import SidebarLayout from "src/components/layouts/SidebarLayout";
-import UnloggedUserSidebar from "src/components/layouts/UnloggedUserSidebar";
+import UnloggedUserSidebar from "@/components/sidebar/UnloggedUserSidebar";
 import RegularButton from "src/components/buttons/RegularButton";
 import InputText from "src/components/form/InputText";
 

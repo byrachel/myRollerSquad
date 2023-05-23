@@ -3,7 +3,7 @@ import { shallow } from "zustand/shallow";
 
 import Login from "src/features/auth/Login";
 import SidebarLayout from "src/components/layouts/SidebarLayout";
-import UnloggedUserSidebar from "src/components/layouts/UnloggedUserSidebar";
+import UnloggedUserSidebar from "@/components/sidebar/UnloggedUserSidebar";
 import UpdateBusinessProfile from "src/features/BusinessProfile/UpdateBusinessProfile";
 import { State, useUser } from "src/hooks/useUser";
 

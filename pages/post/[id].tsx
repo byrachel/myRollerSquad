@@ -1,11 +1,11 @@
 import React from "react";
 import NewPostBar from "src/components/layouts/NewPostBar";
 import SidebarLayout from "src/components/layouts/SidebarLayout";
-import SinglePostSidebar from "src/features/Flow/singlePost/SinglePostSidebar";
+import SinglePostSidebar from "@/components/sidebar/SinglePostSidebar";
 import SinglePost from "src/features/Flow/singlePost/SinglePost";
 import Loader from "src/components/layouts/Loader";
 import { PostInterface } from "src/entities/flow.entity";
-import UnloggedUserSidebar from "src/components/layouts/UnloggedUserSidebar";
+import UnloggedUserSidebar from "@/components/sidebar/UnloggedUserSidebar";
 
 interface Props {
   post: PostInterface | null;

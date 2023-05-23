@@ -8,9 +8,7 @@ interface Props {
 export default function SidebarLayout({ sidebar, content }: Props) {
   return (
     <div className="sidebarLayout">
-      <div className="sidebarContent">
-        <div className="sidebarText">{sidebar}</div>
-      </div>
+      <div className="sidebarContent">{sidebar}</div>
       <main className="sidebarContainer">{content}</main>
     </div>
   );

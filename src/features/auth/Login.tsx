@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import LoginForm from "src/features/auth/LoginForm";
 import RegisterForm from "src/features/auth/RegisterForm";
 import SidebarLayout from "../../components/layouts/SidebarLayout";
-import UnloggedUserSidebar from "../../components/layouts/UnloggedUserSidebar";
+import UnloggedUserSidebar from "../../components/sidebar/UnloggedUserSidebar";
 
 import Roller from "src/svg/rollerquad.svg";
 

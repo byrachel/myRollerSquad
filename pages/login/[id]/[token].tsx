@@ -4,7 +4,7 @@ import axios from "axios";
 
 import LoginForm from "src/features/auth/LoginForm";
 import SidebarLayout from "src/components/layouts/SidebarLayout";
-import UnloggedUserSidebar from "src/components/layouts/UnloggedUserSidebar";
+import UnloggedUserSidebar from "@/components/sidebar/UnloggedUserSidebar";
 import ActivationAccount from "src/features/auth/ActivationAccount";
 import { checkTokenValidity } from "src/utils/checkTokenValidity";
 import Loader from "src/components/layouts/Loader";

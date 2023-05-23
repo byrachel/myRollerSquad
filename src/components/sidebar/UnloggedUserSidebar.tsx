@@ -2,7 +2,7 @@ import React from "react";
 
 export default function UnloggedUserSidebar() {
   return (
-    <aside>
+    <div className="sidebarText">
       <h2>Fais partie de la plus grande communauté francophone !</h2>
       <ul className="mt-large">
         <li>Découvre des astuces pour passer au niveau supérieur !</li>
@@ -17,6 +17,6 @@ export default function UnloggedUserSidebar() {
         myRollerSquad est une communauté active & bienveillante de passionnés de
         roller quad.
       </p>
-    </aside>
+    </div>
   );
 }

@@ -68,7 +68,7 @@ export default function MyAccountDropdownMenu({ logout, userId }: Props) {
           Mes favoris
         </Dropdown.Item>
         <Dropdown.Item key="logout" withDivider>
-          Logout
+          Me déconnecter
         </Dropdown.Item>
       </Dropdown.Menu>
     </Dropdown>
