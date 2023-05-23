@@ -19,6 +19,10 @@ export default function CardFeaturedPict({ urlPicts, color }: Props) {
           src={`https://myrollersquadflow.s3.eu-west-3.amazonaws.com/${urlPicts[currentPict]}`}
           alt="Roller Skateur"
           className="pict"
+          sizes="(max-width: 768px) 100vw"
+          quality={80}
+          loading="lazy"
+          priority={false}
           fill
         />
 
