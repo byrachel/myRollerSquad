@@ -95,6 +95,10 @@ export default function SinglePost({ post }: Props) {
                   src={`https://myrollersquadflow.s3.eu-west-3.amazonaws.com/${pict}`}
                   alt="Roller Skateur"
                   className="pict"
+                  sizes="(max-width: 768px) 100vw"
+                  quality={80}
+                  loading="lazy"
+                  priority={false}
                   fill
                   key={index}
                 />

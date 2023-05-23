@@ -36,52 +36,57 @@ export default function Post({ post }: Props) {
 export async function getServerSideProps(params: any) {
   const { id } = params.query;
 
-  const data = await prisma.post.findUnique({
-    where: {
-      id: parseInt(id),
-    },
-    select: {
-      id: true,
-      title: true,
-      content: true,
-      category_id: true,
-      style: {
-        select: {
-          style_id: true,
-        },
+  try {
+    const data = await prisma.post.findUnique({
+      where: {
+        id: parseInt(id),
       },
-      created_at: true,
-      pictures: true,
-      link: true,
-      comments: true,
-      user: {
-        select: {
-          avatar: true,
-          id: true,
-          name: true,
+      select: {
+        id: true,
+        title: true,
+        content: true,
+        category_id: true,
+        style: {
+          select: {
+            style_id: true,
+          },
         },
-      },
-      place: {
-        select: {
-          id: true,
-          name: true,
-          logo: true,
+        created_at: true,
+        pictures: true,
+        link: true,
+        comments: true,
+        user: {
+          select: {
+            avatar: true,
+            id: true,
+            name: true,
+          },
         },
-      },
-      city: true,
-      county: true,
-      country: true,
-      user_likes: {
-        select: {
-          user_id: true,
+        place: {
+          select: {
+            id: true,
+            name: true,
+            logo: true,
+          },
         },
+        city: true,
+        county: true,
+        country: true,
+        user_likes: {
+          select: {
+            user_id: true,
+          },
+        },
+        price: true,
+        distance: true,
+        duration: true,
       },
-      price: true,
-      distance: true,
-      duration: true,
-    },
-  });
-  if (!data) return { props: { post: null } };
-  const post = JSON.parse(JSON.stringify(data));
-  return { props: { post } };
+    });
+    if (!data) return { props: { post: null } };
+    const post = JSON.parse(JSON.stringify(data));
+    return { props: { post } };
+  } catch (error) {
+    console.log(error);
+    return { props: { post: null } };
+  }
 }

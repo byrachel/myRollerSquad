@@ -259,6 +259,8 @@ div.cardContainer {
   margin: 2em auto;
   width: 100%;
   max-width: 700px;
+  height: auto;
+  position: relative;
   .pict {
     height: 100% !important;
     object-fit: cover;

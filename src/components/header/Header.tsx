@@ -7,6 +7,7 @@ import Image from "next/image";
 import { State, useUser } from "src/hooks/useUser";
 import UserIcon from "src/svg/profile-circle.svg";
 import MyAccountDropdownMenu from "./MyAccountDropdownMenu";
+import Link from "next/link";
 
 export default function Header() {
   const router = useRouter();
@@ -60,6 +61,7 @@ export default function Header() {
         </Navbar.Brand>
         <Navbar.Content activeColor="secondary" variant="underline" hideIn="xs">
           <Navbar.Link
+            as={Link}
             color="inherit"
             isActive={path === "business"}
             href="/business/search/all/all"
@@ -67,6 +69,7 @@ export default function Header() {
             Annuaire
           </Navbar.Link>
           <Navbar.Link
+            as={Link}
             color="inherit"
             isActive={path === "myrollerblog"}
             href="/myrollerblog"
@@ -74,7 +77,7 @@ export default function Header() {
             Flow
           </Navbar.Link>
           {isAdmin ? (
-            <Navbar.Link color="inherit" href="/board/manager">
+            <Navbar.Link as={Link} color="inherit" href="/board/manager">
               Admin
             </Navbar.Link>
           ) : null}
@@ -83,7 +86,7 @@ export default function Header() {
           {userId ? (
             <MyAccountDropdownMenu logout={logout} userId={userId} />
           ) : (
-            <Navbar.Link color="inherit" href="/profile/me">
+            <Navbar.Link as={Link} color="inherit" href="/profile/me">
               <UserIcon width={34} height={34} stroke="black" fill="none" />
             </Navbar.Link>
           )}
