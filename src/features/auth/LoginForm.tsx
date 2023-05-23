@@ -1,21 +1,35 @@
 import { SyntheticEvent, useState } from "react";
+import { shallow } from "zustand/shallow";
+import { useRouter } from "next/router";
+import Link from "next/link";
+
 import { onLogin } from "./utils/services";
 import { useUser } from "src/hooks/useUser";
 import RegularButton from "../../components/buttons/RegularButton";
 import ErrorLayout from "../../components/layouts/ErrorLayout";
 import InputText from "../../components/form/InputText";
 import InputPassword from "../../components/form/InputPassword";
-import Link from "next/link";
-import { useRouter } from "next/router";
+import Loader from "@/components/layouts/Loader";
 
 export default function LoginForm() {
   const [error, setError] = useState({ status: false, message: "" });
-  const setUser = useUser((state: any) => state.login);
+  const { login, isLoading, setIsLoading } = useUser(
+    (state: any) => ({
+      login: state.login,
+      isLoading: state.isLoading,
+      setIsLoading: state.setIsLoading,
+    }),
+    shallow
+  );
   const router = useRouter();
 
-  return (
+  return isLoading ? (
+    <Loader text="Connexion en cours..." />
+  ) : (
     <form
-      onSubmit={(e: SyntheticEvent) => onLogin(e, setUser, setError, router)}
+      onSubmit={(e: SyntheticEvent) =>
+        onLogin(e, login, setError, setIsLoading, router)
+      }
     >
       <ErrorLayout
         error={error.status}

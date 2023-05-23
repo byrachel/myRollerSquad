@@ -68,7 +68,7 @@ export default function UploadAvatar({
           });
         });
     } else {
-      router.push("/signin");
+      router.push("/auth/signin");
     }
   };
 

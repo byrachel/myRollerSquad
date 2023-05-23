@@ -34,7 +34,7 @@ const Password = () => {
         <form onSubmit={onSubmit}>
           <div className="spaceBetween">
             <h3 className="mt5">Réinitialiser mot de passe</h3>
-            <Link href="/signin">
+            <Link href="/auth/signin">
               <p className="mt5">X</p>
             </Link>
           </div>

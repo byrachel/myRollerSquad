@@ -108,7 +108,7 @@ const UpdateUserProfile = ({ userProfile, updateUserProfile }: Props) => {
           console.log("err", err);
         });
     } else {
-      router.push("/signin");
+      router.push("/auth/signin");
     }
   };
 

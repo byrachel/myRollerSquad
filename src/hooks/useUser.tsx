@@ -3,7 +3,6 @@ import { persist, createJSONStorage } from "zustand/middleware";
 
 interface Payload {
   id: null | number;
-  isLoggedIn: boolean;
   role: string;
   avatar: null | string;
   username: string;
@@ -12,7 +11,6 @@ interface Payload {
 
 interface User {
   userId: null | number;
-  isLoggedIn: boolean;
   userRole: string;
   avatar: null | string;
   userName: string;
@@ -24,13 +22,11 @@ export interface State extends User {
   login: (user: Payload) => void;
   logout: () => void;
   updateAvatar: (avatar: string) => void;
-  setUser: (isLoggedIn: boolean, id: number | null, role: string) => void;
   setIsLoading: (isLoading: boolean) => void;
 }
 
 const initialState = {
   userId: null,
-  isLoggedIn: false,
   userRole: "USER",
   userName: "",
   avatar: null,
@@ -45,7 +41,6 @@ export const useUser = create<State>()(
       login: (user: Payload) =>
         set({
           ...user,
-          isLoggedIn: user.isLoggedIn,
           userId: user.id,
           userRole: user.role,
           userPlaces: user.places,
@@ -54,13 +49,6 @@ export const useUser = create<State>()(
           isLoading: false,
         }),
       setIsLoading: (isLoading: boolean) => set({ isLoading }),
-      setUser: (isLoggedIn: boolean, id: number | null, role: string) =>
-        set({
-          isLoggedIn,
-          userId: id,
-          userRole: role,
-          isLoading: false,
-        }),
       logout: () => set(initialState),
       updateAvatar: (avatar: string) => set({ avatar }),
     }),

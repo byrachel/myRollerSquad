@@ -72,12 +72,13 @@ export const sendActivationMail = (
 
 export const onLogin = (
   event: SyntheticEvent,
-  setUser: any,
+  login: (user: any) => void,
   setError: (args: { status: boolean; message: string }) => void,
+  setIsLoading: (status: boolean) => void,
   router: any
 ) => {
   event.preventDefault();
-
+  setIsLoading(true);
   const target = event.target as typeof event.target & {
     email: { value: string };
     password: { value: string };
@@ -94,10 +95,11 @@ export const onLogin = (
     data,
   })
     .then((res: any) => {
-      setUser(res.data.user);
+      login(res.data.user);
       router.push("/myrollerblog");
     })
     .catch((error: IErrorCode) => {
+      setIsLoading(false);
       setError({ status: true, message: error.response.data.message });
     });
 };

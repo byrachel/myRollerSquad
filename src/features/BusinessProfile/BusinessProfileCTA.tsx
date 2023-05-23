@@ -13,7 +13,7 @@ export default function BusinessProfileCTA() {
     if (userId) {
       router.push(`/business/create/${userId}`);
     } else {
-      router.push("/signin");
+      router.push("/auth/signin");
     }
   };
 

@@ -49,7 +49,7 @@ const UserInfosContainer = ({ userConnectedId, userToDisplay }: Props) => {
           });
         })
         .catch(() => {
-          router.push("/signin");
+          router.push("/auth/signin");
         });
     }
     // eslint-disable-next-line

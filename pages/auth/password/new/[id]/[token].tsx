@@ -35,7 +35,7 @@ const NewPassword = () => {
       method: "put",
       url: `/api/auth/newpassword`,
       data,
-    }).then(() => router.push("/signin"));
+    }).then(() => router.push("/auth/signin"));
   };
 
   return (
