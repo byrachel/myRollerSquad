@@ -29,8 +29,9 @@ function runMiddleware(
 }
 
 export default async function handler(req: any, res: NextApiResponse) {
+  if (req.method !== "PUT") return res.status(401).json({ message: E1 });
+
   const session = await getServerSession(req, res, authOptions);
-  console.log(session);
   if (!session) return res.status(401).json({ message: E2 });
   const userConnectedId = session.user.id;
   if (!userConnectedId) return res.status(400).json({ message: E1 });
