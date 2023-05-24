@@ -1,4 +1,5 @@
 import { useMemo, useState } from "react";
+import { useSession } from "next-auth/react";
 import Image from "next/image";
 
 import { getCategoryName } from "src/constants/PostCategories";
@@ -16,14 +17,14 @@ import Pin from "src/svg/pin.svg";
 import Roller from "src/svg/rollerquad.svg";
 import { useRouter } from "next/router";
 import { deletePost } from "../addPost/utils/deletePost";
-import { useUser } from "src/hooks/useUser";
 
 interface Props {
   post: PostInterface;
 }
 
 export default function SinglePost({ post }: Props) {
-  const userId = useUser((state) => state.userId);
+  const { data: session } = useSession() as any;
+  const userId = session?.user?.id;
 
   const color = useMemo(() => cardColor(post.category_id), [post.category_id]);
   const [editPost, setEditPost] = useState<{

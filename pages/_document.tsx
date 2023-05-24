@@ -1,5 +1,6 @@
 import { Html, Head, Main, NextScript } from "next/document";
 import { CssBaseline } from "@nextui-org/react";
+import Footer from "@/components/footer/Footer";
 
 export default function Document() {
   return (
@@ -10,6 +11,7 @@ export default function Document() {
         <NextScript />
         <div id="modal-root"></div>
       </body>
+      <Footer />
     </Html>
   );
 }

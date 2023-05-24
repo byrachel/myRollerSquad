@@ -1,34 +1,31 @@
 import { useRouter } from "next/router";
-import { shallow } from "zustand/shallow";
+import { useSession } from "next-auth/react";
 
 import SidebarLayout from "src/components/layouts/SidebarLayout";
 import UnloggedUserSidebar from "@/components/sidebar/UnloggedUserSidebar";
-import UpdateBusinessProfile from "src/features/BusinessProfile/UpdateBusinessProfile";
-import { State, useUser } from "src/hooks/useUser";
-import LoginForm from "src/features/auth/LoginForm";
+import UpdateBusinessProfile from "src/features/Business/UpdateBusinessProfile";
+import UnloggedUser from "@/components/layouts/UnloggedUser";
 
 const UpdateBusiness = () => {
   const router = useRouter();
   const { pid } = router.query;
   const placeId = typeof pid === "string" ? parseInt(pid) : null;
 
-  const { userId, userRole } = useUser(
-    (state: State) => ({
-      userId: state.userId,
-      userRole: state.userRole,
-    }),
-    shallow
-  );
+  const { data: session } = useSession() as any;
+  const userId = session?.user?.id;
+  const userRole = session?.user?.role;
 
-  return userRole === "PRO" && userId && placeId ? (
+  return (
     <SidebarLayout
       sidebar={<UnloggedUserSidebar />}
       content={
-        <UpdateBusinessProfile placeId={placeId} userConnectedId={userId} />
+        userRole === "PRO" && userId && placeId ? (
+          <UpdateBusinessProfile placeId={placeId} userConnectedId={userId} />
+        ) : (
+          <UnloggedUser />
+        )
       }
     />
-  ) : (
-    <LoginForm />
   );
 };
 export default UpdateBusiness;

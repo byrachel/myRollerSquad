@@ -1,9 +1,11 @@
+import { useSession } from "next-auth/react";
+
 import MyFavs from "src/features/UserBoard/Favs/MyFavs";
 import Loader from "src/components/layouts/Loader";
-import { useUser } from "src/hooks/useUser";
 
 const UserFavs = () => {
-  const userId = useUser((state) => state.userId);
+  const { data: session } = useSession() as any;
+  const userId = session?.user?.id;
 
   return (
     <>

@@ -32,6 +32,7 @@ export const useProfile = create<UserProfile & Actions>()((set) => ({
       withCredentials: true,
     })
       .then((res) => {
+        console.log(res.data);
         const userProfile = res.data.user;
         const userPlaces = userProfile.place;
         delete userProfile.place;

@@ -6,7 +6,7 @@ import RollerSkateLevel from "src/features/UserProfile/RollerSkateLevel";
 import Loader from "src/components/layouts/Loader";
 import UserResume from "./UserResume";
 import UserBusinessCard from "./UserBusiness/UserBusinessCard";
-import BusinessProfileCTA from "../BusinessProfile/BusinessProfileCTA";
+import BusinessProfileCTA from "../Business/BusinessProfileCTA";
 import { useProfile } from "src/hooks/useProfile";
 import { PlaceInterface } from "src/entities/business.entity";
 

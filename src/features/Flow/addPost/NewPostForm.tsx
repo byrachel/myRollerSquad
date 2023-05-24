@@ -1,5 +1,6 @@
 import React from "react";
 import { useRouter } from "next/router";
+import { useSession } from "next-auth/react";
 
 import * as category from "src/constants/PostCategories";
 import { rollerSkateStyles } from "src/constants/RollerSkateStyles";
@@ -15,8 +16,6 @@ import { onSubmitNewPost, onSubmitEditedPost } from "./utils/onSubmitNewPost";
 import Camera from "src/svg/add-media-image.svg";
 import BigButton from "src/components/buttons/BigButton";
 import HandleLocation from "./HandleLocation";
-import { State, useUser } from "src/hooks/useUser";
-import { shallow } from "zustand/shallow";
 
 interface Props {
   userConnectedId: number;
@@ -35,13 +34,9 @@ export default function NewPostForm({
 }: Props) {
   const router = useRouter();
 
-  const { userName, userPlaces } = useUser(
-    (state: State) => ({
-      userName: state.userName,
-      userPlaces: state.userPlaces,
-    }),
-    shallow
-  );
+  const { data: session } = useSession() as any;
+  const userName = session?.user?.username;
+  const userPlaces = session?.user?.places;
 
   return (
     <>

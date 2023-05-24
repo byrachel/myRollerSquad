@@ -1,6 +1,8 @@
 import type { AppProps } from "next/app";
 import { Poppins, Montserrat } from "next/font/google";
 import { createTheme, NextUIProvider } from "@nextui-org/react";
+import { SessionProvider } from "next-auth/react";
+
 import MainLayout from "../src/components/layouts/MainLayout";
 
 const poppins = Poppins({
@@ -30,20 +32,22 @@ const theme = createTheme({
   },
 });
 
-function App({ Component, pageProps }: AppProps) {
+function App({ Component, pageProps: { session, ...pageProps } }: AppProps) {
   return (
     <NextUIProvider theme={theme}>
-      <MainLayout>
-        <>
-          <style jsx global>{`
-            :root {
-              --font-title: ${poppins.style.fontFamily};
-              --font-text: ${montserrat.style.fontFamily};
-            }
-          `}</style>
-          <Component {...pageProps} />
-        </>
-      </MainLayout>
+      <SessionProvider session={session}>
+        <MainLayout>
+          <>
+            <style jsx global>{`
+              :root {
+                --font-title: ${poppins.style.fontFamily};
+                --font-text: ${montserrat.style.fontFamily};
+              }
+            `}</style>
+            <Component {...pageProps} />
+          </>
+        </MainLayout>
+      </SessionProvider>
     </NextUIProvider>
   );
 }

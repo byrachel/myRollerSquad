@@ -1,29 +1,26 @@
 import React, { useReducer } from "react";
-import { shallow } from "zustand/shallow";
+import { useSession } from "next-auth/react";
 
 import { PostReducer } from "src/reducers/PostReducer";
 import { newPostInitialState } from "src/features/Flow/addPost/utils/newPostInitialState";
-import { useUser } from "src/hooks/useUser";
 import NewPostForm from "src/features/Flow/addPost/NewPostForm";
 import SidebarLayout from "src/components/layouts/SidebarLayout";
 import NewPostSidebar from "@/components/sidebar/NewPostSidebar";
-import LoginForm from "src/features/auth/LoginForm";
+import UnloggedUser from "@/components/layouts/UnloggedUser";
 
 const NewPost = () => {
   const [post, postDispatch] = useReducer(PostReducer, newPostInitialState);
-  const { userId, userRole } = useUser(
-    (state) => ({ userId: state.userId, userRole: state.userRole }),
-    shallow
-  );
+  const { data: session } = useSession() as any;
+  const userId = session?.user?.id;
+  const userRole = session?.user?.role;
 
   return (
     <>
       <div className="coloredSeparator" />
-
-      {userId ? (
-        <SidebarLayout
-          sidebar={<NewPostSidebar />}
-          content={
+      <SidebarLayout
+        sidebar={<NewPostSidebar />}
+        content={
+          userId ? (
             <NewPostForm
               userConnectedId={userId}
               isPro={userRole === "PRO"}
@@ -31,11 +28,11 @@ const NewPost = () => {
               postDispatch={postDispatch}
               editMode={false}
             />
-          }
-        />
-      ) : (
-        <LoginForm />
-      )}
+          ) : (
+            <UnloggedUser />
+          )
+        }
+      />
     </>
   );
 };

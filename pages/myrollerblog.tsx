@@ -1,17 +1,20 @@
-import Loader from "src/components/layouts/Loader";
+import { useSession } from "next-auth/react";
+
 import NewPostBar from "src/components/layouts/NewPostBar";
 import Flow from "src/features/Flow/getPosts/Flow";
-import { useUser } from "src/hooks/useUser";
+import Loader from "@/components/layouts/Loader";
 
 const MyRollerBlog = () => {
-  const userId = useUser((state) => state.userId);
+  const { data: session } = useSession() as any;
+  const userId = session?.user?.id;
+
   return userId ? (
     <>
       <NewPostBar />
       <Flow userConnectedId={userId} />
     </>
   ) : (
-    <Loader text="Publications en cours de chargement..." />
+    <Loader text="Chargement des publications en cours..." />
   );
 };
 export default MyRollerBlog;

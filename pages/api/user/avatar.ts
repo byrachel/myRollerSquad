@@ -1,20 +1,17 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import { withIronSessionApiRoute } from "iron-session/next";
-import nextConnect from "next-connect";
+import { getServerSession } from "next-auth/next";
 import multer from "multer";
 import sharp from "sharp";
 
 import prisma from "@/server/prisma/db/client";
+import { authOptions } from "../auth/[...nextauth]";
 import { uploadImage } from "@/server/utils/uploadImage";
 import { E1, E2 } from "src/constants/ErrorMessages";
-import { ironConfig } from "@/server/middleware/auth/ironConfig";
 import { exclude } from "@/server/utils/prismaExclude";
 
 const upload = multer({
   storage: multer.memoryStorage(),
 });
-
-const handler = nextConnect();
 
 function runMiddleware(
   req: NextApiRequest & { [key: string]: any },
@@ -31,45 +28,45 @@ function runMiddleware(
   });
 }
 
-export default withIronSessionApiRoute(
-  handler.put(async (req: any, res: NextApiResponse) => {
-    const user = req.session.user;
-    if (!user) return res.status(401).json({ message: E2 });
+export default async function handler(req: any, res: NextApiResponse) {
+  const session = await getServerSession(req, res, authOptions);
+  console.log(session);
+  if (!session) return res.status(401).json({ message: E2 });
+  const userConnectedId = session.user.id;
+  if (!userConnectedId) return res.status(400).json({ message: E1 });
 
-    try {
-      await runMiddleware(req, res, upload.single("avatar"));
-      const { buffer } = req.file;
+  try {
+    await runMiddleware(req, res, upload.single("avatar"));
+    const { buffer } = req.file;
 
-      const resizedBuffer = await sharp(buffer)
-        .resize({ width: 200, height: 200 })
-        .toBuffer();
+    const resizedBuffer = await sharp(buffer)
+      .resize({ width: 200, height: 200 })
+      .toBuffer();
 
-      if (!resizedBuffer || !process.env.S3_AVATAR_BUCKET_NAME)
-        return res.status(401).json({ message: E2 });
-      const avatar = await uploadImage(
-        process.env.S3_AVATAR_BUCKET_NAME,
-        resizedBuffer
-      );
+    if (!resizedBuffer || !process.env.S3_AVATAR_BUCKET_NAME)
+      return res.status(401).json({ message: E2 });
+    const avatar = await uploadImage(
+      process.env.S3_AVATAR_BUCKET_NAME,
+      resizedBuffer
+    );
 
-      if (!avatar || !avatar.Key) return res.status(401).json({ message: E1 });
+    if (!avatar || !avatar.Key) return res.status(401).json({ message: E1 });
 
-      const user = await prisma.user.update({
-        where: {
-          id: req.session.user.id,
-        },
-        data: {
-          avatar: avatar.Key,
-        },
-      });
-      const userWithoutPassword = exclude(user, ["password"]);
+    const user = await prisma.user.update({
+      where: {
+        id: userConnectedId,
+      },
+      data: {
+        avatar: avatar.Key,
+      },
+    });
+    const userWithoutPassword = exclude(user, ["password"]);
 
-      res.status(200).json({ user: userWithoutPassword });
-    } catch (e) {
-      return res.status(401).json({ message: E1 });
-    }
-  }),
-  ironConfig
-);
+    res.status(200).json({ user: userWithoutPassword });
+  } catch (e) {
+    return res.status(401).json({ message: E1 });
+  }
+}
 
 export const config = {
   api: {
