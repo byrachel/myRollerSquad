@@ -9,6 +9,12 @@ const handler = nextConnect();
 export default handler.get(
   async (req: NextApiRequest, res: NextApiResponse) => {
     const { dept, category } = req.query;
+    const county = dept ? (Array.isArray(dept) ? dept[0] : dept) : "all";
+    const categorId = category
+      ? Array.isArray(category)
+        ? category[0]
+        : category
+      : "all";
 
     try {
       const places = await prisma.place.findMany({
@@ -18,8 +24,8 @@ export default handler.get(
         },
         where: {
           active: true,
-          ...(dept === "all" ? {} : { county: dept }),
-          ...(category === "all" ? {} : { category }),
+          ...(county === "all" ? {} : { county: parseInt(county) }),
+          ...(categorId === "all" ? {} : { category: parseInt(categorId) }),
         },
         include: {
           favorites: {
