@@ -53,7 +53,11 @@ const Flow = ({ userConnectedId }: Props) => {
   };
 
   useEffect(() => {
+    const abortController = new AbortController();
     fetchPosts();
+    return () => {
+      abortController.abort();
+    };
     // eslint-disable-next-line
   }, [category, style]);
 

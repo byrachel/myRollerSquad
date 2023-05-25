@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import countries from "src/utils/countries.json";
 import departments from "src/utils/frenchDepartments.json";
 import frenchCities from "src/utils/frenchCities.json";
@@ -20,11 +20,20 @@ export default function SelectLocation({ country, department, city }: Props) {
 
   const handleDepartment = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setSelectedDepartment(e.target.value);
-    const frenchCitiesFromThisDpt = frenchCities.filter(
-      (city) => city.department_code === e.target.value
-    );
-    setCitiesToSelect(frenchCitiesFromThisDpt);
+    // const frenchCitiesFromThisDpt = frenchCities.filter(
+    //   (city) => city.department_code === e.target.value
+    // );
+    // setCitiesToSelect(frenchCitiesFromThisDpt);
   };
+
+  useEffect(() => {
+    if (selectedDepartment) {
+      const frenchCitiesFromThisDpt = frenchCities.filter(
+        (city) => city.department_code === selectedDepartment
+      );
+      setCitiesToSelect(frenchCitiesFromThisDpt);
+    }
+  }, [selectedDepartment]);
 
   return (
     <>
@@ -50,7 +59,7 @@ export default function SelectLocation({ country, department, city }: Props) {
               <select
                 id="standard-select"
                 name="department"
-                defaultValue={selectedDepartment || ""}
+                defaultValue={selectedDepartment}
                 onChange={handleDepartment}
               >
                 <option value="">-- Choisis ta département</option>
