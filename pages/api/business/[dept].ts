@@ -10,7 +10,7 @@ export default handler.get(
   async (req: NextApiRequest, res: NextApiResponse) => {
     const { dept, category } = req.query;
     const county = dept ? (Array.isArray(dept) ? dept[0] : dept) : "all";
-    const categorId = category
+    const categoryId = category
       ? Array.isArray(category)
         ? category[0]
         : category
@@ -24,8 +24,10 @@ export default handler.get(
         },
         where: {
           active: true,
-          ...(county === "all" ? {} : { county: parseInt(county) }),
-          ...(categorId === "all" ? {} : { category: parseInt(categorId) }),
+          ...(!county || county === "all" ? {} : { county: parseInt(county) }),
+          ...(!categoryId || categoryId === "all"
+            ? {}
+            : { category: parseInt(categoryId) }),
         },
         include: {
           favorites: {

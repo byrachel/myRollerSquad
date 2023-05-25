@@ -6,7 +6,7 @@ import sharp from "sharp";
 import prisma from "@/server/prisma/db/client";
 import { uploadImage } from "@/server/utils/uploadImage";
 import { E1, E2 } from "src/constants/ErrorMessages";
-import { checkUserIsConnected } from "@/server/controllers/checkUserId";
+import { checkUserId } from "@/server/controllers/checkUserId";
 
 const upload = multer({
   storage: multer.memoryStorage(),
@@ -17,12 +17,16 @@ const handler = nextConnect();
 export default handler
   .use(upload.single("logo"))
   .put(async (req: any, res: NextApiResponse) => {
-    if (!req.file) return res.status(401).json({ message: E1 });
-    const user = await checkUserIsConnected(req, res);
+    const user = await checkUserId(req, res);
     if (!user) return res.status(401).json({ message: E2 });
+    const { pid } = req.query;
+    const placeId = pid ? (Array.isArray(pid) ? pid[0] : pid) : null;
+    if (!placeId) return res.status(401).json({ message: E2 });
 
     try {
-      const resizedBuffer = await sharp(req.file.buffer)
+      const { buffer } = req.file;
+
+      const resizedBuffer = await sharp(buffer)
         .resize({ width: 140, height: 140 })
         .toBuffer();
 
@@ -43,8 +47,7 @@ export default handler
 
       const place = await prisma.place.update({
         where: {
-          id: parseInt(req.query.pid),
-          user_id: user.id,
+          id: parseInt(placeId),
         },
         data: {
           logo: logo.Key,
