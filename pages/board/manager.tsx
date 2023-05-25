@@ -15,7 +15,7 @@ export default function Manager() {
   const { data: session } = useSession() as any;
   const user = session?.user;
 
-  return user.role === "ADMIN" ? (
+  return user && user.role === "ADMIN" ? (
     <>
       <div className="coloredSeparator" />
       <div className={styles.adminContainer}>
