@@ -6,7 +6,6 @@ import Image from "next/image";
 
 import UserIcon from "src/svg/profile-circle.svg";
 import MyAccountDropdownMenu from "./MyAccountDropdownMenu";
-import Link from "next/link";
 
 export default function Header() {
   const router = useRouter();
