@@ -1,6 +1,7 @@
 import React from "react";
+import { useSession } from "next-auth/react";
+
 import { PostInterface } from "src/entities/flow.entity";
-import { State, useUser } from "src/hooks/useUser";
 import Card from "../Flow/getPosts/Card";
 
 interface Props {
@@ -8,7 +9,8 @@ interface Props {
 }
 
 export default function SingleBusinessPosts({ posts }: Props) {
-  const userId = useUser((state: State) => state.userId);
+  const { data: session } = useSession() as any;
+  const userId = session?.user?.id;
 
   return (
     <div className="darkContainer">
