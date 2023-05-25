@@ -1,24 +1,21 @@
 import React, { useState } from "react";
+import { useSession } from "next-auth/react";
+
 import styles from "src/styles/AdminLayout.module.scss";
 import CategoriesBoard from "src/components/admin/CategoriesBoard";
 import PlacesBoard from "src/components/admin/PlacesBoard";
-import { withSessionSsr } from "@/server/middleware/auth/withSession";
-import { UserStateInterface } from "src/reducers/UserReducer";
 
 const CATEGORIES = 1;
 const STYLES = 2;
 const USERS = 3;
 const PLACES = 4;
 
-interface Props {
-  user: UserStateInterface;
-}
-
-export default function Manager({ user }: Props) {
+export default function Manager() {
   const [componentToDisplay, setComponentToDisplay] = useState(CATEGORIES);
-  const isAdmin = user.id && user.role === "ADMIN";
+  const { data: session } = useSession() as any;
+  const user = session?.user;
 
-  return isAdmin ? (
+  return user.role === "ADMIN" ? (
     <>
       <div className="coloredSeparator" />
       <div className={styles.adminContainer}>
@@ -80,10 +77,3 @@ export default function Manager({ user }: Props) {
     </>
   ) : null;
 }
-
-export const getServerSideProps = withSessionSsr(async ({ req }) => {
-  const user = req.session as any;
-  return {
-    props: user,
-  };
-});
