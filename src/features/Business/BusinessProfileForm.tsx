@@ -37,6 +37,7 @@ const BusinessProfileForm = ({
               orientation="horizontal"
               defaultValue="PROFESSIONAL"
               aria-label="Indique si tu es une entreprise ou une association"
+              name="type"
             >
               <Radio value="PROFESSIONAL" color="secondary" size="sm">
                 Entreprise

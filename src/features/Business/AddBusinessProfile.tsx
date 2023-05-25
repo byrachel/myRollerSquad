@@ -27,7 +27,7 @@ const AddBusinessProfile = ({ ownerId }: Props) => {
       siren: { value: string };
       name: { value: string };
       description: { value?: string };
-      url: { value?: string };
+      url: { value: string };
       type: { value: string };
       country: { value: string };
       department: { value?: string };

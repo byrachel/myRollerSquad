@@ -1,13 +1,10 @@
 import nextConnect from "next-connect";
-import { withIronSessionApiRoute } from "iron-session/next";
 
-import {
-  initValidation,
-  check,
-} from "../../../../server/middleware/validators";
+import { initValidation, check } from "@/server/middleware/validators";
 import { E1, E2, E3 } from "src/constants/ErrorMessages";
-import { ironConfig } from "@/server/middleware/auth/ironConfig";
 import { UserProfileRepository } from "@/server/repositories/UserProfile.repository";
+import { checkUserId } from "@/server/controllers/checkUserId";
+import { NextApiRequest, NextApiResponse } from "next";
 
 const validator = initValidation([
   check("name").not().isEmpty().trim().escape().withMessage(E3),
@@ -25,15 +22,11 @@ const validator = initValidation([
 
 const handler = nextConnect();
 
-export default withIronSessionApiRoute(
-  handler.use(validator).put(async (req: any, res: any) => {
-    const { user } = req.session;
-    if (!user) return res.status(401).json({ message: E2 });
-    const { id } = req.query;
-    const userId = Array.isArray(id) ? id[0] : id;
-
-    if (!userId || !user.id || user.id !== parseInt(userId))
-      return res.status(401).json({ message: E2 });
+export default handler
+  .use(validator)
+  .put(async (req: NextApiRequest, res: NextApiResponse) => {
+    const user = await checkUserId(req, res);
+    if (!user) return res.status(400).json({ message: E2 });
 
     const userToUpdate = req.body;
 
@@ -42,6 +35,4 @@ export default withIronSessionApiRoute(
 
     if (!userProfile) return res.status(400).json({ message: E1 });
     res.status(200).json({ user: userProfile });
-  }),
-  ironConfig
-);
+  });

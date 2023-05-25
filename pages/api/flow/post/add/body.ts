@@ -1,10 +1,9 @@
 import nextConnect from "next-connect";
-import { withIronSessionApiRoute } from "iron-session/next";
 
-import prisma from "../../../../../server/prisma/db/client";
+import prisma from "server/prisma/db/client";
 import { E1, E2, E3 } from "src/constants/ErrorMessages";
-import { ironConfig } from "@/server/middleware/auth/ironConfig";
-import { initValidation, check } from "@/server/middleware/validators";
+import { initValidation, check } from "server/middleware/validators";
+import { checkUserIsConnected } from "server/controllers/checkUserId";
 
 const handler = nextConnect();
 
@@ -30,57 +29,55 @@ const validator = initValidation([
   check("style_ids").isArray().withMessage(E3),
 ]);
 
-export default withIronSessionApiRoute(
-  handler.use(validator).post(async (req: any, res: any) => {
-    const { user } = req.session;
-    if (!user) return res.status(401).json({ message: E2 });
+export default handler.use(validator).post(async (req: any, res: any) => {
+  const user = await checkUserIsConnected(req, res);
+  if (!user || user.id !== req.body.user_id)
+    return res.status(401).json({ message: E2 });
 
-    const {
-      title,
-      content,
-      category_id,
-      style_ids,
-      link,
-      duration,
-      distance,
-      country,
-      county,
-      city,
-      price,
-      place_id,
-    } = req.body;
+  const {
+    title,
+    content,
+    category_id,
+    style_ids,
+    link,
+    duration,
+    distance,
+    country,
+    county,
+    city,
+    price,
+    place_id,
+  } = req.body;
 
-    if (!title || !category_id) return res.status(400).json({ message: E3 });
+  if (!title || !category_id) return res.status(400).json({ message: E3 });
 
-    try {
-      const newPost = await prisma.post.create({
-        data: {
-          title,
-          content: content ? content : "",
-          user_id: user.id,
-          place_id: place_id ? place_id : null,
-          category_id,
-          country: country ? country : "France",
-          county: county ? county : null,
-          city: city ? city : null,
-          style: {
-            create: style_ids.map((id: number) => ({
-              style: { connect: { id } },
-            })),
-          },
-          link: link ? link : null,
-          duration: duration ? duration : null,
-          distance: distance ? distance : null,
-          price: price ? parseFloat(price) : null,
-          pictures: [],
+  try {
+    const newPost = await prisma.post.create({
+      data: {
+        title,
+        content: content ? content : "",
+        user_id: user.id,
+        place_id: place_id ? place_id : null,
+        category_id,
+        country: country ? country : "France",
+        county: county ? county : null,
+        city: city ? city : null,
+        style: {
+          create: style_ids.map((id: number) => ({
+            style: { connect: { id } },
+          })),
         },
-      });
+        link: link ? link : null,
+        duration: duration ? duration : null,
+        distance: distance ? distance : null,
+        price: price ? parseFloat(price) : null,
+        pictures: [],
+      },
+    });
 
-      res.status(200).json({ post: newPost });
-    } catch (e) {
-      console.log(e);
-      return res.status(401).json({ message: E1 });
-    }
-  }),
-  ironConfig
-);
+    res.status(200).json({ post: newPost });
+  } catch (e) {
+    console.log(e);
+    return res.status(401).json({ message: E1 });
+  }
+});

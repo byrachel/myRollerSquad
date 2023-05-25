@@ -1,44 +1,68 @@
 import { SyntheticEvent, useState } from "react";
-import { shallow } from "zustand/shallow";
 import { useRouter } from "next/router";
+import { signIn } from "next-auth/react";
+import { useSession, signOut } from "next-auth/react";
 import Link from "next/link";
 
-import { onLogin } from "./utils/services";
-import { useUser } from "src/hooks/useUser";
 import ErrorLayout from "@/components/layouts/ErrorLayout";
 import InputText from "@/components/form/InputText";
 import InputPassword from "@/components/form/InputPassword";
-import Loader from "@/components/layouts/Loader";
 import BigButton from "@/components/buttons/BigButton";
 
 import Roller from "src/svg/rollerquad.svg";
+import RegularButton from "@/components/buttons/RegularButton";
 
 export default function LoginForm() {
-  const [error, setError] = useState({ status: false, message: "" });
-  const { login, userId, isLoading, setIsLoading } = useUser(
-    (state: any) => ({
-      login: state.login,
-      isLoading: state.isLoading,
-      setIsLoading: state.setIsLoading,
-      userId: state.userId,
-    }),
-    shallow
-  );
   const router = useRouter();
+  const [error, setError] = useState({ status: false, message: "" });
+
+  const { data: session } = useSession() as any;
+  const userName = session?.user?.username;
+
+  interface LoginInterface {
+    error: string | null;
+    url: string | null;
+    ok: boolean;
+    status: number;
+  }
+
+  const handleLogin = async (e: any) => {
+    e.preventDefault();
+    const target = e.target as typeof e.target & {
+      email: { value: string };
+      password: { value: string };
+    };
+    const userLogged = (await signIn("credentials", {
+      email: target.email.value,
+      password: target.password.value,
+      callbackUrl: `/myrollerblog`,
+      redirect: false,
+    })) as LoginInterface;
+    if (userLogged?.error) console.log("ERROR", userLogged.error);
+    if (userLogged?.url) router.push(userLogged.url);
+  };
 
   return (
     <>
-      <h3 className="mt5">Se connecter :</h3>
+      <h2 className="mt5">Se connecter :</h2>
       <div className="lightSeparator mt5" />
-      {isLoading && !userId ? (
-        <Loader text="Connexion en cours..." />
+      {userName ? (
+        <>
+          <p className="meta mt-large">
+            Tu es déjà connecté, sous l'identifiant :
+          </p>
+          <h3>{userName}</h3>
+          <p> Si ce n'est pas ton compte, déconnecte-toi et reconnecte-toi.</p>
+          <RegularButton
+            text="Me déconnecter"
+            type="button"
+            style="full"
+            onClick={() => signOut()}
+          />
+        </>
       ) : (
         <>
-          <form
-            onSubmit={(e: SyntheticEvent) =>
-              onLogin(e, login, setError, setIsLoading, router)
-            }
-          >
+          <form onSubmit={(e: SyntheticEvent) => handleLogin(e)}>
             <ErrorLayout
               error={error.status}
               message={error.message}

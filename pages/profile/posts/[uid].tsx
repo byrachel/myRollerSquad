@@ -1,10 +1,11 @@
+import { useSession } from "next-auth/react";
 import NewPostBar from "src/components/layouts/NewPostBar";
 import HandlePosts from "src/features/UserBoard/Posts/HandlePosts";
 import Loader from "src/components/layouts/Loader";
-import { useUser } from "src/hooks/useUser";
 
 const UserPosts = () => {
-  const userId = useUser((state) => state.userId);
+  const { data: session } = useSession() as any;
+  const userId = session?.user?.id;
 
   return (
     <>

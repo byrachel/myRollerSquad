@@ -56,6 +56,7 @@ export default function UserBusinessCard({
                 placeDispatch={placeDispatch}
                 placeId={placeId}
                 placeLogo={place.logo ? place.logo : null}
+                userId={userConnectedId}
               />
             ) : (
               <Image

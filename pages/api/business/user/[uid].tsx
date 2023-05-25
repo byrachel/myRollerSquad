@@ -1,23 +1,16 @@
+import { NextApiRequest, NextApiResponse } from "next";
 import nextConnect from "next-connect";
 
+import { checkUserId } from "server/controllers/checkUserId";
 import prisma from "server/prisma/db/client";
 import { E1 } from "src/constants/ErrorMessages";
-import { withIronSessionApiRoute } from "iron-session/next";
-import { ironConfig } from "@/server/middleware/auth/ironConfig";
 
 const handler = nextConnect();
 
-export default withIronSessionApiRoute(
-  handler.get(async (req: any, res: any) => {
-    const user = req.session.user;
-    const userId = req.query.uid;
-    if (
-      !user ||
-      !user.role ||
-      user.role !== "PRO" ||
-      parseInt(userId) !== user.id
-    )
-      return res.status(401).json({ message: E1 });
+export default handler.get(
+  async (req: NextApiRequest, res: NextApiResponse) => {
+    const user = await checkUserId(req, res);
+    if (!user) return res.status(401).json({ message: E1 });
 
     try {
       const places = await prisma.place.findMany({
@@ -27,10 +20,10 @@ export default withIronSessionApiRoute(
           name: true,
         },
       });
+      if (!places) return res.status(400).json({ message: E1 });
       res.status(200).json({ places });
     } catch (e) {
       res.status(400).json({ message: E1 });
     }
-  }),
-  ironConfig
+  }
 );

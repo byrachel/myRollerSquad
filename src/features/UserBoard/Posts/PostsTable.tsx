@@ -11,13 +11,19 @@ import { cardColor } from "src/utils/colorManager";
 
 interface Props {
   posts: PostInterface[];
+  userId: number;
   setUpdate: React.Dispatch<React.SetStateAction<boolean>>;
   setEditPost: React.Dispatch<
     React.SetStateAction<{ show: boolean; post: PostInterface | null }>
   >;
 }
 
-export default function PostsTable({ posts, setUpdate, setEditPost }: Props) {
+export default function PostsTable({
+  posts,
+  userId,
+  setUpdate,
+  setEditPost,
+}: Props) {
   const columns = [
     { name: "MES PUBLICATIONS", uid: "title" },
     { name: "STYLE", uid: "category" },
@@ -93,7 +99,9 @@ export default function PostsTable({ posts, setUpdate, setEditPost }: Props) {
             <UpdateDeleteIcons
               onUpdate={() => setEditPost({ show: true, post })}
               onDelete={() =>
-                deletePost(post.id, () => setUpdate((prevState) => !prevState))
+                deletePost(userId, post.id, () =>
+                  setUpdate((prevState) => !prevState)
+                )
               }
             />
           </Row>

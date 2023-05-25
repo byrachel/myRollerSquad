@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import axios from "axios";
+import { useSession } from "next-auth/react";
 
 import Favorite from "src/svg/bookmark-empty.svg";
-import { State, useUser } from "src/hooks/useUser";
 
 interface Props {
   favorites: any;
@@ -12,7 +12,8 @@ interface Props {
 const AddToFav = ({ favorites, placeId }: Props) => {
   const favs = favorites.map((elt: any) => elt.id);
   const [favCounter, setFavCounter] = useState(favorites.length);
-  const userId = useUser((state: State) => state.userId);
+  const { data: session } = useSession() as any;
+  const userId = session?.user?.id;
 
   const addToMyFav = (id: number) => {
     if (!id) return;

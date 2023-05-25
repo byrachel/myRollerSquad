@@ -7,12 +7,14 @@ interface Props {
   placeDispatch: React.Dispatch<any>;
   placeId: number;
   placeLogo: string;
+  userId: number;
 }
 
 export default function UserBusinessLogo({
   placeDispatch,
   placeId,
   placeLogo,
+  userId,
 }: Props) {
   const [newLogoFile, setNewLogoFile] = useState<any | null>(null);
   const [displayNewLogo, setDisplayNewLogo] = useState(false);
@@ -75,6 +77,7 @@ export default function UserBusinessLogo({
           logo={newLogoFile}
           setDisplayNewLogo={setDisplayNewLogo}
           placeDispatch={placeDispatch}
+          userId={userId}
         />
       </Modal>
     </>

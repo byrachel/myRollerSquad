@@ -1,28 +1,30 @@
-import type { NextApiResponse } from "next";
-import prisma from "../../../server/prisma/db/client";
-import { E1, E3 } from "src/constants/ErrorMessages";
-import { withSessionRoute } from "@/server/middleware/auth/withSession";
+import type { NextApiRequest, NextApiResponse } from "next";
+import nextConnect from "next-connect";
 
-export default withSessionRoute(async (req: any, res: NextApiResponse) => {
-  if (req.method !== "PUT") return res.status(401).json({ message: E1 });
+import prisma from "server/prisma/db/client";
+import { E1 } from "src/constants/ErrorMessages";
 
-  const { id } = req.body;
+const handler = nextConnect();
 
-  if (!id || typeof id !== "number")
-    return res.status(400).json({ message: E3 });
+export default handler.put(
+  async (req: NextApiRequest, res: NextApiResponse) => {
+    const { id } = req.body;
+    if (!id) return res.status(401).json({ message: E1 });
+    const user_id = Array.isArray(id) ? id[0] : id;
 
-  try {
-    const user = await prisma.user.update({
-      where: {
-        id,
-      },
-      data: {
-        active: true,
-      },
-    });
-
-    res.status(200).json({ user: { active: user.active } });
-  } catch (err) {
-    res.status(400).json({ message: E1 });
+    try {
+      const userToActivate = await prisma.user.update({
+        where: {
+          id: parseInt(user_id),
+        },
+        data: {
+          active: true,
+        },
+      });
+      if (!userToActivate) return res.status(401).json({ message: E1 });
+      res.status(200).json({ user: { active: userToActivate.active } });
+    } catch (err) {
+      res.status(400).json({ message: E1 });
+    }
   }
-});
+);

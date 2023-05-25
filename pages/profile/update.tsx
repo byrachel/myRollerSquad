@@ -1,14 +1,16 @@
 import React from "react";
-import LoginForm from "src/features/auth/LoginForm";
+import { useSession } from "next-auth/react";
+
 import UpdateUserProfileContainer from "src/features/UserProfile/UpdateUserProfile/UpdateUserProfileContainer";
-import { useUser } from "src/hooks/useUser";
+import UnloggedUser from "@/components/layouts/UnloggedUser";
 
 export default function UpdateMyAccount() {
-  const userId = useUser((state) => state.userId);
+  const { data: session } = useSession() as any;
+  const userId = session?.user?.id;
 
   return userId ? (
     <UpdateUserProfileContainer userConnectedId={userId} />
   ) : (
-    <LoginForm />
+    <UnloggedUser />
   );
 }

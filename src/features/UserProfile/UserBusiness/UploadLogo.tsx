@@ -15,6 +15,7 @@ interface Props {
   setDisplayNewLogo: (arg: boolean) => void;
   placeDispatch: React.Dispatch<any>;
   placeId: number;
+  userId: number;
 }
 
 export default function UploadLogo({
@@ -22,6 +23,7 @@ export default function UploadLogo({
   setDisplayNewLogo,
   placeDispatch,
   placeId,
+  userId,
 }: Props) {
   const [uploadError, setUploadError] = useState({
     status: false,
@@ -41,7 +43,7 @@ export default function UploadLogo({
       data.append("logo", logo.file);
       axios({
         method: "put",
-        url: `/api/business/logo/${placeId}`,
+        url: `/api/business/logo/${placeId}/${userId}`,
         data,
         headers: {
           "Content-Type": "multipart/form-data",

@@ -1,18 +1,31 @@
-import type { NextApiResponse } from "next";
-import { withIronSessionApiRoute } from "iron-session/next";
+import type { NextApiRequest, NextApiResponse } from "next";
 
-import prisma from "../../../../server/prisma/db/client";
-import { ironConfig } from "@/server/middleware/auth/ironConfig";
-import { E1 } from "src/constants/ErrorMessages";
+import prisma from "@/server/prisma/db/client";
+import { checkUserIsConnected } from "@/server/controllers/checkUserId";
+import { E1, E2 } from "src/constants/ErrorMessages";
 
-export default withIronSessionApiRoute(userRoute, ironConfig);
-
-async function userRoute(req: any, res: NextApiResponse<any>) {
+export default async function handler(
+  req: NextApiRequest,
+  res: NextApiResponse
+) {
   if (req.method !== "GET") return res.status(401).json({ message: E1 });
-  const user = req.session.user;
+
+  const user = await checkUserIsConnected(req, res);
+  if (!user) return res.status(401).json({ message: E2 });
+
   const { cursor, category, style } = req.query;
-  if (!user) return res.status(401).json({ message: E1 });
-  const postsCursor = cursor ? parseInt(cursor) : 0;
+  const category_id = category
+    ? Array.isArray(category)
+      ? parseInt(category[0])
+      : parseInt(category)
+    : null;
+  const style_id = style
+    ? Array.isArray(style)
+      ? parseInt(style[0])
+      : parseInt(style)
+    : null;
+  const cursorValue = Array.isArray(cursor) ? cursor[0] : cursor;
+  const postsCursor = cursorValue ? parseInt(cursorValue) : 0;
 
   try {
     // const cursorObj = postsCursor === 0 ? undefined : { id: postsCursor };
@@ -24,8 +37,8 @@ async function userRoute(req: any, res: NextApiResponse<any>) {
         created_at: "desc",
       },
       where: {
-        ...(category ? { category_id: parseInt(category) } : {}),
-        ...(style ? { style: { some: { style_id: parseInt(style) } } } : {}),
+        ...(category_id ? { category_id } : {}),
+        ...(style_id ? { style: { some: { style_id } } } : {}),
       },
       select: {
         id: true,

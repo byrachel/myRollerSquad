@@ -9,7 +9,7 @@ import UserProfileReducer from "src/reducers/UserProfileReducer";
 import Loader from "src/components/layouts/Loader";
 import UserResume from "./UserResume";
 import UserBusinessCard from "./UserBusiness/UserBusinessCard";
-import BusinessProfileCTA from "../BusinessProfile/BusinessProfileCTA";
+import BusinessProfileCTA from "../Business/BusinessProfileCTA";
 import UserBusinessFavs from "../UserBoard/Favs/UserBusinessFavs";
 
 const initialState = {

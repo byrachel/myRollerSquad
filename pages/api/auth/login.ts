@@ -1,12 +1,10 @@
 import bcrypt from "bcrypt";
 import nextConnect from "next-connect";
-import { NextApiResponse } from "next";
+import { NextApiRequest, NextApiResponse } from "next";
 
-import prisma from "../../../server/prisma/db/client";
-import { initValidation, check } from "../../../server/middleware/validators";
+import prisma from "server/prisma/db/client";
+import { initValidation, check } from "server/middleware/validators";
 import { E3, E5, E6 } from "src/constants/ErrorMessages";
-import { ironConfig } from "@/server/middleware/auth/ironConfig";
-import { withIronSessionApiRoute } from "iron-session/next";
 
 const handler = nextConnect();
 
@@ -24,8 +22,9 @@ const validator = initValidation([
     .withMessage(E6),
 ]);
 
-export default withIronSessionApiRoute(
-  handler.use(validator).post(async (req: any, res: NextApiResponse) => {
+export default handler
+  .use(validator)
+  .post(async (req: NextApiRequest, res: NextApiResponse) => {
     const { email, password } = req.body;
     if (!email || !password) return res.status(400).json({ message: E3 });
 
@@ -50,13 +49,6 @@ export default withIronSessionApiRoute(
 
         if (!validPassword) return res.status(400).json({ message: E6 });
 
-        req.session.user = {
-          id: existingUser.id,
-          role: existingUser.role,
-          isLoggedIn: true,
-        };
-        await req.session.save();
-
         res.status(200).json({
           user: {
             id: existingUser.id,
@@ -65,7 +57,7 @@ export default withIronSessionApiRoute(
             avatar: existingUser.avatar,
             places:
               existingUser.role === "PRO"
-                ? existingUser.place.map((elt) => ({
+                ? existingUser.place.map((elt: any) => ({
                     id: elt.id,
                     name: elt.name,
                   }))
@@ -78,6 +70,4 @@ export default withIronSessionApiRoute(
     } catch (e) {
       res.status(500).json({ message: E6 });
     }
-  }),
-  ironConfig
-);
+  });

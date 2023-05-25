@@ -1,24 +1,20 @@
 import nextConnect from "next-connect";
-import { withIronSessionApiRoute } from "iron-session/next";
 
 import prisma from "@/server/prisma/db/client";
-import { ironConfig } from "@/server/middleware/auth/ironConfig";
+import { checkUserId } from "@/server/controllers/checkUserId";
+import { NextApiRequest, NextApiResponse } from "next";
 
 const handler = nextConnect();
 
-export default withIronSessionApiRoute(
-  handler.get(async (req: any, res: any) => {
-    const { user } = req.session;
+export default handler.get(
+  async (req: NextApiRequest, res: NextApiResponse) => {
+    const user = await checkUserId(req, res);
     if (!user) return res.status(401).json({ posts: null });
-
-    const { uid } = req.query;
-    if (!uid || parseInt(uid) !== user.id)
-      return res.status(401).json({ posts: null });
 
     try {
       const posts = await prisma.post.findMany({
         where: {
-          user_id: parseInt(uid),
+          user_id: user.id,
         },
         orderBy: {
           created_at: "desc",
@@ -51,6 +47,5 @@ export default withIronSessionApiRoute(
     } catch (error) {
       res.status(400).json({ posts: null });
     }
-  }),
-  ironConfig
+  }
 );

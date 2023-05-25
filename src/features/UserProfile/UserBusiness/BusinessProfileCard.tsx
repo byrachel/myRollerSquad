@@ -5,7 +5,7 @@ import axios from "axios";
 import Pending from "src/svg/hourglass.svg";
 import Pin from "src/svg/pin.svg";
 
-import BusinessAddToFav from "../../BusinessProfile/BusinessAddToFav";
+import BusinessAddToFav from "../../Business/BusinessAddToFav";
 import UpdateDeleteIcons from "src/components/buttons/UpdateDeleteIcons";
 import { PlaceInterface } from "src/entities/business.entity";
 

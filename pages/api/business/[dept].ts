@@ -1,3 +1,4 @@
+import { NextApiResponse } from "next";
 import nextConnect from "next-connect";
 
 import prisma from "server/prisma/db/client";
@@ -5,7 +6,7 @@ import { E1 } from "src/constants/ErrorMessages";
 
 const handler = nextConnect();
 
-export default handler.get(async (req: any, res: any) => {
+export default handler.get(async (req: any, res: NextApiResponse) => {
   const { dept, category } = req.query;
 
   try {
@@ -16,8 +17,8 @@ export default handler.get(async (req: any, res: any) => {
       },
       where: {
         active: true,
-        ...(dept === "all" ? {} : { county: dept }),
-        ...(category === "all" ? {} : { category }),
+        ...(!dept || dept === "all" ? {} : { county: dept }),
+        ...(!category || category === "all" ? {} : { category }),
       },
       include: {
         favorites: {

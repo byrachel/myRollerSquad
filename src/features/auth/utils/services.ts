@@ -103,14 +103,3 @@ export const onLogin = (
       setError({ status: true, message: error.response.data.message });
     });
 };
-
-export const onLogout = (userLogout: any, router: any) => {
-  axios({
-    method: "POST",
-    url: `/api/auth/logout`,
-    withCredentials: true,
-  }).then(() => {
-    userLogout();
-    router.push("/");
-  });
-};

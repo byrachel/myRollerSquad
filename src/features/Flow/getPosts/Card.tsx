@@ -109,7 +109,7 @@ export default function Card({
         />
         <CommentIcon counter={post.comments?.length || 0} color={color} />
         <Link href={`/post/${post.id}`}>
-          <Arrow className={`linksIcon ${color}`} width={30} height={30} />
+          <Arrow className="linksIcon grey" width={30} height={30} />
         </Link>
       </div>
     </div>

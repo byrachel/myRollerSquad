@@ -1,3 +1,4 @@
+import { NextApiRequest, NextApiResponse } from "next";
 import nextConnect from "next-connect";
 
 import prisma from "../../../../server/prisma/db/client";
@@ -5,40 +6,43 @@ import { E1 } from "src/constants/ErrorMessages";
 
 const handler = nextConnect();
 
-export default handler.get(async (req: any, res: any) => {
-  const { pid } = req.query;
-  if (!pid) return res.status(400).json({ message: E1 });
+export default handler.get(
+  async (req: NextApiRequest, res: NextApiResponse) => {
+    const { pid } = req.query;
+    if (!pid) return res.status(401).json({ message: E1 });
+    const place_id = Array.isArray(pid) ? pid[0] : pid;
 
-  try {
-    const place = await prisma.place.findUnique({
-      where: {
-        id: parseInt(pid),
-      },
-      include: {
-        favorites: {
-          select: {
-            id: true,
-          },
+    try {
+      const place = await prisma.place.findUnique({
+        where: {
+          id: parseInt(place_id),
         },
-        posts: {
-          select: {
-            id: true,
-            title: true,
-            category: {
-              select: {
-                name: true,
-              },
+        include: {
+          favorites: {
+            select: {
+              id: true,
             },
-            created_at: true,
-            content: true,
-            pictures: true,
+          },
+          posts: {
+            select: {
+              id: true,
+              title: true,
+              category: {
+                select: {
+                  name: true,
+                },
+              },
+              created_at: true,
+              content: true,
+              pictures: true,
+            },
           },
         },
-      },
-    });
-    if (!place || !place.active) return res.status(200).json({ place: {} });
-    res.status(200).json({ place });
-  } catch (e) {
-    res.status(400).json({ message: E1 });
+      });
+      if (!place || !place.active) return res.status(200).json({ place: {} });
+      res.status(200).json({ place });
+    } catch (e) {
+      res.status(400).json({ message: E1 });
+    }
   }
-});
+);

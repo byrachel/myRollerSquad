@@ -1,10 +1,10 @@
 import nextConnect from "next-connect";
-import { withIronSessionApiRoute } from "iron-session/next";
 
-import prisma from "../../../../../server/prisma/db/client";
+import prisma from "@/server/prisma/db/client";
 import { E1, E2, E3 } from "src/constants/ErrorMessages";
-import { ironConfig } from "@/server/middleware/auth/ironConfig";
 import { initValidation, check } from "@/server/middleware/validators";
+import { checkUserIsConnected } from "@/server/controllers/checkUserId";
+import { NextApiRequest, NextApiResponse } from "next";
 
 const handler = nextConnect();
 
@@ -31,16 +31,18 @@ const validator = initValidation([
   check("pictures").isArray().withMessage(E3),
 ]);
 
-export default withIronSessionApiRoute(
-  handler.use(validator).put(async (req: any, res: any) => {
-    const { user } = req.session;
-    if (!user) return res.status(401).json({ message: E2 });
+export default handler
+  .use(validator)
+  .put(async (req: NextApiRequest, res: NextApiResponse) => {
+    const user = await checkUserIsConnected(req, res);
+    if (!user || user.id !== req.body.user_id)
+      return res.status(401).json({ message: E2 });
 
     const { postid } = req.query;
     if (!postid) return res.status(400).json({ message: E1 });
+    const id = Array.isArray(postid) ? postid[0] : postid;
 
     const {
-      user_id,
       title,
       content,
       category_id,
@@ -55,12 +57,11 @@ export default withIronSessionApiRoute(
       pictures,
     } = req.body;
 
-    if (!title || !category_id || user_id !== user.id)
-      return res.status(400).json({ message: E3 });
+    if (!title || !category_id) return res.status(400).json({ message: E3 });
 
     try {
       const newPost = await prisma.post.update({
-        where: { id: parseInt(postid) },
+        where: { id: parseInt(id) },
         data: {
           title,
           content: content ? content : "",
@@ -90,6 +91,4 @@ export default withIronSessionApiRoute(
     } catch (e) {
       return res.status(401).json({ message: E1 });
     }
-  }),
-  ironConfig
-);
+  });

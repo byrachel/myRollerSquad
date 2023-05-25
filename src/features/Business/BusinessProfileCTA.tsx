@@ -1,13 +1,14 @@
 import React from "react";
 import { useRouter } from "next/router";
-import { State, useUser } from "src/hooks/useUser";
+import { useSession } from "next-auth/react";
 
 import FavPlace from "src/svg/bookmark-circle.svg";
 import RegularButton from "src/components/buttons/RegularButton";
 
 export default function BusinessProfileCTA() {
   const router = useRouter();
-  const userId = useUser((state: State) => state.userId);
+  const { data: session } = useSession() as any;
+  const userId = session?.user?.id;
 
   const createBusiness = () => {
     if (userId) {

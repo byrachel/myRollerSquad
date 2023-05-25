@@ -1,15 +1,15 @@
+import { NextApiRequest, NextApiResponse } from "next";
 import nextConnect from "next-connect";
 
-import prisma from "../../../../server/prisma/db/client";
+import prisma from "server/prisma/db/client";
 import { E1 } from "src/constants/ErrorMessages";
-import { withIronSessionApiRoute } from "iron-session/next";
-import { ironConfig } from "@/server/middleware/auth/ironConfig";
+import { checkUserIsConnected } from "server/controllers/checkUserId";
 
 const handler = nextConnect();
 
-export default withIronSessionApiRoute(
-  handler.get(async (req: any, res: any) => {
-    const user = req.session.user;
+export default handler.get(
+  async (req: NextApiRequest, res: NextApiResponse) => {
+    const user = await checkUserIsConnected(req, res);
     if (!user && !user.role && user.role !== "ADMIN")
       return res.status(401).json({ message: E1 });
 
@@ -19,10 +19,10 @@ export default withIronSessionApiRoute(
           active: false,
         },
       });
+      if (!places) return res.status(400).json({ message: E1 });
       res.status(200).json({ places });
     } catch (e) {
       res.status(400).json({ message: E1 });
     }
-  }),
-  ironConfig
+  }
 );
