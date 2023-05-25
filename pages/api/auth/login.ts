@@ -60,6 +60,7 @@ export default handler
                 ? existingUser.place.map((elt: any) => ({
                     id: elt.id,
                     name: elt.name,
+                    active: elt.active,
                   }))
                 : null,
           },

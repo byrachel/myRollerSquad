@@ -17,6 +17,7 @@ import Camera from "src/svg/add-media-image.svg";
 import BigButton from "src/components/buttons/BigButton";
 import HandleLocation from "./HandleLocation";
 import { Radio } from "@nextui-org/react";
+import { PlaceInterface } from "src/entities/business.entity";
 
 interface Props {
   userConnectedId: number;
@@ -38,6 +39,9 @@ export default function NewPostForm({
   const { data: session } = useSession() as any;
   const userName = session?.user?.username;
   const userPlaces = session?.user?.places;
+  const userPlacesActive = userPlaces?.filter(
+    (place: PlaceInterface) => place.active
+  );
 
   return (
     <>
@@ -52,11 +56,14 @@ export default function NewPostForm({
           postCategory={post.category}
           postDispatch={postDispatch}
         />
-        {isPro && userPlaces && userPlaces.length > 0 && !editMode ? (
+        {isPro &&
+        userPlacesActive &&
+        userPlacesActive.length > 0 &&
+        !editMode ? (
           <>
             <Radio.Group label="Publier en tant que :" name="author">
               <Radio value={`user_${userConnectedId}`}>{userName}</Radio>
-              {userPlaces.map((elt: { id: number; name: string }) => (
+              {userPlacesActive.map((elt: { id: number; name: string }) => (
                 <Radio key={elt.id} value={`place_${elt.id}`}>
                   {elt.name}
                 </Radio>

@@ -118,7 +118,16 @@ const UpdateUserProfile = ({ userProfile, updateUserProfile }: Props) => {
         userDataToUpdate={userDataToUpdate}
         dispatchUserDataToUpdate={dispatchUserDataToUpdate}
       />
-      <RegularButton type="submit" style="full" text="ENREGISTRER" />
+      <div className="flexStart">
+        <RegularButton
+          type="button"
+          style="light"
+          text="ANNULER"
+          onClick={() => router.push(`/profile/me`)}
+        />
+
+        <RegularButton type="submit" style="full" text="ENREGISTRER" />
+      </div>
     </form>
   );
 };

@@ -86,7 +86,6 @@ export async function getServerSideProps(params: any) {
     const post = JSON.parse(JSON.stringify(data));
     return { props: { post } };
   } catch (error) {
-    console.log(error);
     return { props: { post: null } };
   }
 }

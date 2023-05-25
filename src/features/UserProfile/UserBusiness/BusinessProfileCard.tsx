@@ -16,7 +16,7 @@ interface Props {
   placeDispatch: React.Dispatch<any>;
 }
 
-export default function BusinessCard({
+export default function BusinessProfileCard({
   place,
   isOwner,
   userConnectedId,
@@ -82,16 +82,29 @@ export default function BusinessCard({
           )}
         </div>
       ) : isOwner ? (
-        <div className="ctaBox">
-          <div>
-            <h3>{place.name}</h3>
-            <p>{place.website}</p>
+        <div className="rollerBusinessResume">
+          <div className="spaceBetween">
+            <div>
+              <h3>{place.name}</h3>
+            </div>
+
+            <UpdateDeleteIcons
+              onUpdate={() => router.push(`/business/update/${place.id}`)}
+              onDelete={() => deleteBusiness(place.id)}
+            />
           </div>
-          <p className="metaBox mt5">
-            <Pending className="metaIcon" width={16} height={16} /> Validation
-            en cours. En attendant, ajoute ton logo en cliquant sur l'image à
-            gauche ;-)
-          </p>
+          {isDeleted ? (
+            <p>Supprimé avec succès !</p>
+          ) : (
+            <>
+              <p className="meta">{place.website}</p>
+              <p className="metaBox mt5">
+                <Pending className="metaIcon" width={16} height={16} />{" "}
+                Validation en cours. En attendant, ajoute ton logo en cliquant
+                sur l'image à gauche ;-)
+              </p>
+            </>
+          )}
         </div>
       ) : null}
     </>

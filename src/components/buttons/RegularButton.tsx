@@ -12,12 +12,22 @@ export default function RegularButton({ text, type, style, onClick }: Props) {
   return (
     <button
       type={type}
-      className={style === "full" ? styles.fullButton : styles.outlineButton}
+      className={
+        style === "full"
+          ? styles.fullButton
+          : style === "light"
+          ? styles.lightButton
+          : styles.outlineButton
+      }
       onClick={onClick}
     >
       <p
         className={
-          style === "full" ? styles.fullButtonText : styles.outlineButtonText
+          style === "full"
+            ? styles.fullButtonText
+            : style === "light"
+            ? styles.lightButtonText
+            : styles.outlineButtonText
         }
       >
         {text}

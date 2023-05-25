@@ -39,7 +39,7 @@ export default handler.get(
           },
         },
       });
-      if (!place || !place.active) return res.status(200).json({ place: {} });
+      if (!place) return res.status(200).json({ place: {} });
       res.status(200).json({ place });
     } catch (e) {
       res.status(400).json({ message: E1 });

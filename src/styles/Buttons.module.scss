@@ -53,6 +53,31 @@
   }
 }
 
+.lightButton {
+  background-color: white;
+  border: solid 3px $greyColor;
+  border-radius: 5px;
+  cursor: pointer;
+  margin: 1em 0.5em 1em 0;
+  padding: 0.25em 0.5em;
+  transition: fill 0.2s ease-in-out;
+
+  .lightButtonText {
+    color: $greyColor;
+    font-family: $titleFont;
+    font-size: $fontSize-sm;
+    letter-spacing: 0.1px;
+  }
+}
+
+.lightButton:hover {
+  border: solid 3px $primaryColor;
+
+  .lightButtonText {
+    color: $primaryColor;
+  }
+}
+
 // BIG BUTTONS
 
 .fullBigButton {
