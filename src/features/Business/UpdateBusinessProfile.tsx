@@ -65,12 +65,12 @@ export default function UpdateBusinessProfile({
       placeId: placeId,
     };
     axios({
-      method: "POST",
-      url: `/api/business/update`,
+      method: "PUT",
+      url: `/api/business/update/${userConnectedId}`,
       data,
       withCredentials: true,
     })
-      .then(() => router.push(`/profile/${userConnectedId}`))
+      .then((res) => router.push(`/business/${res.data.place.id}`))
       .catch((err) => {
         setError({ status: true, message: err.response.data.message ?? E1 });
       });

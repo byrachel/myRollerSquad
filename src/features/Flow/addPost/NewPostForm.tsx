@@ -16,6 +16,7 @@ import { onSubmitNewPost, onSubmitEditedPost } from "./utils/onSubmitNewPost";
 import Camera from "src/svg/add-media-image.svg";
 import BigButton from "src/components/buttons/BigButton";
 import HandleLocation from "./HandleLocation";
+import { Radio } from "@nextui-org/react";
 
 interface Props {
   userConnectedId: number;
@@ -53,17 +54,14 @@ export default function NewPostForm({
         />
         {isPro && userPlaces && userPlaces.length > 0 && !editMode ? (
           <>
-            <label htmlFor="author">Publié en tant que :</label>
-            <div className="select">
-              <select id="author" name="author" defaultValue={post.place_id}>
-                <option value={userConnectedId}>{userName}</option>
-                {userPlaces.map((elt: { id: number; name: string }) => (
-                  <option key={elt.id} value={elt.id}>
-                    {elt.name}
-                  </option>
-                ))}
-              </select>
-            </div>
+            <Radio.Group label="Publier en tant que :" name="author">
+              <Radio value={`user_${userConnectedId}`}>{userName}</Radio>
+              {userPlaces.map((elt: { id: number; name: string }) => (
+                <Radio key={elt.id} value={`place_${elt.id}`}>
+                  {elt.name}
+                </Radio>
+              ))}
+            </Radio.Group>
           </>
         ) : null}
         <div className="spaceBetween">

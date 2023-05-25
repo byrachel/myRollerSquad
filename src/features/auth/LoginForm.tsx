@@ -4,7 +4,6 @@ import { signIn } from "next-auth/react";
 import { useSession, signOut } from "next-auth/react";
 import Link from "next/link";
 
-// import { onLogin } from "./utils/services";
 import ErrorLayout from "@/components/layouts/ErrorLayout";
 import InputText from "@/components/form/InputText";
 import InputPassword from "@/components/form/InputPassword";
@@ -36,7 +35,7 @@ export default function LoginForm() {
     const userLogged = (await signIn("credentials", {
       email: target.email.value,
       password: target.password.value,
-      callbackUrl: `http://localhost:3000/myrollerblog`,
+      callbackUrl: `/myrollerblog`,
       redirect: false,
     })) as LoginInterface;
     if (userLogged?.error) console.log("ERROR", userLogged.error);
@@ -63,12 +62,7 @@ export default function LoginForm() {
         </>
       ) : (
         <>
-          <form
-            onSubmit={(e: SyntheticEvent) =>
-              // onLogin(e, login, setError, setIsLoading, router)
-              handleLogin(e)
-            }
-          >
+          <form onSubmit={(e: SyntheticEvent) => handleLogin(e)}>
             <ErrorLayout
               error={error.status}
               message={error.message}

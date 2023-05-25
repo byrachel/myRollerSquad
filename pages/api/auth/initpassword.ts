@@ -1,10 +1,10 @@
-import { NextApiResponse } from "next";
+import { NextApiRequest, NextApiResponse } from "next";
 import nextConnect from "next-connect";
 import jwt from "jsonwebtoken";
 
-import prisma from "../../../server/prisma/db/client";
-import sendEmail from "../../../server/utils/sendEmail";
-import { initValidation, check } from "../../../server/middleware/validators";
+import prisma from "server/prisma/db/client";
+import sendEmail from "server/utils/sendEmail";
+import { initValidation, check } from "server/middleware/validators";
 import { E3 } from "src/constants/ErrorMessages";
 
 const handler = nextConnect();
@@ -15,7 +15,7 @@ const validator = initValidation([
 
 export default handler
   .use(validator)
-  .post(async (req: any, res: NextApiResponse) => {
+  .post(async (req: NextApiRequest, res: NextApiResponse) => {
     const { email } = req.body;
     if (!email) return res.status(400).json({ message: E3 });
 

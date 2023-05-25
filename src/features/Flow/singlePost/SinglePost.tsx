@@ -46,7 +46,7 @@ export default function SinglePost({ post }: Props) {
           {post.user && post.user.id === userId ? (
             <UpdateDeleteIcons
               onUpdate={() => setEditPost({ show: true, post: post })}
-              onDelete={() => deletePost(post.id, redirectAfterDelete)}
+              onDelete={() => deletePost(userId, post.id, redirectAfterDelete)}
             />
           ) : null}
         </div>

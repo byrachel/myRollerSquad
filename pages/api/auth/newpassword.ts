@@ -1,10 +1,10 @@
 import nextConnect from "next-connect";
-import { NextApiResponse } from "next";
+import { NextApiRequest, NextApiResponse } from "next";
 
-import prisma from "../../../server/prisma/db/client";
-import { initValidation, check } from "../../../server/middleware/validators";
+import prisma from "server/prisma/db/client";
+import { initValidation, check } from "server/middleware/validators";
 import { E1, E3 } from "src/constants/ErrorMessages";
-import { hashPassword } from "@/server/middleware/auth/password";
+import { hashPassword } from "@/server/middleware/password";
 
 const handler = nextConnect();
 
@@ -24,7 +24,7 @@ const validator = initValidation([
 
 export default handler
   .use(validator)
-  .put(async (req: any, res: NextApiResponse) => {
+  .put(async (req: NextApiRequest, res: NextApiResponse) => {
     const { password } = req.body;
     if (!password) return res.status(400).json({ message: E3 });
 

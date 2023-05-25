@@ -1,24 +1,25 @@
 import nextConnect from "next-connect";
-import { withIronSessionApiRoute } from "iron-session/next";
 
 import prisma from "@/server/prisma/db/client";
 import { E1, E2 } from "src/constants/ErrorMessages";
-import { ironConfig } from "@/server/middleware/auth/ironConfig";
+import { checkUserId } from "@/server/controllers/checkUserId";
+import { NextApiRequest, NextApiResponse } from "next";
 
 const handler = nextConnect();
 
-export default withIronSessionApiRoute(
-  handler.delete(async (req: any, res: any) => {
-    const { user } = req.session;
+export default handler.delete(
+  async (req: NextApiRequest, res: NextApiResponse) => {
+    const user = await checkUserId(req, res);
     if (!user) return res.status(401).json({ message: E2 });
 
     const { postid } = req.query;
-    if (!postid) return res.status(401).json({ message: E2 });
+    if (!postid) return res.status(401).json({ message: E1 });
+    const id = Array.isArray(postid) ? postid[0] : postid;
 
     try {
       const post = await prisma.post.findUnique({
         where: {
-          id: parseInt(postid),
+          id: parseInt(id),
         },
         select: {
           user_id: true,
@@ -30,7 +31,7 @@ export default withIronSessionApiRoute(
 
       await prisma.post.delete({
         where: {
-          id: parseInt(postid),
+          id: parseInt(id),
         },
       });
 
@@ -39,6 +40,5 @@ export default withIronSessionApiRoute(
       console.log(error);
       res.status(400).json({ message: E1 });
     }
-  }),
-  ironConfig
+  }
 );

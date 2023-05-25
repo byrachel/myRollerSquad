@@ -1,13 +1,10 @@
-import type { NextApiResponse } from "next";
+import type { NextApiRequest, NextApiResponse } from "next";
 import nextConnect from "next-connect";
 
-import prisma from "../../../../server/prisma/db/client";
+import prisma from "server/prisma/db/client";
 import { E1, E3 } from "src/constants/ErrorMessages";
-import { ironSessionMiddleware } from "@/server/middleware/auth/ironSessionMiddleware";
-import {
-  initValidation,
-  check,
-} from "../../../../server/middleware/validators";
+import { initValidation, check } from "server/middleware/validators";
+import { checkUserIsConnected } from "@/server/controllers/checkUserId";
 
 const handler = nextConnect();
 
@@ -17,8 +14,8 @@ const validator = initValidation([
 
 export default handler
   .use(validator)
-  .delete(async (req: any, res: NextApiResponse) => {
-    const user = await ironSessionMiddleware(req);
+  .delete(async (req: NextApiRequest, res: NextApiResponse) => {
+    const user = await checkUserIsConnected(req, res);
     if (!user || !user.role || user.role !== "ADMIN")
       return res.status(401).json({ message: E1 });
 

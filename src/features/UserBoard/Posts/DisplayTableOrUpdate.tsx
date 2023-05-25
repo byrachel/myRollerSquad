@@ -41,6 +41,7 @@ const DisplayTableOrUpdate = ({ posts, setUpdate, userConnectedId }: Props) => {
         </>
       ) : (
         <PostsTable
+          userId={userConnectedId}
           posts={posts}
           setUpdate={setUpdate}
           setEditPost={setEditPost}

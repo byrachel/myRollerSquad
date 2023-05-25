@@ -1,10 +1,10 @@
+import { NextApiRequest, NextApiResponse } from "next";
 import nextConnect from "next-connect";
-import { withIronSessionApiRoute } from "iron-session/next";
 
-import prisma from "@/server/prisma/db/client";
-import { initValidation, check } from "@/server/middleware/validators";
+import prisma from "server/prisma/db/client";
+import { initValidation, check } from "server/middleware/validators";
 import { E1, E2, E3 } from "src/constants/ErrorMessages";
-import { ironConfig } from "@/server/middleware/auth/ironConfig";
+import { checkUserId } from "server/controllers/checkUserId";
 
 const validator = initValidation([
   check("name").not().isEmpty().trim().escape().withMessage(E3),
@@ -18,9 +18,10 @@ const validator = initValidation([
 
 const handler = nextConnect();
 
-export default withIronSessionApiRoute(
-  handler.use(validator).post(async (req: any, res: any) => {
-    const { user } = req.session;
+export default handler
+  .use(validator)
+  .put(async (req: NextApiRequest, res: NextApiResponse) => {
+    const user = await checkUserId(req, res);
     if (!user) return res.status(401).json({ message: E2 });
 
     const { name, url, description, country, county, city, category, placeId } =
@@ -62,6 +63,4 @@ export default withIronSessionApiRoute(
       console.log(error);
       res.status(400).json({ message: E1 });
     }
-  }),
-  ironConfig
-);
+  });

@@ -74,7 +74,7 @@ export default function Header() {
       </Navbar.Content>
       <Navbar.Content activeColor="secondary">
         {userId ? (
-          <MyAccountDropdownMenu logout={() => signOut()} userId={userId} />
+          <MyAccountDropdownMenu logout={signOut} userId={userId} />
         ) : (
           <Navbar.Link color="inherit" href="/profile/me">
             <UserIcon width={34} height={34} stroke="black" fill="none" />

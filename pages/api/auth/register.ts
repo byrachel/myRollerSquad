@@ -1,13 +1,12 @@
 import nextConnect from "next-connect";
 import jwt from "jsonwebtoken";
 
-import prisma from "../../../server/prisma/db/client";
-import { initValidation, check } from "../../../server/middleware/validators";
+import prisma from "server/prisma/db/client";
+import { initValidation, check } from "server/middleware/validators";
 import { E1, E3, E4 } from "src/constants/ErrorMessages";
-import { hashPassword } from "@/server/middleware/auth/password";
-import { transporter } from "../../../server/utils/sendEmail";
-import { NextApiResponse } from "next";
-import { Prisma } from "@prisma/client";
+import { hashPassword } from "@/server/middleware/password";
+import { transporter } from "server/utils/sendEmail";
+import { NextApiRequest, NextApiResponse } from "next";
 
 const handler = nextConnect();
 
@@ -28,7 +27,7 @@ const validator = initValidation([
 
 export default handler
   .use(validator)
-  .post(async (req: any, res: NextApiResponse) => {
+  .post(async (req: NextApiRequest, res: NextApiResponse) => {
     const { email, password, name } = req.body;
 
     if (!email || !password || !name)

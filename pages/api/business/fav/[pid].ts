@@ -1,24 +1,26 @@
+import { NextApiRequest, NextApiResponse } from "next";
 import nextConnect from "next-connect";
 
-import prisma from "../../../../server/prisma/db/client";
+import { checkUserIsConnected } from "server/controllers/checkUserId";
+import prisma from "server/prisma/db/client";
 import { E1 } from "src/constants/ErrorMessages";
-import { withIronSessionApiRoute } from "iron-session/next";
-import { ironConfig } from "@/server/middleware/auth/ironConfig";
 
 const handler = nextConnect();
 
-export default withIronSessionApiRoute(
-  handler.put(async (req: any, res: any) => {
-    const user = req.session.user;
-    if (!user || !user.isLoggedIn) return res.status(401).json({ message: E1 });
+export default handler.put(
+  async (req: NextApiRequest, res: NextApiResponse) => {
+    const user = await checkUserIsConnected(req, res);
+    if (!user) return res.status(401).json({ message: E1 });
 
     const { pid } = req.query;
     if (!pid) return res.status(401).json({ message: E1 });
+    const place_id = Array.isArray(pid) ? pid[0] : pid;
+    const id = parseInt(place_id);
 
     try {
       const place = await prisma.place.findUnique({
         where: {
-          id: parseInt(pid),
+          id,
         },
         select: {
           favorites: {
@@ -31,11 +33,13 @@ export default withIronSessionApiRoute(
 
       if (!place) return res.status(401).json({ message: E1 });
 
-      const isFav = place.favorites.find((fav) => fav.id === user.id);
+      const isFav = place.favorites.find(
+        (fav: { id: number }) => fav.id === user.id
+      );
       if (isFav) {
         const updatedPlaces = await prisma.place.update({
           where: {
-            id: parseInt(pid),
+            id,
           },
           data: {
             favorites: {
@@ -52,11 +56,12 @@ export default withIronSessionApiRoute(
             },
           },
         });
+        if (!updatedPlaces) return res.status(401).json({ message: E1 });
         res.status(200).json({ favorites: updatedPlaces.favorites });
       } else {
         const updatedPlaces = await prisma.place.update({
           where: {
-            id: parseInt(pid),
+            id,
           },
           data: {
             favorites: {
@@ -73,11 +78,11 @@ export default withIronSessionApiRoute(
             },
           },
         });
+        if (!updatedPlaces) return res.status(401).json({ message: E1 });
         res.status(200).json({ favorites: updatedPlaces.favorites });
       }
     } catch (e) {
       res.status(400).json({ message: E1 });
     }
-  }),
-  ironConfig
+  }
 );

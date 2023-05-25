@@ -1,11 +1,11 @@
 import multer from "multer";
 import nextConnect from "next-connect";
-import { withIronSessionApiRoute } from "iron-session/next";
 
-import prisma from "@/server/prisma/db/client";
-import { uploadImage } from "@/server/utils/uploadImage";
+import prisma from "server/prisma/db/client";
+import { uploadImage } from "server/utils/uploadImage";
 import { E1, E2 } from "src/constants/ErrorMessages";
-import { ironConfig } from "@/server/middleware/auth/ironConfig";
+import { checkUserIsConnected } from "server/controllers/checkUserId";
+import { NextApiResponse } from "next";
 
 const upload = multer({
   storage: multer.memoryStorage(),
@@ -13,13 +13,14 @@ const upload = multer({
 
 const handler = nextConnect();
 
-export default withIronSessionApiRoute(
-  handler.use(upload.array("pictures", 5)).put(async (req: any, res: any) => {
+export default handler
+  .use(upload.array("pictures", 5))
+  .put(async (req: any, res: NextApiResponse) => {
     const { postid } = req.query;
     const id = Array.isArray(postid) ? postid[0] : postid;
     if (!id) return res.status(400).json({ message: E1 });
 
-    const { user } = req.session;
+    const user = await checkUserIsConnected(req, res);
     if (!user) return res.status(401).json({ message: E2 });
 
     try {
@@ -57,11 +58,10 @@ export default withIronSessionApiRoute(
         res.status(400).json({ message: E1 });
       }
     } catch (e) {
+      console.log(e);
       return res.status(401).json({ message: E1 });
     }
-  }),
-  ironConfig
-);
+  });
 
 export const config = {
   api: {

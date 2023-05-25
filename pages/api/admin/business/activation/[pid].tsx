@@ -1,50 +1,50 @@
+import { NextApiRequest, NextApiResponse } from "next";
 import nextConnect from "next-connect";
-import { withIronSessionApiRoute } from "iron-session/next";
 
-import prisma from "@/server/prisma/db/client";
+import { checkUserIsConnected } from "server/controllers/checkUserId";
+import prisma from "server/prisma/db/client";
 import { E1, E2 } from "src/constants/ErrorMessages";
-import { ironConfig } from "@/server/middleware/auth/ironConfig";
 
 const handler = nextConnect();
 
-export default withIronSessionApiRoute(
-  handler.put(async (req: any, res: any) => {
-    const { user } = req.session;
-    if (!user && user.role !== "ADMIN")
+export default handler.put(
+  async (req: NextApiRequest, res: NextApiResponse) => {
+    const user = await checkUserIsConnected(req, res);
+    if (!user || !user.role || user.role !== "ADMIN")
       return res.status(401).json({ message: E2 });
 
     const { pid } = req.query;
     if (!pid) return res.status(401).json({ message: E2 });
+    const place_id = Array.isArray(pid) ? pid[0] : pid;
+    const id = parseInt(place_id);
 
     try {
       const place = await prisma.place.update({
         where: {
-          id: parseInt(pid),
+          id,
         },
         data: {
           active: true,
         },
       });
 
-      if (!place.active) return res.status(400).json({ message: E1 });
+      if (!place || !place.active || !place.user_id)
+        return res.status(400).json({ message: E1 });
 
       const userRoleUpdated = await prisma.user.update({
         where: {
-          id: user.id,
+          id: place.user_id,
         },
         data: {
           role: "PRO",
         },
       });
 
-      if (!userRoleUpdated || userRoleUpdated.role !== "PRO")
-        return res.status(400).json({ message: E1 });
-
+      if (!userRoleUpdated) return res.status(400).json({ message: E1 });
       res.status(200).json({ place });
     } catch (error) {
       console.log(error);
       res.status(400).json({ message: E1 });
     }
-  }),
-  ironConfig
+  }
 );

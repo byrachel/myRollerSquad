@@ -23,7 +23,7 @@ export const onSubmitNewPost = async (
     price: { value?: number };
     duration: { value?: number };
     distance: { value?: string };
-    author: { value: string };
+    author?: { value: string };
   };
 
   if (!target.title.value) {
@@ -58,7 +58,10 @@ export const onSubmitNewPost = async (
     city: post.city ? post.city : null,
     squad_ids: [],
     pictures: [],
-    place_id: target.author ? parseInt(target.author.value) : null,
+    place_id:
+      target.author && target.author.value.split("_")[0] === "place"
+        ? parseInt(target.author.value.split("_")[1])
+        : null,
   };
 
   const newPostFactory = new NewPostFactory();

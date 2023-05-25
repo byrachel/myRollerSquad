@@ -1,6 +1,5 @@
 import React from "react";
 import { Dropdown, Navbar } from "@nextui-org/react";
-import { onLogout } from "src/features/auth/utils/services";
 import UserIcon from "src/svg/profile-circle.svg";
 import { useRouter } from "next/router";
 interface Props {
@@ -23,7 +22,7 @@ export default function MyAccountDropdownMenu({ logout, userId }: Props) {
         router.push(`/profile/posts/${userId}`);
         break;
       case "logout":
-        onLogout(logout, router);
+        logout();
         break;
       default:
         router.push("/");

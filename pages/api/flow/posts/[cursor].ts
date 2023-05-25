@@ -1,9 +1,8 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-import { getServerSession } from "next-auth/next";
-import { authOptions } from "../../auth/[...nextauth]";
 
-import prisma from "../../../../server/prisma/db/client";
-import { E1 } from "src/constants/ErrorMessages";
+import prisma from "@/server/prisma/db/client";
+import { checkUserIsConnected } from "@/server/controllers/checkUserId";
+import { E1, E2 } from "src/constants/ErrorMessages";
 
 export default async function handler(
   req: NextApiRequest,
@@ -11,8 +10,8 @@ export default async function handler(
 ) {
   if (req.method !== "GET") return res.status(401).json({ message: E1 });
 
-  const session = await getServerSession(req, res, authOptions);
-  if (!session) return res.status(401).json({ message: E1 });
+  const user = await checkUserIsConnected(req, res);
+  if (!user) return res.status(401).json({ message: E2 });
 
   const { cursor, category, style } = req.query;
   const category_id = category

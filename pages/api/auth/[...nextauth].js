@@ -2,6 +2,11 @@ import axios from "axios";
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 
+const baseUrl =
+  process.env.NODE_ENV === "production"
+    ? process.env.NEXTAUTH_URL
+    : "http://localhost:3000";
+
 export const authOptions = {
   providers: [
     CredentialsProvider({
@@ -13,7 +18,7 @@ export const authOptions = {
       async authorize(credentials) {
         try {
           const login = await axios.post(
-            "http://localhost:3000/api/auth/login",
+            `${baseUrl}/api/auth/login`,
             {
               email: credentials.email,
               password: credentials.password,
@@ -25,7 +30,6 @@ export const authOptions = {
               },
             }
           );
-
           if (!login && !login.data.user) return null;
           return login.data.user;
         } catch (error) {
@@ -48,6 +52,9 @@ export const authOptions = {
       }
       return token;
     },
+  },
+  pages: {
+    signIn: "/auth/signin",
   },
 };
 export default NextAuth(authOptions);
