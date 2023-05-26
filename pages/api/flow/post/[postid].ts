@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-import prisma from "../../../../server/prisma/db/client";
+import prisma from "server/prisma/db/client";
 import { E1 } from "src/constants/ErrorMessages";
 
 export default async function handler(

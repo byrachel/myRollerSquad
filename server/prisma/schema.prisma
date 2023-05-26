@@ -11,18 +11,18 @@ datasource db {
 }
 
 model User {
-  id            Int            @id @default(autoincrement())
-  createdAt     DateTime       @default(now())
-  updatedAt     DateTime       @updatedAt
-  active        Boolean        @default(false)
-  email         String         @unique
-  name          String         @unique
-  role          Role           @default(USER)
-  rgpd          Boolean        @default(false)
+  id            Int       @id @default(autoincrement())
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+  active        Boolean   @default(false)
+  email         String    @unique
+  name          String    @unique
+  role          Role      @default(USER)
+  rgpd          Boolean   @default(false)
   rgpd_ok_at    DateTime?
   avatar        String?
   password      String
-  country       String         @default("France")
+  country       String    @default("France")
   county        String?
   city          String?
   social_medias Json?
@@ -30,36 +30,39 @@ model User {
   pictures      String[]
   resume        String?
 
-  roller_dance_level Int     @default(0)
-  skatepark_level    Int     @default(0)
-  artistic_level     Int     @default(0)
-  freestyle_level    Int     @default(0)
-  urban_level        Int     @default(0)
-  derby_level        Int     @default(0)
+  roller_dance_level Int @default(0)
+  skatepark_level    Int @default(0)
+  artistic_level     Int @default(0)
+  freestyle_level    Int @default(0)
+  urban_level        Int @default(0)
+  derby_level        Int @default(0)
 
-  posts         Post[]         @relation("post_author")
-  posts_liked   PostLiked[]    @relation("post_liked")
-  place         Place[]        @relation("place_owner")
-  favorite_places Place[] @relation("FavoritePlaces")
-  my_squad     User[] @relation("MySquad")
-  my_followers User[] @relation("MySquad")
+  posts           Post[]      @relation("post_author")
+  posts_liked     PostLiked[] @relation("post_liked")
+  place           Place[]     @relation("place_owner")
+  favorite_places Place[]     @relation("FavoritePlaces")
+  my_squad        User[]      @relation("MySquad")
+  my_followers    User[]      @relation("MySquad")
 }
 
 model Comment {
-  id           Int      @id @default(autoincrement())
+  id           Int       @id @default(autoincrement())
   comment      String
-  published_at DateTime @default(now())
+  published_at DateTime  @default(now())
   author_id    Int
-  post         Post     @relation(fields: [post_id], references: [id])
+  post         Post      @relation(fields: [post_id], references: [id])
   post_id      Int
-  unread Boolean @default(true)
+  unread       Boolean   @default(true)
+  answer_of    Comment?  @relation("answer_of_comment", fields: [answer_of_id], references: [id])
+  answer_of_id Int?
+  answers      Comment[] @relation("answer_of_comment")
 }
 
 model Post {
-  id            Int         @id @default(autoincrement())
+  id            Int             @id @default(autoincrement())
   title         String
   content       String
-  created_at    DateTime    @default(now())
+  created_at    DateTime        @default(now())
   duration      String?
   distance      Decimal?
   distance_unit String?
@@ -71,16 +74,16 @@ model Post {
   county        String?
   country       String
   comments      Comment[]
-  category      Category    @relation("post_category", fields: [category_id], references: [id])
-  category_id   Int         @default(1)
+  category      Category        @relation("post_category", fields: [category_id], references: [id])
+  category_id   Int             @default(1)
   style         StylesOnPosts[] @relation("post_style")
-  user_likes    PostLiked[] @relation("user_likes")
+  user_likes    PostLiked[]     @relation("user_likes")
   price         Int?
 
-  user          User        @relation("post_author", fields: [user_id], references: [id])
-  user_id       Int
-  place         Place?      @relation("place_author", fields: [place_id], references: [id])
-  place_id      Int?
+  user     User   @relation("post_author", fields: [user_id], references: [id])
+  user_id  Int
+  place    Place? @relation("place_author", fields: [place_id], references: [id])
+  place_id Int?
 }
 
 model PostLiked {
@@ -101,40 +104,40 @@ model Category {
 }
 
 model Style {
-  id     Int     @id @default(autoincrement())
-  name   String  @unique
-  posts  StylesOnPosts[]
+  id    Int             @id @default(autoincrement())
+  name  String          @unique
+  posts StylesOnPosts[]
 }
 
 model StylesOnPosts {
-  post        Post      @relation("post_style", fields: [post_id], references: [id], onDelete: Cascade)
-  post_id     Int
-  style       Style     @relation(fields: [style_id], references: [id])
-  style_id    Int
-  assignedAt  DateTime  @default(now())
+  post       Post     @relation("post_style", fields: [post_id], references: [id], onDelete: Cascade)
+  post_id    Int
+  style      Style    @relation(fields: [style_id], references: [id])
+  style_id   Int
+  assignedAt DateTime @default(now())
 
   @@id([post_id, style_id])
 }
 
 model Place {
-  id            Int       @id @default(autoincrement())
-  active        Boolean    @default(false)
-  owner         User       @relation("place_owner", fields: [user_id], references: [id], onDelete: Cascade)
-  user_id       Int
-  logo          String?
-  type          PlaceType   @default(PROFESSIONAL)
-  category      PlaceCategory @default(OTHER)
-  name          String
-  description   String?
-  website       String?
-  siren         String
-  created_at    DateTime    @default(now())
-  updated_at    DateTime?
-  country       String    @default("France")
-  county        String?
-  city          String?
-  favorites     User[]     @relation("FavoritePlaces")
-  posts         Post[]     @relation("place_author")
+  id          Int           @id @default(autoincrement())
+  active      Boolean       @default(false)
+  owner       User          @relation("place_owner", fields: [user_id], references: [id], onDelete: Cascade)
+  user_id     Int
+  logo        String?
+  type        PlaceType     @default(PROFESSIONAL)
+  category    PlaceCategory @default(OTHER)
+  name        String
+  description String?
+  website     String?
+  siren       String
+  created_at  DateTime      @default(now())
+  updated_at  DateTime?
+  country     String        @default("France")
+  county      String?
+  city        String?
+  favorites   User[]        @relation("FavoritePlaces")
+  posts       Post[]        @relation("place_author")
 }
 
 enum Role {
