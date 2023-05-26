@@ -1,14 +1,14 @@
-import { useRouter } from "next/router";
 import React from "react";
+import axios from "axios";
+import { useRouter } from "next/router";
+
+import UserBusinessLogo from "../UserProfile/UserBusiness/UserBusinessLogo";
+import UpdateDeleteIcons from "@/components/buttons/UpdateDeleteIcons";
+import { getBusinessCategoryName } from "src/constants/BusinessCategories";
 import { PlaceInterface } from "src/entities/business.entity";
 
 import Pin from "src/svg/pin.svg";
 import Fav from "src/svg/bookmark-empty.svg";
-
-import UserBusinessLogo from "../UserProfile/UserBusiness/UserBusinessLogo";
-import UpdateDeleteIcons from "@/components/buttons/UpdateDeleteIcons";
-import axios from "axios";
-import { getBusinessCategoryName } from "src/constants/BusinessCategories";
 
 interface Props {
   place: PlaceInterface;

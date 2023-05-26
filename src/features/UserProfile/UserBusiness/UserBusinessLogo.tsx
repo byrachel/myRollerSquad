@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Image from "next/image";
+
 import Modal from "src/components/layouts/Modal";
 import UploadLogo from "./UploadLogo";
 import { PlaceInterface } from "src/entities/business.entity";

@@ -3,7 +3,6 @@ import { useSession } from "next-auth/react";
 
 import PostsTable from "./PostsTable";
 import EditPost from "src/features/Flow/singlePost/EditPost";
-import RegularButton from "src/components/buttons/RegularButton";
 import { PostInterface } from "src/entities/flow.entity";
 
 interface Props {
