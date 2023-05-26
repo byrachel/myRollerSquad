@@ -28,7 +28,7 @@ export default handler.post(
         user.email,
         "[ myRollerSquad ]",
         `<p>Active ton compte <a href=` +
-          `https://myrollersquad.vercel.app/login/${user.id}/${token}` +
+          `https://myrollersquad.vercel.app/auth/login/${user.id}/${token}` +
           `>en cliquant sur ce lien !</a></p><h3>myRollerSquad</h3>`
       );
 

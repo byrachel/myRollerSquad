@@ -8,6 +8,10 @@ const baseUrl =
     : "http://localhost:3000";
 
 export const authOptions = {
+  session: {
+    strategy: "jwt",
+    maxAge: 24 * 60 * 60,
+  },
   providers: [
     CredentialsProvider({
       name: "credentials",

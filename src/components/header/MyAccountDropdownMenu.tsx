@@ -1,13 +1,16 @@
 import React from "react";
 import { Dropdown, Navbar } from "@nextui-org/react";
-import UserIcon from "src/svg/profile-circle.svg";
 import { useRouter } from "next/router";
+
+import UserIcon from "src/svg/people-tag.svg";
+
 interface Props {
   userId: number;
   logout: () => void;
+  path: string;
 }
 
-export default function MyAccountDropdownMenu({ logout, userId }: Props) {
+export default function MyAccountDropdownMenu({ logout, userId, path }: Props) {
   const router = useRouter();
 
   const goTo = (actionKey: string) => {
@@ -31,7 +34,7 @@ export default function MyAccountDropdownMenu({ logout, userId }: Props) {
 
   return (
     <Dropdown isBordered>
-      <Navbar.Item>
+      <Navbar.Item isActive={path === "profile"}>
         <Dropdown.Button
           auto
           light
@@ -42,7 +45,7 @@ export default function MyAccountDropdownMenu({ logout, userId }: Props) {
           }}
           ripple={false}
         >
-          <UserIcon width={34} height={34} stroke="black" fill="none" />
+          <UserIcon width={30} height={30} stroke="#28152b" fill="none" />
         </Dropdown.Button>
       </Navbar.Item>
       <Dropdown.Menu

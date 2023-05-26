@@ -1,20 +1,22 @@
 import { SyntheticEvent, useState } from "react";
 import { useRouter } from "next/router";
 import { signIn } from "next-auth/react";
-import { useSession, signOut } from "next-auth/react";
+import { useSession } from "next-auth/react";
 import Link from "next/link";
 
 import ErrorLayout from "@/components/layouts/ErrorLayout";
 import InputText from "@/components/form/InputText";
 import InputPassword from "@/components/form/InputPassword";
 import BigButton from "@/components/buttons/BigButton";
+import AlreadyLogged from "./AlreadyLogged";
+import Loader from "@/components/layouts/Loader";
 
 import Roller from "src/svg/rollerquad.svg";
-import RegularButton from "@/components/buttons/RegularButton";
 
 export default function LoginForm() {
   const router = useRouter();
   const [error, setError] = useState({ status: false, message: "" });
+  const [loading, setLoading] = useState(false);
 
   const { data: session } = useSession() as any;
   const userName = session?.user?.username;
@@ -28,6 +30,7 @@ export default function LoginForm() {
 
   const handleLogin = async (e: any) => {
     e.preventDefault();
+    setLoading(true);
     const target = e.target as typeof e.target & {
       email: { value: string };
       password: { value: string };
@@ -38,6 +41,7 @@ export default function LoginForm() {
       callbackUrl: `/myrollerblog`,
       redirect: false,
     })) as LoginInterface;
+    console.log(userLogged);
     if (userLogged?.error) console.log("ERROR", userLogged.error);
     if (userLogged?.url) router.push(userLogged.url);
   };
@@ -47,19 +51,9 @@ export default function LoginForm() {
       <h2 className="mt5">Se connecter :</h2>
       <div className="lightSeparator mt5" />
       {userName ? (
-        <>
-          <p className="meta mt-large">
-            Tu es déjà connecté, sous l'identifiant :
-          </p>
-          <h3>{userName}</h3>
-          <p> Si ce n'est pas ton compte, déconnecte-toi et reconnecte-toi.</p>
-          <RegularButton
-            text="Me déconnecter"
-            type="button"
-            style="full"
-            onClick={() => signOut()}
-          />
-        </>
+        <AlreadyLogged userName={userName} />
+      ) : loading ? (
+        <Loader />
       ) : (
         <>
           <form onSubmit={(e: SyntheticEvent) => handleLogin(e)}>

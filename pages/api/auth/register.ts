@@ -62,7 +62,7 @@ export default handler
 
       const html =
         `<h2>Bienvenue dans la squad !</h2><p><a href=` +
-        `https://myrollersquad.vercel.app/login/${user.id}/${token}` +
+        `https://myrollersquad.vercel.app/auth/login/${user.id}/${token}` +
         `>Voici le lien pour activer ton compte</a>.</p><p>Attention : Il n'est actif qu'une heure, ne tarde pas à l'activer et partager tes prouesses !</p><h3>My Roller Squad</h3>`;
 
       transporter.sendMail(

@@ -4,8 +4,9 @@ import { Navbar, Text } from "@nextui-org/react";
 import { useSession, signOut } from "next-auth/react";
 import Image from "next/image";
 
-import UserIcon from "src/svg/profile-circle.svg";
 import MyAccountDropdownMenu from "./MyAccountDropdownMenu";
+import UserIcon from "src/svg/people-tag.svg";
+import AddPost from "src/svg/add-circle.svg";
 
 export default function Header() {
   const router = useRouter();
@@ -16,7 +17,7 @@ export default function Header() {
   const { data: session } = useSession() as any;
   const userId = session?.user?.id;
   const userRole = session?.user?.role;
-  const isAdmin = userId && userRole === "ADMIN";
+  const isAdmin = userRole === "ADMIN";
 
   const collapseItems = [
     { id: 1, name: "Annuaire", link: "/business/search/all/all" },
@@ -72,12 +73,30 @@ export default function Header() {
           </Navbar.Link>
         ) : null}
       </Navbar.Content>
-      <Navbar.Content activeColor="secondary">
+      <Navbar.Content activeColor="secondary" variant="underline">
         {userId ? (
-          <MyAccountDropdownMenu logout={signOut} userId={userId} />
+          <>
+            <MyAccountDropdownMenu
+              logout={signOut}
+              userId={userId}
+              path={path}
+            />
+            <Navbar.Link
+              color="inherit"
+              isActive={path === "post"}
+              href="/post/newpost"
+            >
+              <AddPost
+                width={30}
+                height={30}
+                fill={path === "post" ? "white" : "#e4287d"}
+                stroke={path === "post" ? "#e4287d" : "white"}
+              />
+            </Navbar.Link>
+          </>
         ) : (
           <Navbar.Link color="inherit" href="/profile/me">
-            <UserIcon width={34} height={34} stroke="black" fill="none" />
+            <UserIcon width={34} height={34} stroke="#28152b" fill="none" />
           </Navbar.Link>
         )}
       </Navbar.Content>
