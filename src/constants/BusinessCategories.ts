@@ -54,3 +54,19 @@ export const businessCategory = (value: string) => {
     //   };
   }
 };
+
+export const getBusinessCategoryName = (value: string) => {
+  switch (value) {
+    case "LEARN":
+      return "S'entraîner";
+      break;
+    case "BUY":
+      return "S'équiper";
+      break;
+    case "PLAY":
+      return "S'amuser";
+      break;
+    default:
+      return "Autre";
+  }
+};

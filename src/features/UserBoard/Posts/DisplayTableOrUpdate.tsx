@@ -24,14 +24,14 @@ const DisplayTableOrUpdate = ({ posts, setUpdate, userConnectedId }: Props) => {
     <div className="userPostsContainer">
       {editPost.show && editPost.post ? (
         <>
-          <div className="spaceBetween mt5">
-            <h2>Mes publications</h2>
-            <RegularButton
-              type="button"
-              style="full"
-              text="retour"
-              onClick={() => setEditPost({ show: false, post: null })}
-            />
+          <div className="metaUnderliner" />
+          <div
+            role="button"
+            tabIndex={0}
+            onKeyDown={() => setEditPost({ show: false, post: null })}
+            onClick={() => setEditPost({ show: false, post: null })}
+          >
+            <p className="meta center fakeLink">Modifier l'article | X</p>
           </div>
           <EditPost
             postToEdit={editPost.post}

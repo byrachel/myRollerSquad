@@ -1,13 +1,15 @@
 import React from "react";
 import { Table, Row, User, Text, Badge, Col } from "@nextui-org/react";
+
 import { PostInterface } from "src/entities/flow.entity";
 import { getStyleName } from "src/constants/RollerSkateStyles";
 import { getCategoryName } from "src/constants/PostCategories";
 import { deletePost } from "src/features/Flow/addPost/utils/deletePost";
+import { cardColor } from "src/utils/colorManager";
+import UpdateDeleteIcons from "src/components/buttons/UpdateDeleteIcons";
+
 import Heart from "src/svg/heart.svg";
 import Comment from "src/svg/chat-bubble.svg";
-import UpdateDeleteIcons from "src/components/buttons/UpdateDeleteIcons";
-import { cardColor } from "src/utils/colorManager";
 
 interface Props {
   posts: PostInterface[];
@@ -25,9 +27,9 @@ export default function PostsTable({
   setEditPost,
 }: Props) {
   const columns = [
-    { name: "MES PUBLICATIONS", uid: "title" },
-    { name: "STYLE", uid: "category" },
-    { name: "SUCCES", uid: "success" },
+    { name: "TITRE", uid: "title" },
+    { name: "CATEGORIE", uid: "category" },
+    { name: "REACTIONS", uid: "success" },
     { name: "ACTIONS", uid: "actions" },
   ];
 
@@ -95,7 +97,7 @@ export default function PostsTable({
         );
       case "actions":
         return (
-          <Row align="center">
+          <Row align="flex-end">
             <UpdateDeleteIcons
               onUpdate={() => setEditPost({ show: true, post })}
               onDelete={() =>
@@ -118,18 +120,16 @@ export default function PostsTable({
         height: "auto",
         minWidth: "100%",
       }}
+      lined
       selectionMode="none"
       shadow={false}
+      sticked
     >
       <Table.Header columns={columns}>
         {(column) => (
           <Table.Column
             key={column.uid}
-            hideHeader={
-              column.uid === "actions" ||
-              column.uid === "success" ||
-              column.uid === "category"
-            }
+            hideHeader={column.uid === "actions"}
             align={column.uid === "actions" ? "center" : "start"}
           >
             {column.name}

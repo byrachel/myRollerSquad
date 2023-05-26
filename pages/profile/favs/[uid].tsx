@@ -10,6 +10,8 @@ const UserFavs = () => {
   return (
     <>
       <div className="coloredSeparator" />
+      <p className="meta center mt-large">Mes shops & clubs favoris</p>
+      <div className="metaUnderliner" />
       {userId ? (
         <MyFavs userConnectedId={userId} />
       ) : (

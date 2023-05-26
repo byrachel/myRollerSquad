@@ -42,24 +42,27 @@ export default function UserBusinessFavs({ favs, fromMyProfile }: Props) {
       {favs.length === 0 ? (
         fromMyProfile ? (
           <div className="center mt5">
-            <h2 className="title">Shops & clubs favoris</h2>
-            <p className="meta">Oups ! ta liste est vide :-(</p>
+            <h3>Oups ! ta liste est vide :-(</h3>
             <Link
               href={
                 favs.length === 0
                   ? "/business/search/all/all"
                   : `/business/search/all/${categorySelected}`
               }
-              className="textLink mt5"
             >
-              Fais un tour dans l'annuaire pour trouver ton bonheur.
+              <p className="textLink mt5">
+                Fais un tour dans l'annuaire pour trouver ton bonheur.
+              </p>
             </Link>
           </div>
         ) : null
       ) : (
         <>
           <div className={fromMyProfile ? "" : "userFavsContainer"}>
-            <h2 className="title center mt5">Shops & clubs favoris</h2>
+            <div className="mt5" />
+            {fromMyProfile ? null : (
+              <p className="whiteTitle center">Ses clubs & shops favoris</p>
+            )}
             <CategoryFilters
               onSelectCategory={(category) => setCategorySelected(category)}
               categorySelected={categorySelected}
@@ -93,7 +96,9 @@ export default function UserBusinessFavs({ favs, fromMyProfile }: Props) {
                 ))}
               </div>
             ) : (
-              <p>Pas de favori dans cette catégorie !</p>
+              <p className="center mt5">
+                Tu n'as pas de favori dans cette catégorie :(
+              </p>
             )}
           </div>
         </>

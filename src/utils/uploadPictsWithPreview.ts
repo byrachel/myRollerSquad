@@ -13,7 +13,6 @@ export const uploadPictsWithPreview = (e: any, dispatch: any) => {
     const files = [...e.target.files];
 
     files.map((file) => {
-      console.log(file);
       file["preview"] = URL.createObjectURL(file);
       const image = new Image();
       image.src = file["preview"];
@@ -22,16 +21,10 @@ export const uploadPictsWithPreview = (e: any, dispatch: any) => {
         const width = image.naturalWidth;
         const height = image.naturalHeight;
 
-        console.log("width", width);
-        console.log("height", height);
-
         const ratio = width / MAX_WIDTH;
         const canvas = document.createElement("canvas");
         canvas.width = width > MAX_WIDTH ? MAX_WIDTH : width;
         canvas.height = width > MAX_WIDTH ? height / ratio : height;
-
-        console.log("canvas.width", canvas.width);
-        console.log("canvas.height", canvas.height);
 
         file["width"] = width > MAX_WIDTH ? canvas.width : width;
         file["height"] = width > MAX_WIDTH ? canvas.height : height;

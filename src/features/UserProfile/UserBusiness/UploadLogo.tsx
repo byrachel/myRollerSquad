@@ -5,6 +5,7 @@ import axios from "axios";
 import RegularButton from "src/components/buttons/RegularButton";
 import ErrorLayout from "src/components/layouts/ErrorLayout";
 import Loader from "src/components/layouts/Loader";
+import { PlaceInterface } from "src/entities/business.entity";
 
 interface Props {
   logo: {
@@ -13,7 +14,7 @@ interface Props {
     height: number;
   } | null;
   setDisplayNewLogo: (arg: boolean) => void;
-  placeDispatch: React.Dispatch<any>;
+  updateUserPlace: (place: PlaceInterface) => void;
   placeId: number;
   userId: number;
 }
@@ -21,7 +22,7 @@ interface Props {
 export default function UploadLogo({
   logo,
   setDisplayNewLogo,
-  placeDispatch,
+  updateUserPlace,
   placeId,
   userId,
 }: Props) {
@@ -51,10 +52,7 @@ export default function UploadLogo({
         withCredentials: true,
       })
         .then((res) => {
-          placeDispatch({
-            type: "SET_PLACE",
-            payload: res.data.place,
-          });
+          updateUserPlace(res.data.place);
           setDisplayNewLogo(false);
         })
         .catch(() => {

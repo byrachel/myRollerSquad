@@ -1,17 +1,10 @@
 import React, { useEffect, useReducer } from "react";
-import Masonry from "react-masonry-css";
 import axios from "axios";
-import CardContainer from "src/features/Flow/getPosts/CardContainer";
 import FlowReducer from "src/reducers/FlowReducer";
 import FlowFilters from "src/features/Flow/getPosts/FlowFilters";
-import { PostInterface } from "src/entities/flow.entity";
 import Loader from "src/components/layouts/Loader";
-
-const breakpointColumnsObj = {
-  default: 3,
-  1600: 2,
-  768: 1,
-};
+import SidebarLayout from "@/components/layouts/SidebarLayout";
+import FlowCards from "./FlowCards";
 
 const initialState = {
   cursor: 0,
@@ -66,34 +59,50 @@ const Flow = ({ userConnectedId }: Props) => {
   };
 
   return (
-    <>
-      <div className="flow">
-        <FlowFilters flowDispatch={flowDispatch} />
-        {posts ? (
-          <div className="responsiveFlowContainer">
-            <Masonry
-              breakpointCols={breakpointColumnsObj}
-              className="my-masonry-grid"
-              columnClassName="my-masonry-grid_column"
-            >
-              {posts.length > 0
-                ? posts.map((post: PostInterface, index: number) => (
-                    <CardContainer
-                      key={post.id}
-                      post={post}
-                      isLast={index === posts.length - 1}
-                      newLimit={newLimit}
-                      userConnectedId={userConnectedId}
-                    />
-                  ))
-                : null}
-            </Masonry>
-          </div>
-        ) : (
-          <Loader text="Publications en cours de chargement..." />
-        )}
-      </div>
-    </>
+    <div className="flow">
+      {window.innerWidth > 860 ? (
+        <SidebarLayout
+          sidebar={
+            <>
+              <div className="sidebarText">
+                <FlowFilters flowDispatch={flowDispatch} />
+                <div className="mt-large" />
+                <p className="meta">
+                  myRollerSquad est une communauté active & bienveillante de
+                  passionnés de roller quad.
+                </p>
+              </div>
+            </>
+          }
+          content={
+            <>
+              {posts ? (
+                <FlowCards
+                  posts={posts}
+                  userConnectedId={userConnectedId}
+                  newLimit={newLimit}
+                />
+              ) : (
+                <Loader text="Publications en cours de chargement..." />
+              )}
+            </>
+          }
+        />
+      ) : (
+        <>
+          <FlowFilters flowDispatch={flowDispatch} />
+          {posts ? (
+            <FlowCards
+              posts={posts}
+              userConnectedId={userConnectedId}
+              newLimit={newLimit}
+            />
+          ) : (
+            <Loader text="Publications en cours de chargement..." />
+          )}
+        </>
+      )}
+    </div>
   );
 };
 export default Flow;

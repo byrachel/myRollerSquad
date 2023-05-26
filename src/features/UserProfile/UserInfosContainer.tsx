@@ -68,14 +68,18 @@ const UserInfosContainer = ({ userConnectedId, userToDisplay }: Props) => {
             userConnectedId={userConnectedId}
           />
           {userProfile.user.place.length > 0 ? (
-            userProfile.user.place.map((elt: number) => (
-              <UserBusinessCard
-                key={elt}
-                placeId={elt}
-                userToDisplayId={userProfile.user.id}
-                userConnectedId={userConnectedId}
-              />
-            ))
+            <>
+              <p className="meta pv5 mt5">Son petit business :</p>
+
+              {userProfile.user.place.map((elt: number) => (
+                <UserBusinessCard
+                  key={elt}
+                  placeId={elt}
+                  userToDisplayId={userProfile.user.id}
+                  userConnectedId={userConnectedId}
+                />
+              ))}
+            </>
           ) : (
             <BusinessProfileCTA />
           )}
@@ -91,7 +95,6 @@ const UserInfosContainer = ({ userConnectedId, userToDisplay }: Props) => {
             userConnectedId={userConnectedId}
             posts={userProfile.user.posts}
           />
-
           <UserBusinessFavs
             favs={userProfile.user.favorite_places}
             fromMyProfile={false}

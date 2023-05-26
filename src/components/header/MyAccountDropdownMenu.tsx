@@ -24,6 +24,9 @@ export default function MyAccountDropdownMenu({ logout, userId, path }: Props) {
       case "myPosts":
         router.push(`/profile/posts/${userId}`);
         break;
+      case "myBusiness":
+        router.push(`/profile/places/${userId}`);
+        break;
       case "logout":
         logout();
         break;
@@ -68,6 +71,9 @@ export default function MyAccountDropdownMenu({ logout, userId, path }: Props) {
         </Dropdown.Item>
         <Dropdown.Item key="myFavs" withDivider>
           Mes favoris
+        </Dropdown.Item>
+        <Dropdown.Item key="myBusiness" withDivider>
+          Business
         </Dropdown.Item>
         <Dropdown.Item key="logout" withDivider>
           Me déconnecter

@@ -125,13 +125,6 @@
   color: $primaryColor;
 }
 
-.flowFilters {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 15px;
-}
-
 .userFavsContainer {
   padding: 2em 0;
   background-color: $primaryColor;
@@ -152,11 +145,16 @@
 
 .flow {
   background-color: $lightColor;
-  padding: 2em;
-}
-.responsiveFlowContainer {
-  min-height: 100vh;
-  margin-top: 1em;
+
+  .flowFilters {
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: column;
+    gap: 15px;
+  }
+  .responsiveFlowContainer {
+    padding: 0.75em;
+  }
 }
 
 .lastPostsShared {
@@ -348,7 +346,7 @@ div.linkContainer {
   }
 }
 div.cardIcons {
-  margin: 0.7em 1em;
+  margin: 1em;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -587,12 +585,13 @@ div.socialIconContainer {
   }
   .sidebarContainer {
     margin: 1.75em;
-    width: 70%;
+    width: 100%;
   }
   .sidebarContent {
     background-color: $lightColor;
     position: relative;
-    width: 30%;
+    width: 40%;
+    max-width: 250px;
 
     .sidebarText {
       margin: 2.5em 1.5em 01.5em 1.5em;
@@ -676,17 +675,17 @@ div.socialIconContainer {
   }
 }
 
-@media (max-width: 700px) {
-  .sidebarLayout {
-    .sidebarContainer {
-      margin: 1em;
-      width: 100%;
-    }
-    .sidebarContent {
-      display: none;
-    }
-  }
-}
+// @media (max-width: 700px) {
+//   .sidebarLayout {
+//     .sidebarContainer {
+//       margin: 1em;
+//       width: 100%;
+//     }
+//     .sidebarContent {
+//       display: none;
+//     }
+//   }
+// }
 
 .userPostsContainer {
   margin: 1em;
@@ -715,12 +714,5 @@ div.socialIconContainer {
     text-align: left;
     background-color: $secondaryColor;
     color: white;
-  }
-}
-
-@media (min-width: 1100px) and (max-width: 1600px) {
-  .responsiveFlowContainer {
-    display: flex;
-    justify-content: center;
   }
 }

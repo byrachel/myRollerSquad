@@ -12,7 +12,11 @@ export type UserProfile = {
 
 type Actions = {
   getUserProfile: (userId: number) => Promise<void>;
+  getUserPlaces: (userId: number) => Promise<void>;
   updateUserProfile: (user: any) => void;
+  updateUserPlace: (place: any) => void;
+  deleteUserPlace: (placeId: number) => void;
+  addUserPlace: (place: any) => void;
   getUserFavs: (favs: any[]) => void;
 };
 
@@ -31,19 +35,43 @@ export const useProfile = create<UserProfile & Actions>()((set) => ({
       method: "GET",
       withCredentials: true,
     })
-      .then((res) => {
-        console.log(res.data);
-        const userProfile = res.data.user;
-        const userPlaces = userProfile.place;
-        delete userProfile.place;
-        set({
-          userProfile,
-          userPlaces,
-        });
-      })
-      .catch(() => set({ userProfile: null, userPlaces: null }))
+      .then((res) => set({ userProfile: res.data.user }))
+      .catch(() => set({ userProfile: null }))
       .finally(() => set({ userProfileLoading: false }));
   },
+  getUserPlaces: async (userId: number) => {
+    set({ userProfileLoading: true });
+    axios(`/api/business/user/${userId}`, {
+      method: "GET",
+      withCredentials: true,
+    })
+      .then((res) => set({ userPlaces: res.data.places }))
+      .catch(() => set({ userPlaces: null }))
+      .finally(() => set({ userProfileLoading: false }));
+  },
+  addUserPlace: (place: any) =>
+    set((state) => {
+      const userPlaces = state.userPlaces
+        ? [...state.userPlaces, place]
+        : [place];
+      return { userPlaces };
+    }),
+
   updateUserProfile: (user: any) => set({ userProfile: user }),
+  updateUserPlace: (place: any) =>
+    set((state) => {
+      const userPlaces = state.userPlaces?.map((p) => {
+        if (p.id === place.id) {
+          return place;
+        }
+        return p;
+      });
+      return { userPlaces };
+    }),
+  deleteUserPlace: (placeId: number) =>
+    set((state) => {
+      const userPlaces = state.userPlaces?.filter((p) => p.id !== placeId);
+      return { userPlaces };
+    }),
   getUserFavs: (favs: any[]) => set({ userFavs: favs }),
 }));

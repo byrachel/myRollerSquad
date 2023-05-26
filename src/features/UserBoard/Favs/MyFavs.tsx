@@ -20,8 +20,8 @@ export default function MyFavs({ userConnectedId }: Props) {
   useEffect(() => {
     axios
       .get(`/api/user/favs/${userConnectedId}`)
-      .then((res) => getUserFavs(res.data.userFavs));
-    // .catch(() => getUserFavs([]));
+      .then((res) => getUserFavs(res.data.userFavs))
+      .catch(() => getUserFavs([]));
     // eslint-disable-next-line
   }, [userConnectedId]);
 

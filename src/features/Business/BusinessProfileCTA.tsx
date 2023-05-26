@@ -2,7 +2,6 @@ import React from "react";
 import { useRouter } from "next/router";
 import { useSession } from "next-auth/react";
 
-import FavPlace from "src/svg/bookmark-circle.svg";
 import RegularButton from "src/components/buttons/RegularButton";
 
 export default function BusinessProfileCTA() {
@@ -23,9 +22,8 @@ export default function BusinessProfileCTA() {
       <div>
         <p className="meta">Tu es un club, une association, un formateur ?</p>
         <div className="socialIconContainer">
-          <FavPlace className="pinkIcon" width={32} height={32} />
           <p className="ctaLink">
-            Active ton compte "business" et apparaît dans l'annuaire.
+            Active ton compte "business" & apparaît dans l'annuaire.
           </p>
         </div>
       </div>

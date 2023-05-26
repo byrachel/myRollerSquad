@@ -7,6 +7,7 @@ import ErrorLayout from "src/components/layouts/ErrorLayout";
 import BusinessProfileForm from "./BusinessProfileForm";
 import { E1, E3 } from "src/constants/ErrorMessages";
 import { businessCategories } from "src/constants/BusinessCategories";
+import { useProfile } from "src/hooks/useProfile";
 
 interface Props {
   ownerId: number;
@@ -18,6 +19,10 @@ const AddBusinessProfile = ({ ownerId }: Props) => {
   const [categorySelected, setCategorySelected] = useState(
     businessCategories[0]
   );
+
+  const { addUserPlace } = useProfile((state) => ({
+    addUserPlace: state.addUserPlace,
+  }));
 
   const onSumbit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -60,7 +65,10 @@ const AddBusinessProfile = ({ ownerId }: Props) => {
       data,
       withCredentials: true,
     })
-      .then(() => router.push(`/profile/${ownerId}`))
+      .then((res) => {
+        addUserPlace(res.data.place);
+        router.push(`/profile/places/${ownerId}`);
+      })
       .catch((err) => {
         setError({ status: true, message: err.response.data.message ?? E1 });
       });

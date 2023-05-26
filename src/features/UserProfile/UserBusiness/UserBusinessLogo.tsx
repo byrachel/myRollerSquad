@@ -2,16 +2,19 @@ import React, { useState } from "react";
 import Image from "next/image";
 import Modal from "src/components/layouts/Modal";
 import UploadLogo from "./UploadLogo";
+import { PlaceInterface } from "src/entities/business.entity";
+
+import UpdatePict from "src/svg/add-media-image.svg";
 
 interface Props {
-  placeDispatch: React.Dispatch<any>;
+  updateUserPlace: (place: PlaceInterface) => void;
   placeId: number;
-  placeLogo: string;
+  placeLogo: string | null;
   userId: number;
 }
 
 export default function UserBusinessLogo({
-  placeDispatch,
+  updateUserPlace,
   placeId,
   placeLogo,
   userId,
@@ -61,6 +64,7 @@ export default function UserBusinessLogo({
           width={140}
           height={140}
         />
+        <UpdatePict width="36" height="36" className="updateLogoIcon" />
         <input
           id="logoInput"
           className="input"
@@ -76,7 +80,7 @@ export default function UserBusinessLogo({
           placeId={placeId}
           logo={newLogoFile}
           setDisplayNewLogo={setDisplayNewLogo}
-          placeDispatch={placeDispatch}
+          updateUserPlace={updateUserPlace}
           userId={userId}
         />
       </Modal>

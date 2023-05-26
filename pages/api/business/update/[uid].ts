@@ -55,6 +55,13 @@ export default handler
           city,
           category,
         },
+        include: {
+          favorites: {
+            select: {
+              id: true,
+            },
+          },
+        },
       });
       if (!updatedPlace) return res.status(400).json({ message: E1 });
 

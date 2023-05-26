@@ -2,7 +2,6 @@ import React, { useEffect, useReducer } from "react";
 import Image from "next/image";
 import axios from "axios";
 import BusinessProfileCard from "./BusinessProfileCard";
-import UserBusinessLogo from "./UserBusinessLogo";
 
 const initialState = null;
 
@@ -51,33 +50,37 @@ export default function UserBusinessCard({
       {place ? (
         <div className="rollerSkaterBusinessBox">
           <div className="rollerBusinessLogo">
-            {userConnectedId === userToDisplayId ? (
-              <UserBusinessLogo
-                placeDispatch={placeDispatch}
-                placeId={placeId}
-                placeLogo={place.logo ? place.logo : null}
-                userId={userConnectedId}
-              />
-            ) : (
-              <Image
-                src={
-                  place.logo
-                    ? `https://myrollerbusinesslogo.s3.eu-west-3.amazonaws.com/${place.logo}`
-                    : "/img/myrollersquad_avatar.jpeg"
-                }
-                alt="Club de Roller Quad"
-                className="businessLogo"
-                width={140}
-                height={140}
-              />
-            )}
+            <Image
+              src={
+                place.logo
+                  ? `https://myrollerbusinesslogo.s3.eu-west-3.amazonaws.com/${place.logo}`
+                  : "/img/myrollersquad_avatar.jpeg"
+              }
+              alt="Club de Roller Quad"
+              className="businessLogo"
+              width={140}
+              height={140}
+            />
           </div>
-          <BusinessProfileCard
-            place={place}
-            isOwner={userConnectedId === userToDisplayId}
-            userConnectedId={userConnectedId}
-            placeDispatch={placeDispatch}
-          />
+          {place.active ? (
+            <BusinessProfileCard
+              place={place}
+              isOwner={userConnectedId === userToDisplayId}
+              userConnectedId={userConnectedId}
+              placeDispatch={placeDispatch}
+            />
+          ) : (
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                marginTop: 10,
+              }}
+            >
+              <h3>{place.name}</h3>
+              <p className="meta">Espace en cours de création...</p>
+            </div>
+          )}
         </div>
       ) : null}
     </>

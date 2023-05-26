@@ -1,15 +1,18 @@
+import React, { useState } from "react";
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import { useRouter } from "next/router";
+import { shallow } from "zustand/shallow";
+
 import BusinessProfileForm from "./BusinessProfileForm";
 import {
   businessCategories,
   businessCategory,
 } from "src/constants/BusinessCategories";
-import { useRouter } from "next/router";
 import ErrorLayout from "src/components/layouts/ErrorLayout";
 import RegularButton from "src/components/buttons/RegularButton";
 import { PlaceInterface } from "src/entities/business.entity";
-import { E1, E3 } from "src/constants/ErrorMessages";
+import { E3 } from "src/constants/ErrorMessages";
+import { useProfile } from "src/hooks/useProfile";
 
 interface Props {
   placeId: number;
@@ -21,22 +24,24 @@ export default function UpdateBusinessProfile({
   userConnectedId,
 }: Props) {
   const router = useRouter();
-  const [placeToUpdate, setPlaceToUpdate] = useState<PlaceInterface | null>(
-    null
+
+  const { userPlaces, updateUserPlace } = useProfile(
+    (state) => ({
+      userPlaces: state.userPlaces,
+      updateUserPlace: state.updateUserPlace,
+    }),
+    shallow
   );
+
+  const placeToUpdate = userPlaces?.find(
+    (place: PlaceInterface) => place.id === placeId
+  );
+
   const [error, setError] = useState({ status: false, message: "" });
   const category = placeToUpdate
     ? businessCategory(placeToUpdate.category)
     : businessCategories[0];
   const [categorySelected, setCategorySelected] = useState(category);
-
-  useEffect(() => {
-    axios(`/api/business/place/${placeId}`, {
-      method: "GET",
-      withCredentials: true,
-    }).then((res) => setPlaceToUpdate(res.data.place));
-    // eslint-disable-next-line
-  }, [placeId]);
 
   const onSumbit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -70,16 +75,15 @@ export default function UpdateBusinessProfile({
       data,
       withCredentials: true,
     })
-      .then((res) => router.push(`/business/${res.data.place.id}`))
-      .catch((err) => {
-        setError({ status: true, message: err.response.data.message ?? E1 });
-      });
+      .then((res) => {
+        updateUserPlace(res.data.place);
+        router.push(`/profile/places/${userConnectedId}`);
+      })
+      .catch(() => setError({ status: true, message: E3 }));
   };
 
   return placeToUpdate ? (
     <>
-      <h2>Mettre à jour :</h2>
-      <div className="lightSeparator mt5" />
       <ErrorLayout
         error={error.status}
         message={error.message}
@@ -96,5 +100,7 @@ export default function UpdateBusinessProfile({
         <RegularButton type="submit" text="valider" style="full" />
       </form>
     </>
-  ) : null;
+  ) : (
+    <p>Oups ! Il n'y a rien à mettre à jour ici...</p>
+  );
 }

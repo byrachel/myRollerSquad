@@ -15,9 +15,12 @@ export default handler.get(
     try {
       const places = await prisma.place.findMany({
         where: { user_id: user.id },
-        select: {
-          id: true,
-          name: true,
+        include: {
+          favorites: {
+            select: {
+              id: true,
+            },
+          },
         },
       });
       if (!places) return res.status(400).json({ message: E1 });

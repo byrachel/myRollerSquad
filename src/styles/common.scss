@@ -8,7 +8,6 @@ div.spaceBetween {
 
 div.updateDeleteIcons {
   display: flex;
-  justify-content: center;
   align-items: center;
   gap: 12px;
   max-width: 85px;
@@ -86,10 +85,27 @@ div.inline {
   align-items: center;
 }
 
+.fakeLink {
+  cursor: pointer;
+}
+
+.whiteTitle {
+  color: white;
+  font-family: $titleFont;
+  font-size: $fontSize-lg;
+  line-height: 3em;
+}
+
 .underliner {
   border-bottom: solid 2px $primaryColor;
   width: 50%;
   margin: 2em auto;
+}
+
+.metaUnderliner {
+  border-bottom: solid 1px $greyColor;
+  width: 30%;
+  margin: 1em auto;
 }
 
 .deptDataList {

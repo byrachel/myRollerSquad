@@ -1,7 +1,5 @@
 import { useSession } from "next-auth/react";
-import NewPostBar from "src/components/layouts/NewPostBar";
 import HandlePosts from "src/features/UserBoard/Posts/HandlePosts";
-import Loader from "src/components/layouts/Loader";
 
 const UserPosts = () => {
   const { data: session } = useSession() as any;
@@ -9,12 +7,10 @@ const UserPosts = () => {
 
   return (
     <>
-      <NewPostBar />
-      {userId ? (
-        <HandlePosts userConnectedId={userId} />
-      ) : (
-        <Loader text="Génération de toutes tes publications en cours..." />
-      )}
+      <div className="coloredSeparator" />
+      <p className="meta center mt-large">Mes publications</p>
+      <div className="mt5" />
+      {userId ? <HandlePosts userConnectedId={userId} /> : null}
     </>
   );
 };

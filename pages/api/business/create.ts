@@ -54,6 +54,9 @@ export default handler
           city,
           category,
         },
+        include: {
+          favorites: true,
+        },
       });
       if (!place) return res.status(400).json({ message: E1 });
       res.status(200).json({ place });

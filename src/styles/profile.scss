@@ -101,10 +101,17 @@
   }
 }
 
+.businessLocation {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.2em;
+  margin-left: 0.5em;
+}
+
 .rollerSkaterBusinessBox {
   display: flex;
   justify-content: flex-start;
-  align-items: center;
   padding: 1em;
   margin: 1em;
   background-color: $lightColor;
@@ -113,28 +120,34 @@
   .rollerBusinessLogo {
     display: flex;
     justify-content: center;
-    width: 100%;
     max-width: 160px;
+    min-width: 160px;
+    padding-right: 1em;
+    position: relative;
 
     .businessLogo {
       border-radius: 5px;
     }
 
     .businessLogoToUpdate {
-      border-radius: 5px;
-      cursor: pointer;
-      border: solid 2px $secondaryColor;
-      transition: fill 0.2s ease-in-out;
-      padding: 0.2em;
+      border-radius: 7px;
     }
-    .businessLogoToUpdate:hover {
-      border: solid 2px $secondaryColor;
+
+    .updateLogoIcon {
+      stroke: $secondaryColor;
+      position: absolute;
+      top: 140px;
+      fill: white;
+      left: 100px;
+      cursor: pointer;
+    }
+    .updateLogoIcon:hover {
+      stroke: $primaryColor;
     }
   }
 
   .rollerBusinessResume {
     width: 100%;
-
     .businessDescription {
       font-family: $textFont;
       font-size: $fontSize-md;
@@ -255,6 +268,7 @@ div.ctaBox {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  flex-wrap: wrap;
 
   p.ctaLink {
     color: $secondaryColor;
@@ -348,6 +362,10 @@ div.addBusinessLink {
       top: 100px;
       right: 20px;
     }
+  }
+
+  .rollerSkaterBusinessBox {
+    flex-wrap: wrap;
   }
 
   .rollerSkaterResumeBox {
