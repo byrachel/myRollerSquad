@@ -27,3 +27,20 @@ export const checkUserIsConnected = async (
 
   return session.user;
 };
+
+export const checkConnectedUserIsAdmin = async (
+  req: NextApiRequest,
+  res: NextApiResponse
+) => {
+  const session = await getServerSession(req, res, authOptions);
+  if (
+    !session ||
+    !session.user ||
+    !session.user.id ||
+    !session.user.role ||
+    session.user.role !== "ADMIN"
+  )
+    return null;
+
+  return session.user;
+};
