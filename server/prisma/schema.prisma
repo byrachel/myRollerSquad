@@ -43,16 +43,18 @@ model User {
   favorite_places Place[]     @relation("FavoritePlaces")
   my_squad        User[]      @relation("MySquad")
   my_followers    User[]      @relation("MySquad")
+  comments        Comment[]   @relation("comment_author")
 }
 
 model Comment {
   id           Int       @id @default(autoincrement())
   comment      String
   published_at DateTime  @default(now())
+  author       User      @relation("comment_author", fields: [author_id], references: [id])
   author_id    Int
   post         Post      @relation(fields: [post_id], references: [id])
   post_id      Int
-  unread       Boolean   @default(true)
+  unread       Boolean   @default(false)
   answer_of    Comment?  @relation("answer_of_comment", fields: [answer_of_id], references: [id])
   answer_of_id Int?
   answers      Comment[] @relation("answer_of_comment")

@@ -17,15 +17,30 @@ export default async function handler(
   if (!id) return res.status(400).json({ message: E1 });
 
   try {
-    const comments = await prisma.post.findUnique({
+    const post = await prisma.post.findUnique({
       where: {
         id: parseInt(id),
       },
       select: {
-        comments: true,
+        comments: {
+          include: {
+            author: {
+              select: {
+                id: true,
+                name: true,
+                avatar: true,
+              },
+            },
+          },
+        },
       },
     });
-    if (!comments) return res.status(400).json({ message: E1 });
+    if (!post) return res.status(400).json({ message: E1 });
+    const comments = post.comments.sort((a, b) => {
+      if (a.published_at < b.published_at) return 1;
+      if (a.published_at > b.published_at) return -1;
+      return 0;
+    });
     res.status(200).json({ comments });
   } catch (err) {
     res.status(400).json({ message: E1 });

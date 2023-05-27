@@ -19,6 +19,7 @@ export default function LikeIcon({
 }: Props) {
   const [likes, setLikes] = useState<number>(counter);
   const liked = userConnectedId ? likedBy.includes(userConnectedId) : false;
+  const [likedByUserConnected, setLikedByUserConnected] = useState(liked);
 
   const addLike = (id: number, userConnectedId: number) => {
     if (!userConnectedId) return;
@@ -32,15 +33,15 @@ export default function LikeIcon({
         url: `/api/flow/post/like`,
         data,
         withCredentials: true,
-      })
-        .then((res) => {
-          if (res.data.liked) {
-            setLikes(likes + 1);
-          } else {
-            setLikes(likes - 1);
-          }
-        })
-        .catch((err) => console.log(err));
+      }).then((res) => {
+        if (res.data.liked) {
+          setLikedByUserConnected(true);
+          setLikes(likes + 1);
+        } else {
+          setLikedByUserConnected(false);
+          setLikes(likes - 1);
+        }
+      });
     }
   };
   return userConnectedId ? (
@@ -52,7 +53,13 @@ export default function LikeIcon({
       onKeyDown={() => addLike(postId, userConnectedId)}
     >
       <Heart
-        className={liked ? `fullLinksIcon ${color}` : `linksIcon ${color}`}
+        className={
+          likedByUserConnected
+            ? `fullLinksIcon ${color}`
+            : likes > 0
+            ? `linksIcon ${color}`
+            : "linksIcon grey"
+        }
         width={30}
         height={30}
       />

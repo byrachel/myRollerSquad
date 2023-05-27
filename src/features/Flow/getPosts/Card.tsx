@@ -7,10 +7,10 @@ import { displayLightDateTime } from "src/utils/handleDates";
 import { parseContent } from "src/utils/parseContent";
 import { SALE, getCategoryName } from "src/constants/PostCategories";
 import Avatar from "./Avatar";
-import LikeIcon from "./LikeIcon";
-import CommentIcon from "./CommentIcon";
 import CardFeaturedPict from "./CardFeaturedPict";
 import AlertButton from "src/components/buttons/AlertButton";
+import LikeIcon from "./LikeIcon";
+import CommentIcon from "../comment/CommentIcon";
 
 import Pin from "src/svg/pin.svg";
 import Arrow from "src/svg/arrow-right.svg";
@@ -107,9 +107,14 @@ export default function Card({
           likedBy={post.user_likes.map((like) => like.user_id)}
           userConnectedId={userConnectedId}
         />
-        <CommentIcon counter={post.comments?.length || 0} color={color} />
+        <CommentIcon
+          postId={post.id}
+          userId={userConnectedId}
+          counter={post.comments?.length || 0}
+          color={color}
+        />
         <Link href={`/post/${post.id}`}>
-          <Arrow className="linksIcon grey" width={30} height={30} />
+          <Arrow className={`linksIcon ${color}`} width={30} height={30} />
         </Link>
       </div>
     </div>

@@ -416,6 +416,10 @@ div.socialIconContainer {
   &.dark {
     fill: $darkColor;
   }
+  &.grey {
+    fill: $greyColor;
+    stroke: white;
+  }
 }
 .fullLinksIcon {
   transition: fill 0.2s ease-in-out;
@@ -673,6 +677,12 @@ div.socialIconContainer {
       font-size: $fontSize-sm;
     }
   }
+}
+
+.commentContainer {
+  background-color: $lightColor;
+  padding: 0.5em;
+  border-radius: 5px;
 }
 
 // @media (max-width: 700px) {
