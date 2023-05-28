@@ -4,7 +4,7 @@ import nextConnect from "next-connect";
 import prisma from "server/prisma/db/client";
 import { uploadImage } from "server/utils/uploadImage";
 import { E1, E2 } from "src/constants/ErrorMessages";
-import { checkUserIsConnected } from "server/controllers/checkUserId";
+import { checkUserIsConnected } from "@/server/controllers/checkUser";
 import { NextApiResponse } from "next";
 
 const upload = multer({

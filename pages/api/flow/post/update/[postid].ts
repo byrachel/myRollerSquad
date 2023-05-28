@@ -3,7 +3,7 @@ import nextConnect from "next-connect";
 import prisma from "@/server/prisma/db/client";
 import { E1, E2, E3 } from "src/constants/ErrorMessages";
 import { initValidation, check } from "@/server/middleware/validators";
-import { checkUserIsConnected } from "@/server/controllers/checkUserId";
+import { checkUserIsConnected } from "@/server/controllers/checkUser";
 import { NextApiRequest, NextApiResponse } from "next";
 
 const handler = nextConnect();

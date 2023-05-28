@@ -1,8 +1,8 @@
 import prisma from "server/prisma/db/client";
+import sharp from "sharp";
 
-import { PlaceInterface } from "src/entities/business.entity";
-import { PostInterface } from "src/entities/flow.entity";
 import {
+  MinimalUserInterface,
   UpdateUserProfileInterface,
   UserFavs,
   UserInterface,
@@ -10,6 +10,7 @@ import {
 } from "src/entities/user.entity";
 import { UserProfileUseCase } from "@/server/usecases/UserProfile.usecase";
 import { exclude } from "@/server/utils/prismaExclude";
+import { uploadImage } from "../utils/uploadImage";
 
 export class UserProfileRepository implements UserProfileUseCase {
   async getMyProfile(id: number): Promise<UserInterface | null> {
@@ -103,10 +104,6 @@ export class UserProfileRepository implements UserProfileUseCase {
       return null;
     }
   }
-  async getUserPlaces(id: number): Promise<PlaceInterface[]> {
-    console.log(id);
-    return [];
-  }
   async getUserFavs(id: number): Promise<UserFavs[] | null> {
     try {
       const userFavoriteBusiness = await prisma.user.findUnique({
@@ -132,8 +129,30 @@ export class UserProfileRepository implements UserProfileUseCase {
       return null;
     }
   }
-  async getUserPosts(id: number): Promise<PostInterface[]> {
-    console.log(id);
-    return [];
+  async updateAvatar(
+    id: number,
+    buffer: Buffer
+  ): Promise<MinimalUserInterface | null> {
+    const resizedBuffer = await sharp(buffer)
+      .resize({ width: 200, height: 200 })
+      .toBuffer();
+
+    if (!resizedBuffer || !process.env.S3_AVATAR_BUCKET_NAME) return null;
+    const avatar = await uploadImage(
+      process.env.S3_AVATAR_BUCKET_NAME,
+      resizedBuffer
+    );
+
+    if (!avatar || !avatar.Key) return null;
+    const userToUpdate = await prisma.user.update({
+      where: {
+        id,
+      },
+      data: {
+        avatar: avatar.Key,
+      },
+    });
+    if (!userToUpdate) return null;
+    return userToUpdate;
   }
 }

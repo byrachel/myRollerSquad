@@ -1,7 +1,7 @@
 import { NextApiRequest, NextApiResponse } from "next";
 
 import { E1, E2 } from "src/constants/ErrorMessages";
-import { checkUserIsConnected } from "@/server/controllers/checkUserId";
+import { checkUserIsConnected } from "@/server/controllers/checkUser";
 
 export default async function handler(
   req: NextApiRequest,

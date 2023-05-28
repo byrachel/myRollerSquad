@@ -1,3 +1,22 @@
+export interface UserPostInterface {
+  id: number;
+  user_id: number;
+  place_id: number | null;
+  title: string;
+  category_id: number;
+  style: {
+    style_id: number;
+  }[];
+  created_at: Date;
+  pictures: string[];
+  comments: {
+    id: number;
+  }[];
+  user_likes: {
+    user_id: number;
+  }[];
+}
+
 export interface PostInterface {
   id: number;
   title: string;
@@ -90,4 +109,38 @@ export interface CommentInterface {
     name: string;
   };
   post_id: number;
+}
+
+export interface CompletePostInterface {
+  id: number;
+  title: string;
+  content: string;
+  created_at: Date;
+  category_id: number;
+  pictures: string[];
+  link: string | null;
+  style: { style_id: number }[];
+  city: string | null;
+  county: string | null;
+  country: string;
+  user_likes: { user_id: number }[];
+  price: number | null;
+  distance: any | null;
+  duration: string | null;
+  comments: any[];
+  user?: {
+    id: number;
+    avatar: string | null;
+    name: string;
+  };
+  place: {
+    id: number;
+    name: string;
+    logo: string | null;
+  } | null;
+}
+
+export interface GetPostsResponseInterface {
+  posts: CompletePostInterface[];
+  nextId: number;
 }

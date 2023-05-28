@@ -1,6 +1,6 @@
 import { PostInterface } from "./flow.entity";
 
-export interface UserInterface {
+export interface MinimalUserInterface {
   id: number;
   active: boolean;
   name: string;
@@ -20,6 +20,9 @@ export interface UserInterface {
   country: string;
   county: string | null;
   city: string | null;
+}
+
+export interface UserInterface extends MinimalUserInterface {
   place: { id: number }[];
 }
 

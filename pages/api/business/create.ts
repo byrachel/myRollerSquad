@@ -4,7 +4,7 @@ import nextConnect from "next-connect";
 import prisma from "server/prisma/db/client";
 import { initValidation, check } from "@/server/middleware/validators";
 import { E1, E2, E3 } from "src/constants/ErrorMessages";
-import { checkUserIsConnected } from "@/server/controllers/checkUserId";
+import { checkUserIsConnected } from "@/server/controllers/checkUser";
 
 const validator = initValidation([
   check("name").not().isEmpty().trim().escape().withMessage(E3),

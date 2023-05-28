@@ -3,7 +3,7 @@ import type { NextApiRequest, NextApiResponse } from "next";
 import prisma from "server/prisma/db/client";
 import { E1, E2 } from "src/constants/ErrorMessages";
 import nextConnect from "next-connect";
-import { checkConnectedUserIsAdmin } from "@/server/controllers/checkUserId";
+import { checkConnectedUserIsAdmin } from "@/server/controllers/checkUser";
 
 const handler = nextConnect();
 

@@ -1,6 +1,5 @@
-import { PostInterface } from "src/entities/flow.entity";
-import { PlaceInterface } from "src/entities/business.entity";
 import {
+  MinimalUserInterface,
   UpdateUserProfileInterface,
   UserFavs,
   UserInterface,
@@ -14,7 +13,9 @@ export interface UserProfileUseCase {
     id: number,
     data: UpdateUserProfileInterface
   ): Promise<UserInterface | null>;
-  getUserPlaces(id: number): Promise<PlaceInterface[]>;
   getUserFavs(id: number): Promise<UserFavs[] | null>;
-  getUserPosts(id: number): Promise<PostInterface[]>;
+  updateAvatar(
+    id: number,
+    buffer: Buffer
+  ): Promise<MinimalUserInterface | null>;
 }

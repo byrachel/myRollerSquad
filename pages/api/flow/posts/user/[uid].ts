@@ -1,51 +1,20 @@
-import nextConnect from "next-connect";
-
-import prisma from "@/server/prisma/db/client";
-import { checkUserId } from "@/server/controllers/checkUserId";
 import { NextApiRequest, NextApiResponse } from "next";
 
-const handler = nextConnect();
+import { checkUserId } from "@/server/controllers/checkUser";
+import { FlowRepository } from "@/server/repositories/Flow.repository";
+import { E1, E2 } from "src/constants/ErrorMessages";
 
-export default handler.get(
-  async (req: NextApiRequest, res: NextApiResponse) => {
-    const user = await checkUserId(req, res);
-    if (!user) return res.status(401).json({ posts: null });
+export default async function handler(
+  req: NextApiRequest,
+  res: NextApiResponse
+) {
+  if (req.method !== "GET") return res.status(401).json({ message: E1 });
+  const user = await checkUserId(req, res);
+  if (!user) return res.status(401).json({ message: E2 });
 
-    try {
-      const posts = await prisma.post.findMany({
-        where: {
-          user_id: user.id,
-        },
-        orderBy: {
-          created_at: "desc",
-        },
-        select: {
-          id: true,
-          user_id: true,
-          place_id: true,
-          title: true,
-          category_id: true,
-          style: {
-            select: {
-              style_id: true,
-            },
-          },
-          created_at: true,
-          pictures: true,
-          comments: true,
-          user_likes: {
-            select: {
-              user_id: true,
-            },
-          },
-        },
-      });
+  const flowRepo = new FlowRepository();
+  const posts = await flowRepo.getUserPosts(user.id);
 
-      if (!posts) return res.status(401).json({ posts: null });
-
-      res.status(200).json({ posts });
-    } catch (error) {
-      res.status(400).json({ posts: null });
-    }
-  }
-);
+  if (!posts) return res.status(401).json({ message: E1 });
+  res.status(200).json({ posts });
+}

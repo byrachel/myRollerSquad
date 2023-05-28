@@ -2,7 +2,7 @@ import { NextApiRequest, NextApiResponse } from "next";
 
 import { E1, E2 } from "src/constants/ErrorMessages";
 import { UserProfileRepository } from "@/server/repositories/UserProfile.repository";
-import { checkUserId } from "@/server/controllers/checkUserId";
+import { checkUserId } from "@/server/controllers/checkUser";
 
 export default async function handler(
   req: NextApiRequest,

@@ -4,7 +4,7 @@ import nextConnect from "next-connect";
 import prisma from "server/prisma/db/client";
 import { E1, E2, E3 } from "src/constants/ErrorMessages";
 import { initValidation, check } from "server/middleware/validators";
-import { checkConnectedUserIsAdmin } from "@/server/controllers/checkUserId";
+import { checkConnectedUserIsAdmin } from "@/server/controllers/checkUser";
 
 const handler = nextConnect();
 

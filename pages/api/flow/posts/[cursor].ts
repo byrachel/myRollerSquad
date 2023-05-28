@@ -1,8 +1,8 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 
-import prisma from "@/server/prisma/db/client";
-import { checkUserIsConnected } from "@/server/controllers/checkUserId";
+import { checkUserIsConnected } from "@/server/controllers/checkUser";
 import { E1, E2 } from "src/constants/ErrorMessages";
+import { FlowRepository } from "@/server/repositories/Flow.repository";
 
 export default async function handler(
   req: NextApiRequest,
@@ -27,62 +27,10 @@ export default async function handler(
   const cursorValue = Array.isArray(cursor) ? cursor[0] : cursor;
   const postsCursor = cursorValue ? parseInt(cursorValue) : 0;
 
-  try {
-    // const cursorObj = postsCursor === 0 ? undefined : { id: postsCursor };
-    const posts = await prisma.post.findMany({
-      skip: postsCursor,
-      // cursor: cursorObj,
-      take: 4,
-      orderBy: {
-        created_at: "desc",
-      },
-      where: {
-        ...(category_id ? { category_id } : {}),
-        ...(style_id ? { style: { some: { style_id } } } : {}),
-      },
-      select: {
-        id: true,
-        title: true,
-        content: true,
-        category_id: true,
-        style: {
-          select: {
-            style_id: true,
-          },
-        },
-        created_at: true,
-        pictures: true,
-        link: true,
-        comments: true,
-        user: {
-          select: {
-            avatar: true,
-            id: true,
-            name: true,
-          },
-        },
-        place: {
-          select: {
-            id: true,
-            name: true,
-            logo: true,
-          },
-        },
-        city: true,
-        county: true,
-        country: true,
-        user_likes: {
-          select: {
-            user_id: true,
-          },
-        },
-        price: true,
-        distance: true,
-        duration: true,
-      },
-    });
-    res.status(200).json({ posts, nextId: postsCursor + 4 });
-  } catch (e) {
-    res.status(400).json({ message: E1 });
-  }
+  const flowRepo = new FlowRepository();
+  const response = await flowRepo.getPosts(postsCursor, category_id, style_id);
+  if (!response) return res.status(400).json({ message: E1 });
+  return res
+    .status(200)
+    .json({ posts: response.posts, nextId: response.nextId });
 }
