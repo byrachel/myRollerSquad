@@ -1,30 +1,42 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
+import Link from "next/link";
 import axios from "axios";
 import { format } from "date-fns";
-import Link from "next/link";
+
+import RegularButton from "@/components/buttons/RegularButton";
+import { CommentInterface } from "src/entities/flow.entity";
 
 interface Props {
-  postId: number;
+  userId: number | null;
+  comments: CommentInterface[];
+  setComments: (arg: CommentInterface[]) => void;
+  setCommentsCounter: any;
 }
 
-export default function CommentsList({ postId }: Props) {
-  const [comments, setComments] = useState([]);
-  useEffect(() => {
-    if (postId) {
-      axios({
-        method: "GET",
-        url: `/api/comment/${postId}`,
+export default function CommentsList({
+  userId,
+  comments,
+  setComments,
+  setCommentsCounter,
+}: Props) {
+  const deleteComment = (uid: number, cid: number) => {
+    axios
+      .delete(`/api/comment/delete/${uid}/${cid}`, {
         withCredentials: true,
       })
-        .then((res) => setComments(res.data.comments))
-        .catch((err) => console.log(err));
-    }
-  }, [postId]);
+      .then(() => {
+        const commentsList = comments.filter(
+          (comment: CommentInterface) => comment.id !== cid
+        );
+        setComments(commentsList);
+        setCommentsCounter((prevState: number) => prevState - 1);
+      });
+  };
 
   return (
     <>
       {comments && comments.length > 0
-        ? comments.map((comment: any) => (
+        ? comments.map((comment: CommentInterface) => (
             <div className="commentContainer" key={comment.id}>
               <div className="spaceBetween">
                 <Link href={`/profile/${comment.author.id}`}>
@@ -35,6 +47,17 @@ export default function CommentsList({ postId }: Props) {
                 </p>
               </div>
               <p>{comment.comment}</p>
+              {userId && userId === comment.author.id ? (
+                <div className="spaceBetween">
+                  <div></div>
+                  <RegularButton
+                    type="button"
+                    text="Supprimer"
+                    style="light"
+                    onClick={() => deleteComment(userId, comment.id)}
+                  />
+                </div>
+              ) : null}
             </div>
           ))
         : null}

@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import React, { useMemo, useState } from "react";
 import Link from "next/link";
 
 import { PostInterface } from "src/entities/flow.entity";
@@ -30,6 +30,7 @@ export default function Card({
   userConnectedId,
 }: Props) {
   const color = useMemo(() => cardColor(post.category_id), [post.category_id]);
+  const [commentsCounter, setCommentsCounter] = useState(post.comments.length);
 
   return (
     <div className={`cardContainer ${color}`} key={post.id} ref={cardRef}>
@@ -110,7 +111,8 @@ export default function Card({
         <CommentIcon
           postId={post.id}
           userId={userConnectedId}
-          counter={post.comments?.length || 0}
+          counter={commentsCounter}
+          setCommentsCounter={setCommentsCounter}
           color={color}
         />
         <Link href={`/post/${post.id}`}>

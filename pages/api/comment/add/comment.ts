@@ -45,6 +45,14 @@ export default handler
               },
             },
           },
+          include: {
+            author: {
+              select: {
+                id: true,
+                name: true,
+              },
+            },
+          },
         });
       } else {
         newComment = await prisma.comment.create({
@@ -58,6 +66,14 @@ export default handler
             post: {
               connect: {
                 id: parseInt(postId),
+              },
+            },
+          },
+          include: {
+            author: {
+              select: {
+                id: true,
+                name: true,
               },
             },
           },

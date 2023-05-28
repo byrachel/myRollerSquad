@@ -7,7 +7,7 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  if (req.method !== "GET") return res.status(401).json({ message: E1 });
+  if (req.method !== "DELETE") return res.status(401).json({ message: E1 });
 
   const user = await checkUserId(req, res);
   if (!user || !user.id) return res.status(400).json({ message: E2 });

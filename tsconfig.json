@@ -36,6 +36,7 @@
     "**/*.tsx",
     "src/components/form/Editor/Editor.jsx",
     "src/components/form/Editor/TextEditor.jsx",
-    "pages/api/auth/[...nextauth].js"
+    "pages/api/auth/[...nextauth].js",
+    "pages/api/comment/delete/[uid]"
   ]
 }

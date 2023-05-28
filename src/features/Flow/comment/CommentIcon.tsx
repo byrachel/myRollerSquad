@@ -1,22 +1,43 @@
-import RegularButton from "@/components/buttons/RegularButton";
+import React, { useEffect, useState } from "react";
 import { Modal, Text } from "@nextui-org/react";
 import axios from "axios";
-import React, { useState } from "react";
 
+import RegularButton from "@/components/buttons/RegularButton";
 import Comment from "src/svg/chat-bubble.svg";
 import CommentsList from "./CommentsList";
+import { CommentInterface } from "src/entities/flow.entity";
 
 interface Props {
   counter: number;
   color: string;
   postId: number;
   userId: number | null;
+  setCommentsCounter: any;
 }
 
-export default function CommentIcon({ counter, color, postId, userId }: Props) {
+export default function CommentIcon({
+  counter,
+  color,
+  postId,
+  userId,
+  setCommentsCounter,
+}: Props) {
   const [show, setShow] = useState(false);
+  const [comments, setComments] = useState<CommentInterface[]>([]);
 
-  const addComment = (e: React.SyntheticEvent) => {
+  useEffect(() => {
+    if (postId) {
+      axios({
+        method: "GET",
+        url: `/api/comment/${postId}`,
+        withCredentials: true,
+      })
+        .then((res) => setComments(res.data.comments))
+        .catch(() => setComments([]));
+    }
+  }, [postId]);
+
+  const addComment = (e: any) => {
     e.preventDefault();
     const comment = (e.target as HTMLFormElement).comment.value;
     if (comment.length > 1 && postId) {
@@ -31,8 +52,11 @@ export default function CommentIcon({ counter, color, postId, userId }: Props) {
         data,
         withCredentials: true,
       })
-        .then((res) => console.log(res))
-        .catch((err) => console.log(err));
+        .then((res) => {
+          setComments((prevState) => [res.data.comment, ...prevState]);
+          setCommentsCounter((prevState: number) => prevState + 1);
+        })
+        .finally(() => e.target.reset());
     }
   };
 
@@ -69,8 +93,12 @@ export default function CommentIcon({ counter, color, postId, userId }: Props) {
           </Text>
         </Modal.Header>
         <Modal.Body>
-          <div className="metaUnderliner" />
-          <CommentsList postId={postId} />
+          <CommentsList
+            userId={userId}
+            comments={comments}
+            setComments={setComments}
+            setCommentsCounter={setCommentsCounter}
+          />
         </Modal.Body>
         <form onSubmit={addComment}>
           <Modal.Footer>
@@ -81,7 +109,15 @@ export default function CommentIcon({ counter, color, postId, userId }: Props) {
               rows={2}
               placeholder="Laisse un commentaire..."
             />
-            <RegularButton type="submit" style="full" text="Commenter" />
+            <div>
+              <RegularButton
+                type="button"
+                style="light"
+                text="Annuler"
+                onClick={() => setShow(false)}
+              />
+              <RegularButton type="submit" style="full" text="Commenter" />
+            </div>
           </Modal.Footer>
         </form>
       </Modal>

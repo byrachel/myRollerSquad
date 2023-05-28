@@ -80,3 +80,14 @@ export interface NewPostFactoryInterface {
   pictures: string[]; // for edited post only
   place_id: number | null;
 }
+
+export interface CommentInterface {
+  id: number;
+  comment: string;
+  published_at: Date;
+  author: {
+    id: number;
+    name: string;
+  };
+  post_id: number;
+}

@@ -54,7 +54,11 @@ export async function getServerSideProps(params: any) {
         created_at: true,
         pictures: true,
         link: true,
-        comments: true,
+        comments: {
+          select: {
+            id: true,
+          },
+        },
         user: {
           select: {
             avatar: true,

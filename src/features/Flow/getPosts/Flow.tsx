@@ -32,17 +32,15 @@ const Flow = ({ userConnectedId }: Props) => {
       method: "get",
       url: `/api/flow/posts/${nextId}?${category}&${style}`,
       withCredentials: true,
-    })
-      .then((res) => {
-        flowDispatch({
-          type: "SET_POSTS",
-          payload: {
-            posts: [...flowStore.posts, ...res.data.posts],
-            cursor: res.data.nextId ? res.data.nextId : null,
-          },
-        });
-      })
-      .catch((err) => console.log(err));
+    }).then((res) => {
+      flowDispatch({
+        type: "SET_POSTS",
+        payload: {
+          posts: [...flowStore.posts, ...res.data.posts],
+          cursor: res.data.nextId ? res.data.nextId : null,
+        },
+      });
+    });
   };
 
   useEffect(() => {

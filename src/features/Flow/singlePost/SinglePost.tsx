@@ -1,5 +1,6 @@
 import { useMemo, useState } from "react";
 import { useSession } from "next-auth/react";
+import { useRouter } from "next/router";
 import Image from "next/image";
 
 import { getCategoryName } from "src/constants/PostCategories";
@@ -8,15 +9,14 @@ import { cardColor } from "src/utils/colorManager";
 import { displayLightDateTime } from "src/utils/handleDates";
 import { parseContent } from "src/utils/parseContent";
 import { getStyleName } from "src/constants/RollerSkateStyles";
+import { deletePost } from "../addPost/utils/deletePost";
 import EditPost from "./EditPost";
-import CommentIcon from "../getPosts/CommentIcon";
 import LikeIcon from "../getPosts/LikeIcon";
 import UpdateDeleteIcons from "src/components/buttons/UpdateDeleteIcons";
 
 import Pin from "src/svg/pin.svg";
 import Roller from "src/svg/rollerquad.svg";
-import { useRouter } from "next/router";
-import { deletePost } from "../addPost/utils/deletePost";
+import CommentIcon from "../comment/CommentIcon";
 
 interface Props {
   post: PostInterface;
@@ -33,6 +33,8 @@ export default function SinglePost({ post }: Props) {
   }>({ show: false, post: null });
   const router = useRouter();
   const redirectAfterDelete = () => router.push(`/profile/posts/${userId}`);
+
+  const [commentsCounter, setCommentsCounter] = useState(post.comments.length);
 
   return userId ? (
     editPost.show ? (
@@ -116,7 +118,13 @@ export default function SinglePost({ post }: Props) {
               userConnectedId={userId}
             />
           </div>
-          <CommentIcon counter={post.comments.length} color={color} />
+          <CommentIcon
+            counter={commentsCounter}
+            setCommentsCounter={setCommentsCounter}
+            color={color}
+            postId={post.id}
+            userId={userId}
+          />
         </div>
       </>
     )
