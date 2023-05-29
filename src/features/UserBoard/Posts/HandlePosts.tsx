@@ -39,16 +39,16 @@ const HandlePosts = ({ userConnectedId }: Props) => {
           userConnectedId={userConnectedId}
         />
       ) : (
-        <>
+        <div style={{ padding: "1.5em" }}>
           <h3 className="mt5">
             <b>Tu n'as publié aucun article pour le moment :(</b>
           </h3>
           <p className="mt5">
-            C'est le moment de se jeter à l'eau ! <br />
-            Une jolie photo de ton équipement ou de ta dernière session, ce
-            serait parfait pour commencer :-)
+            C'est le moment de se jeter à l'eau ! Une jolie photo de ton
+            équipement ou de ta dernière session, ce serait parfait pour
+            commencer :-)
           </p>
-        </>
+        </div>
       )}
     </>
   );

@@ -4,15 +4,15 @@ export interface UserPostInterface {
   place_id: number | null;
   title: string;
   category_id: number;
-  style: {
+  style?: {
     style_id: number;
   }[];
   created_at: Date;
   pictures: string[];
-  comments: {
+  comments?: {
     id: number;
   }[];
-  user_likes: {
+  user_likes?: {
     user_id: number;
   }[];
 }
@@ -123,17 +123,17 @@ export interface CompletePostInterface {
   city: string | null;
   county: string | null;
   country: string;
-  user_likes: { user_id: number }[];
+  user_likes?: { user_id: number }[];
   price: number | null;
   distance: any | null;
   duration: string | null;
-  comments: any[];
+  comments?: any[];
   user?: {
     id: number;
     avatar: string | null;
     name: string;
   };
-  place: {
+  place?: {
     id: number;
     name: string;
     logo: string | null;
@@ -143,4 +143,22 @@ export interface CompletePostInterface {
 export interface GetPostsResponseInterface {
   posts: CompletePostInterface[];
   nextId: number;
+}
+
+export interface BodyPostInterface {
+  title: string;
+  content: string;
+  category_id: number;
+  link: string | null;
+  style_ids: number[];
+  squad_ids: number[];
+  user_id: number;
+  distance: number | null;
+  duration?: string | null;
+  price: number | null;
+  city: string | null;
+  county: string | null;
+  country: string | null;
+  pictures: string[]; // for edited post only
+  place_id: number | null;
 }

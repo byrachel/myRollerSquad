@@ -6,6 +6,7 @@ import SinglePost from "src/features/Flow/singlePost/SinglePost";
 import Loader from "src/components/layouts/Loader";
 import { PostInterface } from "src/entities/flow.entity";
 import UnloggedUserSidebar from "@/components/sidebar/UnloggedUserSidebar";
+import { FlowRepository } from "@/server/repositories/Flow.repository";
 
 interface Props {
   post: PostInterface | null;
@@ -35,61 +36,10 @@ export default function Post({ post }: Props) {
 
 export async function getServerSideProps(params: any) {
   const { id } = params.query;
-
-  try {
-    const data = await prisma.post.findUnique({
-      where: {
-        id: parseInt(id),
-      },
-      select: {
-        id: true,
-        title: true,
-        content: true,
-        category_id: true,
-        style: {
-          select: {
-            style_id: true,
-          },
-        },
-        created_at: true,
-        pictures: true,
-        link: true,
-        comments: {
-          select: {
-            id: true,
-          },
-        },
-        user: {
-          select: {
-            avatar: true,
-            id: true,
-            name: true,
-          },
-        },
-        place: {
-          select: {
-            id: true,
-            name: true,
-            logo: true,
-          },
-        },
-        city: true,
-        county: true,
-        country: true,
-        user_likes: {
-          select: {
-            user_id: true,
-          },
-        },
-        price: true,
-        distance: true,
-        duration: true,
-      },
-    });
-    if (!data) return { props: { post: null } };
-    const post = JSON.parse(JSON.stringify(data));
-    return { props: { post } };
-  } catch (error) {
-    return { props: { post: null } };
-  }
+  if (!id) return { props: { post: null } };
+  const flowRepo = new FlowRepository();
+  const selectedPost = await flowRepo.getPostById(parseInt(id));
+  if (!selectedPost) return { props: { post: null } };
+  const post = JSON.parse(JSON.stringify(selectedPost));
+  return { props: { post } };
 }

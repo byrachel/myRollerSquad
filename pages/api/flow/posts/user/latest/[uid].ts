@@ -1,5 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-import prisma from "server/prisma/db/client";
+
+import { FlowRepository } from "@/server/repositories/Flow.repository";
 import { E1 } from "src/constants/ErrorMessages";
 
 export default async function handler(
@@ -12,17 +13,8 @@ export default async function handler(
   const id = Array.isArray(uid) ? uid[0] : uid;
   if (!id) return res.status(400).json({ message: E1 });
 
-  try {
-    const posts = await prisma.post.findMany({
-      where: {
-        user_id: parseInt(id),
-        place_id: null,
-      },
-      take: 3,
-    });
-    if (!posts) return res.status(400).json({ message: E1 });
-    res.status(200).json({ posts });
-  } catch (err) {
-    res.status(400).json({ message: E1 });
-  }
+  const flowRepo = new FlowRepository();
+  const posts = await flowRepo.getUserLatestPosts(parseInt(id));
+  if (!posts) return res.status(401).json({ message: E1 });
+  res.status(200).json({ posts });
 }

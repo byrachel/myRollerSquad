@@ -5,3 +5,5 @@ export const E4 = "Oups ! Un compte existe déjà avec ces identifiants.";
 export const E5 =
   "Il semble que ton compte n'est pas activé. Vérifie tes mails ;-)";
 export const E6 = "Oups ! Identifiant ou mot de passe incorrect.";
+export const E7 =
+  "Oups ! Le titre ne peut être vide (3 caractères mini / 30 maxi).";

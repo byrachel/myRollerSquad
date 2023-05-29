@@ -1,7 +1,7 @@
 import nextConnect from "next-connect";
 
 import prisma from "server/prisma/db/client";
-import { E1, E2, E3 } from "src/constants/ErrorMessages";
+import { E1, E2, E3, E7 } from "src/constants/ErrorMessages";
 import { initValidation, check } from "server/middleware/validators";
 import { checkUserIsConnected } from "@/server/controllers/checkUser";
 
@@ -14,9 +14,7 @@ const validator = initValidation([
     .escape()
     .trim()
     .isLength({ min: 3, max: 30 })
-    .withMessage(
-      "TITLE can't be empty and must have minimum length of 3 and maximum 30"
-    ),
+    .withMessage(E7),
   check("content").optional().trim(),
   check("link").isURL().optional({ nullable: true }).withMessage(E3),
   check("price").optional().isNumeric().withMessage(E3),
