@@ -1,11 +1,10 @@
 import multer from "multer";
 import nextConnect from "next-connect";
 
-import prisma from "server/prisma/db/client";
-import { uploadImage } from "server/utils/uploadImage";
-import { E1, E2 } from "src/constants/ErrorMessages";
+import { E1 } from "src/constants/ErrorMessages";
 import { checkUserIsConnected } from "@/server/controllers/checkUser";
 import { NextApiResponse } from "next";
+import { FlowRepository } from "@/server/repositories/Flow.repository";
 
 const upload = multer({
   storage: multer.memoryStorage(),
@@ -18,49 +17,19 @@ export default handler
   .put(async (req: any, res: NextApiResponse) => {
     const { postid } = req.query;
     const id = Array.isArray(postid) ? postid[0] : postid;
-    if (!id) return res.status(400).json({ message: E1 });
+    if (!id) return res.status(200).json({ post: {} });
 
     const user = await checkUserIsConnected(req, res);
-    if (!user) return res.status(401).json({ message: E2 });
+    if (!user) return res.status(200).json({ post: {} });
 
-    try {
-      const files = req.files;
-      const pictures = [];
+    const files = req.files;
+    if (!req.files || req.files.length === 0)
+      return res.status(200).json({ post: {} });
 
-      if (files && files.length > 0 && process.env.S3_FLOW_BUCKET_NAME) {
-        for (const file of files) {
-          const image = await uploadImage(
-            process.env.S3_FLOW_BUCKET_NAME,
-            file
-          );
-          if (image && image.Key) {
-            pictures.push(image.Key);
-          }
-        }
-      }
-
-      if (pictures.length > 0 && pictures.length === req.files.length) {
-        const newPost = await prisma.post.update({
-          where: {
-            id: parseInt(id),
-          },
-          data: {
-            pictures,
-          },
-        });
-        res.status(200).json({ post: newPost });
-      } else {
-        await prisma.post.delete({
-          where: {
-            id: parseInt(id),
-          },
-        });
-        res.status(400).json({ message: E1 });
-      }
-    } catch (e) {
-      console.log(e);
-      return res.status(401).json({ message: E1 });
-    }
+    const flowRepo = new FlowRepository();
+    const post = await flowRepo.addPicturesToPost(parseInt(id), files);
+    if (!post) return res.status(400).json({ message: E1 });
+    return res.status(200).json({ post });
   });
 
 export const config = {

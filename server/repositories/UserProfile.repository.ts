@@ -35,6 +35,7 @@ export class UserProfileRepository implements UserProfileUseCase {
       return null;
     }
   }
+
   async getUserProfile(id: number): Promise<UserProfileInterface | null> {
     try {
       const user = await prisma.user.findUnique({
@@ -78,6 +79,7 @@ export class UserProfileRepository implements UserProfileUseCase {
       return null;
     }
   }
+
   async updateUserProfile(
     id: number,
     data: UpdateUserProfileInterface
@@ -104,6 +106,7 @@ export class UserProfileRepository implements UserProfileUseCase {
       return null;
     }
   }
+
   async getUserFavs(id: number): Promise<UserFavs[] | null> {
     try {
       const userFavoriteBusiness = await prisma.user.findUnique({
@@ -129,6 +132,7 @@ export class UserProfileRepository implements UserProfileUseCase {
       return null;
     }
   }
+
   async updateAvatar(
     id: number,
     buffer: Buffer

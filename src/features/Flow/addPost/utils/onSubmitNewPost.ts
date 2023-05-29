@@ -109,6 +109,7 @@ export const onSubmitNewPost = async (
       }
     })
     .catch((err) => {
+      console.log(err);
       postDispatch({
         type: "ERROR",
         payload: err.response.data.message,

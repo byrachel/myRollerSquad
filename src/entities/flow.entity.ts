@@ -155,7 +155,7 @@ export interface BodyPostInterface {
   user_id: number;
   distance: number | null;
   duration?: string | null;
-  price: number | null;
+  price: string | null;
   city: string | null;
   county: string | null;
   country: string | null;

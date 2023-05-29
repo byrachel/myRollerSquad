@@ -18,6 +18,7 @@ import BigButton from "src/components/buttons/BigButton";
 import HandleLocation from "./HandleLocation";
 import { Radio } from "@nextui-org/react";
 import { PlaceInterface } from "src/entities/business.entity";
+import ErrorLayout from "@/components/layouts/ErrorLayout";
 
 interface Props {
   userConnectedId: number;
@@ -45,6 +46,11 @@ export default function NewPostForm({
 
   return (
     <>
+      <ErrorLayout
+        error={post.error.status}
+        message={post.error.message}
+        dispatchError={postDispatch}
+      />
       <form
         onSubmit={(e) =>
           editMode

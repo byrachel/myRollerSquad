@@ -6,6 +6,19 @@ import {
 } from "src/entities/flow.entity";
 
 export interface FlowUseCase {
+  createPost: (
+    user_id: number,
+    data: BodyPostInterface
+  ) => Promise<CompletePostInterface | null>;
+  addPicturesToPost: (
+    post_id: number,
+    files: any[]
+  ) => Promise<UserPostInterface | null>;
+  updatePost: (
+    post_id: number,
+    data: BodyPostInterface
+  ) => Promise<CompletePostInterface | null>;
+  deletePost: (id: number) => Promise<{ deleted: boolean } | null>;
   getPosts: (
     cursor: number,
     category_id: number | null,
@@ -16,15 +29,9 @@ export interface FlowUseCase {
   getPlaceLatestPosts: (
     place_id: number
   ) => Promise<UserPostInterface[] | null>;
+  getPostById: (post_id: number) => Promise<CompletePostInterface | null>;
   addOrRemoveLike: (
     user_id: number,
     post_id: number
   ) => Promise<{ liked: boolean } | null>;
-  getPostById: (post_id: number) => Promise<CompletePostInterface | null>;
-  updatePost: (
-    post_id: number,
-    data: BodyPostInterface
-  ) => Promise<CompletePostInterface | null>;
-  //   createPost: (data: PostInterface) => Promise<PostInterface | null>;
-  deletePost: (id: number) => Promise<{ deleted: boolean } | null>;
 }

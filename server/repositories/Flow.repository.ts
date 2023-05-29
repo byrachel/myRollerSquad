@@ -8,6 +8,7 @@ import {
   UserPostInterface,
 } from "src/entities/flow.entity";
 import { isAlreadyLikedByThisUser } from "../controllers/checkLikes";
+import { uploadImage } from "../utils/uploadImage";
 
 export class FlowRepository implements FlowUseCase {
   async getPosts(
@@ -161,6 +162,65 @@ export class FlowRepository implements FlowUseCase {
     }
   }
 
+  async getPostById(post_id: number): Promise<CompletePostInterface | null> {
+    try {
+      const post = await prisma.post.findUnique({
+        where: {
+          id: post_id,
+        },
+        select: {
+          id: true,
+          title: true,
+          content: true,
+          category_id: true,
+          style: {
+            select: {
+              style_id: true,
+            },
+          },
+          created_at: true,
+          pictures: true,
+          link: true,
+          comments: {
+            select: {
+              id: true,
+            },
+          },
+          user: {
+            select: {
+              avatar: true,
+              id: true,
+              name: true,
+            },
+          },
+          place: {
+            select: {
+              id: true,
+              name: true,
+              logo: true,
+            },
+          },
+          city: true,
+          county: true,
+          country: true,
+          user_likes: {
+            select: {
+              user_id: true,
+            },
+          },
+          price: true,
+          distance: true,
+          duration: true,
+        },
+      });
+      if (!post) return null;
+      return post;
+    } catch (e) {
+      console.log(e);
+      return null;
+    }
+  }
+
   async addOrRemoveLike(
     user_id: number,
     post_id: number
@@ -221,59 +281,80 @@ export class FlowRepository implements FlowUseCase {
     }
   }
 
-  async getPostById(post_id: number): Promise<CompletePostInterface | null> {
+  async createPost(
+    user_id: number,
+    data: BodyPostInterface
+  ): Promise<CompletePostInterface | null> {
     try {
-      const post = await prisma.post.findUnique({
-        where: {
-          id: post_id,
-        },
-        select: {
-          id: true,
-          title: true,
-          content: true,
-          category_id: true,
+      const newPost = await prisma.post.create({
+        data: {
+          title: data.title,
+          content: data.content ? data.content : "",
+          user_id,
+          place_id: data.place_id ? data.place_id : null,
+          category_id: data.category_id,
+          country: data.country ? data.country : "France",
+          county: data.county ? data.county : null,
+          city: data.city ? data.city : null,
           style: {
-            select: {
-              style_id: true,
-            },
+            create: data.style_ids.map((id: number) => ({
+              style: { connect: { id } },
+            })),
           },
-          created_at: true,
-          pictures: true,
-          link: true,
-          comments: {
-            select: {
-              id: true,
-            },
-          },
-          user: {
-            select: {
-              avatar: true,
-              id: true,
-              name: true,
-            },
-          },
-          place: {
-            select: {
-              id: true,
-              name: true,
-              logo: true,
-            },
-          },
-          city: true,
-          county: true,
-          country: true,
-          user_likes: {
-            select: {
-              user_id: true,
-            },
-          },
-          price: true,
-          distance: true,
-          duration: true,
+          link: data.link ? data.link : null,
+          duration: data.duration ? data.duration : null,
+          distance: data.distance ? data.distance : null,
+          price: data.price ? parseInt(data.price) : null,
+          pictures: [],
+        },
+        include: {
+          style: true,
         },
       });
-      if (!post) return null;
-      return post;
+      if (!newPost) return null;
+      return newPost;
+    } catch (e) {
+      console.log(e);
+      return null;
+    }
+  }
+
+  async addPicturesToPost(
+    post_id: number,
+    files: any[]
+  ): Promise<UserPostInterface | null> {
+    const pictures = [];
+    try {
+      if (files && files.length > 0 && process.env.S3_FLOW_BUCKET_NAME) {
+        for (const file of files) {
+          const image = await uploadImage(
+            process.env.S3_FLOW_BUCKET_NAME,
+            file
+          );
+          if (image && image.Key) {
+            pictures.push(image.Key);
+          }
+        }
+      }
+
+      if (pictures.length > 0 && pictures.length === files.length) {
+        const newPost = await prisma.post.update({
+          where: {
+            id: post_id,
+          },
+          data: {
+            pictures,
+          },
+        });
+        return newPost;
+      } else {
+        await prisma.post.delete({
+          where: {
+            id: post_id,
+          },
+        });
+        return null;
+      }
     } catch (e) {
       console.log(e);
       return null;
@@ -303,7 +384,7 @@ export class FlowRepository implements FlowUseCase {
           link: data.link ? data.link : null,
           duration: data.duration ? data.duration : null,
           distance: data.distance ? data.distance : null,
-          price: data.price ? data.price : null,
+          price: data.price ? parseInt(data.price) : null,
           pictures: data.pictures,
         },
         include: {
@@ -311,16 +392,13 @@ export class FlowRepository implements FlowUseCase {
           category: true,
         },
       });
+      if (!updatedPost) return null;
       return updatedPost;
     } catch (e) {
       console.log(e);
       return null;
     }
   }
-
-  //   async createPost(data: PostInterface): Promise<PostInterface | null> {
-  //     return null;
-  //   }
 
   async deletePost(post_id: number): Promise<{ deleted: boolean } | null> {
     try {
