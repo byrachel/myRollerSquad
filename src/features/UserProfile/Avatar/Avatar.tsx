@@ -20,6 +20,9 @@ export default function Avatar({ avatar, userId, userConnectedId }: Props) {
           className="rollerSkaterAvatar"
           width={200}
           height={200}
+          quality={80}
+          loading="lazy"
+          priority
         />
       ) : (
         <Image
@@ -28,6 +31,9 @@ export default function Avatar({ avatar, userId, userConnectedId }: Props) {
           className="rollerSkaterAvatar"
           width={200}
           height={200}
+          quality={80}
+          loading="lazy"
+          priority={false}
         />
       )}
       {userId === userConnectedId ? (

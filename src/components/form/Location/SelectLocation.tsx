@@ -1,39 +1,35 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import countries from "src/utils/countries.json";
 import departments from "src/utils/frenchDepartments.json";
-import frenchCities from "src/utils/frenchCities.json";
+// import frenchCities from "src/utils/frenchCities.json";
 
 interface Props {
   country: string | null;
   department: string | null;
-  city: string | null;
+  // city: string | null;
 }
 
-export default function SelectLocation({ country, department, city }: Props) {
+export default function SelectLocation({ country, department }: Props) {
   const [selectedDepartment, setSelectedDepartment] = useState<string>(
     department ? department : ""
   );
-  const [citiesToSelect, setCitiesToSelect] =
-    useState<{ department_code: string; name: string; id: number }[]>(
-      frenchCities
-    );
+  // const [citiesToSelect, setCitiesToSelect] =
+  //   useState<{ department_code: string; name: string; id: number }[]>(
+  //     frenchCities
+  //   );
 
   const handleDepartment = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setSelectedDepartment(e.target.value);
-    // const frenchCitiesFromThisDpt = frenchCities.filter(
-    //   (city) => city.department_code === e.target.value
-    // );
-    // setCitiesToSelect(frenchCitiesFromThisDpt);
   };
 
-  useEffect(() => {
-    if (selectedDepartment) {
-      const frenchCitiesFromThisDpt = frenchCities.filter(
-        (city) => city.department_code === selectedDepartment
-      );
-      setCitiesToSelect(frenchCitiesFromThisDpt);
-    }
-  }, [selectedDepartment]);
+  // useEffect(() => {
+  //   if (selectedDepartment) {
+  //     const frenchCitiesFromThisDpt = frenchCities.filter(
+  //       (city) => city.department_code === selectedDepartment
+  //     );
+  //     setCitiesToSelect(frenchCitiesFromThisDpt);
+  //   }
+  // }, [selectedDepartment]);
 
   return (
     <>
@@ -53,7 +49,7 @@ export default function SelectLocation({ country, department, city }: Props) {
       </div>
       {country === "France" ? (
         <div className="spaceBetween">
-          <div style={{ width: "49%" }}>
+          <div style={{ width: "100%" }}>
             <label htmlFor="department">Département :</label>
             <div className="select">
               <select
@@ -71,7 +67,7 @@ export default function SelectLocation({ country, department, city }: Props) {
               </select>
             </div>
           </div>
-          <div style={{ width: "49%" }}>
+          {/* <div style={{ width: "49%" }}>
             <label htmlFor="city">Ville :</label>
             <div className="select">
               <select
@@ -88,7 +84,7 @@ export default function SelectLocation({ country, department, city }: Props) {
                 ))}
               </select>
             </div>
-          </div>
+          </div> */}
         </div>
       ) : null}
     </>

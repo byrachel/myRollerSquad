@@ -32,16 +32,25 @@ export default function UpdateUserProfileContainer({ userConnectedId }: Props) {
   if (userProfileLoading) return <Loader />;
 
   return userProfile ? (
-    <SidebarLayout
-      sidebar={
-        <UpdateUserSidebar avatar={userProfile.avatar} id={userConnectedId} />
-      }
-      content={
+    window.innerWidth > 860 ? (
+      <SidebarLayout
+        sidebar={
+          <UpdateUserSidebar avatar={userProfile.avatar} id={userConnectedId} />
+        }
+        content={
+          <UpdateUserProfile
+            userProfile={userProfile}
+            updateUserProfile={updateUserProfile}
+          />
+        }
+      />
+    ) : (
+      <div style={{ padding: "1em" }}>
         <UpdateUserProfile
           userProfile={userProfile}
           updateUserProfile={updateUserProfile}
         />
-      }
-    />
+      </div>
+    )
   ) : null;
 }

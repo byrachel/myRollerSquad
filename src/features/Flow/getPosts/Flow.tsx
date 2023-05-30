@@ -88,7 +88,15 @@ const Flow = ({ userConnectedId }: Props) => {
         />
       ) : (
         <>
-          <FlowFilters flowDispatch={flowDispatch} />
+          <div
+            style={{
+              paddingLeft: "1rem",
+              paddingRight: "1rem",
+              paddingTop: "1em",
+            }}
+          >
+            <FlowFilters flowDispatch={flowDispatch} />
+          </div>
           {posts ? (
             <FlowCards
               posts={posts}

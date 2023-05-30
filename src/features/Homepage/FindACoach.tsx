@@ -33,6 +33,9 @@ export default function FindACoach() {
               className={styles.image}
               width={512}
               height={768}
+              quality={80}
+              loading="lazy"
+              priority={false}
             />
           </div>
           <div className={styles.roundImage}>
@@ -42,16 +45,24 @@ export default function FindACoach() {
               className={styles.image}
               width={614}
               height={768}
+              quality={80}
+              loading="lazy"
+              priority={false}
             />
           </div>
-          <div className={styles.Image}>
-            <Image
-              src="/img/pexels-airam-datoon-11990083.jpg"
-              alt="Formateur Roller Quad"
-              className={styles.image}
-              width={512}
-              height={768}
-            />
+          <div className={styles.roundImage}>
+            <div className={styles.Image}>
+              <Image
+                src="/img/pexels-airam-datoon-11990083.jpg"
+                alt="Formateur Roller Quad"
+                className={styles.image}
+                width={512}
+                height={768}
+                quality={80}
+                loading="lazy"
+                priority={false}
+              />
+            </div>
           </div>
           <div className={styles.roundImage}>
             <Image
@@ -60,6 +71,9 @@ export default function FindACoach() {
               className={styles.image}
               width={512}
               height={768}
+              quality={80}
+              loading="lazy"
+              priority={false}
             />
           </div>
         </div>

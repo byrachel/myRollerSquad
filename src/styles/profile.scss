@@ -351,16 +351,18 @@ div.addBusinessLink {
     flex-wrap: wrap;
   }
 
+  .rollerSkaterInfoBar {
+    gap: 0.5em;
+  }
+
   .rollerSkaterAvatarContainer {
-    width: 140px;
     .rollerSkaterAvatar {
-      width: 130px;
-      height: 130px;
-      border: solid 2px white;
+      width: 105px;
+      height: 105px;
     }
     .updateAvatarIcon {
-      top: 100px;
-      right: 20px;
+      top: 80px;
+      right: 35px;
     }
   }
 
