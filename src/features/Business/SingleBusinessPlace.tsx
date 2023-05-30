@@ -6,6 +6,7 @@ import { PlaceInterface } from "src/entities/business.entity";
 
 import Pin from "src/svg/pin.svg";
 import AddToFav from "./AddToFav";
+import { parseContent } from "src/utils/parseContent";
 
 interface Props {
   place: PlaceInterface;
@@ -45,7 +46,7 @@ export default function SingleBusinessPlace({ place }: Props) {
             {place.county ? `${place.county}, ` : null} {place.city}
           </p>
           {place.description ? (
-            <p className="mt5">{place.description}</p>
+            <p className="mt5">{parseContent(place.description)}</p>
           ) : null}
           <br />
           {place.website ? (

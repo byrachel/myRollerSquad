@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useReducer } from "react";
 import axios from "axios";
 import { useRouter } from "next/router";
 import { shallow } from "zustand/shallow";
@@ -13,6 +13,7 @@ import RegularButton from "src/components/buttons/RegularButton";
 import { PlaceInterface } from "src/entities/business.entity";
 import { E3 } from "src/constants/ErrorMessages";
 import { useProfile } from "src/hooks/useProfile";
+import { BusinessReducer } from "src/reducers/BusinessReducer";
 
 interface Props {
   placeId: number;
@@ -36,37 +37,52 @@ export default function UpdateBusinessProfile({
   const placeToUpdate = userPlaces?.find(
     (place: PlaceInterface) => place.id === placeId
   );
-
-  const [error, setError] = useState({ status: false, message: "" });
   const category = placeToUpdate
     ? businessCategory(placeToUpdate.category)
     : businessCategories[0];
-  const [categorySelected, setCategorySelected] = useState(category);
+
+  const initialState = {
+    description: placeToUpdate ? placeToUpdate.description : "",
+    category: category,
+    error: { status: false, message: "" },
+  };
+
+  console.log(placeToUpdate);
+
+  const [businessState, dispatchBusinessState] = useReducer(
+    BusinessReducer,
+    initialState
+  );
+
+  // const [error, setError] = useState({ status: false, message: "" });
+  // const [categorySelected, setCategorySelected] = useState(category);
 
   const onSumbit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    setError({ status: false, message: "" });
+    // setError({ status: false, message: "" });
+    dispatchBusinessState({ type: "HIDE_ERROR", payload: {} });
 
     const target = event.target as typeof event.target & {
       name: { value: string };
-      description: { value?: string };
       url: { value?: string };
       country: { value: string };
       department: { value?: string };
-      city: { value?: string };
     };
 
     if (!target.name.value || !target.url.value)
-      return setError({ status: true, message: E3 });
+      // return setError({ status: true, message: E3 });
+      return dispatchBusinessState({
+        type: "ERROR",
+        payload: { status: true, message: E3 },
+      });
 
     const data = {
       name: target.name.value,
-      description: target.description.value,
+      description: businessState.description,
       url: target.url.value,
       country: target.country.value,
       county: target.department.value,
-      city: target.city.value,
-      category: categorySelected.value,
+      category: businessState.category.value,
       placeId: placeId,
     };
     axios({
@@ -79,21 +95,29 @@ export default function UpdateBusinessProfile({
         updateUserPlace(res.data.place);
         router.push(`/profile/places/${userConnectedId}`);
       })
-      .catch(() => setError({ status: true, message: E3 }));
+      .catch((err) => {
+        dispatchBusinessState({
+          type: "ERROR",
+          payload: {
+            status: true,
+            message: err.response.data.message ?? E3,
+          },
+        });
+      });
   };
 
   return placeToUpdate ? (
     <>
       <ErrorLayout
-        error={error.status}
-        message={error.message}
-        setError={setError}
+        error={businessState.error.status}
+        message={businessState.error.message}
+        dispatchError={dispatchBusinessState}
       />
       <form onSubmit={onSumbit}>
         <BusinessProfileForm
+          businessState={businessState}
+          dispatchBusinessState={dispatchBusinessState}
           placeToUpdate={placeToUpdate}
-          categorySelected={categorySelected}
-          setCategorySelected={setCategorySelected}
           isUpdate
         />
         <div className="mt5" />

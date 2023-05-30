@@ -1,5 +1,5 @@
 import { useRouter } from "next/router";
-import { useState } from "react";
+import { useReducer } from "react";
 import axios from "axios";
 
 import RegularButton from "src/components/buttons/RegularButton";
@@ -8,6 +8,7 @@ import BusinessProfileForm from "./BusinessProfileForm";
 import { E1, E3 } from "src/constants/ErrorMessages";
 import { businessCategories } from "src/constants/BusinessCategories";
 import { useProfile } from "src/hooks/useProfile";
+import { BusinessReducer } from "src/reducers/BusinessReducer";
 
 interface Props {
   ownerId: number;
@@ -15,28 +16,41 @@ interface Props {
 
 const AddBusinessProfile = ({ ownerId }: Props) => {
   const router = useRouter();
-  const [error, setError] = useState({ status: false, message: "" });
-  const [categorySelected, setCategorySelected] = useState(
-    businessCategories[0]
+  // const [error, setError] = useState({ status: false, message: "" });
+  // const [categorySelected, setCategorySelected] = useState(
+  //   businessCategories[0]
+  // );
+
+  const initialState = {
+    description: "",
+    category: businessCategories[0],
+    error: { status: false, message: "" },
+  };
+
+  const [businessState, dispatchBusinessState] = useReducer(
+    BusinessReducer,
+    initialState
   );
 
   const { addUserPlace } = useProfile((state) => ({
     addUserPlace: state.addUserPlace,
   }));
 
+  console.log("businessState", businessState);
+
   const onSumbit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    setError({ status: false, message: "" });
+    // setError({ status: false, message: "" });
+
+    dispatchBusinessState({ type: "HIDE_ERROR", payload: {} });
 
     const target = event.target as typeof event.target & {
       siren: { value: string };
       name: { value: string };
-      description: { value?: string };
       url: { value: string };
       type: { value: string };
       country: { value: string };
       department: { value?: string };
-      city: { value?: string };
     };
 
     if (
@@ -45,18 +59,21 @@ const AddBusinessProfile = ({ ownerId }: Props) => {
       !target.type.value ||
       !target.url.value
     )
-      return setError({ status: true, message: E3 });
+      // return setError({ status: true, message: E3 });
+      return dispatchBusinessState({
+        type: "ERROR",
+        payload: { status: true, message: E3 },
+      });
 
     const data = {
       siren: target.siren.value,
       name: target.name.value,
-      description: target.description.value,
+      description: businessState.description,
       url: target.url.value,
       type: target.type.value,
       country: target.country.value,
       county: target.department.value,
-      city: target.city.value,
-      category: categorySelected.value,
+      category: businessState.category.value,
     };
 
     axios({
@@ -70,21 +87,29 @@ const AddBusinessProfile = ({ ownerId }: Props) => {
         router.push(`/profile/places/${ownerId}`);
       })
       .catch((err) => {
-        setError({ status: true, message: err.response.data.message ?? E1 });
+        dispatchBusinessState({
+          type: "ERROR",
+          payload: {
+            status: true,
+            message: err.response.data.message ?? E1,
+          },
+        });
+
+        // setError({ status: true, message: err.response.data.message ?? E1 });
       });
   };
 
   return (
     <>
       <ErrorLayout
-        error={error.status}
-        message={error.message}
-        setError={setError}
+        error={businessState.error.status}
+        message={businessState.error.message}
+        dispatchError={dispatchBusinessState}
       />
       <form onSubmit={onSumbit}>
         <BusinessProfileForm
-          categorySelected={categorySelected}
-          setCategorySelected={setCategorySelected}
+          businessState={businessState}
+          dispatchBusinessState={dispatchBusinessState}
           isUpdate={false}
         />
         <div className="mt5" />

@@ -725,3 +725,9 @@ div.socialIconContainer {
     color: white;
   }
 }
+
+@media (max-width: 860px) {
+  .sidebarContent {
+    display: none;
+  }
+}

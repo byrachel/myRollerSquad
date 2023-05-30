@@ -17,6 +17,7 @@ import UpdateDeleteIcons from "src/components/buttons/UpdateDeleteIcons";
 import Pin from "src/svg/pin.svg";
 import Roller from "src/svg/rollerquad.svg";
 import CommentIcon from "../comment/CommentIcon";
+import Avatar from "../getPosts/Avatar";
 
 interface Props {
   post: PostInterface;
@@ -126,6 +127,20 @@ export default function SinglePost({ post }: Props) {
             userId={userId}
           />
         </div>
+        {window.innerWidth < 860 ? (
+          post.user ? (
+            <div className="center mt5">
+              <Avatar
+                userId={post.user.id}
+                userAvatar={post.user.avatar}
+                color="pink"
+                placeId={post.place ? post.place.id : null}
+                logo={post.place ? post.place.logo : null}
+              />
+              <h3>{post.user.name}</h3>
+            </div>
+          ) : null
+        ) : null}
       </>
     )
   ) : null;

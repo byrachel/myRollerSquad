@@ -23,8 +23,8 @@ export default function Editor({ content, dispatchContent, placeholder }) {
         container: [
           ["bold", "italic", "underline", "strike"],
           [
-            { color: [...mycolors, "color-picker"] },
-            { background: [...mycolors, "#FFF", "color-picker"] },
+            { color: ["#FFF", ...mycolors, "color-picker"] },
+            { background: ["#FFF", ...mycolors, "color-picker"] },
           ],
           [
             { list: "ordered" },

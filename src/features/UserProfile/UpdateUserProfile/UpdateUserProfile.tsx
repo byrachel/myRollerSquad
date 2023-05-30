@@ -18,7 +18,6 @@ const UpdateUserProfile = ({ userProfile, updateUserProfile }: Props) => {
     name: userProfile.name,
     country: userProfile.country,
     county: userProfile.county,
-    city: userProfile.city,
     resume: userProfile.resume,
     social_medias: {
       instagram: userProfile.social_medias?.instagram ?? "",
@@ -70,14 +69,12 @@ const UpdateUserProfile = ({ userProfile, updateUserProfile }: Props) => {
       youtube: { value: string };
       country: { value: string };
       department: { value: string };
-      city: { value: string };
     };
 
     const data = {
       name: target.name.value,
       country: target.country.value,
       county: target.department.value,
-      city: target.city.value,
       resume: userDataToUpdate.resume,
       social_medias: {
         instagram: target.instagram.value,

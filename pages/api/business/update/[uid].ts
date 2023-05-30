@@ -8,7 +8,7 @@ import { checkUserId } from "@/server/controllers/checkUser";
 
 const validator = initValidation([
   check("name").not().isEmpty().trim().escape().withMessage(E3),
-  check("description").trim().escape(),
+  check("description").trim(),
   check("url").isURL().withMessage(E3),
   check("country").not().isEmpty().trim().escape().withMessage(E3),
   check("county").trim().escape(),

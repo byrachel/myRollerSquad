@@ -30,7 +30,6 @@ const UpdateUserProfileForm = ({
       <SelectLocation
         country={userDataToUpdate.country}
         department={userDataToUpdate.county}
-        // city={userDataToUpdate.city}
       />
       <label htmlFor="resume">Bio :</label>
       <Editor

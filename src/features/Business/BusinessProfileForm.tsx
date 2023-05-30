@@ -4,23 +4,29 @@ import SelectLocation from "src/components/form/Location/SelectLocation";
 import { Radio } from "@nextui-org/react";
 import { businessCategories } from "src/constants/BusinessCategories";
 import { PlaceInterface } from "src/entities/business.entity";
+import Editor from "@/components/form/Editor/Editor";
 
 interface Props {
   placeToUpdate?: PlaceInterface;
-  categorySelected: { id: number; value: string; name: string };
-  setCategorySelected: (args: {
-    id: number;
-    value: string;
-    name: string;
-  }) => void;
+  // categorySelected: { id: number; value: string; name: string };
+  // setCategorySelected: (args: {
+  //   id: number;
+  //   value: string;
+  //   name: string;
+  // }) => void;
   isUpdate?: boolean;
+
+  businessState: any;
+  dispatchBusinessState: React.Dispatch<any>;
 }
 
 const BusinessProfileForm = ({
   placeToUpdate,
-  categorySelected,
-  setCategorySelected,
+  // categorySelected,
+  // setCategorySelected,
   isUpdate,
+  dispatchBusinessState,
+  businessState,
 }: Props) => {
   return (
     <>
@@ -63,7 +69,7 @@ const BusinessProfileForm = ({
         required
         value={placeToUpdate ? placeToUpdate.name : ""}
       />
-      <textarea
+      {/* <textarea
         placeholder="Tes services, tes valeurs..."
         className="input"
         name="description"
@@ -74,6 +80,12 @@ const BusinessProfileForm = ({
             ? placeToUpdate.description
             : ""
         }
+      /> */}
+
+      <Editor
+        content={businessState.description}
+        dispatchContent={dispatchBusinessState}
+        placeholder="Quoi de beau à partager aujourd'hui ?"
       />
 
       <label htmlFor="category">Catégorie :</label>
@@ -85,12 +97,22 @@ const BusinessProfileForm = ({
             key={category.id}
             tabIndex={0}
             className={
-              category.id === categorySelected.id
+              category.id === businessState.category.id
                 ? `badge blue`
                 : "outlineBadge grey"
             }
-            onClick={() => setCategorySelected(category)}
-            onKeyDown={() => setCategorySelected(category)}
+            onClick={() =>
+              dispatchBusinessState({
+                type: "UPDATE_CATEGORY",
+                payload: category,
+              })
+            }
+            onKeyDown={() =>
+              dispatchBusinessState({
+                type: "UPDATE_CATEGORY",
+                payload: category,
+              })
+            }
           >
             {category.name}
           </div>
@@ -100,7 +122,6 @@ const BusinessProfileForm = ({
       <SelectLocation
         country={placeToUpdate ? placeToUpdate.country : "France"}
         department={placeToUpdate ? placeToUpdate.county : null}
-        city={placeToUpdate ? placeToUpdate.city : null}
       />
 
       <InputUrl

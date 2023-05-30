@@ -8,7 +8,7 @@ import { checkUserIsConnected } from "@/server/controllers/checkUser";
 
 const validator = initValidation([
   check("name").not().isEmpty().trim().escape().withMessage(E3),
-  check("description").trim().escape(),
+  check("description").trim(),
   check("url").isURL().withMessage(E3),
   check("siren").not().isEmpty().trim().escape().withMessage(E3),
   check("type").not().isEmpty().trim().escape().withMessage(E3),

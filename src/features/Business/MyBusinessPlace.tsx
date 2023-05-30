@@ -9,6 +9,7 @@ import { PlaceInterface } from "src/entities/business.entity";
 
 import Pin from "src/svg/pin.svg";
 import Fav from "src/svg/bookmark-empty.svg";
+import { parseContent } from "src/utils/parseContent";
 
 interface Props {
   place: PlaceInterface;
@@ -80,7 +81,9 @@ export default function MyBusinessPlace({
           )}
 
           {place.description ? (
-            <p className="businessDescription ">{place.description}</p>
+            <p className="businessDescription ">
+              {parseContent(place.description)}
+            </p>
           ) : (
             <br />
           )}

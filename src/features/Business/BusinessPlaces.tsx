@@ -7,6 +7,7 @@ import AddToFav from "./AddToFav";
 import MySquad from "src/svg/flash.svg";
 import Pin from "src/svg/pin.svg";
 import Arrow from "src/svg/nav-arrow-right.svg";
+import { parseContent } from "src/utils/parseContent";
 
 interface Props {
   places: PlaceInterface[];
@@ -45,7 +46,7 @@ export default function BusinessPlaces({ places }: Props) {
 
           {place.description ? (
             <p className="mt5">
-              {place.description.substring(0, 150) + " ..."}
+              {parseContent(place.description.substring(0, 200) + " ...")}
             </p>
           ) : (
             <br />

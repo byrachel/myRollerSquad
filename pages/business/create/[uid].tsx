@@ -7,7 +7,7 @@ const BusinessSignup = () => {
   const { data: session } = useSession() as any;
   const userId = session?.user?.id;
 
-  return window.innerWidth > 860 ? (
+  return (
     <SidebarLayout
       sidebar={
         <div className="sidebarText">
@@ -28,12 +28,6 @@ const BusinessSignup = () => {
         userId ? <AddBusinessProfile ownerId={userId} /> : <UnloggedUser />
       }
     />
-  ) : userId ? (
-    <div style={{ padding: "1em" }}>
-      <AddBusinessProfile ownerId={userId} />
-    </div>
-  ) : (
-    <UnloggedUser />
   );
 };
 export default BusinessSignup;

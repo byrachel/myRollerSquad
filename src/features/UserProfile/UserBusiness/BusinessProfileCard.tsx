@@ -4,6 +4,7 @@ import BusinessAddToFav from "../../Business/BusinessAddToFav";
 import { PlaceInterface } from "src/entities/business.entity";
 
 import Pin from "src/svg/pin.svg";
+import { parseContent } from "src/utils/parseContent";
 
 interface Props {
   place: PlaceInterface;
@@ -33,7 +34,7 @@ export default function BusinessProfileCard({
 
           {place.description ? (
             <p className="businessDescription">
-              {place.description.substring(0, 175) + "..."}
+              {parseContent(place.description.substring(0, 200) + "...")}
             </p>
           ) : (
             <br />

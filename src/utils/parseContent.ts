@@ -12,7 +12,7 @@ const decoded = (content: string) => {
 export const parseContent = (content: string) => {
   if (content) {
     const decodedContent = decoded(content);
-    return ReactHtmlParser(`<div className="content">${decodedContent}</div>`);
+    return ReactHtmlParser(decodedContent);
   }
 };
 

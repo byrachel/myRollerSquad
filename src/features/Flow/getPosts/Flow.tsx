@@ -58,56 +58,38 @@ const Flow = ({ userConnectedId }: Props) => {
 
   return (
     <div className="flow">
-      {window.innerWidth > 860 ? (
-        <SidebarLayout
-          sidebar={
-            <>
-              <div className="sidebarText">
-                <FlowFilters flowDispatch={flowDispatch} />
-                <div className="mt-large" />
-                <p className="meta">
-                  myRollerSquad est une communauté active & bienveillante de
-                  passionnés de roller quad.
-                </p>
-              </div>
-            </>
-          }
-          content={
-            <>
-              {posts ? (
-                <FlowCards
-                  posts={posts}
-                  userConnectedId={userConnectedId}
-                  newLimit={newLimit}
-                />
-              ) : (
-                <Loader text="Publications en cours de chargement..." />
-              )}
-            </>
-          }
-        />
-      ) : (
-        <>
-          <div
-            style={{
-              paddingLeft: "1rem",
-              paddingRight: "1rem",
-              paddingTop: "1em",
-            }}
-          >
-            <FlowFilters flowDispatch={flowDispatch} />
-          </div>
-          {posts ? (
-            <FlowCards
-              posts={posts}
-              userConnectedId={userConnectedId}
-              newLimit={newLimit}
-            />
-          ) : (
-            <Loader text="Publications en cours de chargement..." />
-          )}
-        </>
-      )}
+      {window.innerWidth < 860 ? (
+        <div style={{ paddingLeft: "1em", paddingRight: "1em" }}>
+          <FlowFilters flowDispatch={flowDispatch} />
+        </div>
+      ) : null}
+      <SidebarLayout
+        sidebar={
+          <>
+            <div className="sidebarText">
+              <FlowFilters flowDispatch={flowDispatch} />
+              <div className="mt-large" />
+              <p className="meta">
+                myRollerSquad est une communauté active & bienveillante de
+                passionnés de roller quad.
+              </p>
+            </div>
+          </>
+        }
+        content={
+          <>
+            {posts ? (
+              <FlowCards
+                posts={posts}
+                userConnectedId={userConnectedId}
+                newLimit={newLimit}
+              />
+            ) : (
+              <Loader text="Publications en cours de chargement..." />
+            )}
+          </>
+        }
+      />
     </div>
   );
 };
