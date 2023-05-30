@@ -31,7 +31,6 @@ export const onRegister = (
     email: target.email.value,
     password: target.password.value,
   };
-
   axios({
     method: "post",
     url: `/api/auth/register`,

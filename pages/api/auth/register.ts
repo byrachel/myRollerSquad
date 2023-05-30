@@ -21,7 +21,7 @@ const validator = initValidation([
       returnScore: false,
     })
     .withMessage(E3),
-  check("email").isEmail().normalizeEmail().withMessage(E3),
+  check("email").not().isEmpty().isEmail().normalizeEmail().withMessage(E3),
   check("name").not().isEmpty().trim().escape().withMessage(E3),
 ]);
 
@@ -73,7 +73,8 @@ export default handler
           html,
         },
         (err, info) => {
-          if (info) {
+          if (err) return res.status(400).json({ message: E1 });
+          else if (info) {
             res
               .status(201)
               .json({ message: "Le compte a été créé avec succès." });
@@ -84,7 +85,6 @@ export default handler
         }
       );
     } catch (e) {
-      console.log(e);
       if (e instanceof Prisma.PrismaClientKnownRequestError) {
         if (e.code === "P2002") {
           res.status(401).json({ message: E4 });
