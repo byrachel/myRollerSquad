@@ -23,7 +23,7 @@ export default handler.get(
           avatar: true,
         },
       });
-      if (!users) return res.status(401).json({ message: E1 });
+      if (!users) return res.status(400).json({ message: E1 });
       res.status(200).json({ users });
     } catch (err) {
       res.status(400).json({ message: E1 });

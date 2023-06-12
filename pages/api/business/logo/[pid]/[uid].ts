@@ -21,7 +21,7 @@ export default handler
     if (!user) return res.status(401).json({ message: E2 });
     const { pid } = req.query;
     const placeId = pid ? (Array.isArray(pid) ? pid[0] : pid) : null;
-    if (!placeId) return res.status(401).json({ message: E2 });
+    if (!placeId) return res.status(400).json({ message: E2 });
 
     try {
       const { buffer } = req.file;
@@ -31,7 +31,7 @@ export default handler
         .toBuffer();
 
       if (!resizedBuffer || !process.env.S3_BUSINESS_LOGO_BUCKET_NAME)
-        return res.status(401).json({ message: E2 });
+        return res.status(400).json({ message: E2 });
 
       const logoFile = {
         ...req.file,
@@ -43,7 +43,7 @@ export default handler
         logoFile
       );
 
-      if (!logo || !logo.Key) return res.status(401).json({ message: E1 });
+      if (!logo || !logo.Key) return res.status(400).json({ message: E1 });
 
       const place = await prisma.place.update({
         where: {
@@ -63,7 +63,7 @@ export default handler
       if (!place) return res.status(401).json({ message: E1 });
       res.status(200).json({ place });
     } catch (e) {
-      return res.status(401).json({ message: E1 });
+      return res.status(500).json({ message: E1 });
     }
   });
 

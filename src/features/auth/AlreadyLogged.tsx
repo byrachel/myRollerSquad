@@ -10,7 +10,7 @@ interface Props {
 export default function AlreadyLogged({ userName }: Props) {
   return (
     <div>
-      <p className="meta mt-large">Tu es déjà connecté, sous l'identifiant :</p>
+      <p className="meta mt-large">Tu es connecté, sous l'identifiant :</p>
       <h3>{userName}</h3>
       <p> Si ce n'est pas ton compte, déconnecte-toi et reconnecte-toi.</p>
       <RegularButton

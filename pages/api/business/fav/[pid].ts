@@ -13,7 +13,7 @@ export default handler.put(
     if (!user) return res.status(401).json({ message: E1 });
 
     const { pid } = req.query;
-    if (!pid) return res.status(401).json({ message: E1 });
+    if (!pid) return res.status(400).json({ message: E1 });
     const place_id = Array.isArray(pid) ? pid[0] : pid;
     const id = parseInt(place_id);
 
@@ -31,7 +31,7 @@ export default handler.put(
         },
       });
 
-      if (!place) return res.status(401).json({ message: E1 });
+      if (!place) return res.status(400).json({ message: E1 });
 
       const isFav = place.favorites.find(
         (fav: { id: number }) => fav.id === user.id
@@ -82,7 +82,7 @@ export default handler.put(
         res.status(200).json({ favorites: updatedPlaces.favorites });
       }
     } catch (e) {
-      res.status(400).json({ message: E1 });
+      res.status(500).json({ message: E1 });
     }
   }
 );

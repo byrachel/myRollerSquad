@@ -38,7 +38,7 @@ export default handler
       category,
     } = req.body;
     if (!name || !siren || !type || !category)
-      return res.status(401).json({ message: E3 });
+      return res.status(400).json({ message: E3 });
 
     try {
       const place = await prisma.place.create({
@@ -62,6 +62,6 @@ export default handler
       res.status(200).json({ place });
     } catch (error) {
       console.log(error);
-      res.status(400).json({ message: E1 });
+      res.status(500).json({ message: E1 });
     }
   });

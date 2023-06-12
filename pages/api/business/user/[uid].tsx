@@ -26,7 +26,7 @@ export default handler.get(
       if (!places) return res.status(400).json({ message: E1 });
       res.status(200).json({ places });
     } catch (e) {
-      res.status(400).json({ message: E1 });
+      res.status(500).json({ message: E1 });
     }
   }
 );

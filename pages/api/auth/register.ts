@@ -1,12 +1,12 @@
+import { NextApiRequest, NextApiResponse } from "next";
 import nextConnect from "next-connect";
 import jwt from "jsonwebtoken";
 
 import prisma from "server/prisma/db/client";
 import { initValidation, check } from "server/middleware/validators";
 import { E1, E3, E4 } from "src/constants/ErrorMessages";
-import { hashPassword } from "@/server/middleware/password";
+import { hashPassword } from "server/middleware/password";
 import { transporter } from "server/utils/sendEmail";
-import { NextApiRequest, NextApiResponse } from "next";
 
 const handler = nextConnect();
 
@@ -84,13 +84,9 @@ export default handler
           }
         }
       );
-    } catch (e) {
-      if (e instanceof Prisma.PrismaClientKnownRequestError) {
-        if (e.code === "P2002") {
-          res.status(401).json({ message: E4 });
-        } else {
-          res.status(400).json({ message: E1 });
-        }
+    } catch (e: any) {
+      if (e.code === "P2002") {
+        res.status(400).json({ message: E4 });
       } else {
         res.status(500).json({ message: E1 });
       }

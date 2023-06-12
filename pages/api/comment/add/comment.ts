@@ -83,6 +83,6 @@ export default handler
       res.status(200).json({ comment: newComment });
     } catch (e) {
       console.log(e);
-      return res.status(401).json({ message: E1 });
+      return res.status(500).json({ message: E1 });
     }
   });

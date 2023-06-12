@@ -21,7 +21,7 @@ export default handler
     if (!buffer) return res.status(400).json({ message: E1 });
     const userRepo = new UserProfileRepository();
     const userUpdated = await userRepo.updateAvatar(user.id, buffer);
-    if (!userUpdated) return res.status(400).json({ message: E1 });
+    if (!userUpdated) return res.status(500).json({ message: E1 });
     res.status(200).json({ user: userUpdated });
   });
 

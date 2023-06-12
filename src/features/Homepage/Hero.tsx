@@ -3,7 +3,7 @@ import Image from "next/image";
 
 import BigButton from "../../components/buttons/BigButton";
 import styles from "../../styles/Home.module.scss";
-import RegisterForm from "../auth/RegisterForm";
+import RegisterForm from "../Auth/RegisterForm";
 
 export default function Hero() {
   const [displayRegisterForm, setDisplayRegisterForm] = useState(false);

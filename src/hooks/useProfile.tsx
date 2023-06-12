@@ -2,6 +2,7 @@ import axios from "axios";
 import { create } from "zustand";
 import { PlaceInterface } from "src/entities/business.entity";
 import { UserInterface } from "src/entities/user.entity";
+import { getUserProfile } from "src/features/UserProfile/utils/services";
 
 export type UserProfile = {
   userProfileLoading: boolean;
@@ -31,13 +32,10 @@ export const useProfile = create<UserProfile & Actions>()((set) => ({
   ...initialState,
   getUserProfile: async (userId: number) => {
     set({ userProfileLoading: true });
-    axios(`/api/user/me/${userId}`, {
-      method: "GET",
-      withCredentials: true,
-    })
-      .then((res) => set({ userProfile: res.data.user }))
-      .catch(() => set({ userProfile: null }))
-      .finally(() => set({ userProfileLoading: false }));
+    const user = await getUserProfile(userId);
+    if (!user) set({ userProfile: null });
+    set({ userProfile: user });
+    set({ userProfileLoading: false });
   },
   getUserPlaces: async (userId: number) => {
     set({ userProfileLoading: true });

@@ -13,7 +13,7 @@ export default handler.delete(
     if (!user) return res.status(401).json({ message: E2 });
 
     const { pid } = req.query;
-    if (!pid) return res.status(401).json({ message: E1 });
+    if (!pid) return res.status(400).json({ message: E1 });
     const place_id = Array.isArray(pid) ? pid[0] : pid;
     const id = parseInt(place_id);
 
@@ -28,7 +28,7 @@ export default handler.delete(
       });
 
       if (!place || !place.user_id || place.user_id !== user.id)
-        return res.status(401).json({ message: E2 });
+        return res.status(400).json({ message: E2 });
 
       await prisma.place.delete({
         where: {
@@ -39,7 +39,7 @@ export default handler.delete(
       res.status(200).json({ place: {} });
     } catch (error) {
       console.log(error);
-      res.status(400).json({ message: E1 });
+      res.status(500).json({ message: E1 });
     }
   }
 );

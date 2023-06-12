@@ -20,7 +20,7 @@ export default handler
     if (!id) return res.status(200).json({ post: {} });
 
     const user = await checkUserIsConnected(req, res);
-    if (!user) return res.status(200).json({ post: {} });
+    if (!user) return res.status(401).json({ message: E1 });
 
     const files = req.files;
     if (!req.files || req.files.length === 0)
@@ -28,7 +28,7 @@ export default handler
 
     const flowRepo = new FlowRepository();
     const post = await flowRepo.addPicturesToPost(parseInt(id), files);
-    if (!post) return res.status(400).json({ message: E1 });
+    if (!post) return res.status(500).json({ message: E1 });
     return res.status(200).json({ post });
   });
 

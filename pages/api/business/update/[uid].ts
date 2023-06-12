@@ -27,7 +27,7 @@ export default handler
     const { name, url, description, country, county, city, category, placeId } =
       req.body;
     if (!name || !category || !placeId)
-      return res.status(401).json({ message: E3 });
+      return res.status(400).json({ message: E3 });
 
     try {
       const placeToUpdate = await prisma.place.findUnique({
@@ -40,7 +40,7 @@ export default handler
       });
 
       if (!placeToUpdate || user.id !== placeToUpdate.user_id)
-        return res.status(401).json({ message: E1 });
+        return res.status(400).json({ message: E1 });
 
       const updatedPlace = await prisma.place.update({
         where: {
@@ -68,6 +68,6 @@ export default handler
       res.status(200).json({ place: updatedPlace });
     } catch (error) {
       console.log(error);
-      res.status(400).json({ message: E1 });
+      res.status(500).json({ message: E1 });
     }
   });

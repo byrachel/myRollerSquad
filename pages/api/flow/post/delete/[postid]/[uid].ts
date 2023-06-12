@@ -8,16 +8,16 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  if (req.method !== "DELETE") return res.status(401).json({ message: E1 });
+  if (req.method !== "DELETE") return res.status(400).json({ message: E1 });
   const user = await checkUserId(req, res);
   if (!user) return res.status(401).json({ message: E2 });
 
   const { postid } = req.query;
-  if (!postid) return res.status(401).json({ message: E1 });
+  if (!postid) return res.status(400).json({ message: E1 });
   const id = Array.isArray(postid) ? postid[0] : postid;
 
   const flowRepo = new FlowRepository();
   const isDeleted = await flowRepo.deletePost(parseInt(id));
-  if (!isDeleted) return res.status(401).json({ message: E1 });
+  if (!isDeleted) return res.status(500).json({ message: E1 });
   res.status(200).json({ post: {} });
 }

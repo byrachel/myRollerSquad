@@ -15,6 +15,6 @@ export default async function handler(
   const flowRepo = new FlowRepository();
   const posts = await flowRepo.getUserPosts(user.id);
 
-  if (!posts) return res.status(401).json({ message: E1 });
+  if (!posts) return res.status(500).json({ message: E1 });
   res.status(200).json({ posts });
 }

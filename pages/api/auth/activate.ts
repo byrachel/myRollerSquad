@@ -9,7 +9,7 @@ const handler = nextConnect();
 export default handler.put(
   async (req: NextApiRequest, res: NextApiResponse) => {
     const { id } = req.body;
-    if (!id) return res.status(401).json({ message: E1 });
+    if (!id) return res.status(400).json({ message: E1 });
     const user_id = Array.isArray(id) ? id[0] : id;
 
     try {
@@ -21,10 +21,10 @@ export default handler.put(
           active: true,
         },
       });
-      if (!userToActivate) return res.status(401).json({ message: E1 });
-      res.status(200).json({ user: { active: userToActivate.active } });
+      if (!userToActivate) return res.status(400).json({ message: E1 });
+      res.status(200).json({ message: "Le compte a été activé avec succès." });
     } catch (err) {
-      res.status(400).json({ message: E1 });
+      res.status(500).json({ message: E1 });
     }
   }
 );

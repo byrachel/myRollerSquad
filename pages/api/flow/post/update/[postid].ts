@@ -42,6 +42,6 @@ export default handler
 
     const flowRepo = new FlowRepository();
     const updatedPost = await flowRepo.updatePost(parseInt(id), req.body);
-    if (!updatedPost) return res.status(401).json({ message: E1 });
+    if (!updatedPost) return res.status(500).json({ message: E1 });
     res.status(200).json({ post: updatedPost });
   });

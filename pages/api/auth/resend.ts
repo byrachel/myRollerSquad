@@ -32,9 +32,9 @@ export default handler.post(
           `>en cliquant sur ce lien !</a></p><h3>myRollerSquad</h3>`
       );
 
-      res.status(201).json({});
+      res.status(200).json({ message: "Email envoyé !" });
     } catch (err) {
-      res.status(400).json({ message: E1 });
+      res.status(500).json({ message: E1 });
     }
   }
 );

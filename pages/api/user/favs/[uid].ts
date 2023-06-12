@@ -14,7 +14,7 @@ export default handler.get(
 
     const userRepo = new UserProfileRepository();
     const userFavs = await userRepo.getUserFavs(user.id);
-    if (!userFavs) return res.status(400).json({ message: E1 });
+    if (!userFavs) return res.status(500).json({ message: E1 });
     res.status(200).json({ userFavs });
   }
 );

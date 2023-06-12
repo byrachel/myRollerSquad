@@ -25,6 +25,6 @@ export default async function handler(
     if (!comment) return res.status(400).json({ message: E1 });
     res.status(200).json({ comment: null });
   } catch (err) {
-    res.status(400).json({ message: E1 });
+    res.status(500).json({ message: E1 });
   }
 }

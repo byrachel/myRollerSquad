@@ -26,13 +26,13 @@ export default handler
   .use(validator)
   .put(async (req: NextApiRequest, res: NextApiResponse) => {
     const user = await checkUserId(req, res);
-    if (!user) return res.status(400).json({ message: E2 });
+    if (!user) return res.status(401).json({ message: E2 });
 
     const userToUpdate = req.body;
 
     const userRepo = new UserProfileRepository();
     const userProfile = await userRepo.updateUserProfile(user.id, userToUpdate);
 
-    if (!userProfile) return res.status(400).json({ message: E1 });
+    if (!userProfile) return res.status(500).json({ message: E1 });
     res.status(200).json({ user: userProfile });
   });

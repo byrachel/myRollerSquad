@@ -1,10 +1,8 @@
-import { Dispatch, SyntheticEvent } from "react";
-import axios from "axios";
-
+import React, { Dispatch, SyntheticEvent } from "react";
+import { AuthRepository } from "src/features/Auth/utils/auth.repo";
 import { E1 } from "src/constants/ErrorMessages";
-import { IErrorCode } from "@/server/interfaces/globalInterfaces";
 
-export const onRegister = (
+export const onRegister = async (
   event: SyntheticEvent,
   registerDispatch: Dispatch<any>
 ) => {
@@ -31,26 +29,36 @@ export const onRegister = (
     email: target.email.value,
     password: target.password.value,
   };
-  axios({
-    method: "post",
-    url: `/api/auth/register`,
-    data,
-    withCredentials: true,
-  })
-    .then(() => {
-      registerDispatch({
-        type: "IS_REGISTERED",
-      });
-    })
-    .catch((e: IErrorCode) => {
-      registerDispatch({
-        type: "ERROR",
-        payload: e.response.data.message,
-      });
+  const newUser = new AuthRepository();
+  const newUserIsRegistered = await newUser.register(data);
+
+  if (newUserIsRegistered.status === "SUCCESS") {
+    registerDispatch({
+      type: "IS_REGISTERED",
     });
+  } else {
+    registerDispatch({
+      type: "ERROR",
+      payload: newUserIsRegistered.message ? newUserIsRegistered.message : E1,
+    });
+  }
 };
 
-export const sendActivationMail = (
+export const accountActivation = async (
+  userId: number,
+  setUserAccountIsActive: React.Dispatch<React.SetStateAction<boolean | null>>
+) => {
+  const newUser = new AuthRepository();
+  const newUserIsActivated = await newUser.userAccountActivation(userId);
+
+  if (newUserIsActivated.status === "SUCCESS") {
+    return setUserAccountIsActive(true);
+  } else {
+    return setUserAccountIsActive(false);
+  }
+};
+
+export const sendActivationMail = async (
   id: number | null,
   setError: (error: { status: boolean; message: string }) => void,
   setActivationEmailSent: (status: boolean) => void
@@ -60,45 +68,14 @@ export const sendActivationMail = (
   if (!id || typeof id !== "number")
     return setError({ status: true, message: E1 });
 
-  axios({
-    method: "post",
-    url: `/api/auth/resend`,
-    data: { id },
-  })
-    .then(() => setActivationEmailSent(true))
-    .catch(() => setError({ status: true, message: E1 }));
-};
+  const newUser = new AuthRepository();
+  const activationMailSent = await newUser.sendActivationMail(id);
 
-export const onLogin = (
-  event: SyntheticEvent,
-  login: (user: any) => void,
-  setError: (args: { status: boolean; message: string }) => void,
-  setIsLoading: (status: boolean) => void,
-  router: any
-) => {
-  event.preventDefault();
-  setIsLoading(true);
-  const target = event.target as typeof event.target & {
-    email: { value: string };
-    password: { value: string };
-  };
+  console.log(activationMailSent);
 
-  const data = {
-    email: target.email.value,
-    password: target.password.value,
-  };
-
-  axios({
-    method: "post",
-    url: `/api/auth/login`,
-    data,
-  })
-    .then((res: any) => {
-      login(res.data.user);
-      router.push("/myrollerblog");
-    })
-    .catch((error: IErrorCode) => {
-      setIsLoading(false);
-      setError({ status: true, message: error.response.data.message });
-    });
+  if (activationMailSent.status === "SUCCESS") {
+    return setActivationEmailSent(true);
+  } else {
+    return setError({ status: true, message: E1 });
+  }
 };

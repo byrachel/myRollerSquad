@@ -8,7 +8,7 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  if (req.method !== "GET") return res.status(401).json({ message: E1 });
+  if (req.method !== "GET") return res.status(400).json({ message: E1 });
 
   const user = await checkUserIsConnected(req, res);
   if (!user) return res.status(401).json({ message: E2 });
@@ -29,7 +29,7 @@ export default async function handler(
 
   const flowRepo = new FlowRepository();
   const response = await flowRepo.getPosts(postsCursor, category_id, style_id);
-  if (!response) return res.status(400).json({ message: E1 });
+  if (!response) return res.status(500).json({ message: E1 });
   return res
     .status(200)
     .json({ posts: response.posts, nextId: response.nextId });

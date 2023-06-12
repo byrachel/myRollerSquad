@@ -41,7 +41,6 @@ export default function LoginForm() {
       callbackUrl: `/myrollerblog`,
       redirect: false,
     })) as LoginInterface;
-    console.log(userLogged);
     if (userLogged?.error) console.log("ERROR", userLogged.error);
     if (userLogged?.url) router.push(userLogged.url);
   };

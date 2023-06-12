@@ -33,8 +33,9 @@ export default handler.get(async (req: any, res: NextApiResponse) => {
         },
       },
     });
+    if (!places) return res.status(200).json({ places: [] });
     res.status(200).json({ places });
   } catch (e) {
-    res.status(400).json({ message: E1 });
+    res.status(500).json({ message: E1 });
   }
 });

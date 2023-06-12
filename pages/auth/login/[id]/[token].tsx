@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
-import axios from "axios";
 
-import LoginForm from "src/features/auth/LoginForm";
-import SidebarLayout from "src/components/layouts/SidebarLayout";
+import SidebarLayout from "@/components/layouts/SidebarLayout";
 import UnloggedUserSidebar from "@/components/sidebar/UnloggedUserSidebar";
-import ActivationAccount from "src/features/auth/ActivationAccount";
+import Loader from "@/components/layouts/Loader";
+import LoginForm from "src/features/Auth/LoginForm";
+import ActivationAccount from "src/features/Auth/ActivationAccount";
+import { accountActivation } from "src/features/Auth/utils/services";
 import { checkTokenValidity } from "src/utils/checkTokenValidity";
-import Loader from "src/components/layouts/Loader";
 
 const Login = () => {
   const router = useRouter();
@@ -28,11 +28,7 @@ const Login = () => {
       try {
         const tokenIsValid = checkTokenValidity(token);
         if (!tokenIsValid) return setUserAccountIsActive(false);
-
-        axios
-          .put("/api/auth/activate", { id: userId })
-          .then(() => setUserAccountIsActive(true))
-          .catch(() => setUserAccountIsActive(false));
+        accountActivation(userId, setUserAccountIsActive);
       } catch (e) {
         setUserAccountIsActive(false);
       }
