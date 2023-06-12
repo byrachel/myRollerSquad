@@ -4,9 +4,9 @@ import { useRouter } from "next/router";
 import SidebarLayout from "@/components/layouts/SidebarLayout";
 import UnloggedUserSidebar from "@/components/sidebar/UnloggedUserSidebar";
 import Loader from "@/components/layouts/Loader";
-import LoginForm from "src/features/Auth/LoginForm";
-import ActivationAccount from "src/features/Auth/ActivationAccount";
-import { accountActivation } from "src/features/Auth/utils/services";
+import LoginForm from "src/features/auth/LoginForm";
+import ActivationAccount from "src/features/auth/ActivationAccount";
+import { accountActivation } from "src/features/auth/utils/services";
 import { checkTokenValidity } from "src/utils/checkTokenValidity";
 
 const Login = () => {

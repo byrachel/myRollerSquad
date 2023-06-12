@@ -1,5 +1,5 @@
 import React, { Dispatch, SyntheticEvent } from "react";
-import { AuthRepository } from "src/features/Auth/utils/auth.repo";
+import { AuthRepository } from "src/features/auth/utils/auth.repo";
 import { E1 } from "src/constants/ErrorMessages";
 
 export const onRegister = async (
