@@ -1,3 +1,5 @@
+const withPWA = require("next-pwa");
+
 const ContentSecurityPolicy = `
   default-src 'self' vercel.live;
   script-src 'self' 'unsafe-eval' 'unsafe-inline' cdn.vercel-insights.com vercel.live;
@@ -24,6 +26,16 @@ const securityHeaders = [
     // value: "camera=(), microphone=(), geolocation=()",
   },
 ];
+
+module.exports = withPWA({
+  target: "serverless",
+  pwa: {
+    dest: "public",
+    register: true,
+    skipWaiting: true,
+    disable: process.env.NODE_ENV === "development",
+  },
+});
 
 module.exports = {
   webpack(config) {
