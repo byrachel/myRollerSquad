@@ -1,10 +1,10 @@
 import React, { useEffect, useReducer } from "react";
-import axios from "axios";
 import FlowReducer from "src/reducers/FlowReducer";
 import FlowFilters from "src/features/Flow/getPosts/FlowFilters";
 import Loader from "src/components/layouts/Loader";
 import SidebarLayout from "@/components/layouts/SidebarLayout";
 import FlowCards from "./FlowCards";
+import { FlowRepo } from "../utils/flow.repo";
 
 const initialState = {
   cursor: 0,
@@ -21,25 +21,21 @@ const Flow = ({ userConnectedId }: Props) => {
   const [flowStore, flowDispatch] = useReducer(FlowReducer, initialState);
   const posts = flowStore.posts;
 
-  const nextId = flowStore.cursor ? flowStore.cursor : 0;
   const category = flowStore.category
     ? `category=${flowStore.category}`
     : `category=`;
   const style = flowStore.style ? `style=${flowStore.style}` : `style=`;
 
-  const fetchPosts = () => {
-    axios({
-      method: "get",
-      url: `/api/flow/posts/${nextId}?${category}&${style}`,
-      withCredentials: true,
-    }).then((res) => {
-      flowDispatch({
-        type: "SET_POSTS",
-        payload: {
-          posts: [...flowStore.posts, ...res.data.posts],
-          cursor: res.data.nextId ? res.data.nextId : null,
-        },
-      });
+  const fetchPosts = async () => {
+    const nextId = flowStore.cursor ? flowStore.cursor : 0;
+    const postsRepo = new FlowRepo();
+    const flow = await postsRepo.getPosts(nextId, category, style);
+    flowDispatch({
+      type: "SET_POSTS",
+      payload: {
+        posts: [...flowStore.posts, ...flow.posts],
+        cursor: flow.cursor,
+      },
     });
   };
 

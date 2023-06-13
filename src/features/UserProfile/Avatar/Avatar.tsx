@@ -21,7 +21,6 @@ export default function Avatar({ avatar, userId, userConnectedId }: Props) {
           width={200}
           height={200}
           quality={80}
-          loading="lazy"
           priority
         />
       ) : (
@@ -33,7 +32,6 @@ export default function Avatar({ avatar, userId, userConnectedId }: Props) {
           height={200}
           quality={80}
           loading="lazy"
-          priority={false}
         />
       )}
       {userId === userConnectedId ? (

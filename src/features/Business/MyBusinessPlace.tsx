@@ -1,15 +1,15 @@
 import React from "react";
-import axios from "axios";
 import { useRouter } from "next/router";
 
 import UserBusinessLogo from "../UserProfile/UserBusiness/UserBusinessLogo";
 import UpdateDeleteIcons from "@/components/buttons/UpdateDeleteIcons";
 import { getBusinessCategoryName } from "src/constants/BusinessCategories";
+import { parseContent } from "src/utils/parseContent";
+import { removeUserPlace } from "../UserProfile/utils/services";
 import { PlaceInterface } from "src/entities/business.entity";
 
 import Pin from "src/svg/pin.svg";
 import Fav from "src/svg/bookmark-empty.svg";
-import { parseContent } from "src/utils/parseContent";
 
 interface Props {
   place: PlaceInterface;
@@ -26,16 +26,9 @@ export default function MyBusinessPlace({
 }: Props) {
   const router = useRouter();
 
-  const deleteBusiness = (id: number) => {
-    axios({
-      method: "delete",
-      url: `/api/business/delete/${id}`,
-      withCredentials: true,
-    })
-      .then(() => {
-        deleteUserPlace(id);
-      })
-      .catch((err) => console.log(err));
+  const deleteBusiness = async (id: number) => {
+    const removed = await removeUserPlace(id);
+    if (removed === "SUCCESS") deleteUserPlace(id);
   };
 
   return (

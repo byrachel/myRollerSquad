@@ -22,12 +22,44 @@ export class UserRepo implements UserUseCase {
 
     return userProfile;
   }
-}
+  async getUserPlaces(userId: number): Promise<ResponseInterface> {
+    const userPlaces = http({
+      method: "get",
+      url: `business/user/${userId}`,
+    })
+      .then((res: any) => {
+        return { status: "SUCCESS", userPlaces: res.data.places };
+      })
+      .catch(() => {
+        return { status: "ERROR", userPlaces: null };
+      });
+    return userPlaces;
+  }
+  async removeUserPlace(placeId: number): Promise<ResponseInterface> {
+    const userPlaceDeleted = http({
+      method: "delete",
+      url: `business/delete/${placeId}`,
+    })
+      .then(() => {
+        return { status: "SUCCESS" };
+      })
+      .catch(() => {
+        return { status: "ERROR" };
+      });
+    return userPlaceDeleted;
+  }
 
-// axios(`/api/user/me/${userId}`, {
-//   method: "GET",
-//   withCredentials: true,
-// })
-//   .then((res) => set({ userProfile: res.data.user }))
-//   .catch(() => set({ userProfile: null }))
-//   .finally(() => set({ userProfileLoading: false }));
+  async getUserFavPlaces(userId: number): Promise<ResponseInterface> {
+    const userFavs = http({
+      method: "get",
+      url: `user/favs/${userId}`,
+    })
+      .then((res: any) => {
+        return { status: "SUCCESS", userFavs: res.data.userFavs };
+      })
+      .catch(() => {
+        return { status: "ERROR", userFavs: [] };
+      });
+    return userFavs;
+  }
+}

@@ -3,11 +3,14 @@ import { AuthUseCase } from "./auth.usecases";
 import http from "../../../interceptor/http";
 import { IErrorCode } from "@/server/interfaces/globalInterfaces";
 import { UserInterface } from "src/entities/user.entity";
+import { PlaceInterface } from "src/entities/business.entity";
 
 export interface ResponseInterface {
   status: string;
   message?: string;
   user?: UserInterface;
+  userPlaces?: PlaceInterface[] | null;
+  userFavs?: PlaceInterface[];
 }
 
 export class AuthRepository implements AuthUseCase {

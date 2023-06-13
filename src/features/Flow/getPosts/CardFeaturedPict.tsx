@@ -21,8 +21,7 @@ export default function CardFeaturedPict({ urlPicts, color }: Props) {
           className="pict"
           sizes="(max-width: 768px) 100vw"
           quality={80}
-          loading="lazy"
-          priority={false}
+          priority
           fill
         />
 

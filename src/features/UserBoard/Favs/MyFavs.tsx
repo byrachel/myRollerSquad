@@ -1,8 +1,7 @@
 import React, { useEffect } from "react";
 import { shallow } from "zustand/shallow";
-import axios from "axios";
-import UserBusinessFavs from "./UserBusinessFavs";
 import { useProfile } from "src/hooks/useProfile";
+import UserBusinessFavs from "./UserBusinessFavs";
 
 interface Props {
   userConnectedId: number;
@@ -18,10 +17,7 @@ export default function MyFavs({ userConnectedId }: Props) {
   );
 
   useEffect(() => {
-    axios
-      .get(`/api/user/favs/${userConnectedId}`)
-      .then((res) => getUserFavs(res.data.userFavs))
-      .catch(() => getUserFavs([]));
+    getUserFavs(userConnectedId);
     // eslint-disable-next-line
   }, [userConnectedId]);
 

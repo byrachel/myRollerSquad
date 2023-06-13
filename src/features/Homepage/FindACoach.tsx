@@ -35,7 +35,6 @@ export default function FindACoach() {
               height={768}
               quality={80}
               loading="lazy"
-              priority={false}
             />
           </div>
           <div className={styles.roundImage}>
@@ -47,7 +46,6 @@ export default function FindACoach() {
               height={768}
               quality={80}
               loading="lazy"
-              priority={false}
             />
           </div>
           <div className={styles.roundImage}>
@@ -60,7 +58,6 @@ export default function FindACoach() {
                 height={768}
                 quality={80}
                 loading="lazy"
-                priority={false}
               />
             </div>
           </div>
@@ -73,7 +70,6 @@ export default function FindACoach() {
               height={768}
               quality={80}
               loading="lazy"
-              priority={false}
             />
           </div>
         </div>

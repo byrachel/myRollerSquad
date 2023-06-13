@@ -1,8 +1,11 @@
-import axios from "axios";
 import { create } from "zustand";
 import { PlaceInterface } from "src/entities/business.entity";
 import { UserInterface } from "src/entities/user.entity";
-import { getUserProfile } from "src/features/UserProfile/utils/services";
+import {
+  getFavPlaces,
+  getPlaces,
+  getUserProfile,
+} from "src/features/UserProfile/utils/services";
 
 export type UserProfile = {
   userProfileLoading: boolean;
@@ -14,11 +17,11 @@ export type UserProfile = {
 type Actions = {
   getUserProfile: (userId: number) => Promise<void>;
   getUserPlaces: (userId: number) => Promise<void>;
+  getUserFavs: (userId: number) => Promise<void>;
   updateUserProfile: (user: any) => void;
   updateUserPlace: (place: any) => void;
   deleteUserPlace: (placeId: number) => void;
   addUserPlace: (place: any) => void;
-  getUserFavs: (favs: any[]) => void;
 };
 
 const initialState = {
@@ -39,13 +42,13 @@ export const useProfile = create<UserProfile & Actions>()((set) => ({
   },
   getUserPlaces: async (userId: number) => {
     set({ userProfileLoading: true });
-    axios(`/api/business/user/${userId}`, {
-      method: "GET",
-      withCredentials: true,
-    })
-      .then((res) => set({ userPlaces: res.data.places }))
-      .catch(() => set({ userPlaces: null }))
-      .finally(() => set({ userProfileLoading: false }));
+    const places = await getPlaces(userId);
+    set({ userPlaces: places });
+    set({ userProfileLoading: false });
+  },
+  getUserFavs: async (userId: number) => {
+    const userFavs = await getFavPlaces(userId);
+    set({ userFavs });
   },
   addUserPlace: (place: any) =>
     set((state) => {
@@ -71,5 +74,4 @@ export const useProfile = create<UserProfile & Actions>()((set) => ({
       const userPlaces = state.userPlaces?.filter((p) => p.id !== placeId);
       return { userPlaces };
     }),
-  getUserFavs: (favs: any[]) => set({ userFavs: favs }),
 }));

@@ -71,8 +71,6 @@ export const sendActivationMail = async (
   const newUser = new AuthRepository();
   const activationMailSent = await newUser.sendActivationMail(id);
 
-  console.log(activationMailSent);
-
   if (activationMailSent.status === "SUCCESS") {
     return setActivationEmailSent(true);
   } else {
