@@ -74,7 +74,7 @@ export default function Card({
       {post.category_id === SALE && post.price ? (
         <div className="sessionTracking">
           <Roller className="sessionIcon" width={36} height={36} />
-          <p>{post.price} €</p>
+          <p data-testid="price">{post.price} €</p>
         </div>
       ) : null}
 

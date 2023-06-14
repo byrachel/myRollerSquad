@@ -44,6 +44,10 @@ export default function NewPostForm({
     (place: PlaceInterface) => place.active
   );
 
+  console.log(isPro);
+  console.log(userPlaces);
+  console.log(session);
+
   return (
     <>
       <ErrorLayout
@@ -62,10 +66,7 @@ export default function NewPostForm({
           postCategory={post.category}
           postDispatch={postDispatch}
         />
-        {isPro &&
-        userPlacesActive &&
-        userPlacesActive.length > 0 &&
-        !editMode ? (
+        {editMode ? null : userPlacesActive && userPlacesActive.length > 0 ? (
           <>
             <Radio.Group label="Publier en tant que :" name="author">
               <Radio value={`user_${userConnectedId}`}>{userName}</Radio>

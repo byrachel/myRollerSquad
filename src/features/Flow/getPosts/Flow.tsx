@@ -1,7 +1,6 @@
 import React, { useEffect, useReducer } from "react";
 import FlowReducer from "src/reducers/FlowReducer";
 import FlowFilters from "src/features/Flow/getPosts/FlowFilters";
-import Loader from "src/components/layouts/Loader";
 import SidebarLayout from "@/components/layouts/SidebarLayout";
 import FlowCards from "./FlowCards";
 import { FlowRepo } from "../utils/flow.repo";
@@ -73,17 +72,11 @@ const Flow = ({ userConnectedId }: Props) => {
           </>
         }
         content={
-          <>
-            {posts ? (
-              <FlowCards
-                posts={posts}
-                userConnectedId={userConnectedId}
-                newLimit={newLimit}
-              />
-            ) : (
-              <Loader text="Publications en cours de chargement..." />
-            )}
-          </>
+          <FlowCards
+            posts={posts}
+            userConnectedId={userConnectedId}
+            newLimit={newLimit}
+          />
         }
       />
     </div>

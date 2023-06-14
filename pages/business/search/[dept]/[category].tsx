@@ -3,11 +3,11 @@ import BusinessPlaces from "src/features/Business/BusinessPlaces";
 import BusinessProfileCTA from "src/features/Business/BusinessProfileCTA";
 import PlacesFilters from "src/features/Business/PlacesFilters";
 import prisma from "server/prisma/db/client";
-import { PlaceInterface } from "src/entities/business.entity";
+import { MiniPlaceInterface } from "src/entities/business.entity";
 import Loader from "src/components/layouts/Loader";
 
 interface Props {
-  places: PlaceInterface[];
+  places: MiniPlaceInterface[];
   dept: string;
   category: string;
 }
@@ -26,7 +26,7 @@ export default function Places({ places, dept, category }: Props) {
           </p>
         )
       ) : (
-        <Loader />
+        <Loader text="Recherche en cours..." />
       )}
       <BusinessProfileCTA />
     </>

@@ -8,6 +8,8 @@ export interface MiniPlaceInterface {
   city: string | null;
   description: string | null;
   logo: string | null;
+  _count?: { posts: number };
+  favorites?: { id: number }[];
 }
 
 export interface PlaceInterface extends MiniPlaceInterface {
@@ -19,7 +21,5 @@ export interface PlaceInterface extends MiniPlaceInterface {
   owner?: UserInterface;
   user_id: number;
   category: "LEARN" | "BUY" | "PLAY" | "OTHER";
-  favorites?: { id: number }[];
   posts?: PostInterface[];
-  _count?: { posts: number };
 }

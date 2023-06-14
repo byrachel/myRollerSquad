@@ -18,6 +18,7 @@
     "sourceMap": true,
     "baseUrl": ".",
     "paths": {
+      "@/pages/*": ["pages/*"],
       "@/components/*": ["src/components/*"],
       "@/server/*": ["server/*"]
     }
@@ -37,6 +38,8 @@
     "src/components/form/Editor/Editor.jsx",
     "src/components/form/Editor/TextEditor.jsx",
     "pages/api/auth/[...nextauth].js",
-    "pages/api/comment/delete/[uid]"
+    "pages/api/comment/delete/[uid]",
+    "src/__mocks__/svg.js",
+    "jest.config.js"
   ]
 }

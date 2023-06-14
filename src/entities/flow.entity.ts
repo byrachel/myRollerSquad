@@ -33,7 +33,7 @@ export interface PostInterface {
   price: number | null;
   distance: any | null;
   duration: string | null;
-  place_id: number | null;
+  place_id?: number | null;
   comments: any[];
   user?: {
     id: number;
@@ -43,7 +43,7 @@ export interface PostInterface {
   place?: {
     id: number;
     name: string;
-    logo: string;
+    logo: string | null;
   } | null;
 }
 

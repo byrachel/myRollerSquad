@@ -1,7 +1,7 @@
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { PlaceInterface } from "src/entities/business.entity";
+import { MiniPlaceInterface } from "src/entities/business.entity";
 import AddToFav from "./AddToFav";
 
 import MySquad from "src/svg/flash.svg";
@@ -10,13 +10,13 @@ import Arrow from "src/svg/nav-arrow-right.svg";
 import { parseContent } from "src/utils/parseContent";
 
 interface Props {
-  places: PlaceInterface[];
+  places: MiniPlaceInterface[];
 }
 
 export default function BusinessPlaces({ places }: Props) {
   return (
     <div className="placeGrid">
-      {places.map((place: PlaceInterface) => (
+      {places.map((place: MiniPlaceInterface) => (
         <div className="placeCard" key={place.id}>
           <Link href={`/business/${place.id}`}>
             <Image
@@ -45,9 +45,9 @@ export default function BusinessPlaces({ places }: Props) {
           </div>
 
           {place.description ? (
-            <p className="mt5">
+            <div className="mt5">
               {parseContent(place.description.substring(0, 200) + " ...")}
-            </p>
+            </div>
           ) : (
             <br />
           )}

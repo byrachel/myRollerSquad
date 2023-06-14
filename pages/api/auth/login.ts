@@ -56,7 +56,7 @@ export default handler
             role: existingUser.role,
             avatar: existingUser.avatar,
             places:
-              existingUser.role === "PRO"
+              existingUser.role === "PRO" || existingUser.role === "ADMIN"
                 ? existingUser.place.map((elt: any) => ({
                     id: elt.id,
                     name: elt.name,
