@@ -332,17 +332,18 @@ div.linkContainer {
   width: 100%;
   border-radius: 5px;
   margin: 0.3em 0;
-  padding: 0.3em 0;
+  padding: 0.5em 0;
   background-color: $lightColor;
+  text-align: center;
   .linkText {
     font-family: $textFont;
     font-size: $fontSize-sm;
-    letter-spacing: 0.3px;
-    text-align: center;
     cursor: pointer;
+    color: $secondaryColor;
+    font-weight: 400;
   }
   .linkText:hover {
-    color: $secondaryColor;
+    font-weight: 600;
   }
 }
 div.cardIcons {

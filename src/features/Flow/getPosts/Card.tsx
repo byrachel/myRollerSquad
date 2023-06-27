@@ -93,7 +93,9 @@ export default function Card({
 
       {post.link ? (
         <div className="linkContainer">
-          <p className="linkText">{post.link}</p>
+          <a href={post.link} className="linkText">
+            {post.link}
+          </a>
         </div>
       ) : (
         <div className="cardSeparator" />
