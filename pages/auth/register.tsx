@@ -3,7 +3,7 @@ import Link from "next/link";
 
 import SidebarLayout from "@/components/layouts/SidebarLayout";
 import UnloggedUserSidebar from "@/components/sidebar/UnloggedUserSidebar";
-import RegisterForm from "src/features/auth/RegisterForm";
+import RegisterForm from "src/features/Authentication/RegisterForm";
 
 import Roller from "src/svg/rollerquad.svg";
 

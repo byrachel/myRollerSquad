@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { parseContent } from "src/utils/parseContent";
-import RegularButton from "../buttons/RegularButton";
+import RegularButton from "src/components/buttons/RegularButton";
 import { UserStateInterface } from "src/reducers/UserReducer";
 
 interface Props {

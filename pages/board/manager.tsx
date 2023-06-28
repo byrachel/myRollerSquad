@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import { useSession } from "next-auth/react";
 
 import styles from "src/styles/AdminLayout.module.scss";
-import CategoriesBoard from "src/components/admin/CategoriesBoard";
-import PlacesBoard from "src/components/admin/PlacesBoard";
+import CategoriesBoard from "src/features/Dashboard/CategoriesBoard";
+import PlacesBoard from "src/features/Dashboard/PlacesBoard";
 
 const CATEGORIES = 1;
 const STYLES = 2;

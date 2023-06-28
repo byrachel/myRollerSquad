@@ -1,4 +1,4 @@
-import { ResponseInterface } from "src/features/auth/utils/auth.repo";
+import { ResponseInterface } from "src/features/Authentication/utils/auth.repo";
 
 export interface UserUseCase {
   getProfile(userId: number): Promise<ResponseInterface>;

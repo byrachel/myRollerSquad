@@ -1,5 +1,5 @@
 import { UserUseCase } from "./user.usecases";
-import { ResponseInterface } from "src/features/auth/utils/auth.repo";
+import { ResponseInterface } from "src/features/Authentication/utils/auth.repo";
 import http from "src/interceptor/http";
 import { IErrorCode } from "@/server/interfaces/globalInterfaces";
 import { E1 } from "src/constants/ErrorMessages";
