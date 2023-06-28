@@ -26,7 +26,7 @@ export default function CommentIcon({
   const [comments, setComments] = useState<CommentInterface[]>([]);
 
   useEffect(() => {
-    if (postId) {
+    if (postId && counter > 0) {
       axios({
         method: "GET",
         url: `/api/comment/${postId}`,
@@ -35,7 +35,7 @@ export default function CommentIcon({
         .then((res) => setComments(res.data.comments))
         .catch(() => setComments([]));
     }
-  }, [postId]);
+  }, [postId, counter]);
 
   const addComment = (e: any) => {
     e.preventDefault();
