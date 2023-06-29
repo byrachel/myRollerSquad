@@ -7,7 +7,6 @@ import CommentsList from "./CommentsList";
 import { CommentInterface } from "src/entities/flow.entity";
 
 interface Props {
-  counter: number;
   postId: number;
   userId: number;
   setCommentsCounter: any;
@@ -16,7 +15,6 @@ interface Props {
 }
 
 export default function CommentModal({
-  counter,
   postId,
   userId,
   setCommentsCounter,
@@ -26,16 +24,19 @@ export default function CommentModal({
   const [comments, setComments] = useState<CommentInterface[]>([]);
 
   useEffect(() => {
-    if (postId && counter > 0 && show) {
+    if (postId && show) {
       axios({
         method: "GET",
         url: `/api/comment/${postId}`,
         withCredentials: true,
       })
-        .then((res) => setComments(res.data.comments))
-        .catch(() => setComments([]));
+        .then((res) => {
+          console.log(res.data);
+          setComments(res.data.comments);
+        })
+        .catch((err) => console.log(err));
     }
-  }, [postId, counter, show]);
+  }, [postId, show]);
 
   const addComment = (e: any) => {
     e.preventDefault();

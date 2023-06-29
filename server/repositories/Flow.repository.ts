@@ -29,20 +29,12 @@ export class FlowRepository implements FlowUseCase {
           ...(category_id ? { category_id } : {}),
           ...(style_id ? { style: { some: { style_id } } } : {}),
         },
-        select: {
-          id: true,
-          title: true,
-          content: true,
-          category_id: true,
+        include: {
           style: {
             select: {
               style_id: true,
             },
           },
-          created_at: true,
-          pictures: true,
-          link: true,
-          comments: true,
           user: {
             select: {
               avatar: true,
@@ -57,17 +49,16 @@ export class FlowRepository implements FlowUseCase {
               logo: true,
             },
           },
-          city: true,
-          county: true,
-          country: true,
           user_likes: {
             select: {
               user_id: true,
             },
           },
-          price: true,
-          distance: true,
-          duration: true,
+          comments: {
+            select: {
+              id: true,
+            },
+          },
         },
       });
       return { posts, nextId: cursor + 4 };
@@ -168,19 +159,12 @@ export class FlowRepository implements FlowUseCase {
         where: {
           id: post_id,
         },
-        select: {
-          id: true,
-          title: true,
-          content: true,
-          category_id: true,
+        include: {
           style: {
             select: {
               style_id: true,
             },
           },
-          created_at: true,
-          pictures: true,
-          link: true,
           comments: {
             select: {
               id: true,
@@ -208,17 +192,11 @@ export class FlowRepository implements FlowUseCase {
               logo: true,
             },
           },
-          city: true,
-          county: true,
-          country: true,
           user_likes: {
             select: {
               user_id: true,
             },
           },
-          price: true,
-          distance: true,
-          duration: true,
         },
       });
       if (!post) return null;

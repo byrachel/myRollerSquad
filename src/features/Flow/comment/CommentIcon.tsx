@@ -8,7 +8,7 @@ interface Props {
   color: string;
   postId: number;
   userId: number | null;
-  setCommentsCounter: any;
+  setCommentsCounter: React.Dispatch<React.SetStateAction<number>>;
 }
 
 export default function CommentIcon({
@@ -41,7 +41,6 @@ export default function CommentIcon({
         userId={userId}
         show={show}
         setShow={setShow}
-        counter={counter}
         setCommentsCounter={setCommentsCounter}
       />
     </>
