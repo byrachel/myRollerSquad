@@ -2,6 +2,7 @@ import { NextApiRequest, NextApiResponse } from "next";
 
 import { E1, E2 } from "src/constants/ErrorMessages";
 import { checkUserId } from "@/server/controllers/checkUser";
+import prisma from "server/prisma/db/client";
 
 export default async function handler(
   req: NextApiRequest,

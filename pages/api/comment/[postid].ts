@@ -2,6 +2,7 @@ import { NextApiRequest, NextApiResponse } from "next";
 
 import { E1, E2 } from "src/constants/ErrorMessages";
 import { checkUserIsConnected } from "@/server/controllers/checkUser";
+import prisma from "server/prisma/db/client";
 
 export default async function handler(
   req: NextApiRequest,
@@ -33,7 +34,6 @@ export default async function handler(
     if (!comments) return res.status(400).json({ message: E1 });
     res.status(200).json({ comments });
   } catch (err) {
-    console.log(err);
     res.status(500).json({ message: E1 });
   }
 }
