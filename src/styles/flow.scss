@@ -152,9 +152,6 @@
     flex-direction: column;
     gap: 15px;
   }
-  .responsiveFlowContainer {
-    padding: 0.75em;
-  }
 }
 
 .lastPostsShared {
@@ -594,8 +591,8 @@ div.socialIconContainer {
   .sidebarContent {
     background-color: $lightColor;
     position: relative;
-    width: 40%;
-    max-width: 250px;
+    max-width: 300px;
+    min-width: 250px;
 
     .sidebarText {
       margin: 2.5em 1.5em 01.5em 1.5em;
@@ -690,18 +687,6 @@ div.socialIconContainer {
   border-bottom: 1px solid darken($color: $lightColor, $amount: 8);
   margin: 0.5em 0 1em 0;
 }
-
-// @media (max-width: 700px) {
-//   .sidebarLayout {
-//     .sidebarContainer {
-//       margin: 1em;
-//       width: 100%;
-//     }
-//     .sidebarContent {
-//       display: none;
-//     }
-//   }
-// }
 
 .userPostsContainer {
   margin: 1em;

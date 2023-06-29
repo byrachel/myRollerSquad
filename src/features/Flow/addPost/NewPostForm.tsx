@@ -25,7 +25,6 @@ interface Props {
   post: any;
   postDispatch: React.Dispatch<any>;
   editMode: boolean;
-  isPro: boolean;
 }
 
 export default function NewPostForm({
@@ -33,7 +32,6 @@ export default function NewPostForm({
   post,
   postDispatch,
   editMode,
-  isPro,
 }: Props) {
   const router = useRouter();
 
@@ -43,10 +41,6 @@ export default function NewPostForm({
   const userPlacesActive = userPlaces?.filter(
     (place: PlaceInterface) => place.active
   );
-
-  console.log(isPro);
-  console.log(userPlaces);
-  console.log(session);
 
   return (
     <>

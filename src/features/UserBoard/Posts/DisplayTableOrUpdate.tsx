@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { useSession } from "next-auth/react";
 
 import PostsTable from "./PostsTable";
 import EditPost from "src/features/Flow/singlePost/EditPost";
@@ -12,8 +11,6 @@ interface Props {
 }
 
 const DisplayTableOrUpdate = ({ posts, setUpdate, userConnectedId }: Props) => {
-  const { data: session } = useSession() as any;
-  const userRole = session?.user?.role;
   const [editPost, setEditPost] = useState<{
     show: boolean;
     post: null | PostInterface;
@@ -35,7 +32,6 @@ const DisplayTableOrUpdate = ({ posts, setUpdate, userConnectedId }: Props) => {
           <EditPost
             postToEdit={editPost.post}
             userConnectedId={userConnectedId}
-            isPro={userRole === "PRO"}
           />
         </>
       ) : (

@@ -89,6 +89,17 @@ div.inline {
   cursor: pointer;
 }
 
+.boldLink {
+  line-height: 3em;
+  font-family: $titleFont;
+  color: $secondaryColor;
+  background-color: $lightColor;
+}
+.boldLink:hover {
+  background-color: $secondaryColor;
+  color: white;
+}
+
 .whiteTitle {
   color: white;
   font-family: $titleFont;

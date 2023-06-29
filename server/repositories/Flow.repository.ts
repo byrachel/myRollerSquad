@@ -21,7 +21,7 @@ export class FlowRepository implements FlowUseCase {
       const posts = await prisma.post.findMany({
         skip: cursor,
         // cursor: cursorObj,
-        take: 4,
+        take: 2,
         orderBy: {
           created_at: "desc",
         },
@@ -61,7 +61,7 @@ export class FlowRepository implements FlowUseCase {
           },
         },
       });
-      return { posts, nextId: cursor + 4 };
+      return { posts, nextId: cursor + 2 };
     } catch (e) {
       console.log(e);
       return null;
@@ -77,19 +77,12 @@ export class FlowRepository implements FlowUseCase {
         orderBy: {
           created_at: "desc",
         },
-        select: {
-          id: true,
-          user_id: true,
-          place_id: true,
-          title: true,
-          category_id: true,
+        include: {
           style: {
             select: {
               style_id: true,
             },
           },
-          created_at: true,
-          pictures: true,
           comments: {
             select: {
               id: true,

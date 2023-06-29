@@ -54,7 +54,13 @@ const Flow = ({ userConnectedId }: Props) => {
   return (
     <div className="flow">
       {window.innerWidth < 860 ? (
-        <div style={{ paddingLeft: "1em", paddingRight: "1em" }}>
+        <div
+          style={{
+            paddingLeft: "0.7em",
+            paddingRight: "0.7em",
+            paddingTop: "1em",
+          }}
+        >
           <FlowFilters flowDispatch={flowDispatch} />
         </div>
       ) : null}

@@ -41,7 +41,7 @@ export default function SinglePost({ post }: Props) {
 
   return userId ? (
     editPost.show ? (
-      <EditPost postToEdit={post} userConnectedId={userId} isPro={false} />
+      <EditPost postToEdit={post} userConnectedId={userId} />
     ) : (
       <>
         <div className="spaceBetween">
@@ -93,6 +93,12 @@ export default function SinglePost({ post }: Props) {
         <div className="postContent mt5">
           {post.content ? parseContent(post.content) : null}
         </div>
+
+        {post.link ? (
+          <a href={post.link} className="boldLink">
+            {post.link}
+          </a>
+        ) : null}
 
         <div className="singlePostPicts">
           {post.pictures.length > 0

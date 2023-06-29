@@ -6,14 +6,9 @@ import { PostReducer } from "src/reducers/PostReducer";
 interface Props {
   postToEdit: PostInterface;
   userConnectedId: number;
-  isPro: boolean;
 }
 
-export default function EditPost({
-  postToEdit,
-  userConnectedId,
-  isPro,
-}: Props) {
+export default function EditPost({ postToEdit, userConnectedId }: Props) {
   const initialState = {
     loading: false,
     error: { status: false, message: null, input: null },
@@ -41,7 +36,6 @@ export default function EditPost({
   return (
     <NewPostForm
       userConnectedId={userConnectedId}
-      isPro={isPro}
       post={post}
       postDispatch={postDispatch}
       editMode

@@ -12,7 +12,6 @@ const NewPost = () => {
   const [post, postDispatch] = useReducer(PostReducer, newPostInitialState);
   const { data: session } = useSession() as any;
   const userId = session?.user?.id;
-  const userRole = session?.user?.role;
 
   return (
     <>
@@ -23,7 +22,6 @@ const NewPost = () => {
           userId ? (
             <NewPostForm
               userConnectedId={userId}
-              isPro={userRole === "PRO"}
               post={post}
               postDispatch={postDispatch}
               editMode={false}
