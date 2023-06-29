@@ -184,6 +184,14 @@ export class FlowRepository implements FlowUseCase {
           comments: {
             select: {
               id: true,
+              comment: true,
+              published_at: true,
+              author: {
+                select: {
+                  id: true,
+                  name: true,
+                },
+              },
             },
           },
           user: {

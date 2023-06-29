@@ -46,6 +46,7 @@ export default function CommentsList({
                   {format(new Date(comment.published_at), "dd/MM/yyyy HH:mm")}
                 </p>
               </div>
+              <div className="divider" />
               <p>{comment.comment}</p>
               {userId && userId === comment.author.id ? (
                 <div className="spaceBetween">

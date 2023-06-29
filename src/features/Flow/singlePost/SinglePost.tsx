@@ -4,7 +4,7 @@ import { useRouter } from "next/router";
 import Image from "next/image";
 
 import { getCategoryName } from "src/constants/PostCategories";
-import { PostInterface } from "src/entities/flow.entity";
+import { CommentInterface, PostInterface } from "src/entities/flow.entity";
 import { cardColor } from "src/utils/colorManager";
 import { displayLightDateTime } from "src/utils/handleDates";
 import { parseContent } from "src/utils/parseContent";
@@ -13,11 +13,12 @@ import { deletePost } from "../addPost/utils/deletePost";
 import EditPost from "./EditPost";
 import LikeIcon from "../getPosts/LikeIcon";
 import UpdateDeleteIcons from "src/components/buttons/UpdateDeleteIcons";
+import CommentsList from "../comment/CommentsList";
+import AddComment from "../comment/AddComment";
+import Avatar from "../getPosts/Avatar";
 
 import Pin from "src/svg/pin.svg";
 import Roller from "src/svg/rollerquad.svg";
-import CommentIcon from "../comment/CommentIcon";
-import Avatar from "../getPosts/Avatar";
 
 interface Props {
   post: PostInterface;
@@ -36,6 +37,7 @@ export default function SinglePost({ post }: Props) {
   const redirectAfterDelete = () => router.push(`/profile/posts/${userId}`);
 
   const [commentsCounter, setCommentsCounter] = useState(post.comments.length);
+  const [comments, setComments] = useState<CommentInterface[]>(post.comments);
 
   return userId ? (
     editPost.show ? (
@@ -109,23 +111,35 @@ export default function SinglePost({ post }: Props) {
             : null}
         </div>
         <div className="lightBox">
-          <div className="flexStart">
-            <LikeIcon
-              color={color}
-              counter={post.user_likes.length}
-              postId={post.id}
-              likedBy={post.user_likes.map((like) => like.user_id)}
-              userConnectedId={userId}
-            />
-          </div>
-          <CommentIcon
-            counter={commentsCounter}
-            setCommentsCounter={setCommentsCounter}
+          <LikeIcon
             color={color}
+            counter={post.user_likes.length}
             postId={post.id}
-            userId={userId}
+            likedBy={post.user_likes.map((like) => like.user_id)}
+            userConnectedId={userId}
           />
         </div>
+
+        {commentsCounter > 0 ? (
+          <>
+            <p className="meta mt5">Commentaires :</p>
+            <CommentsList
+              userId={userId}
+              comments={comments}
+              setComments={setComments}
+              setCommentsCounter={setCommentsCounter}
+            />
+          </>
+        ) : null}
+        {userId ? (
+          <AddComment
+            postId={post.id}
+            userId={userId}
+            setComments={setComments}
+            setCommentsCounter={setCommentsCounter}
+          />
+        ) : null}
+
         {window.innerWidth < 860 ? (
           post.user ? (
             <div className="center mt5">
