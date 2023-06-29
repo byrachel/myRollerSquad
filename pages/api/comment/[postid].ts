@@ -33,6 +33,7 @@ export default async function handler(
     if (!comments) return res.status(400).json({ message: E1 });
     res.status(200).json({ comments });
   } catch (err) {
+    console.log(err);
     res.status(500).json({ message: E1 });
   }
 }

@@ -30,11 +30,8 @@ export default function CommentModal({
         url: `/api/comment/${postId}`,
         withCredentials: true,
       })
-        .then((res) => {
-          console.log(res.data);
-          setComments(res.data.comments);
-        })
-        .catch((err) => console.log(err));
+        .then((res) => setComments(res.data.comments))
+        .catch(() => setComments([]));
     }
   }, [postId, show]);
 
