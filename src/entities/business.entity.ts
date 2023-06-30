@@ -14,7 +14,7 @@ export interface MiniPlaceInterface {
 
 export interface PlaceInterface extends MiniPlaceInterface {
   siren: string;
-  county: string | null;
+  city: string | null;
   country: string;
   type: "ASSOCIATION" | "PROFESSIONAL";
   website: string | null;
