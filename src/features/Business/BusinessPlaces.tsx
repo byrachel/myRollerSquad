@@ -49,12 +49,16 @@ export default function BusinessPlaces({ places }: Props) {
               <Arrow className="placeCardArrow" width={24} height={24} />
             </h2>
           </Link>
-          <div className="center">
-            <p className="metaIconText">
-              <Pin className="placeLocation" width={16} height={16} />
-              {departementToDisplay(place.county)}
-            </p>
-          </div>
+          {place.county ? (
+            <div className="center">
+              <p className="metaIconText">
+                <Pin className="placeLocation" width={16} height={16} />
+                {departementToDisplay(place.county)}
+              </p>
+            </div>
+          ) : (
+            <br />
+          )}
 
           {place.description ? (
             <div className="mt5">
