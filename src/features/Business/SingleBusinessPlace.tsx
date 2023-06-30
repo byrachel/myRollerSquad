@@ -7,6 +7,7 @@ import { PlaceInterface } from "src/entities/business.entity";
 import Pin from "src/svg/pin.svg";
 import AddToFav from "./AddToFav";
 import { parseContent } from "src/utils/parseContent";
+import depts from "src/utils/frenchDepartments.json";
 
 interface Props {
   place: PlaceInterface;
@@ -14,6 +15,17 @@ interface Props {
 
 export default function SingleBusinessPlace({ place }: Props) {
   const router = useRouter();
+
+  const departementToDisplay = (dept: string) => {
+    interface FrenchDept {
+      num_dep: string;
+      dep_name: string;
+    }
+    const departement = depts.find(
+      (item) => item.num_dep === dept
+    ) as FrenchDept;
+    return departement ? departement.dep_name : "";
+  };
 
   return (
     <div className="singlePlaceContainer">
@@ -43,7 +55,10 @@ export default function SingleBusinessPlace({ place }: Props) {
         <div className="singlePlaceDescription">
           <p className="metaIconText">
             <Pin className="placeLocation" width={16} height={16} />
-            {place.county ? `${place.county}, ` : null} {place.city}
+            {place.county
+              ? `${departementToDisplay(place.county)}, `
+              : null}{" "}
+            {place.city} {place.country}
           </p>
           {place.description ? (
             <p className="mt5">{parseContent(place.description)}</p>

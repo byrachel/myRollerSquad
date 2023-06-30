@@ -5,7 +5,7 @@ export interface MiniPlaceInterface {
   id: number;
   name: string;
   active: boolean;
-  city: string | null;
+  county: string | null;
   description: string | null;
   logo: string | null;
   _count?: { posts: number };

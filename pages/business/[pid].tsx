@@ -32,14 +32,7 @@ export async function getServerSideProps(params: any) {
     where: {
       id: parseInt(pid),
     },
-    select: {
-      id: true,
-      name: true,
-      description: true,
-      logo: true,
-      city: true,
-      category: true,
-      website: true,
+    include: {
       favorites: {
         select: {
           id: true,

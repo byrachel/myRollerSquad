@@ -54,19 +54,13 @@ export async function getStaticPaths() {
 export async function getStaticProps(context: any) {
   const { dept, category } = context.params;
 
-  const places = await prisma.place.findMany({
+  const data = await prisma.place.findMany({
     where: {
       active: true,
       ...(dept === "all" || !dept ? {} : { county: dept }),
       ...(category === "all" || !category ? {} : { category }),
     },
-    select: {
-      id: true,
-      name: true,
-      description: true,
-      logo: true,
-      city: true,
-      category: true,
+    include: {
       favorites: {
         select: {
           id: true,
@@ -79,6 +73,7 @@ export async function getStaticProps(context: any) {
       },
     },
   });
-  if (!places) return { props: { places: [], dept, category } };
+  if (!data) return { props: { places: [], dept, category } };
+  const places = JSON.parse(JSON.stringify(data));
   return { props: { places, dept, category } };
 }

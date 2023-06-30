@@ -8,12 +8,24 @@ import MySquad from "src/svg/flash.svg";
 import Pin from "src/svg/pin.svg";
 import Arrow from "src/svg/nav-arrow-right.svg";
 import { parseContent } from "src/utils/parseContent";
+import depts from "src/utils/frenchDepartments.json";
 
 interface Props {
   places: MiniPlaceInterface[];
 }
 
 export default function BusinessPlaces({ places }: Props) {
+  const departementToDisplay = (dept: string) => {
+    interface FrenchDept {
+      num_dep: string;
+      dep_name: string;
+    }
+    const departement = depts.find(
+      (item) => item.num_dep === dept
+    ) as FrenchDept;
+    return departement ? departement.dep_name : "";
+  };
+
   return (
     <div className="placeGrid">
       {places.map((place: MiniPlaceInterface) => (
@@ -40,7 +52,7 @@ export default function BusinessPlaces({ places }: Props) {
           <div className="center">
             <p className="metaIconText">
               <Pin className="placeLocation" width={16} height={16} />
-              {place.city}
+              {departementToDisplay(place.county)}
             </p>
           </div>
 
