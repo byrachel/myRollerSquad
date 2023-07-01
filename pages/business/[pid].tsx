@@ -25,9 +25,26 @@ export default function Post({ place }: Props) {
   );
 }
 
-export async function getServerSideProps(params: any) {
-  const { pid } = params.query;
+export async function getStaticPaths() {
+  try {
+    const places = await prisma.place.findMany({
+      where: {
+        active: true,
+      },
+    });
+    const data = places.length > 0 ? places : [];
+    const paths = data.map((place: any) => ({
+      params: { pid: place.id.toString() },
+    }));
+    return { paths, fallback: true };
+  } catch (error) {
+    return { paths: [], fallback: true };
+  }
+}
 
+export async function getStaticProps(context: any) {
+  const { pid } = context.params;
+  if (!pid) return { props: { place: null } };
   const data = await prisma.place.findUnique({
     where: {
       id: parseInt(pid),

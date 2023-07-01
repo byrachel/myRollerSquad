@@ -1,10 +1,11 @@
 import React from "react";
+import prisma from "server/prisma/db/client";
+
 import BusinessPlaces from "src/features/Business/BusinessPlaces";
 import BusinessProfileCTA from "src/features/Business/BusinessProfileCTA";
 import PlacesFilters from "src/features/Business/PlacesFilters";
-import prisma from "server/prisma/db/client";
-import { MiniPlaceInterface } from "src/entities/business.entity";
 import Loader from "src/components/layouts/Loader";
+import { MiniPlaceInterface } from "src/entities/business.entity";
 
 interface Props {
   places: MiniPlaceInterface[];
@@ -71,6 +72,9 @@ export async function getStaticProps(context: any) {
           posts: true,
         },
       },
+    },
+    orderBy: {
+      created_at: "desc",
     },
   });
   if (!data) return { props: { places: [], dept, category } };
