@@ -1,7 +1,7 @@
 import { E1 } from "src/constants/ErrorMessages";
 import { AuthUseCase } from "./auth.usecases";
-import http from "../../../interceptor/http";
-import { IErrorCode } from "@/server/interfaces/globalInterfaces";
+import http from "../../../utils/interceptor/http";
+import { IErrorCode } from "@/server/utils/globalInterfaces";
 import { UserInterface } from "src/entities/user.entity";
 import { PlaceInterface } from "src/entities/business.entity";
 

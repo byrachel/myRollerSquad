@@ -31,7 +31,7 @@ export const authOptions = {
             }
           );
           if (!login && !login.data.user) return null;
-          return login.data.user;
+          return login;
         } catch (error) {
           console.log(error);
           console.log(error.response.data.message);

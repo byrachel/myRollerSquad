@@ -80,5 +80,5 @@ export async function getStaticProps(context: any) {
   });
   if (!data) return { props: { place: null } };
   const place = JSON.parse(JSON.stringify(data));
-  return { props: { place } };
+  return { props: { place }, revalidate: 360 };
 }

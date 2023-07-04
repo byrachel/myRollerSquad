@@ -79,5 +79,5 @@ export async function getStaticProps(context: any) {
   });
   if (!data) return { props: { places: [], dept, category } };
   const places = JSON.parse(JSON.stringify(data));
-  return { props: { places, dept, category } };
+  return { props: { places, dept, category }, revalidate: 360 };
 }

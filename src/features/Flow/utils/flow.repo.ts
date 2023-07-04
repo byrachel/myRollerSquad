@@ -1,4 +1,4 @@
-import http from "src/interceptor/http";
+import http from "src/utils/interceptor/http";
 import { FlowUseCase, ResponseInterface } from "./flow.usecases";
 
 export class FlowRepo implements FlowUseCase {

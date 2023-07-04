@@ -1,7 +1,7 @@
 import { UserUseCase } from "./user.usecases";
 import { ResponseInterface } from "src/features/Authentication/utils/auth.repo";
-import http from "src/interceptor/http";
-import { IErrorCode } from "@/server/interfaces/globalInterfaces";
+import http from "src/utils/interceptor/http";
+import { IErrorCode } from "@/server/utils/globalInterfaces";
 import { E1 } from "src/constants/ErrorMessages";
 
 export class UserRepo implements UserUseCase {

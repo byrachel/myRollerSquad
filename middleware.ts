@@ -8,6 +8,7 @@ export const config = {
     "/profile/update",
     "/profile/posts/[uid]",
     "/profile/favs/[uid]",
+    "/profile/places/[uid]",
     "/business/create/[uid]",
   ],
 };
