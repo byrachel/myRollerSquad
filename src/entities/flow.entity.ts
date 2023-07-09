@@ -91,7 +91,7 @@ export interface NewPostFactoryInterface {
   squad_ids: number[];
   user_id: number;
   distance: number | null;
-  duration?: number | null;
+  duration?: string | null;
   price: number | null;
   city: string | null;
   county: string | null;

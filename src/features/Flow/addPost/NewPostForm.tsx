@@ -16,9 +16,8 @@ import { onSubmitNewPost, onSubmitEditedPost } from "./utils/onSubmitNewPost";
 import Camera from "src/svg/add-media-image.svg";
 import BigButton from "src/components/buttons/BigButton";
 import HandleLocation from "./HandleLocation";
-import { Radio } from "@nextui-org/react";
-import { PlaceInterface } from "src/entities/business.entity";
 import ErrorLayout from "@/components/layouts/ErrorLayout";
+import SelectAuthor from "./SelectAuthor";
 
 interface Props {
   userConnectedId: number;
@@ -38,9 +37,6 @@ export default function NewPostForm({
   const { data: session } = useSession() as any;
   const userName = session?.user?.username;
   const userPlaces = session?.user?.places;
-  const userPlacesActive = userPlaces?.filter(
-    (place: PlaceInterface) => place.active
-  );
 
   return (
     <>
@@ -60,18 +56,13 @@ export default function NewPostForm({
           postCategory={post.category}
           postDispatch={postDispatch}
         />
-        {editMode ? null : userPlacesActive && userPlacesActive.length > 0 ? (
-          <>
-            <Radio.Group label="Publier en tant que :" name="author">
-              <Radio value={`user_${userConnectedId}`}>{userName}</Radio>
-              {userPlacesActive.map((elt: { id: number; name: string }) => (
-                <Radio key={elt.id} value={`place_${elt.id}`}>
-                  {elt.name}
-                </Radio>
-              ))}
-            </Radio.Group>
-          </>
-        ) : null}
+        {editMode ? null : (
+          <SelectAuthor
+            userConnectedId={userConnectedId}
+            userName={userName}
+            userPlaces={userPlaces}
+          />
+        )}
         <div className="spaceBetween">
           <div style={{ width: "100%" }}>
             <InputText
@@ -140,7 +131,7 @@ export default function NewPostForm({
                 name="distance"
                 id="distance"
                 type="number"
-                step=".01"
+                step=".1"
                 value={post.distance}
               />
             </div>

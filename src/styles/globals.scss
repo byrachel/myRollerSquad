@@ -366,6 +366,15 @@ label {
   display: block;
 }
 
+.authorLabel {
+  color: darken($color: $greyColor, $amount: 20);
+  font-family: $textFont;
+  font-size: $fontSize-sm;
+  letter-spacing: 0.2px;
+  margin: 1.5em 0 -0.75em 0;
+  display: block;
+}
+
 .my-masonry-grid {
   display: -webkit-box; /* Not needed if autoprefixing */
   display: -ms-flexbox; /* Not needed if autoprefixing */
