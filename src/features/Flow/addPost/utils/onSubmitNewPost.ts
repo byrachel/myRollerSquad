@@ -155,7 +155,9 @@ export const onSubmitEditedPost = async (
       style_ids: post.style ? post.style : [],
       link: target.link && target.link.value ? target.link.value : null,
       duration:
-        target.duration && target.duration.value ? target.duration.value : null,
+        target.duration && target.duration.value
+          ? `${target.duration.value}`
+          : null,
       distance:
         target.distance && target.distance.value
           ? parseFloat(target.distance.value)
