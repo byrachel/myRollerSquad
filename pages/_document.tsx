@@ -1,6 +1,6 @@
 import { Html, Head, Main, NextScript } from "next/document";
 import { CssBaseline } from "@nextui-org/react";
-import Footer from "@/components/footer/Footer";
+import Footer from "views/components/footer/Footer";
 
 export default function Document() {
   return (

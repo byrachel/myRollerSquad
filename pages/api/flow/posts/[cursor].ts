@@ -1,7 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 
 import { checkUserIsConnected } from "@/server/controllers/checkUser";
-import { E1, E2 } from "src/constants/ErrorMessages";
+import { E1, E2 } from "views/constants/ErrorMessages";
 import { FlowRepository } from "@/server/repositories/Flow.repository";
 
 export default async function handler(

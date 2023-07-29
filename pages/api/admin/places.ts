@@ -1,7 +1,7 @@
 import nextConnect from "next-connect";
 
 import prisma from "server/prisma/db/client";
-import { E1, E2 } from "src/constants/ErrorMessages";
+import { E1, E2 } from "views/constants/ErrorMessages";
 import { checkConnectedUserIsAdmin } from "@/server/controllers/checkUser";
 
 const handler = nextConnect();

@@ -1,5 +1,5 @@
 import { useSession } from "next-auth/react";
-import HandlePosts from "src/features/UserBoard/Posts/HandlePosts";
+import HandlePosts from "views/features/UserBoard/Posts/HandlePosts";
 
 const UserPosts = () => {
   const { data: session } = useSession() as any;

@@ -3,12 +3,12 @@ import { shallow } from "zustand/shallow";
 import { useRouter } from "next/router";
 import { useSession } from "next-auth/react";
 
-import Loader from "src/components/layouts/Loader";
-import BusinessProfileCTA from "src/features/Business/BusinessProfileCTA";
-import { PlaceInterface } from "src/entities/business.entity";
-import { useProfile } from "src/hooks/useProfile";
-import RegularButton from "@/components/buttons/RegularButton";
-import MyBusinessPlace from "src/features/Business/MyBusinessPlace";
+import Loader from "views/components/layouts/Loader";
+import BusinessProfileCTA from "views/features/Business/BusinessProfileCTA";
+import { PlaceInterface } from "models/entities/business.entity";
+import { useProfile } from "views/hooks/useProfile";
+import RegularButton from "views/components/buttons/RegularButton";
+import MyBusinessPlace from "views/features/Business/MyBusinessPlace";
 
 const MyPlaces = () => {
   const { data: session } = useSession() as any;

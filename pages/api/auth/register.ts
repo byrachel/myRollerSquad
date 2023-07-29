@@ -4,7 +4,7 @@ import jwt from "jsonwebtoken";
 
 import prisma from "server/prisma/db/client";
 import { initValidation, check } from "server/middleware/validators";
-import { E1, E3, E4 } from "src/constants/ErrorMessages";
+import { E1, E3, E4 } from "views/constants/ErrorMessages";
 import { hashPassword } from "server/middleware/password";
 import { transporter } from "server/utils/sendEmail";
 

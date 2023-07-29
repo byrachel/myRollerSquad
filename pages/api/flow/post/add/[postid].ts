@@ -1,7 +1,7 @@
 import multer from "multer";
 import nextConnect from "next-connect";
 
-import { E1 } from "src/constants/ErrorMessages";
+import { E1 } from "views/constants/ErrorMessages";
 import { checkUserIsConnected } from "@/server/controllers/checkUser";
 import { NextApiResponse } from "next";
 import { FlowRepository } from "@/server/repositories/Flow.repository";

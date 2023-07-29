@@ -1,9 +1,9 @@
 import { useRouter } from "next/router";
 import { useSession } from "next-auth/react";
 
-import UserInfosContainer from "src/features/UserProfile/UserInfosContainer";
-import MyInfosContainer from "src/features/UserProfile/MyInfosContainer";
-import UnloggedUser from "@/components/layouts/UnloggedUser";
+import UserInfosContainer from "views/features/UserProfile/UserInfosContainer";
+import MyInfosContainer from "views/features/UserProfile/MyInfosContainer";
+import UnloggedUser from "views/components/layouts/UnloggedUser";
 
 const UserProfile = () => {
   const router = useRouter();

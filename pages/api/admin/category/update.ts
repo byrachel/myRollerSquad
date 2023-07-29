@@ -2,7 +2,7 @@ import type { NextApiRequest, NextApiResponse } from "next";
 import nextConnect from "next-connect";
 
 import prisma from "server/prisma/db/client";
-import { E1, E2, E3 } from "src/constants/ErrorMessages";
+import { E1, E2, E3 } from "views/constants/ErrorMessages";
 import { initValidation, check } from "server/middleware/validators";
 import { checkConnectedUserIsAdmin } from "@/server/controllers/checkUser";
 

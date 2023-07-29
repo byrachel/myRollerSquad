@@ -5,7 +5,7 @@ import sharp from "sharp";
 
 import prisma from "@/server/prisma/db/client";
 import { uploadImage } from "@/server/utils/uploadImage";
-import { E1, E2 } from "src/constants/ErrorMessages";
+import { E1, E2 } from "views/constants/ErrorMessages";
 import { checkUserId } from "@/server/controllers/checkUser";
 
 const upload = multer({

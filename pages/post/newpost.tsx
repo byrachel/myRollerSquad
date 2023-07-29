@@ -1,12 +1,12 @@
 import React, { useReducer } from "react";
 import { useSession } from "next-auth/react";
 
-import { PostReducer } from "src/reducers/PostReducer";
-import { newPostInitialState } from "src/features/Flow/addPost/utils/newPostInitialState";
-import NewPostForm from "src/features/Flow/addPost/NewPostForm";
-import SidebarLayout from "src/components/layouts/SidebarLayout";
-import NewPostSidebar from "@/components/sidebar/NewPostSidebar";
-import UnloggedUser from "@/components/layouts/UnloggedUser";
+import { PostReducer } from "views/reducers/PostReducer";
+import { newPostInitialState } from "views/features/Flow/addPost/utils/newPostInitialState";
+import NewPostForm from "views/features/Flow/addPost/NewPostForm";
+import SidebarLayout from "views/components/layouts/SidebarLayout";
+import NewPostSidebar from "views/components/sidebar/NewPostSidebar";
+import UnloggedUser from "views/components/layouts/UnloggedUser";
 
 const NewPost = () => {
   const [post, postDispatch] = useReducer(PostReducer, newPostInitialState);

@@ -1,7 +1,7 @@
 import { useSession } from "next-auth/react";
-import SidebarLayout from "src/components/layouts/SidebarLayout";
-import AddBusinessProfile from "src/features/Business/AddBusinessProfile";
-import UnloggedUser from "@/components/layouts/UnloggedUser";
+import SidebarLayout from "views/components/layouts/SidebarLayout";
+import AddBusinessProfile from "views/features/Business/AddBusinessProfile";
+import UnloggedUser from "views/components/layouts/UnloggedUser";
 
 const BusinessSignup = () => {
   const { data: session } = useSession() as any;

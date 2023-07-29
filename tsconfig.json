@@ -19,7 +19,7 @@
     "baseUrl": ".",
     "paths": {
       "@/pages/*": ["pages/*"],
-      "@/components/*": ["src/components/*"],
+      "@/components/*": ["views/components/*"],
       "@/server/*": ["server/*"]
     }
   },
@@ -35,11 +35,11 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
-    "src/components/form/Editor/Editor.jsx",
-    "src/components/form/Editor/TextEditor.jsx",
+    "views/components/form/Editor/Editor.jsx",
+    "views/components/form/Editor/TextEditor.jsx",
     "pages/api/auth/[...nextauth].js",
     "pages/api/comment/delete/[uid]",
-    "src/__mocks__/svg.js",
+    "views/__mocks__/svg.js",
     "jest.config.js"
   ]
 }

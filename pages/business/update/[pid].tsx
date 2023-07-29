@@ -1,8 +1,8 @@
 import { useRouter } from "next/router";
 import { useSession } from "next-auth/react";
 
-import UpdateBusinessProfile from "src/features/Business/UpdateBusinessProfile";
-import UnloggedUser from "@/components/layouts/UnloggedUser";
+import UpdateBusinessProfile from "views/features/Business/UpdateBusinessProfile";
+import UnloggedUser from "views/components/layouts/UnloggedUser";
 
 const UpdateBusiness = () => {
   const router = useRouter();

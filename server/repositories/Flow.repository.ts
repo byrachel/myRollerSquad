@@ -6,9 +6,19 @@ import {
   CompletePostInterface,
   GetPostsResponseInterface,
   UserPostInterface,
-} from "src/entities/flow.entity";
+} from "models/entities/flow.entity";
 import { isAlreadyLikedByThisUser } from "../controllers/checkLikes";
 import { uploadImage } from "../utils/uploadImage";
+
+function generateSlug(title: string) {
+  const slug = title
+    .toLowerCase() // Convert the title to lowercase
+    .replace(/[^\w\s-]/g, "") // Remove non-alphanumeric characters except spaces and hyphens
+    .replace(/\s+/g, "-") // Replace spaces with hyphens
+    .trim(); // Trim any leading or trailing whitespace
+
+  return slug;
+}
 
 export class FlowRepository implements FlowUseCase {
   async getPosts(
@@ -262,9 +272,28 @@ export class FlowRepository implements FlowUseCase {
 
   async createPost(
     user_id: number,
-    data: BodyPostInterface
-  ): Promise<CompletePostInterface | null> {
+    data: BodyPostInterface,
+    files: any[]
+  ): Promise<any | null> {
     try {
+      const pictures = [];
+
+      const slug = generateSlug(user_id + "_" + data.title);
+
+      if (files && files.length > 0 && process.env.S3_FLOW_BUCKET_NAME) {
+        for (const file of files) {
+          const image = await uploadImage(
+            process.env.S3_FLOW_BUCKET_NAME,
+            file
+          );
+          if (image && image.Key) {
+            pictures.push(image.Key);
+          }
+        }
+      }
+
+      if (files.length !== pictures.length) return null;
+
       const newPost = await prisma.post.create({
         data: {
           title: data.title,
@@ -272,6 +301,7 @@ export class FlowRepository implements FlowUseCase {
           user_id,
           place_id: data.place_id ? data.place_id : null,
           category_id: data.category_id,
+          slug: slug,
           country: data.country ? data.country : "France",
           county: data.county ? data.county : null,
           city: data.city ? data.city : null,
@@ -284,12 +314,13 @@ export class FlowRepository implements FlowUseCase {
           duration: data.duration ? data.duration : null,
           distance: data.distance ? data.distance : null,
           price: data.price ? parseInt(data.price) : null,
-          pictures: [],
+          pictures,
         },
         include: {
           style: true,
         },
       });
+      console.log(newPost);
       if (!newPost) return null;
       return newPost;
     } catch (e) {

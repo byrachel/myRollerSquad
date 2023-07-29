@@ -1,7 +1,7 @@
 import nextConnect from "next-connect";
 
 import prisma from "server/prisma/db/client";
-import { E1, E2, E3 } from "src/constants/ErrorMessages";
+import { E1, E2, E3 } from "views/constants/ErrorMessages";
 import { initValidation, check } from "server/middleware/validators";
 import { checkUserIsConnected } from "@/server/controllers/checkUser";
 import { NextApiRequest, NextApiResponse } from "next";

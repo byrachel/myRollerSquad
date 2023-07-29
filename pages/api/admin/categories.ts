@@ -1,7 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 
 import prisma from "server/prisma/db/client";
-import { E1, E2 } from "src/constants/ErrorMessages";
+import { E1, E2 } from "views/constants/ErrorMessages";
 import nextConnect from "next-connect";
 import { checkConnectedUserIsAdmin } from "@/server/controllers/checkUser";
 

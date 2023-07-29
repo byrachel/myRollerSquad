@@ -1,6 +1,6 @@
 import nextConnect from "next-connect";
 
-import { E1, E2 } from "src/constants/ErrorMessages";
+import { E1, E2 } from "views/constants/ErrorMessages";
 import { UserProfileRepository } from "@/server/repositories/UserProfile.repository";
 import { checkUserId } from "@/server/controllers/checkUser";
 import { NextApiRequest, NextApiResponse } from "next";

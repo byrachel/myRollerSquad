@@ -1,7 +1,7 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import nextConnect from "next-connect";
 
-import { E1 } from "src/constants/ErrorMessages";
+import { E1 } from "views/constants/ErrorMessages";
 import { FlowRepository } from "@/server/repositories/Flow.repository";
 
 const handler = nextConnect();

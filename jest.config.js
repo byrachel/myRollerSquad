@@ -14,9 +14,9 @@ const customJestConfig = {
   // you will have to add the moduleNameMapper in order for jest to resolve your absolute paths.
   // The paths have to be matching with the paths option within the compilerOptions in the tsconfig.json
   moduleNameMapper: {
-    "^.+\\.(svg)$": "<rootDir>/src/__mocks__/svg.js",
+    "^.+\\.(svg)$": "<rootDir>/views/__mocks__/svg.js",
     // "^.+\\.(png|jpg|jpeg|gif|webp|avif|ico|bmp)$/i": `<rootDir>/src/__mocks__/fileMock.js`,
-    "^@/src/components/(.*)$": "<rootDir>/src/components/$1",
+    "^@/views/components/(.*)$": "<rootDir>/views/components/$1",
     "^@/pages/(.*)$": "<rootDir>/pages/$1",
   },
   testEnvironment: "jest-environment-jsdom",

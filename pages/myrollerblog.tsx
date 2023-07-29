@@ -1,8 +1,8 @@
 import { useSession } from "next-auth/react";
 
-import NewPostBar from "src/components/layouts/NewPostBar";
-import Flow from "src/features/Flow/getPosts/Flow";
-import Loader from "@/components/layouts/Loader";
+import NewPostBar from "views/components/layouts/NewPostBar";
+import Flow from "views/features/Flow/getPosts/Flow";
+import Loader from "views/components/layouts/Loader";
 
 const MyRollerBlog = () => {
   const { data: session } = useSession() as any;

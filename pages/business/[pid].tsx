@@ -1,9 +1,9 @@
 import React, { Suspense } from "react";
-import SingleBusinessPlace from "src/features/Business/SingleBusinessPlace";
-import { PlaceInterface } from "src/entities/business.entity";
+import SingleBusinessPlace from "views/features/Business/SingleBusinessPlace";
+import { PlaceInterface } from "models/entities/business.entity";
 import prisma from "server/prisma/db/client";
-import SingleBusinessPosts from "src/features/Business/SingleBusinessPosts";
-import Loader from "src/components/layouts/Loader";
+import SingleBusinessPosts from "views/features/Business/SingleBusinessPosts";
+import Loader from "views/components/layouts/Loader";
 
 interface Props {
   place: PlaceInterface;

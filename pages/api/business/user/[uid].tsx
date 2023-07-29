@@ -3,7 +3,7 @@ import nextConnect from "next-connect";
 
 import { checkUserId } from "@/server/controllers/checkUser";
 import prisma from "server/prisma/db/client";
-import { E1 } from "src/constants/ErrorMessages";
+import { E1 } from "views/constants/ErrorMessages";
 
 const handler = nextConnect();
 

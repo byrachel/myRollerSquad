@@ -3,7 +3,7 @@ import { Poppins, Montserrat } from "next/font/google";
 import { createTheme, NextUIProvider } from "@nextui-org/react";
 import { SessionProvider } from "next-auth/react";
 
-import MainLayout from "../src/components/layouts/MainLayout";
+import MainLayout from "../views/components/layouts/MainLayout";
 
 const poppins = Poppins({
   weight: ["800", "600"],
@@ -16,10 +16,10 @@ const montserrat = Montserrat({
   display: "fallback",
 });
 
-import "../src/styles/globals.scss";
-import "../src/styles/common.scss";
-import "../src/styles/flow.scss";
-import "../src/styles/profile.scss";
+import "../views/styles/globals.scss";
+import "../views/styles/common.scss";
+import "../views/styles/flow.scss";
+import "../views/styles/profile.scss";
 
 const theme = createTheme({
   type: "light",

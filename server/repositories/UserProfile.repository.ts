@@ -7,7 +7,7 @@ import {
   UserFavs,
   UserInterface,
   UserProfileInterface,
-} from "src/entities/user.entity";
+} from "models/entities/user.entity";
 import { UserProfileUseCase } from "@/server/usecases/UserProfile.usecase";
 import { exclude } from "@/server/utils/prismaExclude";
 import { uploadImage } from "../utils/uploadImage";

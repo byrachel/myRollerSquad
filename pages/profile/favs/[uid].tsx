@@ -1,7 +1,7 @@
 import { useSession } from "next-auth/react";
 
-import MyFavs from "src/features/UserBoard/Favs/MyFavs";
-import Loader from "src/components/layouts/Loader";
+import MyFavs from "views/features/UserBoard/Favs/MyFavs";
+import Loader from "views/components/layouts/Loader";
 
 const UserFavs = () => {
   const { data: session } = useSession() as any;

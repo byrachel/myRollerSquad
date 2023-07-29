@@ -2,7 +2,7 @@ import { NextApiResponse } from "next";
 import nextConnect from "next-connect";
 import multer from "multer";
 
-import { E1, E2 } from "src/constants/ErrorMessages";
+import { E1, E2 } from "views/constants/ErrorMessages";
 import { checkUserIsConnected } from "@/server/controllers/checkUser";
 import { UserProfileRepository } from "@/server/repositories/UserProfile.repository";
 

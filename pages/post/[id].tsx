@@ -1,10 +1,10 @@
 import React from "react";
-import SidebarLayout from "src/components/layouts/SidebarLayout";
-import SinglePostSidebar from "@/components/sidebar/SinglePostSidebar";
-import SinglePost from "src/features/Flow/singlePost/SinglePost";
-import Loader from "src/components/layouts/Loader";
-import { PostInterface } from "src/entities/flow.entity";
-import UnloggedUserSidebar from "@/components/sidebar/UnloggedUserSidebar";
+import SidebarLayout from "views/components/layouts/SidebarLayout";
+import SinglePostSidebar from "views/components/sidebar/SinglePostSidebar";
+import SinglePost from "views/features/Flow/singlePost/SinglePost";
+import Loader from "views/components/layouts/Loader";
+import { PostInterface } from "models/entities/flow.entity";
+import UnloggedUserSidebar from "views/components/sidebar/UnloggedUserSidebar";
 import { FlowRepository } from "@/server/repositories/Flow.repository";
 
 interface Props {

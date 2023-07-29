@@ -2,11 +2,11 @@ import React, { SyntheticEvent } from "react";
 import { useRouter } from "next/router";
 import axios from "axios";
 
-import SidebarLayout from "src/components/layouts/SidebarLayout";
-import UnloggedUserSidebar from "@/components/sidebar/UnloggedUserSidebar";
-import RegularButton from "src/components/buttons/RegularButton";
-import InputPassword from "src/components/form/InputPassword";
-import { checkTokenValidity } from "src/utils/checkTokenValidity";
+import SidebarLayout from "views/components/layouts/SidebarLayout";
+import UnloggedUserSidebar from "views/components/sidebar/UnloggedUserSidebar";
+import RegularButton from "views/components/buttons/RegularButton";
+import InputPassword from "views/components/form/InputPassword";
+import { checkTokenValidity } from "views/utils/checkTokenValidity";
 
 const NewPassword = () => {
   const router = useRouter();

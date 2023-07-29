@@ -4,7 +4,7 @@ import { NextApiRequest, NextApiResponse } from "next";
 
 import prisma from "server/prisma/db/client";
 import { initValidation, check } from "server/middleware/validators";
-import { E3, E5, E6 } from "src/constants/ErrorMessages";
+import { E3, E5, E6 } from "views/constants/ErrorMessages";
 
 const handler = nextConnect();
 

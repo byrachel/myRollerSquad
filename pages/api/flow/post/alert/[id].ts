@@ -1,7 +1,7 @@
 import { NextApiRequest, NextApiResponse } from "next";
 
 import sendEmail from "@/server/utils/sendEmail";
-import { E1 } from "src/constants/ErrorMessages";
+import { E1 } from "views/constants/ErrorMessages";
 
 export default async function handler(
   req: NextApiRequest,

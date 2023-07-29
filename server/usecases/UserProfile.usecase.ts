@@ -4,7 +4,7 @@ import {
   UserFavs,
   UserInterface,
   UserProfileInterface,
-} from "src/entities/user.entity";
+} from "models/entities/user.entity";
 
 export interface UserProfileUseCase {
   getMyProfile(id: number): Promise<UserInterface | null>;

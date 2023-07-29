@@ -1,7 +1,6 @@
 generator client {
   provider      = "prisma-client-js"
   binaryTargets = ["native", "darwin"]
-  // engineType = "binary"
 }
 
 datasource db {
@@ -11,59 +10,58 @@ datasource db {
 }
 
 model User {
-  id            Int       @id @default(autoincrement())
-  createdAt     DateTime  @default(now())
-  updatedAt     DateTime  @updatedAt
-  active        Boolean   @default(false)
-  email         String    @unique
-  name          String    @unique
-  role          Role      @default(USER)
-  rgpd          Boolean   @default(false)
-  rgpd_ok_at    DateTime?
-  avatar        String?
-  password      String
-  country       String    @default("France")
-  county        String?
-  city          String?
-  social_medias Json?
-  website       String?
-  pictures      String[]
-  resume        String?
-
-  roller_dance_level Int @default(0)
-  skatepark_level    Int @default(0)
-  artistic_level     Int @default(0)
-  freestyle_level    Int @default(0)
-  urban_level        Int @default(0)
-  derby_level        Int @default(0)
-
-  posts           Post[]      @relation("post_author")
-  posts_liked     PostLiked[] @relation("post_liked")
-  place           Place[]     @relation("place_owner")
-  favorite_places Place[]     @relation("FavoritePlaces")
-  my_squad        User[]      @relation("MySquad")
-  my_followers    User[]      @relation("MySquad")
-  comments        Comment[]   @relation("comment_author")
+  id                 Int         @id @default(autoincrement())
+  email              String      @unique
+  name               String      @unique
+  role               Role        @default(USER)
+  rgpd               Boolean     @default(false)
+  rgpd_ok_at         DateTime?
+  avatar             String?
+  password           String
+  country            String      @default("France")
+  county             String?
+  city               String?
+  social_medias      Json?
+  website            String?
+  pictures           String[]
+  resume             String?
+  roller_dance_level Int         @default(0)
+  skatepark_level    Int         @default(0)
+  artistic_level     Int         @default(0)
+  freestyle_level    Int         @default(0)
+  urban_level        Int         @default(0)
+  derby_level        Int         @default(0)
+  createdAt          DateTime    @default(now())
+  updatedAt          DateTime    @updatedAt
+  active             Boolean     @default(false)
+  comments           Comment[]   @relation("comment_author")
+  place              Place[]     @relation("place_owner")
+  posts              Post[]      @relation("post_author")
+  posts_liked        PostLiked[] @relation("post_liked")
+  favorite_places    Place[]     @relation("FavoritePlaces")
+  User_A             User[]      @relation("MySquad")
+  User_B             User[]      @relation("MySquad")
 }
 
 model Comment {
   id           Int       @id @default(autoincrement())
   comment      String
   published_at DateTime  @default(now())
-  author       User      @relation("comment_author", fields: [author_id], references: [id])
   author_id    Int
-  post         Post      @relation(fields: [post_id], references: [id])
   post_id      Int
   unread       Boolean   @default(false)
-  answer_of    Comment?  @relation("answer_of_comment", fields: [answer_of_id], references: [id])
   answer_of_id Int?
+  answer_of    Comment?  @relation("answer_of_comment", fields: [answer_of_id], references: [id])
   answers      Comment[] @relation("answer_of_comment")
+  author       User      @relation("comment_author", fields: [author_id], references: [id])
+  post         Post      @relation(fields: [post_id], references: [id])
 }
 
 model Post {
   id            Int             @id @default(autoincrement())
   title         String
   content       String
+  user_id       Int
   created_at    DateTime        @default(now())
   duration      String?
   distance      Decimal?
@@ -75,26 +73,24 @@ model Post {
   city          String?
   county        String?
   country       String
+  category_id   Int             @default(1)
+  price         Int?
+  place_id      Int?
   comments      Comment[]
   category      Category        @relation("post_category", fields: [category_id], references: [id])
-  category_id   Int             @default(1)
-  style         StylesOnPosts[] @relation("post_style")
+  place         Place?          @relation("place_author", fields: [place_id], references: [id])
+  user          User            @relation("post_author", fields: [user_id], references: [id])
   user_likes    PostLiked[]     @relation("user_likes")
-  price         Int?
-
-  user     User   @relation("post_author", fields: [user_id], references: [id])
-  user_id  Int
-  place    Place? @relation("place_author", fields: [place_id], references: [id])
-  place_id Int?
+  style         StylesOnPosts[] @relation("post_style")
 }
 
 model PostLiked {
   id         Int      @id @default(autoincrement())
-  user       User     @relation("post_liked", fields: [user_id], references: [id], onDelete: Cascade)
   user_id    Int
-  post       Post     @relation("user_likes", fields: [post_id], references: [id], onDelete: Cascade)
   post_id    Int
   created_at DateTime @default(now())
+  post       Post     @relation("user_likes", fields: [post_id], references: [id], onDelete: Cascade)
+  user       User     @relation("post_liked", fields: [user_id], references: [id], onDelete: Cascade)
 
   @@unique([user_id, post_id])
 }
@@ -112,23 +108,22 @@ model Style {
 }
 
 model StylesOnPosts {
-  post       Post     @relation("post_style", fields: [post_id], references: [id], onDelete: Cascade)
   post_id    Int
-  style      Style    @relation(fields: [style_id], references: [id])
   style_id   Int
   assignedAt DateTime @default(now())
+  post       Post     @relation("post_style", fields: [post_id], references: [id], onDelete: Cascade)
+  style      Style    @relation(fields: [style_id], references: [id])
 
   @@id([post_id, style_id])
 }
 
 model Place {
   id          Int           @id @default(autoincrement())
-  active      Boolean       @default(false)
-  owner       User          @relation("place_owner", fields: [user_id], references: [id], onDelete: Cascade)
   user_id     Int
   logo        String?
   type        PlaceType     @default(PROFESSIONAL)
   category    PlaceCategory @default(OTHER)
+  active      Boolean       @default(false)
   name        String
   description String?
   website     String?
@@ -138,8 +133,9 @@ model Place {
   country     String        @default("France")
   county      String?
   city        String?
-  favorites   User[]        @relation("FavoritePlaces")
+  owner       User          @relation("place_owner", fields: [user_id], references: [id], onDelete: Cascade)
   posts       Post[]        @relation("place_author")
+  favorites   User[]        @relation("FavoritePlaces")
 }
 
 enum Role {

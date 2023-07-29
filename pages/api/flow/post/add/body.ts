@@ -1,7 +1,7 @@
 import nextConnect from "next-connect";
 import { NextApiRequest, NextApiResponse } from "next";
 
-import { E1, E2, E3, E7 } from "src/constants/ErrorMessages";
+import { E1, E2, E3, E7 } from "views/constants/ErrorMessages";
 import { initValidation, check } from "server/middleware/validators";
 import { checkUserIsConnected } from "@/server/controllers/checkUser";
 import { FlowRepository } from "@/server/repositories/Flow.repository";

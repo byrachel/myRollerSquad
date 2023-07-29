@@ -3,12 +3,13 @@ import {
   CompletePostInterface,
   GetPostsResponseInterface,
   UserPostInterface,
-} from "src/entities/flow.entity";
+} from "models/entities/flow.entity";
 
 export interface FlowUseCase {
   createPost: (
     user_id: number,
-    data: BodyPostInterface
+    data: BodyPostInterface,
+    files: any[]
   ) => Promise<CompletePostInterface | null>;
   addPicturesToPost: (
     post_id: number,

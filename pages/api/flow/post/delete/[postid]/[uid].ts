@@ -1,6 +1,6 @@
 import { NextApiRequest, NextApiResponse } from "next";
 
-import { E1, E2 } from "src/constants/ErrorMessages";
+import { E1, E2 } from "views/constants/ErrorMessages";
 import { checkUserId } from "@/server/controllers/checkUser";
 import { FlowRepository } from "@/server/repositories/Flow.repository";
 

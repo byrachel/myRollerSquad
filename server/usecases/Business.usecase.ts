@@ -1,4 +1,4 @@
-import { PlaceInterface } from "src/entities/business.entity";
+import { PlaceInterface } from "models/entities/business.entity";
 
 export interface BusinessUseCase {
   getPlaces: (category: string, dept: string) => Promise<PlaceInterface[]>;
