@@ -114,7 +114,7 @@ export interface CommentInterface {
 export interface CompletePostInterface {
   id: number;
   title: string;
-  slug?: string;
+  // slug?: string;
   content: string;
   created_at: Date;
   category_id: number;

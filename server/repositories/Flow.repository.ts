@@ -10,15 +10,15 @@ import {
 import { isAlreadyLikedByThisUser } from "../controllers/checkLikes";
 import { uploadImage } from "../utils/uploadImage";
 
-function generateSlug(title: string) {
-  const slug = title
-    .toLowerCase() // Convert the title to lowercase
-    .replace(/[^\w\s-]/g, "") // Remove non-alphanumeric characters except spaces and hyphens
-    .replace(/\s+/g, "-") // Replace spaces with hyphens
-    .trim(); // Trim any leading or trailing whitespace
+// function generateSlug(title: string) {
+//   const slug = title
+//     .toLowerCase() // Convert the title to lowercase
+//     .replace(/[^\w\s-]/g, "") // Remove non-alphanumeric characters except spaces and hyphens
+//     .replace(/\s+/g, "-") // Replace spaces with hyphens
+//     .trim(); // Trim any leading or trailing whitespace
 
-  return slug;
-}
+//   return slug;
+// }
 
 export class FlowRepository implements FlowUseCase {
   async getPosts(
@@ -278,7 +278,7 @@ export class FlowRepository implements FlowUseCase {
     try {
       const pictures = [];
 
-      const slug = generateSlug(user_id + "_" + data.title);
+      // const slug = generateSlug(user_id + "_" + data.title);
 
       if (files && files.length > 0 && process.env.S3_FLOW_BUCKET_NAME) {
         for (const file of files) {
@@ -301,7 +301,7 @@ export class FlowRepository implements FlowUseCase {
           user_id,
           place_id: data.place_id ? data.place_id : null,
           category_id: data.category_id,
-          slug: slug,
+          // slug: slug,
           country: data.country ? data.country : "France",
           county: data.county ? data.county : null,
           city: data.city ? data.city : null,
@@ -320,7 +320,6 @@ export class FlowRepository implements FlowUseCase {
           style: true,
         },
       });
-      console.log(newPost);
       if (!newPost) return null;
       return newPost;
     } catch (e) {
