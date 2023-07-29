@@ -36,8 +36,6 @@ const AddBusinessProfile = ({ ownerId }: Props) => {
     addUserPlace: state.addUserPlace,
   }));
 
-  console.log("businessState", businessState);
-
   const onSumbit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     // setError({ status: false, message: "" });

@@ -3,6 +3,7 @@ import prisma from "server/prisma/db/client";
 import { FlowUseCase } from "../usecases/Flow.usecase";
 import {
   BodyPostInterface,
+  BodyUpdatePostInterface,
   CompletePostInterface,
   GetPostsResponseInterface,
   UserPostInterface,
@@ -299,8 +300,8 @@ export class FlowRepository implements FlowUseCase {
           title: data.title,
           content: data.content ? data.content : "",
           user_id,
-          place_id: data.place_id ? data.place_id : null,
-          category_id: data.category_id,
+          place_id: data.place_id ? parseInt(data.place_id) : null,
+          category_id: data.category_id ? parseInt(data.category_id) : 1,
           // slug: slug,
           country: data.country ? data.country : "France",
           county: data.county ? data.county : null,
@@ -320,6 +321,7 @@ export class FlowRepository implements FlowUseCase {
           style: true,
         },
       });
+
       if (!newPost) return null;
       return newPost;
     } catch (e) {
@@ -372,7 +374,7 @@ export class FlowRepository implements FlowUseCase {
 
   async updatePost(
     post_id: number,
-    data: BodyPostInterface
+    data: BodyUpdatePostInterface
   ): Promise<CompletePostInterface | null> {
     try {
       const updatedPost = await prisma.post.update({

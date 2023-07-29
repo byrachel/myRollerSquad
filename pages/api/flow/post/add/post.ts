@@ -1,7 +1,7 @@
 import multer from "multer";
 import { NextApiRequest, NextApiResponse } from "next";
 import { check, validationResult } from "express-validator";
-import { E1, E2, E3, E7 } from "views/constants/ErrorMessages";
+import { E1, E3, E7 } from "views/constants/ErrorMessages";
 import { checkUserIsConnected } from "@/server/controllers/checkUser";
 import { FlowRepository } from "@/server/repositories/Flow.repository";
 
@@ -21,10 +21,10 @@ const validations = [
   check("city").trim().escape(),
   check("duration").trim().escape(),
   check("distance").trim().escape(),
-  check("category_id").not().isEmpty().isNumeric().withMessage(E3),
+  check("category_id").not().isEmpty().trim().escape(),
   check("style_ids").trim().escape(),
   check("place_id").optional().trim().escape(),
-  check("user_id").not().isEmpty().isNumeric().withMessage(E2),
+  check("user_id").not().isEmpty().trim().escape(),
 ];
 
 function runMiddleware(
@@ -81,6 +81,7 @@ const handler = async (
     await validate(validations, req);
 
     const body = req.body;
+
     if (
       !body.user_id ||
       !body.category_id ||
@@ -89,17 +90,9 @@ const handler = async (
       return res.status(400).json({ message: E3 });
 
     for (const [key, val] of Object.entries(body)) {
-      if (
-        key === "user_id" ||
-        key === "place_id" ||
-        key === "category_id" ||
-        key === "distance"
-      ) {
-        body[key] = JSON.parse(val as string);
-      }
       if (key === "style_ids") {
         const values = val as string;
-        if (values === "[]") {
+        if (values === "[]" || values === "" || values === "null") {
           body[key] = [];
         } else {
           const valuesInArray = values.split(",");
@@ -114,7 +107,9 @@ const handler = async (
         key === "duration" ||
         key === "price" ||
         key === "content" ||
-        key === "title"
+        key === "title" ||
+        key === "distance" ||
+        key === "place_id"
       ) {
         if (body[key] === "null") {
           body[key] = null;
@@ -127,7 +122,6 @@ const handler = async (
     if (!post) return res.status(400).json({ message: E1 });
     return res.status(200).json({ post });
   } catch (err: any) {
-    console.log(err);
     res.status(500).json({ message: E1 });
   }
 };

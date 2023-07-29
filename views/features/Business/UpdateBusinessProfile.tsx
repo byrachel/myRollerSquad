@@ -47,8 +47,6 @@ export default function UpdateBusinessProfile({
     error: { status: false, message: "" },
   };
 
-  console.log(placeToUpdate);
-
   const [businessState, dispatchBusinessState] = useReducer(
     BusinessReducer,
     initialState

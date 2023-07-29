@@ -2,6 +2,7 @@ import React, { useReducer } from "react";
 import { PostInterface } from "models/entities/flow.entity";
 import NewPostForm from "../addPost/NewPostForm";
 import { PostReducer } from "views/reducers/PostReducer";
+import { parseContent } from "views/utils/parseContent";
 
 interface Props {
   postToEdit: PostInterface;
@@ -28,7 +29,7 @@ export default function EditPost({ postToEdit, userConnectedId }: Props) {
     price: postToEdit.price,
     duration: postToEdit.duration,
     distance: postToEdit.distance,
-    link: postToEdit.link,
+    link: postToEdit.link ? parseContent(postToEdit.link) : null,
     place_id: postToEdit.place_id,
   };
   const [post, postDispatch] = useReducer(PostReducer, initialState);

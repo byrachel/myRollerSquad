@@ -19,6 +19,7 @@ import Avatar from "../getPosts/Avatar";
 
 import Pin from "views/svg/pin.svg";
 import Roller from "views/svg/rollerquad.svg";
+import PostLink from "../getPosts/PostLink";
 
 interface Props {
   post: PostInterface;
@@ -94,11 +95,7 @@ export default function SinglePost({ post }: Props) {
           {post.content ? parseContent(post.content) : null}
         </div>
 
-        {post.link ? (
-          <a href={post.link} className="boldLink">
-            {post.link}
-          </a>
-        ) : null}
+        {post.link ? <PostLink link={post.link} /> : null}
 
         <div className="singlePostPicts">
           {post.pictures.length > 0

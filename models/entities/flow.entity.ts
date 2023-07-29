@@ -149,6 +149,24 @@ export interface GetPostsResponseInterface {
 export interface BodyPostInterface {
   title: string;
   content: string;
+  category_id: string;
+  link: string | null;
+  style_ids: number[];
+  squad_ids: number[];
+  user_id: number;
+  distance: number | null;
+  duration?: string | null;
+  price: string | null;
+  city: string | null;
+  county: string | null;
+  country: string | null;
+  pictures: string[]; // for edited post only
+  place_id: string | null;
+}
+
+export interface BodyUpdatePostInterface {
+  title: string;
+  content: string;
   category_id: number;
   link: string | null;
   style_ids: number[];

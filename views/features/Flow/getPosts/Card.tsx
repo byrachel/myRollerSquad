@@ -15,6 +15,7 @@ import CommentIcon from "../comment/CommentIcon";
 import Pin from "views/svg/pin.svg";
 import Arrow from "views/svg/arrow-right.svg";
 import Roller from "views/svg/rollerquad.svg";
+import PostLink from "./PostLink";
 
 interface Props {
   post: PostInterface;
@@ -92,11 +93,7 @@ export default function Card({
       </div>
 
       {post.link ? (
-        <div className="linkContainer">
-          <a href={post.link} className="linkText">
-            {parseContent(post.link)}
-          </a>
-        </div>
+        <PostLink link={post.link} />
       ) : (
         <div className="cardSeparator" />
       )}

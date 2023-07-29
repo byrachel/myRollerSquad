@@ -1,5 +1,6 @@
 import {
   BodyPostInterface,
+  BodyUpdatePostInterface,
   CompletePostInterface,
   GetPostsResponseInterface,
   UserPostInterface,
@@ -17,7 +18,7 @@ export interface FlowUseCase {
   ) => Promise<UserPostInterface | null>;
   updatePost: (
     post_id: number,
-    data: BodyPostInterface
+    data: BodyUpdatePostInterface
   ) => Promise<CompletePostInterface | null>;
   deletePost: (id: number) => Promise<{ deleted: boolean } | null>;
   getPosts: (
