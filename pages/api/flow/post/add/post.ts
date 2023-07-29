@@ -43,9 +43,9 @@ function runMiddleware(
 }
 
 const validate = async (validations: any, req: any) => {
-  return new Promise(async (resolve, reject) => {
+  return new Promise((resolve, reject) => {
     for (const validation of validations) {
-      const result = await validation.run(req);
+      const result = validation.run(req);
       if (result.errors.length) break;
     }
 
