@@ -42,9 +42,9 @@ function runMiddleware(
   });
 }
 
-const validate = async (validations: any, req: any, res: any) => {
+const validate = async (validations: any, req: any) => {
   return new Promise(async (resolve, reject) => {
-    for (let validation of validations) {
+    for (const validation of validations) {
       const result = await validation.run(req);
       if (result.errors.length) break;
     }
@@ -65,8 +65,7 @@ export const config = {
 
 const handler = async (
   req: NextApiRequest & { [key: string]: any },
-  res: NextApiResponse,
-  next: any
+  res: NextApiResponse
 ): Promise<void> => {
   const user = await checkUserIsConnected(req, res);
   if (!user || !user.id) return res.status(400).json({ message: E3 });
@@ -79,7 +78,7 @@ const handler = async (
     await runMiddleware(req, res, multerUpload.array("pictures", 5));
     const files = req.files;
 
-    await validate(validations, req, res);
+    await validate(validations, req);
 
     const body = req.body;
     if (
@@ -89,7 +88,7 @@ const handler = async (
     )
       return res.status(400).json({ message: E3 });
 
-    for (let [key, val] of Object.entries(body)) {
+    for (const [key, val] of Object.entries(body)) {
       if (
         key === "user_id" ||
         key === "place_id" ||
