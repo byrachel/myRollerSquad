@@ -1,7 +1,5 @@
-import { NewPostInterface } from "models/entities/flow.entity";
-
 export const PostReducer = (
-  state: NewPostInterface,
+  state: any,
   action: { type: string; payload: any }
 ) => {
   switch (action.type) {

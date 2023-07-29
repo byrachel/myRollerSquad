@@ -38,7 +38,7 @@ export default handler
       return res.status(401).json({ message: E2 });
 
     const flowRepo = new FlowRepository();
-    const post = await flowRepo.createPost(user.id, req.body);
+    const post = await flowRepo.createPost(user.id, req.body, []);
     if (!post) return res.status(500).json({ message: E1 });
     return res.status(200).json({ post });
   });
