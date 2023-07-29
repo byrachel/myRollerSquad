@@ -76,11 +76,9 @@ export class AuthRepository implements AuthUseCase {
       data: { id },
     })
       .then((res: any) => {
-        console.log(res.data.message);
         return { status: "SUCCESS", message: res.data.message };
       })
       .catch(() => {
-        console.log("TEST");
         return { status: "ERROR", message: E1 };
       });
 

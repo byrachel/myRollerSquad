@@ -21,7 +21,7 @@ export default function PlacesBoard({ user }: Props) {
         withCredentials: true,
       })
         .then((res) => setPlacesToModerate(res.data.places))
-        .catch((err) => console.log(err));
+        .catch(() => setPlacesToModerate([]));
     }
   }, [isAdmin, placeActivated]);
 

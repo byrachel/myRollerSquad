@@ -78,11 +78,8 @@ const handler = async (
   try {
     await runMiddleware(req, res, multerUpload.array("pictures", 5));
     const files = req.files;
-    console.log("files >>> ", files);
 
     await validate(validations, req, res);
-
-    console.log(req.body);
 
     const body = req.body;
     if (
@@ -103,7 +100,6 @@ const handler = async (
       }
       if (key === "style_ids") {
         const values = val as string;
-        console.log(values);
         if (values === "[]") {
           body[key] = [];
         } else {
@@ -127,15 +123,13 @@ const handler = async (
       }
     }
 
-    console.log("body >>> ", body);
-
     const flowRepo = new FlowRepository();
     const post = await flowRepo.createPost(user.id, body, files);
     if (!post) return res.status(400).json({ message: E1 });
     return res.status(200).json({ post });
   } catch (err: any) {
     console.log(err);
-    // res.status(400).json({ message: err[0].msg });
+    res.status(500).json({ message: E1 });
   }
 };
 
